@@ -33,8 +33,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "standard --fix",
-      "pre-push": "npm test"
+      "pre-commit": "standard --fix"
     }
   }
 }
