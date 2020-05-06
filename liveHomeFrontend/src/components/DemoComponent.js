@@ -1,7 +1,7 @@
 import styles from '../styles/components/DemoComponent.module.sass';
 
-function DemoComponent() {
-  return(
+function DemoComponent () {
+  return (
     <>
       <h2 className={styles.titulo}>This is liveHome</h2>
       <p>Development by</p>
@@ -13,7 +13,7 @@ function DemoComponent() {
         <li>@helbertoro</li>
       </ul>
     </>
-  )
+  );
 }
 
 export default DemoComponent;
