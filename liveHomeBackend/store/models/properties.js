@@ -3,7 +3,7 @@
 const Sequelize = require('sequelize')
 const setupDatabase = require('../lib/db')
 
-module.exports = function setupProperties(config) {
+module.exports = function setupProperties (config) {
   const sequelize = setupDatabase(config)
 
   return sequelize.define('properties', {
@@ -59,14 +59,14 @@ module.exports = function setupProperties(config) {
       type: Sequelize.TEXT,
       allowNull: false
     },
-    createdAt: {
-      type: Sequelize.TIME,
-      allowNull: false
-    },
-    updateAt: {
-      type: Sequelize.DATE,
-      allowNull: false
-    },
+    // createdAt: {
+    //   type: Sequelize.TIME,
+    //   allowNull: false
+    // },
+    // updateAt: {
+    //   type: Sequelize.DATE,
+    //   allowNull: false
+    // },
     avalible: {
       type: Sequelize.BOOLEAN,
       allowNull: true,

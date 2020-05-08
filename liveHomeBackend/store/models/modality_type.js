@@ -3,7 +3,7 @@
 const Sequelize = require('sequelize')
 const setupDatabase = require('../lib/db')
 
-module.exports = function setupModalityType(config) {
+module.exports = function setupModalityType (config) {
   const sequelize = setupDatabase(config)
 
   return sequelize.define('modal_type', {

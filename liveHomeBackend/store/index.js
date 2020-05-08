@@ -6,7 +6,7 @@ const setupType_user = require('./models/type_user')
 const setupUser = require('./models/user')
 const setupAuth = require('./models/auth')
 const setupFavorites = require('./models/favorites')
-const setupAprove_user = require('./models/favorites')
+const setupAprove_user = require('./models/aprove_user')
 
 const setupPropierties = require('./models/properties')
 const setupProperty_detail = require('./models/property_detail')
@@ -15,8 +15,6 @@ const setupModalityType = require('./models/modality_type')
 const setupProperty_type = require('./models/property_type')
 const setupFiles = require('./models/files')
 const setupViews = require('./models/views')
-
-const setupProperty = require('./lib/property')
 
 module.exports = async function (config) {
   const sequialize = setupDatabase(config)
@@ -39,15 +37,13 @@ module.exports = async function (config) {
   propertyModel.hasMany(setupViewsModel)
   propertyModel.hasMany(setupFilesModel)
   propertyModel.hasMany(setupModalityModel)
-
+  propertyModel.hasMany(setupAprove_userModel)
+  propertyModel.hasMany(setupFavoritesModel)
   setupProperty_typeModel.hasMany(propertyModel)
-  // revisar relacion
+
   propertyModel.belongsTo(setupProperty_typeModel)
   setupModalityTypeModel.hasMany(setupModalityModel)
 
-  propertyModel.hasMany(setupAprove_userModel)
-  propertyModel.hasMany(setupFavoritesModel)
-  // revisar relacion
   propertyModel.belongsTo(setupUserModel)
 
   setupUserModel.hasMany(propertyModel)
@@ -58,15 +54,9 @@ module.exports = async function (config) {
 
   await sequialize.authenticate()
 
-  // Actualizar la db esto se deberia de borrar solo crear y mantener
-
-  await sequialize.sync({ force: true })
-
-  const property = SetupProperty(propertyModel)
-  const property_detail = {}
+  await sequialize.sync()
 
   return {
-    property,
-    property_detail
+
   }
 }

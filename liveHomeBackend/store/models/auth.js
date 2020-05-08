@@ -3,7 +3,7 @@
 const Sequelize = require('sequelize')
 const setupDatabase = require('../lib/db')
 
-module.exports = function setupAuth(config) {
+module.exports = function setupAuth (config) {
   const sequelize = setupDatabase(config)
 
   return sequelize.define('auth', {
