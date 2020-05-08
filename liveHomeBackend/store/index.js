@@ -16,45 +16,47 @@ const setupProperty_type = require('./models/property_type')
 const setupFiles = require('./models/files')
 const setupViews = require('./models/views')
 
+//services
+const setupType_userService = require('./lib/type_user')
+
 module.exports = async function (config) {
   const sequialize = setupDatabase(config)
 
-  const setupType_userModel = setupType_user(config)
-  const setupUserModel = setupUser(config)
-  const setupAuthModel = setupAuth(config)
-  const setupFavoritesModel = setupFavorites(config)
-  const setupAprove_userModel = setupAprove_user(config)
-
+  const type_userModel = setupType_user(config)
+  const userModel = setupUser(config)
+  const authModel = setupAuth(config)
+  const favoritesModel = setupFavorites(config)
+  const aprove_userModel = setupAprove_user(config)
   const propertyModel = setupPropierties(config)
   const property_detailModel = setupProperty_detail(config)
-  const setupModalityModel = setupModality(config)
-  const setupModalityTypeModel = setupModalityType(config)
-  const setupProperty_typeModel = setupProperty_type(config)
-  const setupFilesModel = setupFiles(config)
-  const setupViewsModel = setupViews(config)
+  const modalityModel = setupModality(config)
+  const modalityTypeModel = setupModalityType(config)
+  const property_typeModel = setupProperty_type(config)
+  const filesModel = setupFiles(config)
+  const viewsModel = setupViews(config)
 
   propertyModel.hasOne(property_detailModel)
-  propertyModel.hasMany(setupViewsModel)
-  propertyModel.hasMany(setupFilesModel)
-  propertyModel.hasMany(setupModalityModel)
-  propertyModel.hasMany(setupAprove_userModel)
-  propertyModel.hasMany(setupFavoritesModel)
-  setupProperty_typeModel.hasMany(propertyModel)
+  propertyModel.hasMany(viewsModel)
+  propertyModel.hasMany(filesModel)
+  propertyModel.hasMany(modalityModel)
+  propertyModel.hasMany(aprove_userModel)
+  propertyModel.hasMany(favoritesModel)
+  property_typeModel.hasMany(propertyModel)
 
-  propertyModel.belongsTo(setupProperty_typeModel)
-  setupModalityTypeModel.hasMany(setupModalityModel)
+  propertyModel.belongsTo(property_typeModel)
+  modalityTypeModel.hasMany(modalityModel)
+  propertyModel.belongsTo(userModel)
 
-  propertyModel.belongsTo(setupUserModel)
-
-  setupUserModel.hasMany(propertyModel)
-  setupUserModel.hasMany(setupAprove_userModel)
-  setupUserModel.hasMany(setupFavoritesModel)
-  setupUserModel.hasMany(setupAuthModel)
-  setupType_userModel.hasMany(setupUserModel)
+  userModel.hasMany(propertyModel)
+  userModel.hasMany(aprove_userModel)
+  userModel.hasMany(favoritesModel)
+  userModel.hasMany(authModel)
+  type_userModel.hasMany(userModel)
 
   await sequialize.authenticate()
-
   await sequialize.sync()
+
+  const type_user = setupType_userService(type_userModel)
 
   return {
 
