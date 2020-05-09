@@ -1,20 +1,21 @@
 'use strict'
 const debug = require('debug')('livehome_db:setup')
 const db = require('./index')
+const config = require('./config/index')
 const chalk = require('chalk')
 
 async function setup () {
-  const config = {
-    database: process.env.DB_NAME || 'livehome_db',
-    username: process.env.DB_USER || 'admin',
-    password: process.env.DB_PASSWORD || 'admin123',
-    host: process.env.DB_HOST || 'localhost',
+  const configuration = {
+    database: config.db.name || 'livehome_db',
+    username: config.db.user || 'admin',
+    password: config.db.password || 'admin123',
+    host: config.db.host || 'localhost',
     dialect: 'postgres',
     logging: s => debug(s),
     setup: true
   }
 
-  await db(config).catch(handleFatalError)
+  await db(configuration).catch(handleFatalError)
 
   console.log('Success!')
   process.exit(0)
