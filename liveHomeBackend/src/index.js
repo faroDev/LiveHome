@@ -1,7 +1,7 @@
 'use strict'
 const express = require('express')
 const bodyParser = require('body-parser')
-const config = require('./config')
+const config = require('./../config')
 
 // Middleware
 const notFoundHandler = require('./utils/middleware/notFoundHandler')

@@ -12,7 +12,7 @@ function usersTypeApi (app) {
     try {
       const result = await usersTypeService.get()
       res.status(200).json({
-        data: result,
+        data: result || [],
         message: 'Users type listed'
       })
     } catch (error) {
@@ -27,7 +27,7 @@ function usersTypeApi (app) {
       const result = await usersTypeService.getById(id)
 
       res.status(200).json({
-        data: result,
+        data: result || {},
         message: 'User type retrieved'
       })
     } catch (error) {
