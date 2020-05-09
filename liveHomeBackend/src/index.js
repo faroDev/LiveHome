@@ -8,6 +8,7 @@ const notFoundHandler = require('./utils/middleware/notFoundHandler')
 
 // Routes
 const healthApp = require('./routes/health')
+const usersTypeApi = require('./routes/usersType')
 
 const app = express()
 
@@ -16,6 +17,7 @@ app.use(bodyParser.json())
 
 // Routes
 healthApp(app)
+usersTypeApi(app)
 
 // Not found middleware
 app.use(notFoundHandler)
