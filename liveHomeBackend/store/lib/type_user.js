@@ -1,7 +1,7 @@
 'use strict'
 
-module.exports = function setupType_userService(typeUserModel) {
-  function findById(id) { }
+module.exports = function setupTypeUserService (typeUserModel) {
+  function findById (id) { }
 
   return {
     findById

@@ -3,18 +3,18 @@
 const Sequelize = require('sequelize')
 const setupDatabase = require('../lib/db')
 
-module.exports = function setupAprove_user (config) {
+module.exports = function setupPropertyType (config) {
   const sequelize = setupDatabase(config)
 
-  return sequelize.define('aprove_user', {
+  return sequelize.define('property_type', {
     id: {
       type: Sequelize.INTEGER,
       autoIncrement: true,
       primaryKey: true,
       allowNull: false
     },
-    date: {
-      type: Sequelize.TIME,
+    name: {
+      type: Sequelize.STRING,
       allowNull: false
     }
   })

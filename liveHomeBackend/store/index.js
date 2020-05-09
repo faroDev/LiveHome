@@ -2,63 +2,63 @@
 
 const setupDatabase = require('./lib/db')
 
-const setupType_user = require('./models/type_user')
+const setupTypeUser = require('./models/typeUser')
 const setupUser = require('./models/user')
 const setupAuth = require('./models/auth')
 const setupFavorites = require('./models/favorites')
-const setupAprove_user = require('./models/aprove_user')
+const setupAproveUser = require('./models/aproveUser')
 
 const setupPropierties = require('./models/properties')
-const setupProperty_detail = require('./models/property_detail')
+const setupPropertyDetail = require('./models/propertyDetail')
 const setupModality = require('./models/modality')
-const setupModalityType = require('./models/modality_type')
-const setupProperty_type = require('./models/property_type')
+const setupModalityType = require('./models/modalityType')
+const setupPropertyType = require('./models/propertyType')
 const setupFiles = require('./models/files')
 const setupViews = require('./models/views')
 
-//services
-const setupType_userService = require('./lib/type_user')
+// services
+const setupTypeUserService = require('./lib/type_user')
 
 module.exports = async function (config) {
   const sequialize = setupDatabase(config)
 
-  const type_userModel = setupType_user(config)
+  const typeUserModel = setupTypeUser(config)
   const userModel = setupUser(config)
   const authModel = setupAuth(config)
   const favoritesModel = setupFavorites(config)
-  const aprove_userModel = setupAprove_user(config)
+  const aproveUserModel = setupAproveUser(config)
   const propertyModel = setupPropierties(config)
-  const property_detailModel = setupProperty_detail(config)
+  const propertyDetailModel = setupPropertyDetail(config)
   const modalityModel = setupModality(config)
   const modalityTypeModel = setupModalityType(config)
-  const property_typeModel = setupProperty_type(config)
+  const propertyTypeModel = setupPropertyType(config)
   const filesModel = setupFiles(config)
   const viewsModel = setupViews(config)
 
-  propertyModel.hasOne(property_detailModel)
+  propertyModel.hasOne(propertyDetailModel)
   propertyModel.hasMany(viewsModel)
   propertyModel.hasMany(filesModel)
   propertyModel.hasMany(modalityModel)
-  propertyModel.hasMany(aprove_userModel)
+  propertyModel.hasMany(aproveUserModel)
   propertyModel.hasMany(favoritesModel)
-  property_typeModel.hasMany(propertyModel)
+  propertyTypeModel.hasMany(propertyModel)
 
-  propertyModel.belongsTo(property_typeModel)
+  propertyModel.belongsTo(propertyTypeModel)
   modalityTypeModel.hasMany(modalityModel)
   propertyModel.belongsTo(userModel)
 
   userModel.hasMany(propertyModel)
-  userModel.hasMany(aprove_userModel)
+  userModel.hasMany(aproveUserModel)
   userModel.hasMany(favoritesModel)
   userModel.hasMany(authModel)
-  type_userModel.hasMany(userModel)
+  typeUserModel.hasMany(userModel)
 
   await sequialize.authenticate()
   await sequialize.sync()
 
-  const type_user = setupType_userService(type_userModel)
+  const typeUser = setupTypeUserService(typeUserModel)
 
   return {
-
+    typeUser
   }
 }
