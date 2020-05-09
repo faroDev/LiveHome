@@ -43,9 +43,7 @@ module.exports = async function (config) {
   propertyModel.hasMany(favoritesModel)
   propertyTypeModel.hasMany(propertyModel)
 
-  propertyModel.belongsTo(propertyTypeModel)
   modalityTypeModel.hasMany(modalityModel)
-  propertyModel.belongsTo(userModel)
 
   userModel.hasMany(propertyModel)
   userModel.hasMany(aproveUserModel)
