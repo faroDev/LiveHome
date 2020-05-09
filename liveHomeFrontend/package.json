@@ -13,8 +13,10 @@
   "license": "MIT",
   "dependencies": {
     "next": "9.3.6",
+    "next-images": "^1.4.0",
     "react": "16.13.1",
     "react-dom": "16.13.1",
+    "recharts": "^1.8.5",
     "sass": "1.26.5"
   },
   "devDependencies": {

@@ -1,6 +1,6 @@
 import DemoComponent from '../src/components/DemoComponent';
 
-function Home () {
+function Home() {
   return (
     <>
       <h1>Hello World</h1>

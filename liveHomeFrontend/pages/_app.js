@@ -1,5 +1,5 @@
-import '../src/styles/global.sass';
+import '../src/assets/styles/global.sass';
 
-export default function MyApp ({ Component, pageProps }) {
+export default function MyApp({ Component, pageProps }) {
   return <Component {...pageProps} />;
 }

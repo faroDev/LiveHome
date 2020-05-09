@@ -1,6 +1,6 @@
-import styles from '../styles/components/DemoComponent.module.sass';
+import styles from '../assets/styles/components/DemoComponent.module.sass';
 
-function DemoComponent () {
+function DemoComponent() {
   return (
     <>
       <h2 className={styles.titulo}>This is liveHome</h2>
