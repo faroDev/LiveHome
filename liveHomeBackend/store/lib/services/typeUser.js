@@ -12,21 +12,24 @@ module.exports = function setupTypeUserService (typeUserModel) {
 
     if (existingTypeUser) {
       const update = await typeUserModel.update(typeUser, cond)
-      return update ? typeUserModel.findOne(cond) : existingTypeUser
+      return update ? typeUserModel.findOne(cond, { raw: true }) : existingTypeUser.toJSON({ raw: true })
     }
 
     const result = await typeUserModel.create(typeUser)
-    return result.toJSON()
+    return result.toJSON({ raw: true })
   }
 
   function findById (id) {
-    const userType = typeUserModel.findByPk(id)
-    console.log(userType)
-    return userType
+    return typeUserModel.findByPk(id, { raw: true })
+  }
+
+  function findAll () {
+    return typeUserModel.findAll({ raw: true })
   }
 
   return {
     createOrUpdate,
-    findById
+    findById,
+    findAll
   }
 }

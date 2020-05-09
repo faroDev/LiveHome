@@ -17,7 +17,7 @@ const setupFiles = require('./models/files')
 const setupViews = require('./models/views')
 
 // services
-const setupTypeUserService = require('./lib/typeUser')
+const setupTypeUserService = require('./lib/services/typeUser')
 
 module.exports = async function (config) {
   const sequialize = setupDatabase(config)
