@@ -19,6 +19,27 @@ module.exports = function setupTypeUserService (typeUserModel) {
     return result.toJSON({ raw: true })
   }
 
+  async function create (typeUser) {
+    typeUser.updatedAt = new Date()
+    typeUser.createdAt = new Date()
+
+    const result = await typeUserModel.create(typeUser)
+    return result.toJSON({ raw: true })
+  }
+
+  async function update (id, typeUser) {
+    const cond = {
+      where: {
+        id
+      }
+    }
+
+    typeUser.updatedAt = new Date()
+    await typeUserModel.update(typeUser, cond)
+    const existingTypeUser = await typeUserModel.findOne(cond)
+    return existingTypeUser
+  }
+
   function findById (id) {
     return typeUserModel.findByPk(id, { raw: true })
   }
@@ -30,6 +51,8 @@ module.exports = function setupTypeUserService (typeUserModel) {
   return {
     createOrUpdate,
     findById,
-    findAll
+    findAll,
+    update,
+    create
   }
 }

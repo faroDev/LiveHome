@@ -20,14 +20,6 @@ module.exports = function setupTypeUser (config) {
     description: {
       type: Sequelize.STRING,
       allowNull: false
-    },
-    createdAt: {
-      type: Sequelize.DATE,
-      allowNull: false
-    },
-    updateAt: {
-      type: Sequelize.DATE,
-      allowNull: false
     }
   })
 }

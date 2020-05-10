@@ -21,7 +21,6 @@ const setupTypeUserService = require('./lib/services/typeUser')
 
 module.exports = async function (config) {
   const sequialize = setupDatabase(config)
-
   const typeUserModel = setupTypeUser(config)
   const userModel = setupUser(config)
   const authModel = setupAuth(config)

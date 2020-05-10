@@ -1,4 +1,4 @@
-require('dotenv')
+require('dotenv').config()
 
 const config = {
   app: {
@@ -6,13 +6,12 @@ const config = {
     env: process.env.NODE_ENV !== 'production'
   },
   db: {
-    name: process.env.DB_NAME,
-    user: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME,
+    username: process.env.DB_USER,
+    password: process.env.DB_PASS,
     host: process.env.DB_HOST,
-    port: process.env.DB_PORT
+    dialect: 'postgres'
   },
-
   auth: {
     authJwtSecret: process.env.AUTH_JWT_SECRET
   }

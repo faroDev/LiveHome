@@ -1,15 +1,16 @@
 'use strict'
-const debug = require('debug')('livehome_db:setup')
+
+const config = require('./../config/index')
+const debug = require('debug')(`${config.db.database}:setup`)
 const db = require('./index')
-const config = require('./config/index')
 const chalk = require('chalk')
 
 async function setup () {
   const configuration = {
-    database: config.db.name || 'livehome_db',
-    username: config.db.user || 'admin',
-    password: config.db.password || 'admin123',
-    host: config.db.host || 'localhost',
+    database: config.db.database,
+    username: config.db.username,
+    password: config.db.password,
+    host: config.db.host,
     dialect: 'postgres',
     logging: s => debug(s),
     setup: true

@@ -2,11 +2,11 @@ require('dotenv')
 
 const config = {
   db: {
-    name: process.env.DB_NAME,
-    user: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
-    host: process.env.DB_HOST,
-    port: process.env.DB_PORT
+    database: process.env.DB_NAME || 'platziverse',
+    username: process.env.DB_USER || 'platzi',
+    password: process.env.DB_PASS || 'platzi',
+    host: process.env.DB_HOST || 'localhost',
+    dialect: 'postgres'
   }
 }
 
