@@ -9,28 +9,28 @@ import Carousel from './Carousel';
 function DemoComponent () {
   const images = [
     {
-      title: "Demo image",
-      url: "https://fakeimg.pl/450x200/?text=Item_1&font=lobster"
+      title: 'Demo image',
+      url: 'https://fakeimg.pl/450x200/?text=Item_1&font=lobster'
     },
     {
-      title: "Demo image",
-      url: "https://fakeimg.pl/450x200/?text=Item_2&font=lobster"
+      title: 'Demo image',
+      url: 'https://fakeimg.pl/450x200/?text=Item_2&font=lobster'
     },
     {
-      title: "Demo image",
-      url: "https://fakeimg.pl/450x200/?text=Item_3&font=lobster"
+      title: 'Demo image',
+      url: 'https://fakeimg.pl/450x200/?text=Item_3&font=lobster'
     },
     {
-      title: "Demo image",
-      url: "https://fakeimg.pl/450x200/?text=Item_4&font=lobster"
+      title: 'Demo image',
+      url: 'https://fakeimg.pl/450x200/?text=Item_4&font=lobster'
     },
     {
-      title: "Demo image",
-      url: "https://fakeimg.pl/450x200/?text=Item_5&font=lobster"
+      title: 'Demo image',
+      url: 'https://fakeimg.pl/450x200/?text=Item_5&font=lobster'
     },
     {
-      title: "Demo image",
-      url: "https://fakeimg.pl/450x200/?text=Item_6&font=lobster"
+      title: 'Demo image',
+      url: 'https://fakeimg.pl/450x200/?text=Item_6&font=lobster'
     }
   ];
 
@@ -55,9 +55,9 @@ function DemoComponent () {
         <p>Este es el conetido del modal</p>
       </Modal>
       <h4>Select</h4>
-      <Select name='test' options={['prueba 1', 'prueba 2', 'prueba 3']}/>
+      <Select name='test' options={['prueba 1', 'prueba 2', 'prueba 3']} />
       <h4>Footer</h4>
-      <Footer/>
+      <Footer />
       <h4>Carousel</h4>
       <Carousel images={images} />
     </>

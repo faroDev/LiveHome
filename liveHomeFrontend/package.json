@@ -7,7 +7,8 @@
     "dev": "next",
     "build": "next build",
     "start": "next start",
-    "lint": "semistandard"
+    "lint": "semistandard",
+    "lint:fix": "semistandard --fix"
   },
   "author": "faroDev",
   "license": "MIT",

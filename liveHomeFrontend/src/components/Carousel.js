@@ -2,7 +2,7 @@ import React from 'react';
 import styles from '../styles/components/Carousel.module.sass';
 import CarouselComponent from 'react-multi-carousel';
 
-function Carousel ({images}) {
+function Carousel ({ images }) {
   const responsive = {
     superLargeDesktop: {
       breakpoint: { max: 4000, min: 992 },
@@ -22,22 +22,22 @@ function Carousel ({images}) {
     }
   };
 
-  return(
-    <CarouselComponent 
+  return (
+    <CarouselComponent
       responsive={responsive}
-      ssr={true}
-      infinite={true}
-      autoPlay={true}
+      ssr
+      infinite
+      autoPlay
       autoPlaySpeed={3000}
-      keyBoardControl={true}
-      customTransition="all .5"
+      keyBoardControl
+      customTransition='all .5'
     >
       {images.map((item, key) => {
         return (
           <div key={key}>
             <img className={styles.image} src={item.url} alt={item.title} />
           </div>
-        )
+        );
       })}
     </CarouselComponent>
   );
