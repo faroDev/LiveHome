@@ -1,4 +1,6 @@
 import styles from '../styles/components/DemoComponent.module.sass';
+import ButtonIcon from './ButtonIcon';
+import RadioButton from './RadioButton';
 
 function DemoComponent () {
   return (
@@ -12,6 +14,11 @@ function DemoComponent () {
         <li>@sjimen13</li>
         <li>@helbertoro</li>
       </ul>
+      <h3>Components</h3>
+      <h4>Button with Icon</h4>
+      <ButtonIcon icon='check' size='24px' />
+      <h4>Radio Button</h4>
+      <RadioButton options={['yes', 'no']} name='test' />
     </>
   );
 }
