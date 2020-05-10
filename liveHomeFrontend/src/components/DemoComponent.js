@@ -2,6 +2,7 @@ import styles from '../styles/components/DemoComponent.module.sass';
 import ButtonIcon from './ButtonIcon';
 import RadioButton from './RadioButton';
 import Modal from './Modal';
+import Select from './Select';
 
 function DemoComponent () {
   return (
@@ -24,6 +25,8 @@ function DemoComponent () {
       <Modal buttonText='Abril modal'>
         <p>Este es el conetido del modal</p>
       </Modal>
+      <h4>Select</h4>
+      <Select name='test' options={['prueba 1', 'prueba 2', 'prueba 3']}/>
     </>
   );
 }
