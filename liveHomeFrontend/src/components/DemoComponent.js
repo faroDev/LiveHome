@@ -3,6 +3,7 @@ import ButtonIcon from './ButtonIcon';
 import RadioButton from './RadioButton';
 import Modal from './Modal';
 import Select from './Select';
+import Footer from './Footer';
 
 function DemoComponent () {
   return (
@@ -27,6 +28,8 @@ function DemoComponent () {
       </Modal>
       <h4>Select</h4>
       <Select name='test' options={['prueba 1', 'prueba 2', 'prueba 3']}/>
+      <h4>Footer</h4>
+      <Footer/>
     </>
   );
 }
