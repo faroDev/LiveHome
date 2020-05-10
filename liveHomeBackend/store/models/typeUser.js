@@ -10,14 +10,9 @@ module.exports = function setupTypeUser (config) {
     id: {
       type: Sequelize.INTEGER,
       autoIncrement: true,
-      primaryKey: true,
-      allowNull: false
+      primaryKey: true
     },
     name: {
-      type: Sequelize.STRING,
-      allowNull: false
-    },
-    description: {
       type: Sequelize.STRING,
       allowNull: false
     }

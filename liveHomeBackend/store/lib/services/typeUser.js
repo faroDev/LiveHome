@@ -2,17 +2,19 @@
 
 module.exports = function setupTypeUserService (typeUserModel) {
   async function createOrUpdate (typeUser) {
-    const cond = {
-      where: {
-        id: typeUser.id
+    if (typeUser.id) {
+      const cond = {
+        where: {
+          id: typeUser.id
+        }
       }
-    }
 
-    const existingTypeUser = await typeUserModel.findOne(cond)
+      const existingTypeUser = await typeUserModel.findOne(cond)
 
-    if (existingTypeUser) {
-      const update = await typeUserModel.update(typeUser, cond)
-      return update ? typeUserModel.findOne(cond, { raw: true }) : existingTypeUser.toJSON({ raw: true })
+      if (existingTypeUser) {
+        const update = await typeUserModel.update(typeUser, cond)
+        return update ? typeUserModel.findOne(cond, { raw: true }) : existingTypeUser.toJSON({ raw: true })
+      }
     }
 
     const result = await typeUserModel.create(typeUser)

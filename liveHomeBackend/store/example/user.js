@@ -13,17 +13,21 @@ async function run () {
     setup: true
   }
 
-  const { typeUser } = await db(configuration).catch(handleFatalError)
+  const { user } = await db(configuration).catch(handleFatalError)
 
-  const typeUser5 = await typeUser.createOrUpdate({
-    id: '3',
-    name: 'jose',
+  const user1 = await user.update({
+    id: 2,
+    name: 'pedro',
+    lastName: 'perez',
+    secondLastName: 'alvarez',
+    status: 'false',
     createAt: new Date(),
-    updateAt: new Date()
-  }).catch(handleFatalError)
+    updateAt: new Date(),
+    typeUserId: null
+  }, 1).catch(handleFatalError)
 
   console.log('--userType4--')
-  console.log(typeUser5)
+  console.log(user1)
 
   // const typeUser3 = await typeUser.createOrUpdate({
   //   id: '3',
@@ -35,13 +39,13 @@ async function run () {
   // console.log('--userType--')
   // console.log(typeUser3)
 
-  const usersTypes = await typeUser.findAll()
-  console.log('--userTypes--')
-  console.log(usersTypes)
+  const users = await user.findAll()
+  console.log('--user--')
+  console.log(users)
 
-  const userType = await typeUser.findById(1)
-  console.log('--userType--')
-  console.log(userType)
+  const user2 = await user.findById(1)
+  console.log('--user--')
+  console.log(user2)
 }
 run()
 function handleFatalError (err) {

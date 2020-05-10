@@ -11,6 +11,7 @@ async function setup () {
     username: config.db.username,
     password: config.db.password,
     host: config.db.host,
+    returning: true,
     dialect: 'postgres',
     logging: s => debug(s),
     setup: true
