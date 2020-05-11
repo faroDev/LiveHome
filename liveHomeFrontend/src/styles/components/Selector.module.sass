@@ -1,0 +1,42 @@
+@import '../vars'
+
+.selector select
+  -webkit-appearance: none
+  -moz-appearance: none
+  -ms-appearance: none
+  appearance: none
+  outline: 0
+  box-shadow: none
+  border: 0 !important
+  background: $background-field
+  background-image: none
+
+.selector
+  position: relative
+  display: flex
+  border: 1px solid $primary-dark
+  border-radius: $radius
+  padding: $spacing * 2 $spacing
+  min-height: 15px
+  width: 335px
+  min-width: 335px
+  background-color: $background-field
+  cursor: pointer
+  flex: 1
+  overflow: hidden
+
+.selector select
+  flex: 1
+  padding: 0 $spacing
+  cursor: pointer
+
+.selector::after
+  content: '\25BC'
+  position: absolute
+  top: $spacing * 2
+  right: 0
+  padding: 0 $spacing * 2
+  background-color: $background-field
+  cursor: pointer
+  pointer-events: none
+  font-size: 10px

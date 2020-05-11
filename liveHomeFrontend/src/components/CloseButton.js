@@ -1,14 +1,14 @@
 import React from 'react';
 
-//styles
 import styles from '../styles/components/CloseButton.module.sass';
+import FeatherIcon from 'feather-icons-react';
 
 const CloseButton = (props) => {
-  return(
+  return (
     <button className={styles.closeButton} onClick={props.handleClick}>
-      <img src='/static/closeButton.png' alt='close button' />
+      <FeatherIcon icon='x' size={20} stroke='#4424A6' />
     </button>
   );
-}
+};
 
 export default CloseButton;

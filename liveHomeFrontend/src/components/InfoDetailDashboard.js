@@ -1,10 +1,9 @@
 import React from 'react';
 
-//styles
 import styles from '../styles/components/InfoDetailDashboard.module.sass';
 
-const InfoDetailDashboard = (props)=>{
-  return(
+const InfoDetailDashboard = (props) => {
+  return (
     <div className={styles.category__container}>
       <div className={styles.category__container_icon}>
         <img src={props.iconSrc} />
@@ -16,7 +15,7 @@ const InfoDetailDashboard = (props)=>{
         <p>{props.value}</p>
       </div>
     </div>
-  )
-}
+  );
+};
 
 export default InfoDetailDashboard;

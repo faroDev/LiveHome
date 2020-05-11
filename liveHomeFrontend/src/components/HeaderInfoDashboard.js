@@ -1,14 +1,13 @@
 import React from 'react';
 
-//styles
 import styles from '../styles/components/HeaderInfoDashboard.module.sass';
 
 const HeaderInfoDashboard = (props) => {
-  return(
+  return (
     <div className={styles.dashboard__header}>
       <div className={styles.dashboard__header_item}>
         <div className={styles.dashboard__header_itemDetail}>
-          <img src='/static/realState.png'/>
+          <img src='/static/realState.png' alt='Icon real state' />
           <p>{props.offers}</p>
         </div>
         <div>
@@ -17,7 +16,7 @@ const HeaderInfoDashboard = (props) => {
       </div>
       <div className={styles.dashboard__header_item}>
         <div className={styles.dashboard__header_itemDetail}>
-          <img src='/static/visitors.png'/>
+          <img src='/static/visitors.png' alt='Icon visitors' />
           <p>{props.visitors}</p>
         </div>
         <div>
@@ -26,7 +25,7 @@ const HeaderInfoDashboard = (props) => {
       </div>
       <div className={styles.dashboard__header_item}>
         <div className={styles.dashboard__header_itemDetail}>
-          <img src='/static/like.png'/>
+          <img src='/static/like.png' alt='Icon like' />
           <p>{props.favourites}</p>
         </div>
         <div>
@@ -35,5 +34,5 @@ const HeaderInfoDashboard = (props) => {
       </div>
     </div>
   );
-}
+};
 export default HeaderInfoDashboard;
