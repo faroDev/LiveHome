@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from '../assets/styles/components/Card.module.sass';
+import styles from '../styles/components/Card.module.sass';
 
 const Card = ({ imgSource, children }) => {
   return (

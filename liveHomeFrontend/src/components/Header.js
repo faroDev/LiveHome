@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from '../assets/styles/components/Header.module.sass';
+import styles from '../styles/components/Header.module.sass';
 import Logo from './Logo';
 import Menu from './HamburguerMenu';
 

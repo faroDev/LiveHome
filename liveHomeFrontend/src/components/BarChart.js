@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from '../assets/styles/components/BarChart.module.sass';
+import styles from '../styles/components/BarChart.module.sass';
 import {
   ResponsiveContainer,
   ComposedChart,

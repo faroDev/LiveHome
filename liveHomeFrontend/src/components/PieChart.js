@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from '../assets/styles/components/PieChart.module.sass';
+import styles from '../styles/components/PieChart.module.sass';
 import { ResponsiveContainer, PieChart as Chart, Pie, Cell } from 'recharts';
 
 const dataMock = [

@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import FeatherIcon from 'feather-icons-react';
-import styles from '../assets/styles/components/HamburguerMenu.module.sass';
+import styles from '../styles/components/HamburguerMenu.module.sass';
 import Button from './Button';
 
 const HamburguerMenu = ({ isLoggedIn, isActive }) => {
