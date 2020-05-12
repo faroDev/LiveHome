@@ -1,13 +1,11 @@
 'use strict'
 
-module.exports = function setupUserService(userModel, typeUserModel) {
-  async function create(user) {
-
+module.exports = function setupUserService (userModel, typeUserModel) {
+  async function create (user) {
     const result = await userModel.create(user)
     return result.toJSON()
-
   }
-  async function update(user) {
+  async function update (user) {
     const cond = {
       where: {
         id: user.id
@@ -21,11 +19,11 @@ module.exports = function setupUserService(userModel, typeUserModel) {
     }
   }
 
-  function findById(id) {
+  function findById (id) {
     return userModel.findByPk(id, { raw: true })
   }
 
-  function findAll() {
+  function findAll () {
     return userModel.findAll({ raw: true })
   }
 
