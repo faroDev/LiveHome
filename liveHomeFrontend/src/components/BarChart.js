@@ -46,7 +46,9 @@ const dataMock = [
 const BarChart = ({ data = dataMock, children }) => {
   return (
     <div className={styles.chartContainer}>
-      <h2 />
+      {
+        children
+      }
       <ResponsiveContainer>
         <ComposedChart
           data={data}
