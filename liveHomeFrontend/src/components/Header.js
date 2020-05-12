@@ -6,7 +6,7 @@ import Menu from './HamburguerMenu';
 const Header = () => {
   return (
     <header className={styles.header}>
-      <Logo isHeader={true} />
+      <Logo isHeader />
       <Menu isActive={false} isLoggedIn={false} />
     </header>
   );

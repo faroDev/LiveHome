@@ -5,12 +5,12 @@ import { ResponsiveContainer, PieChart as Chart, Pie, Cell } from 'recharts';
 const dataMock = [
   {
     name: 'Favourites',
-    visits: 130,
+    visits: 130
   },
   {
     name: 'No favourites',
-    visits: 70,
-  },
+    visits: 70
+  }
 ];
 
 const COLORS = ['#0088FE', '#00C49F'];
@@ -23,7 +23,7 @@ const renderCustomizedLabel = ({
   innerRadius,
   outerRadius,
   percent,
-  index,
+  index
 }) => {
   const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
   const x = cx + radius * Math.cos(-midAngle * RADIAN);

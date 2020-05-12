@@ -1,10 +1,13 @@
 import React from 'react';
 import styles from '../assets/styles/components/Button.module.sass';
 
-const Label = ({ value, buttonType }) => {
+const Label = ({ value, buttonClass, buttonType }) => {
   return (
     <>
-      <button className={`${styles.Button} ${styles[buttonType]}`}>
+      <button
+        type={buttonType}
+        className={`${styles.Button} ${styles[buttonClass]}`}
+      >
         {value}
       </button>
     </>

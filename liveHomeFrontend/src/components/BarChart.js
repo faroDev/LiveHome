@@ -9,51 +9,51 @@ import {
   CartesianGrid,
   Tooltip,
   Legend,
-  Line,
+  Line
 } from 'recharts';
 
 const dataMock = [
   {
     date: 'May 15',
-    visits: 600,
+    visits: 600
   },
   {
     date: 'May 16',
-    visits: 850,
+    visits: 850
   },
   {
     date: 'May 17',
-    visits: 1400,
+    visits: 1400
   },
   {
     date: 'May 18',
-    visits: 1500,
+    visits: 1500
   },
   {
     date: 'May 19',
-    visits: 1550,
+    visits: 1550
   },
   {
     date: 'May 20',
-    visits: 1400,
+    visits: 1400
   },
   {
     date: 'May 21',
-    visits: 1000,
-  },
+    visits: 1000
+  }
 ];
 
 const BarChart = ({ data = dataMock, children }) => {
   return (
     <div className={styles.chartContainer}>
-      <h2></h2>
+      <h2 />
       <ResponsiveContainer>
         <ComposedChart
           data={data}
           margin={{
             top: 5,
             left: -20,
-            bottom: 5,
+            bottom: 5
           }}
         >
           <CartesianGrid stroke='#f5f5f5' />

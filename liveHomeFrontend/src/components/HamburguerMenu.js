@@ -1,6 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
-import HamburguerMenuIcon from '../assets/statics/icons/hamburguer-icon.png';
+import FeatherIcon from 'feather-icons-react';
 import styles from '../assets/styles/components/HamburguerMenu.module.sass';
 import Button from './Button';
 
@@ -8,11 +8,13 @@ const HamburguerMenu = ({ isLoggedIn, isActive }) => {
   return (
     <nav className={styles.burgerMenu}>
       {isActive ? (
-        <span>X</span>
+        <FeatherIcon icon='x' size={20} stroke='#4424A6' />
       ) : (
-        <img
-          className={`${styles.burguerIcon} ${styles.firstLine}`}
-          src={HamburguerMenuIcon}
+        <FeatherIcon
+          icon='menu'
+          className={styles.burguerIcon}
+          size={20}
+          stroke='#4424A6'
         />
       )}
       {isActive && (
