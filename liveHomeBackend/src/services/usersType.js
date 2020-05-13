@@ -1,11 +1,11 @@
 'use strict'
 
-const config = require('./../../config/index')
+const config = require('./../../config')
 const db = require('./../../store/index')
 
 class UsersTypeService {
   constructor () {
-    this.service = db(config.db).then(result => result)
+    this.service = db(config.db)
   }
 
   /**
