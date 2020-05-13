@@ -10,8 +10,8 @@ module.exports = function setupModality (config) {
     id: {
       type: Sequelize.INTEGER,
       autoIncrement: true,
-      primaryKey: true,
-      allowNull: false
+      primaryKey: true
+
     },
     pricem2: {
       type: Sequelize.DECIMAL,

@@ -10,8 +10,8 @@ module.exports = function setupAproveUser (config) {
     id: {
       type: Sequelize.INTEGER,
       autoIncrement: true,
-      primaryKey: true,
-      allowNull: false
+      primaryKey: true
+
     },
     date: {
       type: Sequelize.TIME,

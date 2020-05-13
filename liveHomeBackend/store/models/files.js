@@ -10,8 +10,8 @@ module.exports = function setupFiles (config) {
     id: {
       type: Sequelize.INTEGER,
       autoIncrement: true,
-      primaryKey: true,
-      allowNull: false
+      primaryKey: true
+
     },
     url: {
       type: Sequelize.STRING,
