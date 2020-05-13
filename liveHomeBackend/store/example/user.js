@@ -23,6 +23,7 @@ async function run () {
     status: 'false',
     createAt: new Date(),
     updateAt: new Date(),
+    authId: 1,
     typeUserId: 1
   }, 1).catch(handleFatalError)
 

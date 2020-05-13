@@ -1,6 +1,6 @@
 'use strict'
 
-module.exports = function setupUserService (userModel, typeUserModel) {
+module.exports = function setupUserService (userModel) {
   async function create (user) {
     const result = await userModel.create(user)
     return result.toJSON()

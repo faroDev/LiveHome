@@ -10,7 +10,7 @@ module.exports = function setupAuth (config) {
     id: {
       type: Sequelize.INTEGER,
       primaryKey: true,
-      allowNull: false
+      autoIncrement: true
     },
     email: {
       type: Sequelize.STRING,
@@ -20,7 +20,7 @@ module.exports = function setupAuth (config) {
       type: Sequelize.STRING,
       allowNull: false
     },
-    user: {
+    userName: {
       type: Sequelize.STRING,
       allowNull: true
     }

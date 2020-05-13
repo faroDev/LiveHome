@@ -24,14 +24,6 @@ module.exports = function setupUser (config) {
       type: Sequelize.STRING,
       allowNull: true
     },
-    // createdAt: {
-    //   type: Sequelize.DATE,
-    //   allowNull: false
-    // },
-    // updateAt: {
-    //   type: Sequelize.DATE,
-    //   allowNull: false
-    // },
     status: {
       type: Sequelize.BOOLEAN,
       allowNull: false,
