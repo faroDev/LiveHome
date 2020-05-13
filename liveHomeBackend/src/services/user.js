@@ -25,7 +25,9 @@ class UserService {
    * Update specific user by id
    */
   async update (id, user) {
-    return (await this.service).user.update(id, user)
+    user.id = id
+    user.updatedAt = new Date()
+    return (await this.service).user.update(user)
   }
 
   /**

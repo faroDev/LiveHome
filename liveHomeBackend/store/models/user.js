@@ -14,11 +14,11 @@ module.exports = function setupUser (config) {
     },
     name: {
       type: Sequelize.STRING,
-      allowNull: false
+      allowNull: true
     },
     lastName: {
       type: Sequelize.STRING,
-      allowNull: false
+      allowNull: true
     },
     secondLastName: {
       type: Sequelize.STRING,

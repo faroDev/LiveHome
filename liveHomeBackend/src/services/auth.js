@@ -1,4 +1,5 @@
 'use strict'
+const bcrypt = require('bcrypt')
 const config = require('./../../config')
 const db = require('./../../store')
 
@@ -11,11 +12,12 @@ class AuthService {
    * Create user
    */
   async create (auth) {
-    // to do
-    // const (await this.service).auth.create(auth)
-    // user with type user client and auth id
-    // (await this.service).user.create(user)
-    // return (await this.service).user.create(user)
+    const { password } = auth
+    auth.createAt = new Date()
+    auth.updateAt = new Date()
+    auth.password = await bcrypt.hash(password, 10)
+
+    return (await this.service).auth.create(auth)
   }
 }
 
