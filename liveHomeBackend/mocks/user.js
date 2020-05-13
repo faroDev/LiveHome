@@ -11,8 +11,8 @@ const user = [
   },
   {
     id: 5,
-    name: 'jose',
-    lastName: 'luis',
+    name: 'Jose',
+    lastName: 'Luis',
     secondLastName: 'Campos',
     status: true,
     createdAt: '2020-05-10T13:06:26.120Z',

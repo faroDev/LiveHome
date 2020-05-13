@@ -1,19 +1,20 @@
 'use strict'
 const express = require('express')
-const UsersTypeService = require('./../services/usersType')
+const UserService = require('./../services/user')
 
-function usersTypeApi (app) {
+function userApi (app) {
   const router = express()
-  const usersTypeService = new UsersTypeService()
+  const userService = new UserService()
 
-  app.use('/api/usersType', router)
+  app.use('/api/users', router)
 
   router.get('/', async function (req, res, next) {
     try {
-      const result = await usersTypeService.get()
+      const users = await userService.get()
+
       res.status(200).json({
-        data: result || [],
-        message: 'Users type listed'
+        data: users || [],
+        message: 'Users listed'
       })
     } catch (error) {
       next(error)
@@ -24,11 +25,11 @@ function usersTypeApi (app) {
     try {
       const { id } = req.params
 
-      const result = await usersTypeService.getById(id)
+      const user = await userService.getById(id)
 
       res.status(200).json({
-        data: result || {},
-        message: 'User type retrieved'
+        data: user || {},
+        message: 'User retrieved'
       })
     } catch (error) {
       next(error)
@@ -38,13 +39,13 @@ function usersTypeApi (app) {
   router.put('/:id', async function (req, res, next) {
     try {
       const { id } = req.params
-      const { body: userType } = req
+      const { body: user } = req
 
-      const result = await usersTypeService.update(id, userType)
+      const userUpdated = await userService.update(id, user)
 
       res.status(200).json({
-        data: result,
-        message: 'User type updated'
+        data: userUpdated,
+        message: 'User updated'
       })
     } catch (error) {
       next(error)
@@ -53,13 +54,13 @@ function usersTypeApi (app) {
 
   router.post('/', async function (req, res, next) {
     try {
-      const { body: userType } = req
+      const { body: user } = req
 
-      const result = await usersTypeService.create(userType)
+      const userCreated = await userService.create(user)
 
       res.status(200).json({
-        data: result,
-        message: 'User type created'
+        data: userCreated,
+        message: 'User created'
       })
     } catch (error) {
       next(error)
@@ -67,4 +68,4 @@ function usersTypeApi (app) {
   })
 }
 
-module.exports = usersTypeApi
+module.exports = userApi
