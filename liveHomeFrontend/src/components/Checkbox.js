@@ -6,7 +6,7 @@ const Checkbox = (props) => {
   return (
     <label className={styles.checkbox__container}>
       <input type='checkbox' name={props.name} checked={props.checked} onChange={props.handleChange} />
-      <span className={styles.checkbox__container_checkmark}></span>
+      <span className={styles.checkbox__container_checkmark} />
       <p>
         {props.text}
       </p>
