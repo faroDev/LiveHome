@@ -16,7 +16,6 @@ async function run () {
   const { typeUser } = await db(configuration).catch(handleFatalError)
 
   const typeUser5 = await typeUser.createOrUpdate({
-    id: '3',
     name: 'jose',
     createAt: new Date(),
     updateAt: new Date()

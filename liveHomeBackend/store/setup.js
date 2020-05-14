@@ -16,7 +16,7 @@ async function setup () {
     logging: s => debug(s),
     setup: true
   }
-
+  console.log(config.db.database)
   await db(configuration).catch(handleFatalError)
 
   console.log('Success!')

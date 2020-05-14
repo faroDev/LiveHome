@@ -10,8 +10,8 @@ module.exports = function setupModalityType (config) {
     id: {
       type: Sequelize.INTEGER,
       autoIncrement: true,
-      primaryKey: true,
-      allowNull: false
+      primaryKey: true
+
     },
     name: {
       type: Sequelize.STRING,

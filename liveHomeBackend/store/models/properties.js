@@ -9,9 +9,8 @@ module.exports = function setupProperties (config) {
   return sequelize.define('properties', {
     id: {
       type: Sequelize.INTEGER,
-      autoIncremnent: true,
-      primaryKey: true,
-      allowNull: false
+      autoIncrement: true,
+      primaryKey: true
     },
     m2: {
       type: Sequelize.DECIMAL,
@@ -59,14 +58,6 @@ module.exports = function setupProperties (config) {
       type: Sequelize.TEXT,
       allowNull: false
     },
-    // createdAt: {
-    //   type: Sequelize.TIME,
-    //   allowNull: false
-    // },
-    // updateAt: {
-    //   type: Sequelize.DATE,
-    //   allowNull: false
-    // },
     avalible: {
       type: Sequelize.BOOLEAN,
       allowNull: true,

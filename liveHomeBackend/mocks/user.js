@@ -5,9 +5,10 @@ const user = [
     lastName: 'Jimenez',
     secondLastName: 'Aranzazu',
     status: true,
-    typeUserId: 1,
     updatedAt: '2020-05-10T12:59:05.235Z',
-    createdAt: '2020-05-10T12:59:05.235Z'
+    createdAt: '2020-05-10T12:59:05.235Z',
+    authId: 1,
+    typeUserId: 1
   },
   {
     id: 5,
@@ -17,6 +18,7 @@ const user = [
     status: true,
     createdAt: '2020-05-10T13:06:26.120Z',
     updatedAt: '2020-05-10T13:06:26.120Z',
+    authId: 1,
     typeUserId: 1
   }
 ]

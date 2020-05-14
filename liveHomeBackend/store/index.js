@@ -20,6 +20,8 @@ const setupViews = require('./models/views')
 const setupTypeUserService = require('./lib/services/typeUser')
 const setupUserService = require('./lib/services/user')
 const setupAuthService = require('./lib/services/auth')
+const setupPropertiesService = require('./lib/services/properties')
+const setupPropertyTypeService = require('./lib/services/properyType')
 
 module.exports = async function (config) {
   const sequialize = setupDatabase(config)
@@ -43,10 +45,9 @@ module.exports = async function (config) {
   propertyModel.hasMany(aproveUserModel)
   propertyModel.hasMany(favoritesModel)
   propertyTypeModel.hasMany(propertyModel)
-
+  userModel.hasMany(propertyModel)
   modalityTypeModel.hasMany(modalityModel)
 
-  userModel.hasMany(propertyModel)
   userModel.hasMany(aproveUserModel)
   userModel.hasMany(favoritesModel)
   authModel.hasOne(userModel)
@@ -58,10 +59,14 @@ module.exports = async function (config) {
   const typeUser = setupTypeUserService(typeUserModel)
   const user = setupUserService(userModel)
   const auth = setupAuthService(authModel)
+  const propertyType = setupPropertyTypeService(propertyTypeModel)
+  const properties = setupPropertiesService(propertyModel)
 
   return {
     typeUser,
     user,
-    auth
+    auth,
+    properties,
+    propertyType
   }
 }
