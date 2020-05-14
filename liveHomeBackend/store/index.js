@@ -20,8 +20,9 @@ const setupViews = require('./models/views')
 const setupTypeUserService = require('./lib/services/typeUser')
 const setupUserService = require('./lib/services/user')
 const setupAuthService = require('./lib/services/auth')
-const setupPropertiesService = require('./lib/services/properties')
 const setupPropertyTypeService = require('./lib/services/properyType')
+const setupPropertiesService = require('./lib/services/properties')
+
 
 module.exports = async function (config) {
   const sequialize = setupDatabase(config)
@@ -66,7 +67,8 @@ module.exports = async function (config) {
     typeUser,
     user,
     auth,
-    properties,
-    propertyType
+    propertyType,
+    properties
+
   }
 }

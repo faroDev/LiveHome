@@ -2,7 +2,7 @@
 const config = require('../config/index')
 const db = require('../index')
 
-async function run () {
+async function run() {
   const configuration = {
     database: config.db.name || 'livehome_db',
     username: config.db.user || 'admin',
@@ -16,7 +16,6 @@ async function run () {
   const { user } = await db(configuration).catch(handleFatalError)
 
   const user1 = await user.create({
-
     name: 'pedro',
     lastName: 'perez',
     secondLastName: 'alvarez',
@@ -44,12 +43,12 @@ async function run () {
   console.log('--userss--')
   console.log(users)
 
-  const user2 = await user.findById(12)
+  const user2 = await user.findById(1)
   console.log('--user--')
   console.log(user2)
 }
 run()
-function handleFatalError (err) {
+function handleFatalError(err) {
   console.error(err.message)
   console.error(err.stack)
   process.exit(1)
