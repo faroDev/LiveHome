@@ -34,6 +34,7 @@ class UserService {
    * Create user
    */
   async create (user) {
+    user.createdAt = new Date()
     return (await this.service).user.create(user)
   }
 }

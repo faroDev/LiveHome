@@ -12,6 +12,7 @@ const usersTypeApi = require('./routes/usersType')
 const authApi = require('./routes/auth')
 const userApi = require('./routes/user')
 const propertyTypeApi = require('./routes/propertyType')
+const propertyApi = require('./routes/property')
 
 const app = express()
 
@@ -24,6 +25,7 @@ usersTypeApi(app)
 authApi(app)
 userApi(app)
 propertyTypeApi(app)
+propertyApi(app)
 
 // Not found middleware
 app.use(notFoundHandler)

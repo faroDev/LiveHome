@@ -5,35 +5,39 @@ const db = require('./../../store/index')
 
 class UsersTypeService {
   constructor () {
-    this.service = db(config.db)
+    db(config.db).then(service => {
+      this.service = service
+    })
   }
 
   /**
    * List of users type
    */
   async get () {
-    return (await this.service).typeUser.findAll()
+    return this.service.typeUser.findAll()
   }
 
   /**
    * Get specific user type by id
    */
   async getById (id) {
-    return (await this.service).typeUser.findById(id)
+    return this.service.typeUser.findById(id)
   }
 
   /**
    * Update specific user type by id
    */
   async update (id, userType) {
-    return (await this.service).typeUser.update(id, userType)
+    userType.updatedAt()
+    return this.service.typeUser.update(id, userType)
   }
 
   /**
    * Create user type
    */
   async create (userType) {
-    return (await this.service).typeUser.create(userType)
+    userType.createdAt = new Date()
+    return this.service.typeUser.create(userType)
   }
 }
 

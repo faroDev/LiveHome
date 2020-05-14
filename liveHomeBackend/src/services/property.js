@@ -1,7 +1,7 @@
 'use strict'
 
 const config = require('./../../config')
-const db = require('./../../store/index')
+const db = require('./../../store')
 
 class PropertyService {
   constructor () {
@@ -14,7 +14,7 @@ class PropertyService {
    * List of property
    */
   async get () {
-    return []
+    return this.service.properties.findAll()
   }
 
   /**
@@ -22,7 +22,7 @@ class PropertyService {
    * @param {*} id
    */
   async getById (id) {
-    return {}
+    return this.service.properties.findById(id)
   }
 
   /**
@@ -31,7 +31,9 @@ class PropertyService {
    * @param {*} property
    */
   async update (id, property) {
-    return {}
+    property.id = id
+    property.updated = new Date()
+    return this.service.properties.update(property)
   }
 
   /**
@@ -39,7 +41,8 @@ class PropertyService {
    * @param {*} property
    */
   async create (property) {
-    return {}
+    property.createdAt = new Date()
+    return this.service.properties.create(property)
   }
 }
 

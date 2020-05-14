@@ -7,7 +7,7 @@ function propertyApi (app) {
   const router = express()
   const propertyService = new PropertyService()
 
-  app.use('/api/property', router)
+  app.use('/api/properties', router)
 
   router.get('/', async function (req, res, next) {
     try {
