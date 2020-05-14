@@ -1,19 +1,21 @@
 'use strict'
+
 const express = require('express')
-const UsersTypeService = require('./../services/usersType')
+const PropertyTypeService = require('./../services/propertyType')
 
-function usersTypeApi (app) {
+function propertyTypeApi (app) {
   const router = express()
-  const usersTypeService = new UsersTypeService()
+  const propertyTypeService = new PropertyTypeService()
 
-  app.use('/api/usersType', router)
+  app.use('/api/propertyType', router)
 
   router.get('/', async function (req, res, next) {
     try {
-      const result = await usersTypeService.get()
+      const result = await propertyTypeService.get()
+
       res.status(200).json({
         data: result || [],
-        message: 'Users type listed'
+        message: 'Properties type listed'
       })
     } catch (error) {
       next(error)
@@ -23,12 +25,11 @@ function usersTypeApi (app) {
   router.get('/:id', async function (req, res, next) {
     try {
       const { id } = req.params
-
-      const result = await usersTypeService.getById(id)
+      const result = await propertyTypeService.getById(id)
 
       res.status(200).json({
         data: result || {},
-        message: 'User type retrieved'
+        message: 'Property type retrieved'
       })
     } catch (error) {
       next(error)
@@ -38,13 +39,13 @@ function usersTypeApi (app) {
   router.put('/:id', async function (req, res, next) {
     try {
       const { id } = req.params
-      const { body: userType } = req
+      const { body: propertyType } = req
 
-      const result = await usersTypeService.update(id, userType)
+      const result = await propertyTypeService.update(id, propertyType)
 
       res.status(200).json({
         data: result,
-        message: 'User type updated'
+        message: 'Property type updated'
       })
     } catch (error) {
       next(error)
@@ -53,13 +54,13 @@ function usersTypeApi (app) {
 
   router.post('/', async function (req, res, next) {
     try {
-      const { body: userType } = req
+      const { body: propertyType } = req
 
-      const result = await usersTypeService.create(userType)
+      const result = await propertyTypeService.create(propertyType)
 
       res.status(201).json({
         data: result,
-        message: 'User type created'
+        message: 'Property type created'
       })
     } catch (error) {
       next(error)
@@ -67,4 +68,4 @@ function usersTypeApi (app) {
   })
 }
 
-module.exports = usersTypeApi
+module.exports = propertyTypeApi

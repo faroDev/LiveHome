@@ -58,7 +58,7 @@ function userApi (app) {
 
       const userCreated = await userService.create(user)
 
-      res.status(200).json({
+      res.status(201).json({
         data: userCreated,
         message: 'User created'
       })

@@ -30,7 +30,7 @@ function authApi (app) {
 
       await userService.create(user)
 
-      res.status(200).json({
+      res.status(201).json({
         data: authCreated,
         message: 'Auth created'
       })
