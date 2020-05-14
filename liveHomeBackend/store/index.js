@@ -23,7 +23,6 @@ const setupAuthService = require('./lib/services/auth')
 const setupPropertyTypeService = require('./lib/services/properyType')
 const setupPropertiesService = require('./lib/services/properties')
 
-
 module.exports = async function (config) {
   const sequialize = setupDatabase(config)
   const typeUserModel = setupTypeUser(config)
