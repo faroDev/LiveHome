@@ -1,7 +1,7 @@
 'use strict'
 
-module.exports = function setupProperties (propertyModel) {
-  async function createOrUpdate (property) {
+module.exports = function setupPropertiesService(propertyModel) {
+  async function createOrUpdate(property) {
     if (property.id) {
       const cond = {
         where: {
@@ -9,11 +9,11 @@ module.exports = function setupProperties (propertyModel) {
         }
       }
 
-      const existingProperty = await propertyModel.findOne(cond)
+      const exitingproperty = await propertyModel.findOne(cond)
 
-      if (existingProperty) {
+      if (exitingproperty) {
         const update = await propertyModel.update(property, cond)
-        return update ? propertyModel.findOne(cond, { raw: true }) : existingProperty.toJSON({ raw: true })
+        return update ? propertyModel.findOne(cond, { raw: true }) : exitingproperty.toJSON({ raw: true })
       }
     }
 
@@ -21,7 +21,7 @@ module.exports = function setupProperties (propertyModel) {
     return result.toJSON({ raw: true })
   }
 
-  async function create (property) {
+  async function create(property) {
     property.updatedAt = new Date()
     property.createdAt = new Date()
 
@@ -29,7 +29,7 @@ module.exports = function setupProperties (propertyModel) {
     return result.toJSON({ raw: true })
   }
 
-  async function update (property) {
+  async function update(property) {
     const cond = {
       where: {
         id: property.id
@@ -38,15 +38,15 @@ module.exports = function setupProperties (propertyModel) {
 
     property.updatedAt = new Date()
     await propertyModel.update(property, cond)
-    const existingProperty = await propertyModel.findOne(cond)
-    return existingProperty
+    const exitingproperty = await propertyModel.findOne(cond)
+    return exitingproperty
   }
 
-  function findById (id) {
+  function findById(id) {
     return propertyModel.findByPk(id, { raw: true })
   }
 
-  function findAll () {
+  function findAll() {
     return propertyModel.findAll({ raw: true })
   }
 

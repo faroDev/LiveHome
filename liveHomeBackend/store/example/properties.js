@@ -2,12 +2,12 @@
 const config = require('../config/index')
 const db = require('../index')
 
-async function run () {
+async function run() {
   const configuration = {
-    database: config.db.name || 'livehome_db',
-    username: config.db.user || 'admin',
-    password: config.db.password || 'admin123',
-    host: config.db.host || 'localhost',
+    database: config.db.name,
+    username: config.db.user,
+    password: config.db.password,
+    host: config.db.host,
     dialect: 'postgres',
     returning: true,
     setup: true
@@ -28,8 +28,8 @@ async function run () {
     nearTo: 'Estación del metro Madera',
     avalible: true,
     downAt: new Date(),
-    // createdAt: new Date(),
-    // updatedAt: new Date(),
+    createdAt: new Date(),
+    updatedAt: new Date(),
     propertyTypeId: 1,
     userId: 1
   }).catch(handleFatalError)
@@ -56,7 +56,7 @@ async function run () {
   console.log(property2)
 }
 run()
-function handleFatalError (err) {
+function handleFatalError(err) {
   console.error(err.message)
   console.error(err.stack)
   process.exit(1)
