@@ -14,7 +14,7 @@ module.exports = function setupFilesService (filesModel) {
     const existingFile = await filesModel.findOne(cond)
 
     if (existingFile) {
-      const update = await filesModel.update(views, cond)
+      const update = await filesModel.update(files, cond)
       return update ? filesModel.findOne(cond, { raw: true }) : existingFile.toJSON({ raw: true })
     }
   }
