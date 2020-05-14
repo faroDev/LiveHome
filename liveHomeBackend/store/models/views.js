@@ -14,7 +14,7 @@ module.exports = function setupViews (config) {
       allowNull: false
     },
     date: {
-      type: Sequelize.TIME,
+      type: Sequelize.DATE,
       allowNull: false
     },
     counter: {
