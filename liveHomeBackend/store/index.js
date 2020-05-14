@@ -48,7 +48,6 @@ module.exports = async function (config) {
   userModel.hasMany(propertyModel)
   modalityTypeModel.hasMany(modalityModel)
 
-
   userModel.hasMany(aproveUserModel)
   userModel.hasMany(favoritesModel)
   authModel.hasOne(userModel)
@@ -62,8 +61,6 @@ module.exports = async function (config) {
   const auth = setupAuthService(authModel)
   const propertyType = setupPropertyTypeService(propertyTypeModel)
   const properties = setupPropertiesService(propertyModel)
-
-
 
   return {
     typeUser,

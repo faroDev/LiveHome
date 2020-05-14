@@ -3,7 +3,7 @@
 const Sequelize = require('sequelize')
 const setupDatabase = require('../lib/db')
 
-module.exports = function setupProperties(config) {
+module.exports = function setupProperties (config) {
   const sequelize = setupDatabase(config)
 
   return sequelize.define('properties', {
