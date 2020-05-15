@@ -10,10 +10,11 @@ const Input = (props) => {
       <input
         className={styles.input}
         type={props.type}
-        onChange={props.handleChange}
+        onChange={props.onChange}
         value={props.value}
         min={props.minValue}
         name={props.name}
+        required={props.required}
       />
     </Label>
   );
