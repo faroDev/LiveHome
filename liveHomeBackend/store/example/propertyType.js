@@ -4,10 +4,10 @@ const db = require('../index')
 
 async function run () {
   const configuration = {
-    database: config.db.name,
-    username: config.db.user,
-    password: config.db.password,
-    host: config.db.host,
+    database: config.db.name || 'livehome_db',
+    username: config.db.user || 'admin',
+    password: config.db.password || 'admin123',
+    host: config.db.host || 'localhost',
     dialect: 'postgres',
     returning: true,
     setup: true
@@ -15,8 +15,7 @@ async function run () {
 
   const { propertyType } = await db(configuration).catch(handleFatalError)
 
-  const propertyType1 = await propertyType.update({
-    id: 3,
+  const propertyType1 = await propertyType.create({
     name: 'Casa',
     createdAt: new Date(),
     updatedAt: new Date()

@@ -13,25 +13,27 @@ async function run () {
     setup: true
   }
 
-  const { auth } = await db(configuration).catch(handleFatalError)
+  const { files } = await db(configuration).catch(handleFatalError)
 
-  const auth1 = await auth.createOrUpdate({
+  const filesC = await files.create({
 
-    email: 'jose luis',
-    password: '123',
-    userName: 'jl'
+    url: 'https://google.com',
+    fileType: 'img',
+    createdAt: new Date(),
+    updatedAt: new Date(),
+    propertyId: 1
   }).catch(handleFatalError)
 
-  console.log('--Auth-')
-  console.log(auth1)
+  console.log('--viewsC--')
+  console.log(filesC)
 
-  const auths = await auth.findAll()
-  console.log('--auths--')
-  console.log(auths)
+  const filesAll = await files.findAll()
+  console.log('--view--')
+  console.log(filesAll)
 
-  const auth01 = await auth.findById(1)
-  console.log('--auth--')
-  console.log(auth01)
+  const files1 = await files.findById(1)
+  console.log('--views--')
+  console.log(files1)
 }
 run()
 function handleFatalError (err) {

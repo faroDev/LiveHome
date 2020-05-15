@@ -13,25 +13,27 @@ async function run () {
     setup: true
   }
 
-  const { auth } = await db(configuration).catch(handleFatalError)
+  const { views } = await db(configuration).catch(handleFatalError)
 
-  const auth1 = await auth.createOrUpdate({
-
-    email: 'jose luis',
-    password: '123',
-    userName: 'jl'
+  const viewsC = await views.update({
+    id: 1,
+    date: new Date(),
+    counter: 1,
+    createdAt: new Date(),
+    updatedAt: new Date(),
+    propertyId: 1
   }).catch(handleFatalError)
 
-  console.log('--Auth-')
-  console.log(auth1)
+  console.log('--viewsC--')
+  console.log(viewsC)
 
-  const auths = await auth.findAll()
-  console.log('--auths--')
-  console.log(auths)
+  const view1 = await views.findAll()
+  console.log('--view--')
+  console.log(view1)
 
-  const auth01 = await auth.findById(1)
-  console.log('--auth--')
-  console.log(auth01)
+  const views2 = await views.findById(1)
+  console.log('--views--')
+  console.log(views2)
 }
 run()
 function handleFatalError (err) {
