@@ -1,7 +1,10 @@
 'use strict'
 
 const express = require('express')
+const Multer = require('multer')
 const PropertyService = require('./../services/property')
+
+var upload = Multer({ dest: './uploads' })
 
 function propertyApi (app) {
   const router = express()
@@ -52,11 +55,11 @@ function propertyApi (app) {
     }
   })
 
-  router.post('/', async function (req, res, next) {
+  router.post('/', upload.array('photos', 6), async function (req, res, next) {
     try {
-      const { body: property } = req
+      const { body: property, files } = req
 
-      const result = await propertyService.create(property)
+      const result = await propertyService.create(property, files)
 
       res.status(201).json({
         data: result,
