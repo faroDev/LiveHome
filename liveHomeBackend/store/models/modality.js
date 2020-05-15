@@ -15,15 +15,15 @@ module.exports = function setupModality (config) {
     },
     pricem2: {
       type: Sequelize.DECIMAL,
-      allowNull: false
+      allowNull: true
     },
     pricePerMoth: {
       type: Sequelize.DECIMAL,
-      allowNull: false
+      allowNull: true
     },
     totalPrice: {
       type: Sequelize.DECIMAL,
-      allowNull: false
+      allowNull: true
     }
 
   })

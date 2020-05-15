@@ -26,6 +26,7 @@ const setupViewsService = require('./lib/services/views')
 const setupFilesService = require('./lib/services/files')
 const setupPropertyDetailService = require('./lib/services/propertyDetail')
 const setupModalityTypeService = require('./lib/services/modalityType')
+const setupModalityService = require('./lib/services/modality')
 
 module.exports = async function (config) {
   const sequialize = setupDatabase(config)
@@ -69,6 +70,7 @@ module.exports = async function (config) {
   const files = setupFilesService(filesModel)
   const propertyDetail = setupPropertyDetailService(propertyDetailModel)
   const modalityType = setupModalityTypeService(modalityTypeModel)
+  const modality = setupModalityService(modalityModel)
 
   return {
     typeUser,
@@ -79,7 +81,7 @@ module.exports = async function (config) {
     views,
     files,
     propertyDetail,
-    modalityType
-
+    modalityType,
+    modality
   }
 }
