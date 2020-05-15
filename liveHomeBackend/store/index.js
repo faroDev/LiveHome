@@ -17,13 +17,14 @@ const setupFiles = require('./models/files')
 const setupViews = require('./models/views')
 
 // services
-const setupTypeUserService = require('./lib/services/typeUser')
+const setupTypeUserService = require('./lib/services/propertyDetail')
 const setupUserService = require('./lib/services/user')
 const setupAuthService = require('./lib/services/auth')
 const setupPropertyTypeService = require('./lib/services/properyType')
 const setupPropertiesService = require('./lib/services/properties')
 const setupViewsService = require('./lib/services/views')
 const setupFilesService = require('./lib/services/files')
+const setupPropertyDetailService = require('./lib/services/propertyDetail')
 
 module.exports = async function (config) {
   const sequialize = setupDatabase(config)
@@ -65,6 +66,7 @@ module.exports = async function (config) {
   const properties = setupPropertiesService(propertyModel)
   const views = setupViewsService(viewsModel)
   const files = setupFilesService(filesModel)
+  const propertyDetail = setupPropertyDetailService(propertyDetailModel)
 
   return {
     typeUser,
@@ -73,7 +75,8 @@ module.exports = async function (config) {
     propertyType,
     properties,
     views,
-    files
+    files,
+    propertyDetail
 
   }
 }
