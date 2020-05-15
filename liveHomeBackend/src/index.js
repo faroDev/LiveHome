@@ -13,7 +13,8 @@ const authApi = require('./routes/auth')
 const userApi = require('./routes/user')
 const propertyTypeApi = require('./routes/propertyType')
 const propertyApi = require('./routes/property')
-
+const fileApi = require('./routes/file')
+const viewApi = require('./routes/views')
 const app = express()
 
 // Body Parse
@@ -26,6 +27,8 @@ authApi(app)
 userApi(app)
 propertyTypeApi(app)
 propertyApi(app)
+fileApi(app)
+viewApi(app)
 
 // Not found middleware
 app.use(notFoundHandler)

@@ -40,8 +40,7 @@ class PropertyService {
    * Create property
    * @param {*} property
    */
-  async create (property, files) {
-    console.log(files.length)
+  async create (property) {
     property.createdAt = new Date()
     return this.service.properties.create(property)
   }

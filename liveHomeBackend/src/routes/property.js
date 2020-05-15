@@ -3,12 +3,14 @@
 const express = require('express')
 const Multer = require('multer')
 const PropertyService = require('./../services/property')
+const FileService = require('./../services/file')
 
 var upload = Multer({ dest: './uploads' })
 
 function propertyApi (app) {
   const router = express()
   const propertyService = new PropertyService()
+  const fileService = new FileService()
 
   app.use('/api/properties', router)
 
@@ -59,10 +61,22 @@ function propertyApi (app) {
     try {
       const { body: property, files } = req
 
-      const result = await propertyService.create(property, files)
+      const newProperty = await propertyService.create(property)
+
+      const filesPromises = files.map(file => {
+        const newFile = {
+          url: file.originalname,
+          fileType: file.mimetype,
+          propertyId: newProperty.id
+        }
+
+        return fileService.create(newFile)
+      })
+
+      await Promise.all(filesPromises)
 
       res.status(201).json({
-        data: result,
+        data: newProperty || {},
         message: 'Property  created'
       })
     } catch (error) {
