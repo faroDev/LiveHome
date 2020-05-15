@@ -2,7 +2,7 @@
 const config = require('../config/index')
 const db = require('../index')
 
-async function run() {
+async function run () {
   const configuration = {
     database: config.db.name || 'livehome_db',
     username: config.db.user || 'admin',
@@ -18,7 +18,7 @@ async function run() {
   const favoritesC = await favorites.create({
     date: '2020-05-06',
     createdAt: new Date(),
-    updatedAt: new Date(),
+    updatedAt: new Date()
   }, 1, 1).catch(handleFatalError)
 
   console.log('---favoritesC--')
@@ -33,7 +33,7 @@ async function run() {
   console.log(favorites1)
 }
 run()
-function handleFatalError(err) {
+function handleFatalError (err) {
   console.error(err.message)
   console.error(err.stack)
   process.exit(1)

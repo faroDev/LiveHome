@@ -3,7 +3,7 @@
 const Sequelize = require('sequelize')
 const setupDatabase = require('../lib/db')
 
-module.exports = function setupFavorites(config) {
+module.exports = function setupFavorites (config) {
   const sequelize = setupDatabase(config)
 
   return sequelize.define('favorites', {
