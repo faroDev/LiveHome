@@ -27,6 +27,8 @@ const setupFilesService = require('./lib/services/files')
 const setupPropertyDetailService = require('./lib/services/propertyDetail')
 const setupModalityTypeService = require('./lib/services/modalityType')
 const setupModalityService = require('./lib/services/modality')
+const setupAproveUserService = require('./lib/services/aproveUser')
+const setupFavoritesService = require('./lib/services/favorites')
 
 module.exports = async function (config) {
   const sequialize = setupDatabase(config)
@@ -71,7 +73,8 @@ module.exports = async function (config) {
   const propertyDetail = setupPropertyDetailService(propertyDetailModel)
   const modalityType = setupModalityTypeService(modalityTypeModel)
   const modality = setupModalityService(modalityModel)
-
+  const aproveUser = setupAproveUserService(aproveUserModel)
+  const favorites = setupFavoritesService(favoritesModel)
   return {
     typeUser,
     user,
@@ -82,6 +85,8 @@ module.exports = async function (config) {
     files,
     propertyDetail,
     modalityType,
-    modality
+    modality,
+    aproveUser,
+    favorites
   }
 }
