@@ -83,6 +83,42 @@ function propertyApi (app) {
       next(error)
     }
   })
+
+  router.get('/:id/dashboard', async function (req, res, next) {
+    try {
+      res.status(200).json({
+        data: {
+          favorites: 20,
+          visitors: 200,
+          graph: [
+            {
+              date: '2020-05-10',
+              count: 2
+            },
+            {
+              date: '2020-05-11',
+              count: 3
+            },
+            {
+              date: '2020-05-12',
+              count: 5
+            },
+            {
+              date: '2020-05-13',
+              count: 6
+            },
+            {
+              date: '2020-05-14',
+              count: 7
+            }
+          ]
+        },
+        message: 'Property dashboard retrieved'
+      })
+    } catch (error) {
+      next(error)
+    }
+  })
 }
 
 module.exports = propertyApi

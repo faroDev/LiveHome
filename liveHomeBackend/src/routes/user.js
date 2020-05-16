@@ -66,6 +66,38 @@ function userApi (app) {
       next(error)
     }
   })
+
+  router.get('/:id/dashboard', async function (req, res, next) {
+    try {
+      res.status(200).json({
+        data: {
+          offers: 10,
+          visitors: 2000,
+          favorites: 40,
+          properties: [
+            {
+              name: 'Casa',
+              date: '2020-05-15',
+              image: 'url'
+            },
+            {
+              name: 'Casa',
+              date: '2020-05-15',
+              image: 'url'
+            },
+            {
+              name: 'Casa',
+              date: '2020-05-15',
+              image: 'url'
+            }
+          ]
+        },
+        message: 'User dashboard retrieved'
+      })
+    } catch (error) {
+      next(error)
+    }
+  })
 }
 
 module.exports = userApi
