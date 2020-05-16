@@ -14,7 +14,7 @@ module.exports = function setupAproveUser (config) {
 
     },
     date: {
-      type: Sequelize.TIME,
+      type: Sequelize.DATE,
       allowNull: false
     }
   })
