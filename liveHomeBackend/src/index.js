@@ -19,6 +19,7 @@ const modalityTypeApi = require('./routes/modalityType')
 const propertyDetailApi = require('./routes/propertyDetail')
 const favoriteApi = require('./routes/favorite')
 const modalityApi = require('./routes/modality')
+const approveUserApi = require('./routes/approveUser')
 const app = express()
 
 // Body Parse
@@ -37,6 +38,7 @@ modalityTypeApi(app)
 propertyDetailApi(app)
 favoriteApi(app)
 modalityApi(app)
+approveUserApi(app)
 
 // Not found middleware
 app.use(notFoundHandler)
