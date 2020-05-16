@@ -15,6 +15,8 @@ const propertyTypeApi = require('./routes/propertyType')
 const propertyApi = require('./routes/property')
 const fileApi = require('./routes/file')
 const viewApi = require('./routes/views')
+const modalityTypeApi = require('./routes/modalityType')
+
 const app = express()
 
 // Body Parse
@@ -29,6 +31,7 @@ propertyTypeApi(app)
 propertyApi(app)
 fileApi(app)
 viewApi(app)
+modalityTypeApi(app)
 
 // Not found middleware
 app.use(notFoundHandler)
