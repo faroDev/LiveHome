@@ -4,7 +4,8 @@ const express = require('express')
 const Multer = require('multer')
 const PropertyService = require('./../services/property')
 const FileService = require('./../services/file')
-const { getParams } = require('./../utils/params')
+const validationHandler = require('./../utils/middleware/validationHandler')
+const { propertyIdSchema, propertyUpdateSchema } = require('./../utils/schemas/property')
 
 var upload = Multer({ dest: './uploads' })
 
@@ -19,8 +20,6 @@ function propertyApi (app) {
     try {
       const result = await propertyService.get()
 
-      getParams(req.query)
-
       res.status(200).json({
         data: result || [],
         message: 'Properties  listed'
@@ -30,98 +29,105 @@ function propertyApi (app) {
     }
   })
 
-  router.get('/:id', async function (req, res, next) {
-    try {
-      const { id } = req.params
-      const result = await propertyService.getById(id)
+  router.get('/:id',
+    validationHandler({ id: propertyIdSchema }, 'params'),
+    async function (req, res, next) {
+      try {
+        const { id } = req.params
+        const result = await propertyService.getById(id)
 
-      res.status(200).json({
-        data: result || {},
-        message: 'Property  retrieved'
-      })
-    } catch (error) {
-      next(error)
-    }
-  })
+        res.status(200).json({
+          data: result || {},
+          message: 'Property  retrieved'
+        })
+      } catch (error) {
+        next(error)
+      }
+    })
 
-  router.put('/:id', async function (req, res, next) {
-    try {
-      const { id } = req.params
-      const { body: property } = req
+  router.put('/:id',
+    validationHandler({ id: propertyIdSchema }, 'params'),
+    validationHandler(propertyUpdateSchema),
+    async function (req, res, next) {
+      try {
+        const { id } = req.params
+        const { body: property } = req
 
-      const result = await propertyService.update(id, property)
+        const result = await propertyService.update(id, property)
 
-      res.status(200).json({
-        data: result,
-        message: 'Property  updated'
-      })
-    } catch (error) {
-      next(error)
-    }
-  })
+        res.status(200).json({
+          data: result,
+          message: 'Property  updated'
+        })
+      } catch (error) {
+        next(error)
+      }
+    })
 
-  router.post('/', upload.array('photos', 6), async function (req, res, next) {
-    try {
-      const { body: property, files } = req
+  router.post('/',
+    upload.array('photos', 6), async function (req, res, next) {
+      try {
+        const { body: property, files } = req
+        const newProperty = await propertyService.create(property)
 
-      const newProperty = await propertyService.create(property)
+        const filesPromises = files.map(file => {
+          const newFile = {
+            url: file.originalname,
+            fileType: file.mimetype,
+            propertyId: newProperty.id
+          }
 
-      const filesPromises = files.map(file => {
-        const newFile = {
-          url: file.originalname,
-          fileType: file.mimetype,
-          propertyId: newProperty.id
-        }
+          return fileService.create(newFile)
+        })
 
-        return fileService.create(newFile)
-      })
+        await Promise.all(filesPromises)
 
-      await Promise.all(filesPromises)
+        res.status(201).json({
+          data: newProperty || {},
+          message: 'Property  created'
+        })
+      } catch (error) {
+        next(error)
+      }
+    })
 
-      res.status(201).json({
-        data: newProperty || {},
-        message: 'Property  created'
-      })
-    } catch (error) {
-      next(error)
-    }
-  })
-
-  router.get('/:id/dashboard', async function (req, res, next) {
-    try {
-      res.status(200).json({
-        data: {
-          favorites: 20,
-          visitors: 200,
-          graph: [
-            {
-              date: '2020-05-10',
-              count: 2
-            },
-            {
-              date: '2020-05-11',
-              count: 3
-            },
-            {
-              date: '2020-05-12',
-              count: 5
-            },
-            {
-              date: '2020-05-13',
-              count: 6
-            },
-            {
-              date: '2020-05-14',
-              count: 7
-            }
-          ]
-        },
-        message: 'Property dashboard retrieved'
-      })
-    } catch (error) {
-      next(error)
-    }
-  })
+  router.get('/:id/dashboard',
+    validationHandler({ id: propertyIdSchema }, 'params'),
+    async function (req, res, next) {
+      try {
+        res.status(200).json({
+          data: {
+            favorites: 20,
+            visitors: 200,
+            graph: [
+              {
+                date: '2020-05-10',
+                count: 2
+              },
+              {
+                date: '2020-05-11',
+                count: 3
+              },
+              {
+                date: '2020-05-12',
+                count: 5
+              },
+              {
+                date: '2020-05-13',
+                count: 6
+              },
+              {
+                date: '2020-05-14',
+                count: 7
+              }
+            ]
+          },
+          message: 'Property dashboard retrieved'
+        })
+      } catch (error) {
+        next(error)
+      }
+    })
 }
 
 module.exports = propertyApi
