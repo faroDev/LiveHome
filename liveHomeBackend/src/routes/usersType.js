@@ -1,6 +1,8 @@
 'use strict'
 const express = require('express')
 const UsersTypeService = require('./../services/usersType')
+const validationHandler = require('./../utils/middleware/validationHandler')
+const { userTypeUpdateSchema, userTypeCreateSchema, userTypeId } = require('./../utils/schemas/userType')
 
 function usersTypeApi (app) {
   const router = express()
@@ -20,51 +22,58 @@ function usersTypeApi (app) {
     }
   })
 
-  router.get('/:id', async function (req, res, next) {
-    try {
-      const { id } = req.params
+  router.get('/:id',
+    validationHandler({ id: userTypeId }, 'params'),
+    async function (req, res, next) {
+      try {
+        const { id } = req.params
 
-      const result = await usersTypeService.getById(id)
+        const result = await usersTypeService.getById(id)
 
-      res.status(200).json({
-        data: result || {},
-        message: 'User type retrieved'
-      })
-    } catch (error) {
-      next(error)
-    }
-  })
+        res.status(200).json({
+          data: result || {},
+          message: 'User type retrieved'
+        })
+      } catch (error) {
+        next(error)
+      }
+    })
 
-  router.put('/:id', async function (req, res, next) {
-    try {
-      const { id } = req.params
-      const { body: userType } = req
+  router.put('/:id',
+    validationHandler({ id: userTypeId }, 'params'),
+    validationHandler(userTypeUpdateSchema),
+    async function (req, res, next) {
+      try {
+        const { id } = req.params
+        const { body: userType } = req
 
-      const result = await usersTypeService.update(id, userType)
+        const result = await usersTypeService.update(id, userType)
 
-      res.status(200).json({
-        data: result,
-        message: 'User type updated'
-      })
-    } catch (error) {
-      next(error)
-    }
-  })
+        res.status(200).json({
+          data: result,
+          message: 'User type updated'
+        })
+      } catch (error) {
+        next(error)
+      }
+    })
 
-  router.post('/', async function (req, res, next) {
-    try {
-      const { body: userType } = req
+  router.post('/',
+    validationHandler(userTypeCreateSchema),
+    async function (req, res, next) {
+      try {
+        const { body: userType } = req
 
-      const result = await usersTypeService.create(userType)
+        const result = await usersTypeService.create(userType)
 
-      res.status(201).json({
-        data: result,
-        message: 'User type created'
-      })
-    } catch (error) {
-      next(error)
-    }
-  })
+        res.status(201).json({
+          data: result,
+          message: 'User type created'
+        })
+      } catch (error) {
+        next(error)
+      }
+    })
 }
 
 module.exports = usersTypeApi

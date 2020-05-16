@@ -5,6 +5,7 @@ const config = require('./../config')
 
 // Middleware
 const notFoundHandler = require('./utils/middleware/notFoundHandler')
+const { errorHandler, logError, wrapError } = require('./utils/middleware/errorHandler')
 
 // Routes
 const healthApp = require('./routes/health')
@@ -20,6 +21,7 @@ const propertyDetailApi = require('./routes/propertyDetail')
 const favoriteApi = require('./routes/favorite')
 const modalityApi = require('./routes/modality')
 const approveUserApi = require('./routes/approveUser')
+
 const app = express()
 
 // Body Parse
@@ -39,6 +41,11 @@ propertyDetailApi(app)
 favoriteApi(app)
 modalityApi(app)
 approveUserApi(app)
+
+// Error handler
+app.use(logError)
+app.use(wrapError)
+app.use(errorHandler)
 
 // Not found middleware
 app.use(notFoundHandler)

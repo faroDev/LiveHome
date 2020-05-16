@@ -4,6 +4,7 @@ const express = require('express')
 const Multer = require('multer')
 const PropertyService = require('./../services/property')
 const FileService = require('./../services/file')
+const { getParams } = require('./../utils/params')
 
 var upload = Multer({ dest: './uploads' })
 
@@ -17,6 +18,8 @@ function propertyApi (app) {
   router.get('/', async function (req, res, next) {
     try {
       const result = await propertyService.get()
+
+      getParams(req.query)
 
       res.status(200).json({
         data: result || [],
