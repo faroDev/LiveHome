@@ -2,6 +2,8 @@
 
 const express = require('express')
 const ModalityTypeService = require('./../services/modalityType')
+const validationHandler = require('./../utils/middleware/validationHandler')
+const { modalityTypeUpdateSchema, modalityTypeCreateSchema, modalityTypeId} = require('./../utils/schemas/modalityType')
 
 function modalityTypeApi (app) {
   const router = express()
@@ -22,7 +24,9 @@ function modalityTypeApi (app) {
     }
   })
 
-  router.get('/:id', async function (req, res, next) {
+  router.get('/:id',
+  validationHandler({ id: modalityTypeId }, 'params'),
+  async function (req, res, next) {
     try {
       const { id } = req.params
       const result = await modalityTypeService.getById(id)
@@ -36,7 +40,10 @@ function modalityTypeApi (app) {
     }
   })
 
-  router.put('/:id', async function (req, res, next) {
+  router.put('/:id',
+  validationHandler({ id: modalityTypeId }, 'params'),
+  validationHandler(modalityTypeUpdateSchema),
+  async function (req, res, next) {
     try {
       const { id } = req.params
       const { body: modalityType } = req
@@ -52,7 +59,9 @@ function modalityTypeApi (app) {
     }
   })
 
-  router.post('/', async function (req, res, next) {
+  router.post('/',
+  validationHandler(modalityTypeCreateSchema),
+  async function (req, res, next) {
     try {
       const { body: modalityType } = req
 
