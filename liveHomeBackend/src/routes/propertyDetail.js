@@ -2,6 +2,8 @@
 
 const express = require('express')
 const PropertyDetailService = require('./../services/propertyDetail')
+const validationHandler = require('./../utils/middleware/validationHandler')
+const { propertyDetailIdSchema, propertyDetailCreateSchema, propertyDetailUpdateSchema } = require('./../utils/schemas/propertyDetail')
 
 function propertyDetailApi (app) {
   const router = express()
@@ -22,51 +24,58 @@ function propertyDetailApi (app) {
     }
   })
 
-  router.get('/:id', async function (req, res, next) {
-    try {
-      const { id } = req.params
-      const result = await propertyDetailService.getById(id)
+  router.get('/:id',
+    validationHandler({ id: propertyDetailIdSchema }, 'params'),
+    async function (req, res, next) {
+      try {
+        const { id } = req.params
+        const result = await propertyDetailService.getById(id)
 
-      res.status(200).json({
-        data: result || {},
-        message: 'Property detail retrieved'
-      })
-    } catch (error) {
-      next(error)
-    }
-  })
+        res.status(200).json({
+          data: result || {},
+          message: 'Property detail retrieved'
+        })
+      } catch (error) {
+        next(error)
+      }
+    })
 
-  router.put('/:id', async function (req, res, next) {
-    try {
-      const { id } = req.params
-      const { body: propertyDetail } = req
+  router.put('/:id',
+    validationHandler({ id: propertyDetailIdSchema }, 'params'),
+    validationHandler(propertyDetailUpdateSchema),
+    async function (req, res, next) {
+      try {
+        const { id } = req.params
+        const { body: propertyDetail } = req
 
-      const result = await propertyDetailService.update(id, propertyDetail)
+        const result = await propertyDetailService.update(id, propertyDetail)
 
-      res.status(200).json({
-        data: result,
-        message: 'Property detail updated'
-      })
-    } catch (error) {
-      next(error)
-    }
-  })
+        res.status(200).json({
+          data: result,
+          message: 'Property detail updated'
+        })
+      } catch (error) {
+        next(error)
+      }
+    })
 
-  router.post('/', async function (req, res, next) {
-    try {
-      const { body: propertyDetail } = req
-      console.log(propertyDetail)
+  router.post('/',
+    validationHandler(propertyDetailCreateSchema),
+    async function (req, res, next) {
+      try {
+        const { body: propertyDetail } = req
+        console.log(propertyDetail)
 
-      const result = await propertyDetailService.create(propertyDetail)
+        const result = await propertyDetailService.create(propertyDetail)
 
-      res.status(201).json({
-        data: result,
-        message: 'Property detail created'
-      })
-    } catch (error) {
-      next(error)
-    }
-  })
+        res.status(201).json({
+          data: result,
+          message: 'Property detail created'
+        })
+      } catch (error) {
+        next(error)
+      }
+    })
 }
 
 module.exports = propertyDetailApi

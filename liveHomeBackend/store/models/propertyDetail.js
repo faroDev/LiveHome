@@ -32,7 +32,7 @@ module.exports = function setupPropertyDetail (config) {
       type: Sequelize.STRING,
       allowNull: false
     },
-    latitud: {
+    latitude: {
       type: Sequelize.STRING,
       allowNull: false
     }

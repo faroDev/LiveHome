@@ -25,7 +25,7 @@ const approveUserApi = require('./routes/approveUser')
 const app = express()
 
 // Body Parse
-app.use(bodyParser.urlencoded({ extended: true }))
+app.use(bodyParser.json())
 
 // Routes
 healthApp(app)
