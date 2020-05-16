@@ -2,6 +2,8 @@
 
 const express = require('express')
 const PropertyTypeService = require('./../services/propertyType')
+const validationHandler = require('./../utils/middleware/validationHandler')
+const { propertyTypeUpdateSchema, propertyTypeCreateSchema, propertyTypeId } = require('./../utils/schemas/propertyType')
 
 function propertyTypeApi (app) {
   const router = express()
@@ -22,50 +24,57 @@ function propertyTypeApi (app) {
     }
   })
 
-  router.get('/:id', async function (req, res, next) {
-    try {
-      const { id } = req.params
-      const result = await propertyTypeService.getById(id)
+  router.get('/:id',
+    validationHandler({ id: propertyTypeId }, 'params'),
+    async function (req, res, next) {
+      try {
+        const { id } = req.params
+        const result = await propertyTypeService.getById(id)
 
-      res.status(200).json({
-        data: result || {},
-        message: 'Property type retrieved'
-      })
-    } catch (error) {
-      next(error)
-    }
-  })
+        res.status(200).json({
+          data: result || {},
+          message: 'Property type retrieved'
+        })
+      } catch (error) {
+        next(error)
+      }
+    })
 
-  router.put('/:id', async function (req, res, next) {
-    try {
-      const { id } = req.params
-      const { body: propertyType } = req
+  router.put('/:id',
+    validationHandler({ id: propertyTypeId }, 'params'),
+    validationHandler(propertyTypeUpdateSchema),
+    async function (req, res, next) {
+      try {
+        const { id } = req.params
+        const { body: propertyType } = req
 
-      const result = await propertyTypeService.update(id, propertyType)
+        const result = await propertyTypeService.update(id, propertyType)
 
-      res.status(200).json({
-        data: result,
-        message: 'Property type updated'
-      })
-    } catch (error) {
-      next(error)
-    }
-  })
+        res.status(200).json({
+          data: result,
+          message: 'Property type updated'
+        })
+      } catch (error) {
+        next(error)
+      }
+    })
 
-  router.post('/', async function (req, res, next) {
-    try {
-      const { body: propertyType } = req
+  router.post('/',
+    validationHandler(propertyTypeCreateSchema),
+    async function (req, res, next) {
+      try {
+        const { body: propertyType } = req
 
-      const result = await propertyTypeService.create(propertyType)
+        const result = await propertyTypeService.create(propertyType)
 
-      res.status(201).json({
-        data: result,
-        message: 'Property type created'
-      })
-    } catch (error) {
-      next(error)
-    }
-  })
+        res.status(201).json({
+          data: result,
+          message: 'Property type created'
+        })
+      } catch (error) {
+        next(error)
+      }
+    })
 }
 
 module.exports = propertyTypeApi
