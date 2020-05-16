@@ -55,7 +55,7 @@ function viewApi (app) {
   router.post('/', async function (req, res, next) {
     try {
       const { body: view } = req
-      
+
       const viewCreated = await viewsService.create(view)
 
       res.status(201).json({

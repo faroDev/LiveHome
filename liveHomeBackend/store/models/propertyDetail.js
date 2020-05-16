@@ -10,7 +10,7 @@ module.exports = function setupPropertyDetail (config) {
     id: {
       type: Sequelize.INTEGER,
       primaryKey: true,
-      autoIncremnent: true
+      autoIncrement: true
     },
     address: {
       type: Sequelize.STRING,
