@@ -2,12 +2,14 @@
 
 const express = require('express')
 const Multer = require('multer')
+const joi = require('@hapi/joi')
+const boom = require('@hapi/boom')
 const { Storage } = require('@google-cloud/storage')
 const PropertyService = require('./../services/property')
 const FileService = require('./../services/file')
 const config = require('./../../config')
 const validationHandler = require('./../utils/middleware/validationHandler')
-const { propertyIdSchema, propertyUpdateSchema } = require('./../utils/schemas/property')
+const { propertyIdSchema, propertyUpdateSchema, propertyCreateSchema } = require('./../utils/schemas/property')
 const { uploadImageToStorage } = require('./../utils/files')
 
 var googleStorageConfig = {
@@ -79,6 +81,13 @@ function propertyApi (app) {
     upload.array('photos', 6), async function (req, res, next) {
       try {
         const { body: property, files } = req
+
+        // to fix
+        const { error } = joi.object(propertyCreateSchema).validate(property)
+        if (error) {
+          next(boom.badRequest(error))
+        }
+
         const newProperty = await propertyService.create(property)
 
         const promisesToUploadFiles = files.map(file => {
@@ -98,7 +107,6 @@ function propertyApi (app) {
         })
 
         await Promise.all(filesPromises)
-
         res.status(201).json({
           data: newProperty || {},
           message: 'Property  created'
