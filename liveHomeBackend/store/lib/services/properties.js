@@ -1,7 +1,7 @@
 'use strict'
 
-module.exports = function setupPropertiesService (propertyModel) {
-  async function createOrUpdate (property) {
+module.exports = function setupPropertiesService(propertyModel) {
+  async function createOrUpdate(property) {
     if (property.id) {
       const cond = {
         where: {
@@ -21,7 +21,7 @@ module.exports = function setupPropertiesService (propertyModel) {
     return result.toJSON({ raw: true })
   }
 
-  async function create (property) {
+  async function create(property) {
     property.updatedAt = new Date()
     property.createdAt = new Date()
 
@@ -29,7 +29,7 @@ module.exports = function setupPropertiesService (propertyModel) {
     return result.toJSON({ raw: true })
   }
 
-  async function update (property) {
+  async function update(property) {
     const cond = {
       where: {
         id: property.id
@@ -42,19 +42,31 @@ module.exports = function setupPropertiesService (propertyModel) {
     return exitingproperty
   }
 
-  function findById (id) {
+  function findById(id) {
     return propertyModel.findByPk(id, { raw: true })
   }
 
-  function findAll () {
+  function findAll() {
     return propertyModel.findAll({ raw: true })
   }
+
+  async function findByQuery(object) {
+
+    // MODIFICAR OBJETO 
+
+    return propertyModel.findAll({
+      where: object,
+      order: [['createdAt', 'DESC']]
+    })
+  }
+
 
   return {
     createOrUpdate,
     findById,
     findAll,
     update,
-    create
+    create,
+    findByQuery
   }
 }

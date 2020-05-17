@@ -2,7 +2,7 @@
 const config = require('../config/index')
 const db = require('../index')
 
-async function run () {
+async function run() {
   const configuration = {
     database: config.db.name || 'livehome_db',
     username: config.db.user || 'admin',
@@ -10,29 +10,33 @@ async function run () {
     host: config.db.host || 'localhost',
     dialect: 'postgres',
     returning: true,
-    setup: true
+    setup: true,
+    query: {
+      raw: true
+    }
   }
 
   const { properties } = await db(configuration).catch(handleFatalError)
 
   const property1 = await properties.create({
-    m2: 82.5,
-    m2build: 78.3,
-    furnished: false,
+    m2: 1200,
+    m2build: 1100,
+    furnished: true,
     parking: true,
     pool: true,
     security: true,
     elevator: true,
-    approved: true,
-    bathrooms: 3,
-    nearTo: 'Estación del metro Madera',
+    approved: false,
+    bathrooms: 5,
+    nearTo: 'Cerca al Centro comercial el Tesoro ',
     available: true,
     downAt: new Date(),
     createdAt: new Date(),
     updatedAt: new Date(),
     propertyTypeId: 1,
-    userId: 1
+    userId: 5
   }).catch(handleFatalError)
+
 
   console.log('--userType4--')
   console.log(property1)
@@ -56,7 +60,7 @@ async function run () {
   console.log(property2)
 }
 run()
-function handleFatalError (err) {
+function handleFatalError(err) {
   console.error(err.message)
   console.error(err.stack)
   process.exit(1)

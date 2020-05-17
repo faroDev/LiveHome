@@ -57,6 +57,7 @@ module.exports = async function (config) {
 
   userModel.hasMany(aproveUserModel)
   userModel.hasMany(favoritesModel)
+  userModel.hasMany(viewsModel)
   authModel.hasOne(userModel)
   typeUserModel.hasMany(userModel)
 
