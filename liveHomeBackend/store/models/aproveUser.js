@@ -13,6 +13,11 @@ module.exports = function setupAproveUser (config) {
       primaryKey: true
 
     },
+    avalible: {
+      type: Sequelize.BOOLEAN,
+      allowNull: true,
+      defaultValue: true
+    },
     date: {
       type: Sequelize.DATE,
       allowNull: false

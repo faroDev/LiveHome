@@ -16,7 +16,7 @@ async function run () {
   const { modalityType } = await db(configuration).catch(handleFatalError)
 
   const modalityType1 = await modalityType.create({
-    name: 'Renta',
+    name: 'Venta',
     createdAt: new Date(),
     updatedAt: new Date()
   }).catch(handleFatalError)

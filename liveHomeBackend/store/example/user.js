@@ -16,14 +16,14 @@ async function run () {
   const { user } = await db(configuration).catch(handleFatalError)
 
   const user1 = await user.create({
-    name: 'pedro',
-    lastName: 'perez',
-    secondLastName: 'alvarez',
+    name: 'Vivi',
+    lastName: 'Guti',
+    secondLastName: 'Faja',
     status: 'false',
     createAt: new Date(),
     updateAt: new Date(),
-    authId: 1,
-    typeUserId: 1
+    authId: 3,
+    typeUserId: 2
   }).catch(handleFatalError)
 
   console.log('--userType--')

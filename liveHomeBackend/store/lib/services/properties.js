@@ -50,11 +50,21 @@ module.exports = function setupPropertiesService (propertyModel) {
     return propertyModel.findAll({ raw: true })
   }
 
+  async function findByQuery (object) {
+    // MODIFICAR OBJETO
+
+    return propertyModel.findAll({
+      where: object,
+      order: [['createdAt', 'DESC']]
+    })
+  }
+
   return {
     createOrUpdate,
     findById,
     findAll,
     update,
-    create
+    create,
+    findByQuery
   }
 }

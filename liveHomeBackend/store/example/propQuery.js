@@ -1,6 +1,7 @@
 'use strict'
 const config = require('../config/index')
 const db = require('../index')
+const { Op } = require('sequelize')
 
 async function run () {
   const configuration = {
@@ -10,27 +11,27 @@ async function run () {
     host: config.db.host || 'localhost',
     dialect: 'postgres',
     returning: true,
-    setup: true
+    setup: true,
+    query: {
+      raw: true
+    }
   }
 
-  const { propertyType } = await db(configuration).catch(handleFatalError)
+  const { properties } = await db(configuration).catch(handleFatalError)
 
-  const propertyType1 = await propertyType.create({
-    name: 'Apartamneto',
-    createdAt: new Date(),
-    updatedAt: new Date()
-  }).catch(handleFatalError)
+  const object = {
+    m2: {
+      [Op.between]: [62, 800]
+    },
+    approved: true,
+    pool: true
+  }
+  const queryProp = await properties.findByQuery(object).catch(handleFatalError)
 
   console.log('--userType4--')
-  console.log(propertyType1)
-
-  const propertyTypes = await propertyType.findAll()
-  console.log('--user--')
-  console.log(propertyTypes)
-
-  const propertyType2 = await propertyType.findById(1)
-  console.log('--user--')
-  console.log(propertyType2)
+  console.log(queryProp)
+  const length = queryProp.length
+  console.log('El tamaño es :', length)
 }
 run()
 function handleFatalError (err) {

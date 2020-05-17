@@ -14,7 +14,8 @@ module.exports = function setupPropertyType (config) {
     },
     name: {
       type: Sequelize.STRING,
-      allowNull: false
+      allowNull: false,
+      defaultValue: 'client'
     }
   })
 }
