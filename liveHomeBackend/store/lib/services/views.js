@@ -5,6 +5,7 @@ module.exports = function setupViewsService (viewsModel) {
     const result = await viewsModel.create(views)
     return result.toJSON()
   }
+
   async function update (views) {
     const cond = {
       where: {

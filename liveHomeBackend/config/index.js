@@ -1,4 +1,6 @@
+'use strict'
 require('dotenv').config()
+const Multer = require('multer')
 
 const config = {
   app: {
@@ -14,6 +16,12 @@ const config = {
   },
   auth: {
     authJwtSecret: process.env.AUTH_JWT_SECRET
+  },
+  multer: {
+    storage: Multer.memoryStorage(),
+    limits: {
+      fileSize: 5 * 1024 * 1024 // no larger than 5mb, you can change as needed.
+    }
   }
 }
 

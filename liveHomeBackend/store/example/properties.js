@@ -26,7 +26,7 @@ async function run () {
     approved: true,
     bathrooms: 3,
     nearTo: 'Estación del metro Madera',
-    avalible: true,
+    available: true,
     downAt: new Date(),
     createdAt: new Date(),
     updatedAt: new Date(),
