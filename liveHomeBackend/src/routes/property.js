@@ -2,12 +2,23 @@
 
 const express = require('express')
 const Multer = require('multer')
+const { Storage } = require('@google-cloud/storage')
 const PropertyService = require('./../services/property')
 const FileService = require('./../services/file')
+const config = require('./../../config')
 const validationHandler = require('./../utils/middleware/validationHandler')
 const { propertyIdSchema, propertyUpdateSchema } = require('./../utils/schemas/property')
+const { uploadImageToStorage } = require('./../utils/files')
 
-var upload = Multer({ dest: './uploads' })
+var googleStorageConfig = {
+  projectId: config.googleStorage.projectId,
+  keyFilename: './config/store.json'
+}
+
+const storage = new Storage(googleStorageConfig)
+const bucket = storage.bucket(config.googleStorage.bucketName)
+
+var upload = Multer(config.multer)
 
 function propertyApi (app) {
   const router = express()
@@ -70,10 +81,16 @@ function propertyApi (app) {
         const { body: property, files } = req
         const newProperty = await propertyService.create(property)
 
-        const filesPromises = files.map(file => {
+        const promisesToUploadFiles = files.map(file => {
+          return uploadImageToStorage(file, bucket)
+        })
+
+        const imagesUploaded = await Promise.all(promisesToUploadFiles)
+
+        const filesPromises = imagesUploaded.map(imgUploaded => {
           const newFile = {
-            url: file.originalname,
-            fileType: file.mimetype,
+            url: imgUploaded.url,
+            fileType: imgUploaded.mimeType,
             propertyId: newProperty.id
           }
 
