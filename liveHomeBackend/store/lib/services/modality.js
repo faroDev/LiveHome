@@ -1,7 +1,7 @@
 'use strict'
 
 module.exports = function setupModalityTypeService (modalityModel) {
-  async function createOrUpdate (modality, propertyId, modalTypeId) {
+  async function createOrUpdate (modality) {
     if (modality.id) {
       const cond = {
         where: {
@@ -16,19 +16,12 @@ module.exports = function setupModalityTypeService (modalityModel) {
         return update ? modalityModel.findOne(cond, { raw: true }) : existingModality.toJSON({ raw: true })
       }
     }
-    modality.propertyId = propertyId
-    modality.modalTypeId = modalTypeId
 
     const result = await modalityModel.create(modality)
     return result.toJSON({ raw: true })
   }
 
-  async function create (modality, propertyId, modalTypeId) {
-    modality.propertyId = propertyId
-    modality.modalTypeId = modalTypeId
-    modality.updatedAt = new Date()
-    modality.createdAt = new Date()
-
+  async function create (modality) {
     const result = await modalityModel.create(modality)
     return result.toJSON({ raw: true })
   }
