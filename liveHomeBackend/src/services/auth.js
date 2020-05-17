@@ -5,7 +5,9 @@ const db = require('./../../store')
 
 class AuthService {
   constructor () {
-    this.service = db(config.db)
+    db(config.db).then(service => {
+      this.service = service
+    })
   }
 
   /**
@@ -15,7 +17,7 @@ class AuthService {
     const { password } = auth
     auth.createAt = new Date()
     auth.password = await bcrypt.hash(password, 10)
-    return (await this.service).auth.create(auth)
+    return this.service.auth.create(auth)
   }
 }
 

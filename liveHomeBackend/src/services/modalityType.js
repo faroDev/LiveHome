@@ -5,14 +5,16 @@ const db = require('./../../store')
 
 class ModalityTypeService {
   constructor () {
-    this.service = db(config.db)
+    db(config.db).then(service => {
+      this.service = service
+    })
   }
 
   /**
    * List of modality type
    */
   async get () {
-    return (await this.service).modalityType.findAll()
+    return this.service.modalityType.findAll()
   }
 
   /**
@@ -20,7 +22,7 @@ class ModalityTypeService {
    * @param {*} id
    */
   async getById (id) {
-    return (await this.service).modalityType.findById(id)
+    return this.service.modalityType.findById(id)
   }
 
   /**
@@ -31,7 +33,7 @@ class ModalityTypeService {
   async update (id, modalityType) {
     modalityType.id = id
     modalityType.updatedAt = new Date()
-    return (await this.service).modalityType.update(modalityType)
+    return this.service.modalityType.update(modalityType)
   }
 
   /**
@@ -40,7 +42,7 @@ class ModalityTypeService {
    */
   async create (modalityType) {
     modalityType.createdAt = new Date()
-    return (await this.service).modalityType.create(modalityType)
+    return this.service.modalityType.create(modalityType)
   }
 }
 

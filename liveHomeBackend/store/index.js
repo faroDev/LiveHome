@@ -74,7 +74,7 @@ module.exports = async function (config) {
   const propertyDetail = setupPropertyDetailService(propertyDetailModel)
   const modalityType = setupModalityTypeService(modalityTypeModel)
   const modality = setupModalityService(modalityModel)
-  const aproveUser = setupAproveUserService(aproveUserModel)
+  const approveUser = setupAproveUserService(aproveUserModel)
   const favorites = setupFavoritesService(favoritesModel)
   return {
     typeUser,
@@ -87,7 +87,7 @@ module.exports = async function (config) {
     propertyDetail,
     modalityType,
     modality,
-    aproveUser,
+    approveUser,
     favorites
   }
 }

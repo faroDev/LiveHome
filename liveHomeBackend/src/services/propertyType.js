@@ -5,14 +5,16 @@ const db = require('./../../store')
 
 class PropertyTypeService {
   constructor () {
-    this.service = db(config.db)
+    db(config.db).then(service => {
+      this.service = service
+    })
   }
 
   /**
    * List of property type
    */
   async get () {
-    return (await this.service).propertyType.findAll()
+    return this.service.propertyType.findAll()
   }
 
   /**
@@ -20,7 +22,7 @@ class PropertyTypeService {
    * @param {*} id
    */
   async getById (id) {
-    return (await this.service).propertyType.findById(id)
+    return this.service.propertyType.findById(id)
   }
 
   /**
@@ -31,7 +33,7 @@ class PropertyTypeService {
   async update (id, propertyType) {
     propertyType.id = id
     propertyType.updatedAt = new Date()
-    return (await this.service).propertyType.update(propertyType)
+    return this.service.propertyType.update(propertyType)
   }
 
   /**
@@ -40,7 +42,7 @@ class PropertyTypeService {
    */
   async create (propertyType) {
     propertyType.createdAt = new Date()
-    return (await this.service).propertyType.create(propertyType)
+    return this.service.propertyType.create(propertyType)
   }
 }
 

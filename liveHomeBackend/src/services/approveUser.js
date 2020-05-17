@@ -13,14 +13,14 @@ class ApproveUserService {
    * List of approve users
    */
   async get () {
-    return this.service.aproveUser.findAll()
+    return this.service.approveUser.findAll()
   }
 
   /**
    * Get specific approve user by id
    */
   async getById (id) {
-    return this.service.aproveUser.findById(id)
+    return this.service.approveUser.findById(id)
   }
 
   /**
@@ -29,7 +29,7 @@ class ApproveUserService {
   async update (id, approveUser) {
     approveUser.id = id
     approveUser.updatedAt = new Date()
-    return this.service.aproveUser.update(approveUser)
+    return this.service.approveUser.update(approveUser)
   }
 
   /**
@@ -37,7 +37,7 @@ class ApproveUserService {
    */
   async create (approveUser) {
     approveUser.createdAt = new Date()
-    return this.service.aproveUser.create(approveUser)
+    return this.service.approveUser.create(approveUser)
   }
 }
 
