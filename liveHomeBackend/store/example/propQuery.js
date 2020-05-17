@@ -3,7 +3,7 @@ const config = require('../config/index')
 const db = require('../index')
 const { Op } = require('sequelize')
 
-async function run() {
+async function run () {
   const configuration = {
     database: config.db.name || 'livehome_db',
     username: config.db.user || 'admin',
@@ -28,14 +28,13 @@ async function run() {
   }
   const queryProp = await properties.findByQuery(object).catch(handleFatalError)
 
-
   console.log('--userType4--')
   console.log(queryProp)
   const length = queryProp.length
   console.log('El tamaño es :', length)
 }
 run()
-function handleFatalError(err) {
+function handleFatalError (err) {
   console.error(err.message)
   console.error(err.stack)
   process.exit(1)
