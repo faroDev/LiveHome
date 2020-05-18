@@ -1,6 +1,7 @@
 'use strict'
 const express = require('express')
 const UsersTypeService = require('./../services/usersType')
+const passport = require('passport')
 const validationHandler = require('./../utils/middleware/validationHandler')
 const { userTypeUpdateSchema, userTypeCreateSchema, userTypeId } = require('./../utils/schemas/userType')
 
@@ -8,21 +9,27 @@ function usersTypeApi (app) {
   const router = express()
   const usersTypeService = new UsersTypeService()
 
+  // jwt strategy
+  require('./../utils/auth/strategies/jwt')
+
   app.use('/api/usersType', router)
 
-  router.get('/', async function (req, res, next) {
-    try {
-      const result = await usersTypeService.get()
-      res.status(200).json({
-        data: result || [],
-        message: 'Users type listed'
-      })
-    } catch (error) {
-      next(error)
-    }
-  })
+  router.get('/',
+    passport.authenticate('jwt', { session: false }),
+    async function (req, res, next) {
+      try {
+        const result = await usersTypeService.get()
+        res.status(200).json({
+          data: result || [],
+          message: 'Users type listed'
+        })
+      } catch (error) {
+        next(error)
+      }
+    })
 
   router.get('/:id',
+    passport.authenticate('jwt', { session: false }),
     validationHandler({ id: userTypeId }, 'params'),
     async function (req, res, next) {
       try {
@@ -40,6 +47,7 @@ function usersTypeApi (app) {
     })
 
   router.put('/:id',
+    passport.authenticate('jwt', { session: false }),
     validationHandler({ id: userTypeId }, 'params'),
     validationHandler(userTypeUpdateSchema),
     async function (req, res, next) {
@@ -59,6 +67,7 @@ function usersTypeApi (app) {
     })
 
   router.post('/',
+    passport.authenticate('jwt', { session: false }),
     validationHandler(userTypeCreateSchema),
     async function (req, res, next) {
       try {

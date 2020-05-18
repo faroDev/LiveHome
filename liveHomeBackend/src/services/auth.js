@@ -5,19 +5,24 @@ const db = require('./../../store')
 
 class AuthService {
   constructor () {
-    db(config.db).then(service => {
-      this.service = service
-    })
+    this.service = db(config.db)
   }
 
   /**
-   * Create user
+   * Create auth
    */
   async create (auth) {
     const { password } = auth
     auth.createAt = new Date()
     auth.password = await bcrypt.hash(password, 10)
-    return this.service.auth.create(auth)
+    return (await this.service).auth.create(auth)
+  }
+
+  /**
+   * Find by email
+   */
+  async findByEmail (email) {
+    return (await this.service).auth.findByEmail(email)
   }
 }
 

@@ -15,7 +15,7 @@ const config = {
     dialect: process.env.DIALECT
   },
   auth: {
-    authJwtSecret: process.env.AUTH_JWT_SECRET
+    authJwtSecret: process.env.AUTH_JWT_SECRET || 'secret'
   },
   multer: {
     storage: Multer.memoryStorage(),

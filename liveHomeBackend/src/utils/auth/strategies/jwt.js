@@ -2,7 +2,7 @@ const passport = require('passport')
 const { Strategy, ExtractJwt } = require('passport-jwt')
 const boom = require('@hapi/boom')
 
-const UserService = require('./../../../services/user')
+const AuthService = require('./../../../services/auth')
 const config = require('./../../../../config')
 
 passport.use(
@@ -12,17 +12,18 @@ passport.use(
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken()
     },
     async function (tokenPayload, cb) {
-      const userService = new UserService()
+      const authService = new AuthService()
 
       try {
-        const user = userService.getUser({ email: tokenPayload.email })
-        if (!user) {
+        const { email } = tokenPayload
+        const auth = authService.findByEmail(email)
+        if (!auth) {
           return cb(boom.unauthorized(), false)
         }
 
-        delete user.password
+        delete auth.password
 
-        return cb(null, { ...user, scopes: tokenPayload.scopes })
+        return cb(null, { ...auth })
       } catch (error) {
         cb(error)
       }

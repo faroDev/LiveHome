@@ -1,10 +1,17 @@
 
 'use strict'
 const express = require('express')
+const passport = require('passport')
+const boom = require('@hapi/boom')
+const jwt = require('jsonwebtoken')
 const AuthService = require('./../services/auth')
 const UserService = require('./../services/user')
 const validationHandler = require('./../utils/middleware/validationHandler')
 const { authCreateSchema } = require('./../utils/schemas/auth')
+const config = require('./../../config')
+
+// Basic strategy
+require('./../utils/auth/strategies/basic')
 
 function authApi (app) {
   const router = express()
@@ -12,6 +19,40 @@ function authApi (app) {
   const userService = new UserService()
 
   app.use('/api/auth', router)
+  router.post('/sign-in', async function (req, res, next) {
+    passport.authenticate('basic', async function (error, auth) {
+      try {
+        console.log('auth ', auth)
+
+        if (error) {
+          next(boom.unauthorized())
+        }
+
+        if (!auth) {
+          next(boom.unauthorized())
+        }
+
+        req.login(auth, { session: false }, async function (error) {
+          if (error) {
+            next(error)
+          }
+        })
+
+        const { id, userName, email } = auth
+        const payload = {
+          sub: id,
+          userName,
+          email
+        }
+
+        const token = jwt.sign(payload, config.auth.authJwtSecret, { expiresIn: '15m' })
+
+        return res.status(200).json({ token, user: { id, userName, email } })
+      } catch (error) {
+        next(error)
+      }
+    })(req, res, next)
+  })
 
   router.post('/sign-up',
     validationHandler(authCreateSchema),
