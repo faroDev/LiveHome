@@ -3,6 +3,10 @@ const express = require('express')
 const FileService = require('./../services/file')
 const validationHandler = require('./../utils/middleware/validationHandler')
 const { fileIdSchema, fileCreateSchema, fileUpdateSchema } = require('./../utils/schemas/file')
+const passport = require('passport')
+
+// jwt strategy
+require('./../utils/auth/strategies/jwt')
 
 function fileApi (app) {
   const router = express()
@@ -10,18 +14,20 @@ function fileApi (app) {
 
   app.use('/api/files', router)
 
-  router.get('/', async function (req, res, next) {
-    try {
-      const files = await fileService.get()
+  router.get('/',
+    passport.authenticate('jwt', { session: false }),
+    async function (req, res, next) {
+      try {
+        const files = await fileService.get()
 
-      res.status(200).json({
-        data: files || [],
-        message: 'Files listed'
-      })
-    } catch (error) {
-      next(error)
-    }
-  })
+        res.status(200).json({
+          data: files || [],
+          message: 'Files listed'
+        })
+      } catch (error) {
+        next(error)
+      }
+    })
 
   router.get('/:id',
     validationHandler({ id: fileIdSchema }, 'params'),

@@ -11,6 +11,10 @@ const config = require('./../../config')
 const validationHandler = require('./../utils/middleware/validationHandler')
 const { propertyIdSchema, propertyUpdateSchema, propertyCreateSchema, propertyQuerySchema } = require('./../utils/schemas/property')
 const { uploadImageToStorage } = require('./../utils/files')
+const passport = require('passport')
+
+// jwt strategy
+require('./../utils/auth/strategies/jwt')
 
 var googleStorageConfig = {
   projectId: config.googleStorage.projectId,
@@ -30,6 +34,7 @@ function propertyApi (app) {
   app.use('/api/properties', router)
 
   router.get('/',
+    passport.authenticate('jwt', { session: false }),
     validationHandler(propertyQuerySchema, 'query'),
     async function (req, res, next) {
       try {
@@ -47,6 +52,7 @@ function propertyApi (app) {
     })
 
   router.get('/:id',
+    passport.authenticate('jwt', { session: false }),
     validationHandler({ id: propertyIdSchema }, 'params'),
     async function (req, res, next) {
       try {
@@ -63,6 +69,7 @@ function propertyApi (app) {
     })
 
   router.put('/:id',
+    passport.authenticate('jwt', { session: false }),
     validationHandler({ id: propertyIdSchema }, 'params'),
     validationHandler(propertyUpdateSchema),
     async function (req, res, next) {
@@ -82,6 +89,7 @@ function propertyApi (app) {
     })
 
   router.post('/',
+    passport.authenticate('jwt', { session: false }),
     upload.array('photos', 6), async function (req, res, next) {
       try {
         const { body: property, files } = req
@@ -121,6 +129,7 @@ function propertyApi (app) {
     })
 
   router.get('/:id/dashboard',
+    passport.authenticate('jwt', { session: false }),
     validationHandler({ id: propertyIdSchema }, 'params'),
     async function (req, res, next) {
       try {

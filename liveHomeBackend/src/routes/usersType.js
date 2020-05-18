@@ -5,12 +5,12 @@ const passport = require('passport')
 const validationHandler = require('./../utils/middleware/validationHandler')
 const { userTypeUpdateSchema, userTypeCreateSchema, userTypeId } = require('./../utils/schemas/userType')
 
+// jwt strategy
+require('./../utils/auth/strategies/jwt')
+
 function usersTypeApi (app) {
   const router = express()
   const usersTypeService = new UsersTypeService()
-
-  // jwt strategy
-  require('./../utils/auth/strategies/jwt')
 
   app.use('/api/usersType', router)
 
