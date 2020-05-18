@@ -50,11 +50,21 @@ module.exports = function setupAuthService (authModel) {
     return authModel.findAll({ raw: true })
   }
 
+  function findByEmail (email) {
+    const cond = {
+      where: {
+        email: email
+      }
+    }
+    const user = authModel.findOne(cond, { raw: true })
+    return user
+  }
   return {
     createOrUpdate,
     findById,
     findAll,
     update,
-    create
+    create,
+    findByEmail
   }
 }
