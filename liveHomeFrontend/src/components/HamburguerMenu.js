@@ -13,7 +13,7 @@ const HamburguerMenu = ({ isLoggedIn, isActive }) => {
         <FeatherIcon
           icon='menu'
           className={styles.burguerIcon}
-          size={20}
+          size={70}
           stroke='#4424A6'
         />
       )}
