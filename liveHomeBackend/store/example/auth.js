@@ -2,7 +2,7 @@
 const config = require('../config/index')
 const db = require('../index')
 
-async function run () {
+async function run() {
   const configuration = {
     database: config.db.name || 'livehome_db',
     username: config.db.user || 'admin',
@@ -10,20 +10,23 @@ async function run () {
     host: config.db.host || 'localhost',
     dialect: 'postgres',
     returning: true,
-    setup: true
+    setup: true,
+    query: {
+      raw: true
+    }
   }
 
   const { auth } = await db(configuration).catch(handleFatalError)
 
-  const auth1 = await auth.createOrUpdate({
+  // const auth1 = await auth.createOrUpdate({
 
-    email: 'jose luis',
-    password: '123',
-    userName: 'jl'
-  }).catch(handleFatalError)
+  //   email: 'jose luis',
+  //   password: '123',
+  //   userName: 'jl'
+  // }).catch(handleFatalError)
 
-  console.log('--Auth-')
-  console.log(auth1)
+  // console.log('--Auth-')
+  // console.log(auth1)
 
   const auths = await auth.findAll()
   console.log('--auths--')
@@ -32,9 +35,13 @@ async function run () {
   const auth01 = await auth.findById(1)
   console.log('--auth--')
   console.log(auth01)
+
+  const user = await auth.findByEmail('btaj.code@gmail.com')
+  console.log('---userByemail....')
+  console.log(user)
 }
 run()
-function handleFatalError (err) {
+function handleFatalError(err) {
   console.error(err.message)
   console.error(err.stack)
   process.exit(1)
