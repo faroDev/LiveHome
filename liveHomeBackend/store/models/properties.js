@@ -58,7 +58,7 @@ module.exports = function setupProperties (config) {
       type: Sequelize.TEXT,
       allowNull: false
     },
-    avalible: {
+    available: {
       type: Sequelize.BOOLEAN,
       allowNull: true,
       defaultValue: false

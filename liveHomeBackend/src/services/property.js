@@ -12,9 +12,10 @@ class PropertyService {
 
   /**
    * List of property
+   * @param {*} query
    */
-  async get () {
-    return this.service.properties.findAll()
+  async get (query) {
+    return this.service.properties.findByQuery(query)
   }
 
   /**

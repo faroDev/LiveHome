@@ -9,7 +9,7 @@ const PropertyService = require('./../services/property')
 const FileService = require('./../services/file')
 const config = require('./../../config')
 const validationHandler = require('./../utils/middleware/validationHandler')
-const { propertyIdSchema, propertyUpdateSchema, propertyCreateSchema } = require('./../utils/schemas/property')
+const { propertyIdSchema, propertyUpdateSchema, propertyCreateSchema, propertyQuerySchema } = require('./../utils/schemas/property')
 const { uploadImageToStorage } = require('./../utils/files')
 
 var googleStorageConfig = {
@@ -29,18 +29,22 @@ function propertyApi (app) {
 
   app.use('/api/properties', router)
 
-  router.get('/', async function (req, res, next) {
-    try {
-      const result = await propertyService.get()
+  router.get('/',
+    validationHandler(propertyQuerySchema, 'query'),
+    async function (req, res, next) {
+      try {
+        const { query } = req
 
-      res.status(200).json({
-        data: result || [],
-        message: 'Properties  listed'
-      })
-    } catch (error) {
-      next(error)
-    }
-  })
+        const result = await propertyService.get(query)
+
+        res.status(200).json({
+          data: result || [],
+          message: 'Properties  listed'
+        })
+      } catch (error) {
+        next(error)
+      }
+    })
 
   router.get('/:id',
     validationHandler({ id: propertyIdSchema }, 'params'),

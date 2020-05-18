@@ -13,7 +13,7 @@ module.exports = function setupAproveUser (config) {
       primaryKey: true
 
     },
-    avalible: {
+    available: {
       type: Sequelize.BOOLEAN,
       allowNull: true,
       defaultValue: true

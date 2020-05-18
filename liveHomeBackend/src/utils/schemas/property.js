@@ -14,6 +14,8 @@ const propertyBathroomsSchema = joi.number()
 const propertyNearToSchema = joi.string()
 const propertyAvailableSchema = joi.boolean()
 const propertyDownAtSchema = joi.date()
+const propertyCreatedAtSchema = joi.date()
+const propertyUpdatedAtSchema = joi.date()
 const propertyPropertyTypeIdSchema = joi.number()
 const propertyUserIdSchema = joi.number()
 
@@ -51,8 +53,34 @@ const propertyUpdateSchema = {
   userId: propertyUserIdSchema
 }
 
+const propertyQuerySchema = {
+  m2Min: propertyM2Schema,
+  m2Max: propertyM2Schema,
+  m2buildMin: propertyM2buildSchema,
+  m2buildMax: propertyM2buildSchema,
+  bathroomsMin: propertyBathroomsSchema,
+  bathroomsMax: propertyBathroomsSchema,
+  downAtMin: propertyDownAtSchema,
+  downAtMax: propertyDownAtSchema,
+  createdAtMin: propertyCreatedAtSchema,
+  createdAtMax: propertyCreatedAtSchema,
+  updatedAtMin: propertyUpdatedAtSchema,
+  updatedAtMax: propertyUpdatedAtSchema,
+  furnished: propertyFurnishedSchema,
+  parking: propertyParkingSchema,
+  pool: propertyPoolSchema,
+  security: propertySecuritySchema,
+  elevator: propertyElevatorSchema,
+  approved: propertyApprovedSchema,
+  nearTo: propertyNearToSchema,
+  available: propertyAvailableSchema,
+  propertyTypeId: propertyPropertyTypeIdSchema,
+  userId: propertyUserIdSchema
+}
+
 module.exports = {
   propertyIdSchema,
   propertyCreateSchema,
-  propertyUpdateSchema
+  propertyUpdateSchema,
+  propertyQuerySchema
 }
