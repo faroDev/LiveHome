@@ -1,5 +1,6 @@
 'use strict'
 const express = require('express')
+const passport = require('passport')
 const ModalityService = require('./../services/modality')
 const validationHandler = require('./../utils/middleware/validationHandler')
 const { modalityIdSchema, modalityCreateSchema, modalityUpdateSchema } = require('./../utils/schemas/modality')
@@ -14,7 +15,7 @@ function modalityApi (app) {
   app.use('/api/modalities', router)
 
   router.get('/',
-
+    passport.authenticate('jwt', { session: false }),
     async function (req, res, next) {
       try {
         const modalities = await modalityService.get()
@@ -29,7 +30,7 @@ function modalityApi (app) {
     })
 
   router.get('/:id',
-
+    passport.authenticate('jwt', { session: false }),
     validationHandler({ id: modalityIdSchema }, 'params'),
     async function (req, res, next) {
       try {
@@ -47,7 +48,7 @@ function modalityApi (app) {
     })
 
   router.put('/:id',
-
+    passport.authenticate('jwt', { session: false }),
     validationHandler({ id: modalityIdSchema }, 'params'),
     validationHandler(modalityUpdateSchema),
     async function (req, res, next) {
@@ -67,7 +68,7 @@ function modalityApi (app) {
     })
 
   router.post('/',
-
+    passport.authenticate('jwt', { session: false }),
     validationHandler(modalityCreateSchema),
     async function (req, res, next) {
       try {

@@ -38,8 +38,8 @@ class FavoriteService {
   async create (favorite) {
     favorite.createdAt = new Date()
     favorite.date = new Date()
-    console.log('favorite ',favorite);
-    
+    console.log('favorite ', favorite)
+
     return this.service.favorites.create(favorite)
   }
 }

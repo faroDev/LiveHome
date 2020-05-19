@@ -15,7 +15,7 @@ function favoriteApi (app) {
   app.use('/api/favorites', router)
 
   router.get('/',
-    passport.authenticate('jwt', { session:false }),
+    passport.authenticate('jwt', { session: false }),
     validationHandler(favoriteQuerySchema, 'query'),
     async function (req, res, next) {
       try {
@@ -31,7 +31,7 @@ function favoriteApi (app) {
     })
 
   router.get('/:id',
-    passport.authenticate('jwt', { session:false }),
+    passport.authenticate('jwt', { session: false }),
     validationHandler({ id: favoriteIdSchema }, 'params'),
     async function (req, res, next) {
       try {
@@ -49,7 +49,7 @@ function favoriteApi (app) {
     })
 
   router.put('/:id',
-    passport.authenticate('jwt', { session:false }),
+    passport.authenticate('jwt', { session: false }),
     validationHandler({ id: favoriteIdSchema }, 'params'),
     validationHandler(favoriteUpdateSchema),
     async function (req, res, next) {
@@ -69,7 +69,7 @@ function favoriteApi (app) {
     })
 
   router.post('/',
-    passport.authenticate('jwt', { session:false }),
+    passport.authenticate('jwt', { session: false }),
     validationHandler(favoriteCreateSchema),
     async function (req, res, next) {
       try {
