@@ -1,7 +1,7 @@
 'use strict'
 
-module.exports = function setupPropertyDetailService (typeUserModel) {
-  async function createOrUpdate (typeUser) {
+module.exports = function setupTypeUserService(typeUserModel) {
+  async function createOrUpdate(typeUser) {
     if (typeUser.id) {
       const cond = {
         where: {
@@ -21,7 +21,7 @@ module.exports = function setupPropertyDetailService (typeUserModel) {
     return result.toJSON({ raw: true })
   }
 
-  async function create (typeUser) {
+  async function create(typeUser) {
     typeUser.updatedAt = new Date()
     typeUser.createdAt = new Date()
 
@@ -29,7 +29,7 @@ module.exports = function setupPropertyDetailService (typeUserModel) {
     return result.toJSON({ raw: true })
   }
 
-  async function update (id, typeUser) {
+  async function update(id, typeUser) {
     const cond = {
       where: {
         id
@@ -42,11 +42,11 @@ module.exports = function setupPropertyDetailService (typeUserModel) {
     return existingTypeUser
   }
 
-  function findById (id) {
+  function findById(id) {
     return typeUserModel.findByPk(id, { raw: true })
   }
 
-  function findAll () {
+  function findAll() {
     return typeUserModel.findAll({ raw: true })
   }
 

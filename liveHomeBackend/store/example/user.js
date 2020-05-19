@@ -2,7 +2,7 @@
 const config = require('../config/index')
 const db = require('../index')
 
-async function run () {
+async function run() {
   const configuration = {
     database: config.db.name || 'livehome_db',
     username: config.db.user || 'admin',
@@ -50,11 +50,11 @@ async function run () {
   const propertyUser = await user.propertyUser(3)
   console.log('Properties ', propertyUser)
 
-  const viewsProperties = await user.viewsUser(3)
+  const viewsProperties = await user.viewsUser(5)
   console.log('views ', viewsProperties)
 }
 run()
-function handleFatalError (err) {
+function handleFatalError(err) {
   console.error(err.message)
   console.error(err.stack)
   process.exit(1)

@@ -1,12 +1,12 @@
 'use strict'
 
-module.exports = function setupViewsService (viewsModel) {
-  async function create (views) {
+module.exports = function setupViewsService(viewsModel) {
+  async function create(views) {
     const result = await viewsModel.create(views)
     return result.toJSON()
   }
 
-  async function update (views) {
+  async function update(views) {
     const cond = {
       where: {
         id: views.id
@@ -20,18 +20,32 @@ module.exports = function setupViewsService (viewsModel) {
     }
   }
 
-  function findById (id) {
+  function findById(id) {
     return viewsModel.findByPk(id, { raw: true })
   }
 
-  function findAll () {
+  function findAll() {
     return viewsModel.findAll({ raw: true })
+  }
+
+  function viewsBypropId(propertyId) {
+    return viewsModel.findAll({
+      attributes: ['id', 'counter'],
+      group: ['id', 'counter'],
+      where: {
+
+        propertyId: propertyId
+      },
+
+      raw: true
+    })
   }
 
   return {
     create,
     update,
     findById,
-    findAll
+    findAll,
+    viewsBypropId
   }
 }
