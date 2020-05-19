@@ -1,11 +1,11 @@
 'use strict'
 
-module.exports = function setupUserService(statusModel) {
-  async function create(status) {
+module.exports = function setupUserService (statusModel) {
+  async function create (status) {
     const result = await statusModel.create(status)
     return result.toJSON()
   }
-  async function update(status) {
+  async function update (status) {
     const cond = {
       where: {
         id: status.id
@@ -19,11 +19,11 @@ module.exports = function setupUserService(statusModel) {
     }
   }
 
-  function findById(id) {
+  function findById (id) {
     return statusModel.findByPk(id, { raw: true })
   }
 
-  function findAll() {
+  function findAll () {
     return statusModel.findAll({ raw: true })
   }
 
