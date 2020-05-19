@@ -1,5 +1,8 @@
 'use strict'
 const express = require('express')
+const passport = require('passport')
+const validationHandler = require('./../utils/middleware/validationHandler')
+const { favoriteIdSchema, favoriteCreateSchema, favoriteUpdateSchema, favoriteQuerySchema } = require('./../utils/schemas/favorite')
 const FavoriteService = require('./../services/favorite')
 
 // jwt strategy
@@ -12,7 +15,8 @@ function favoriteApi (app) {
   app.use('/api/favorites', router)
 
   router.get('/',
-
+    passport.authenticate('jwt', { session:false }),
+    validationHandler(favoriteQuerySchema, 'query'),
     async function (req, res, next) {
       try {
         const favorites = await favoriteService.get()
@@ -27,7 +31,8 @@ function favoriteApi (app) {
     })
 
   router.get('/:id',
-
+    passport.authenticate('jwt', { session:false }),
+    validationHandler({ id: favoriteIdSchema }, 'params'),
     async function (req, res, next) {
       try {
         const { id } = req.params
@@ -44,7 +49,9 @@ function favoriteApi (app) {
     })
 
   router.put('/:id',
-
+    passport.authenticate('jwt', { session:false }),
+    validationHandler({ id: favoriteIdSchema }, 'params'),
+    validationHandler(favoriteUpdateSchema),
     async function (req, res, next) {
       try {
         const { id } = req.params
@@ -62,7 +69,8 @@ function favoriteApi (app) {
     })
 
   router.post('/',
-
+    passport.authenticate('jwt', { session:false }),
+    validationHandler(favoriteCreateSchema),
     async function (req, res, next) {
       try {
         const { body: favorite } = req
