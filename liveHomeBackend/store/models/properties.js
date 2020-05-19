@@ -26,7 +26,7 @@ module.exports = function setupProperties (config) {
       defaultValue: false
     },
     parking: {
-      type: Sequelize.BOOLEAN,
+      type: Sequelize.NUMBER,
       allowNull: true,
       defaultValue: false
     },

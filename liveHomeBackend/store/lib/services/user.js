@@ -1,6 +1,6 @@
 'use strict'
 
-module.exports = function setupUserService (userModel) {
+module.exports = function setupUserService (userModel, propertyModel, viewsModel) {
   async function create (user) {
     const result = await userModel.create(user)
     return result.toJSON()
@@ -26,11 +26,47 @@ module.exports = function setupUserService (userModel) {
   function findAll () {
     return userModel.findAll({ raw: true })
   }
+  function propertyUser (userId) {
+    return userModel.findAll({
+      attributes: ['name', 'id'],
+      include: [{
+        attributes: ['m2', 'approved'],
+        model: propertyModel,
+        where: {
+          userId: userId,
+          approved: true
+        }
+      }],
+      raw: true
+    })
+  }
+
+  function viewsUser (userId) {
+    return userModel.findAll({
+      attributes: ['name', 'id'],
+      include: [
+        {
+          attributes: ['propertyId'],
+          model: viewsModel,
+          where: {
+            userId: userId
+          }
+        },
+        {
+          attributes: ['id', 'm2', 'approved'],
+          model: propertyModel
+        }
+      ],
+      raw: true
+    })
+  }
 
   return {
     create,
     update,
     findById,
-    findAll
+    findAll,
+    propertyUser,
+    viewsUser
   }
 }

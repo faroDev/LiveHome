@@ -65,7 +65,7 @@ module.exports = async function (config) {
   await sequialize.sync()
 
   const typeUser = setupTypeUserService(typeUserModel)
-  const user = setupUserService(userModel)
+  const user = setupUserService(userModel, propertyModel, viewsModel)
   const auth = setupAuthService(authModel)
   const propertyType = setupPropertyTypeService(propertyTypeModel)
   const properties = setupPropertiesService(propertyModel)
@@ -76,6 +76,7 @@ module.exports = async function (config) {
   const modality = setupModalityService(modalityModel)
   const aproveUser = setupAproveUserService(aproveUserModel)
   const favorites = setupFavoritesService(favoritesModel)
+
   return {
     typeUser,
     user,
