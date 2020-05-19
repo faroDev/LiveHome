@@ -15,6 +15,7 @@ const setupModalityType = require('./models/modalityType')
 const setupPropertyType = require('./models/propertyType')
 const setupFiles = require('./models/files')
 const setupViews = require('./models/views')
+const setupStatus = require('./models/status')
 
 // services
 const setupTypeUserService = require('./lib/services/typeUser')
@@ -29,6 +30,7 @@ const setupModalityTypeService = require('./lib/services/modalityType')
 const setupModalityService = require('./lib/services/modality')
 const setupAproveUserService = require('./lib/services/aproveUser')
 const setupFavoritesService = require('./lib/services/favorites')
+const setupStatusService = require('./lib/services/status')
 
 module.exports = async function (config) {
   const sequialize = setupDatabase(config)
@@ -44,6 +46,7 @@ module.exports = async function (config) {
   const propertyTypeModel = setupPropertyType(config)
   const filesModel = setupFiles(config)
   const viewsModel = setupViews(config)
+  const statusModel = setupStatus(config)
 
   propertyModel.hasOne(propertyDetailModel)
   propertyModel.hasMany(viewsModel)
@@ -52,6 +55,8 @@ module.exports = async function (config) {
   propertyModel.hasMany(aproveUserModel)
   propertyModel.hasMany(favoritesModel)
   propertyTypeModel.hasMany(propertyModel)
+
+  statusModel.hasMany(propertyModel)
   userModel.hasMany(propertyModel)
   modalityTypeModel.hasMany(modalityModel)
 
@@ -62,7 +67,7 @@ module.exports = async function (config) {
   typeUserModel.hasMany(userModel)
 
   await sequialize.authenticate()
-  await sequialize.sync()
+  await sequialize.sync({ force: true })
 
   const typeUser = setupTypeUserService(typeUserModel)
   const user = setupUserService(userModel, propertyModel, viewsModel)
@@ -76,6 +81,7 @@ module.exports = async function (config) {
   const modality = setupModalityService(modalityModel)
   const aproveUser = setupAproveUserService(aproveUserModel)
   const favorites = setupFavoritesService(favoritesModel)
+  const status = setupStatusService(statusModel)
 
   return {
     typeUser,
@@ -89,6 +95,7 @@ module.exports = async function (config) {
     modalityType,
     modality,
     aproveUser,
-    favorites
+    favorites,
+    status
   }
 }

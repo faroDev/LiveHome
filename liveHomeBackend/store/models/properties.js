@@ -28,7 +28,6 @@ module.exports = function setupProperties(config) {
     parking: {
       type: Sequelize.INTEGER,
       allowNull: true,
-      defaultValue: false
     },
     pool: {
       type: Sequelize.BOOLEAN,
