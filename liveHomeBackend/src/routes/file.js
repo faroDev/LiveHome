@@ -1,5 +1,6 @@
 'use strict'
 const express = require('express')
+const passport = require('passport')
 const FileService = require('./../services/file')
 const validationHandler = require('./../utils/middleware/validationHandler')
 const { fileIdSchema, fileCreateSchema, fileUpdateSchema } = require('./../utils/schemas/file')
@@ -14,6 +15,7 @@ function fileApi (app) {
   app.use('/api/files', router)
 
   router.get('/',
+    passport.authenticate('jwt', { session: false }),
     async function (req, res, next) {
       try {
         const files = await fileService.get()
@@ -28,6 +30,7 @@ function fileApi (app) {
     })
 
   router.get('/:id',
+    passport.authenticate('jwt', { session: false }),
     validationHandler({ id: fileIdSchema }, 'params'),
     async function (req, res, next) {
       try {
@@ -45,6 +48,7 @@ function fileApi (app) {
     })
 
   router.put('/:id',
+    passport.authenticate('jwt', { session: false }),
     validationHandler({ id: fileIdSchema }, 'params'),
     validationHandler(fileUpdateSchema),
     async function (req, res, next) {
@@ -64,6 +68,7 @@ function fileApi (app) {
     })
 
   router.post('/',
+    passport.authenticate('jwt', { session: false }),
     validationHandler(fileCreateSchema),
     async function (req, res, next) {
       try {
