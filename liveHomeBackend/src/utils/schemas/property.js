@@ -9,7 +9,7 @@ const propertyParkingSchema = joi.number()
 const propertyPoolSchema = joi.boolean()
 const propertySecuritySchema = joi.boolean()
 const propertyElevatorSchema = joi.boolean()
-const propertyApprovedSchema = joi.boolean()
+const propertyApprovedSchema = joi.number()
 const propertyBathroomsSchema = joi.number()
 const propertyNearToSchema = joi.string()
 const propertyAvailableSchema = joi.boolean()
@@ -27,7 +27,7 @@ const propertyCreateSchema = {
   pool: propertyPoolSchema.required(),
   security: propertySecuritySchema.required(),
   elevator: propertyElevatorSchema.required(),
-  approved: propertyApprovedSchema.required(),
+  statusId: propertyApprovedSchema.required(),
   bathrooms: propertyBathroomsSchema.required(),
   nearTo: propertyNearToSchema.required(),
   available: propertyAvailableSchema.required(),
@@ -44,7 +44,7 @@ const propertyUpdateSchema = {
   pool: propertyPoolSchema,
   security: propertySecuritySchema,
   elevator: propertyElevatorSchema,
-  approved: propertyApprovedSchema,
+  statusId: propertyApprovedSchema.required(),
   bathrooms: propertyBathroomsSchema,
   nearTo: propertyNearToSchema,
   available: propertyAvailableSchema,
@@ -72,7 +72,7 @@ const propertyQuerySchema = {
   pool: propertyPoolSchema,
   security: propertySecuritySchema,
   elevator: propertyElevatorSchema,
-  approved: propertyApprovedSchema,
+  statusId: propertyApprovedSchema.required(),
   nearTo: propertyNearToSchema,
   available: propertyAvailableSchema,
   propertyTypeId: propertyPropertyTypeIdSchema,
