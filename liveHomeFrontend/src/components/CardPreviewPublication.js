@@ -3,6 +3,7 @@ import React from 'react';
 import Card from './Card';
 import Icon from './Icon';
 import Chip from './Chip';
+import InformationIcon from './InformationIcon';
 
 import BedIcon from '../assets/statics/images/bed.png'
 import ShowerIcon from '../assets/statics/images/shower.png'
@@ -35,22 +36,10 @@ const CardPreviewPublication = ({ images, title, price, type, description, rooms
             <Chip nameLabel='Detail' labelClass='rose_label' />
           </div>
           <div className={styles.buildings__card_detail_complements}>
-            <div>
-              <img src={BedIcon} alt='Bed icon' />
-              <span>{rooms}</span>
-            </div>
-            <div>
-              <img src={ShowerIcon} alt='Sink icon' />
-              <span>{bathrooms}</span>
-            </div>
-            <div>
-              <img src={AreaIcon} alt='' />
-              <span>{area}m<sup>2</sup></span>
-            </div>
-            <div>
-              <img src={GarageIcon} alt='' />
-              <span>{parking}</span>
-            </div>
+            <InformationIcon icon={BedIcon} value={rooms} />
+            <InformationIcon icon={ShowerIcon} value={bathrooms} />
+            <InformationIcon icon={AreaIcon} value={`${area}m`} sup='2' />
+            <InformationIcon icon={GarageIcon} value={parking} />
           </div>
         </div>
       </Card>
