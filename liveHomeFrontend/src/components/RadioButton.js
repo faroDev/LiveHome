@@ -1,17 +1,20 @@
 import React from 'react';
 import styles from '../styles/components/RadioButton.module.sass';
 
-function RadioButton ({ options, name }) {
+function RadioButton ({ options, name, title }) {
   return (
     <>
-      {options.map((item, key) => {
-        return (
-          <div key={key} className={styles.radio}>
-            <input id={item} type='radio' name={name} value={item} />
-            <label htmlFor={item}>{item}</label>
-          </div>
-        );
-      })}
+      <span className={styles.radio_title}>{title}</span>
+      <div className={styles.radio_container}>
+        {options.map((item, key) => {
+          return (
+            <div key={key} className={styles.radio_item}>
+              <input id={item} type='radio' name={name} value={item} />
+              <label htmlFor={item}>{item}</label>
+            </div>
+          );
+        })}
+      </div>
     </>
   );
 }
