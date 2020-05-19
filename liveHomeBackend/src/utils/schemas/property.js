@@ -5,7 +5,7 @@ const propertyIdSchema = joi.number()
 const propertyM2Schema = joi.number()
 const propertyM2buildSchema = joi.number()
 const propertyFurnishedSchema = joi.boolean()
-const propertyParkingSchema = joi.boolean()
+const propertyParkingSchema = joi.number()
 const propertyPoolSchema = joi.boolean()
 const propertySecuritySchema = joi.boolean()
 const propertyElevatorSchema = joi.boolean()
@@ -66,8 +66,9 @@ const propertyQuerySchema = {
   createdAtMax: propertyCreatedAtSchema,
   updatedAtMin: propertyUpdatedAtSchema,
   updatedAtMax: propertyUpdatedAtSchema,
+  parkingMin: propertyParkingSchema,
+  parkingMax: propertyParkingSchema,
   furnished: propertyFurnishedSchema,
-  parking: propertyParkingSchema,
   pool: propertyPoolSchema,
   security: propertySecuritySchema,
   elevator: propertyElevatorSchema,
