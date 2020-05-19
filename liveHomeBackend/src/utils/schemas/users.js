@@ -28,8 +28,18 @@ const userUpdateSchema = {
   typeUserId: userTypeUserIdSchema
 }
 
+const userQuerySchema = {
+  name: userNameSchema,
+  lastName: userLastNameSchema,
+  secondLastName: userSecondLastNameSchema,
+  status: userStatusSchema,
+  authId: userAuthIdSchema,
+  typeUserId: userTypeUserIdSchema
+}
+
 module.exports = {
   userIdSchema,
   userCreateSchema,
-  userUpdateSchema
+  userUpdateSchema,
+  userQuerySchema
 }

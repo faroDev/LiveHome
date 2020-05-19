@@ -1,8 +1,9 @@
 'use strict'
 const express = require('express')
+const passport = require('passport')
 const UserService = require('./../services/user')
 const validationHandler = require('./../utils/middleware/validationHandler')
-const { userIdSchema, userCreateSchema, userUpdateSchema } = require('./../utils/schemas/users')
+const { userIdSchema, userCreateSchema, userUpdateSchema, userQuerySchema } = require('./../utils/schemas/users')
 
 // jwt strategy
 require('./../utils/auth/strategies/jwt')
@@ -12,8 +13,10 @@ function userApi (app) {
   const userService = new UserService()
 
   app.use('/api/users', router)
-
+  
   router.get('/',
+  passport.authenticate('jwt', { session: false }),
+  validationHandler(userQuerySchema, 'query'),
     async function (req, res, next) {
       try {
         const users = await userService.get()
@@ -28,7 +31,7 @@ function userApi (app) {
     })
 
   router.get('/:id',
-
+  passport.authenticate('jwt', { session: false }),
     validationHandler({ id: userIdSchema }, 'params'),
     async function (req, res, next) {
       try {
@@ -46,7 +49,7 @@ function userApi (app) {
     })
 
   router.put('/:id',
-
+  passport.authenticate('jwt', { session: false }),
     validationHandler({ id: userIdSchema }, 'params'),
     validationHandler(userUpdateSchema),
     async function (req, res, next) {
@@ -66,7 +69,7 @@ function userApi (app) {
     })
 
   router.post('/',
-
+  passport.authenticate('jwt', { session: false }),
     validationHandler(userCreateSchema),
     async function (req, res, next) {
       try {
@@ -84,7 +87,7 @@ function userApi (app) {
     })
 
   router.get('/:id/dashboard',
-
+  passport.authenticate('jwt', { session: false }),
     validationHandler({ id: userIdSchema }, 'params'),
     async function (req, res, next) {
       try {
