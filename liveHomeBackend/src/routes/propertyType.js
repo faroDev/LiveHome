@@ -4,6 +4,7 @@ const express = require('express')
 const PropertyTypeService = require('./../services/propertyType')
 const validationHandler = require('./../utils/middleware/validationHandler')
 const { propertyTypeUpdateSchema, propertyTypeCreateSchema, propertyTypeId } = require('./../utils/schemas/propertyType')
+const passport = require('passport')
 
 // jwt strategy
 require('./../utils/auth/strategies/jwt')
@@ -13,7 +14,7 @@ function propertyTypeApi (app) {
   const propertyTypeService = new PropertyTypeService()
 
   app.use('/api/propertyType', router)
-
+  passport.authenticate('jwt', { session: false })
   router.get('/',
     async function (req, res, next) {
       try {

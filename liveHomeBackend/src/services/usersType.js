@@ -28,8 +28,11 @@ class UsersTypeService {
    * Update specific user type by id
    */
   async update (id, userType) {
+    userType.id = id
     userType.updatedAt = new Date()
-    return this.service.typeUser.update()
+    console.log(userType)
+
+    return this.service.typeUser.update(userType)
   }
 
   /**

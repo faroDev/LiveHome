@@ -4,16 +4,13 @@ const joi = require('@hapi/joi')
 
 const userTypeId = joi.number()
 const userTypeName = joi.string()
-const userTypeDescription = joi.string()
 
 const userTypeCreateSchema = {
-  name: userTypeName.required(),
-  description: userTypeDescription
+  name: userTypeName.required()
 }
 
 const userTypeUpdateSchema = {
-  name: userTypeName,
-  description: userTypeDescription
+  name: userTypeName
 }
 
 module.exports = {

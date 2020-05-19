@@ -1,7 +1,7 @@
 'use strict'
 const express = require('express')
 const UsersTypeService = require('./../services/usersType')
-
+const passport = require('passport')
 const validationHandler = require('./../utils/middleware/validationHandler')
 const { userTypeUpdateSchema, userTypeCreateSchema, userTypeId } = require('./../utils/schemas/userType')
 
@@ -15,6 +15,7 @@ function usersTypeApi (app) {
   app.use('/api/usersType', router)
 
   router.get('/',
+    passport.authenticate('jwt', { session: false }),
     async function (req, res, next) {
       try {
         const result = await usersTypeService.get()
@@ -28,6 +29,7 @@ function usersTypeApi (app) {
     })
 
   router.get('/:id',
+    passport.authenticate('jwt', { session: false }),
     async function (req, res, next) {
       try {
         const { id } = req.params
@@ -44,6 +46,7 @@ function usersTypeApi (app) {
     })
 
   router.put('/:id',
+    passport.authenticate('jwt', { session: false }),
     validationHandler({ id: userTypeId }, 'params'),
     validationHandler(userTypeUpdateSchema),
     async function (req, res, next) {
@@ -63,6 +66,7 @@ function usersTypeApi (app) {
     })
 
   router.post('/',
+    passport.authenticate('jwt', { session: false }),
     validationHandler(userTypeCreateSchema),
     async function (req, res, next) {
       try {
