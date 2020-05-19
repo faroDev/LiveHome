@@ -4,10 +4,10 @@ import Card from './Card';
 import Icon from './Icon';
 import Chip from './Chip';
 
-import BedIcon from '../assets/statics/images/bed.png'
-import ShowerIcon from '../assets/statics/images/shower.png'
-import AreaIcon from '../assets/statics/images/area.png'
-import GarageIcon from '../assets/statics/images/garage.png'
+import BedIcon from '../assets/statics/images/bed.png';
+import ShowerIcon from '../assets/statics/images/shower.png';
+import AreaIcon from '../assets/statics/images/area.png';
+import GarageIcon from '../assets/statics/images/garage.png';
 
 import styles from '../styles/components/CardPreviewPublication.module.sass';
 

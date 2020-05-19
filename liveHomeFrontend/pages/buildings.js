@@ -12,7 +12,6 @@ import Input from '../src/components/Input';
 import Selector from '../src/components/Selector';
 import RadioButton from '../src/components/RadioButton';
 
-
 import styles from '../src/styles/pages/buildings.module.sass';
 
 const Buildings = () => {
@@ -25,9 +24,9 @@ const Buildings = () => {
             <Modal buttonText='Filter'>
               <div className={styles.buildings__modal_container}>
                 <h3>Filter</h3>
-                <Form >
+                <Form>
                   <FormField>
-                    <Selector label='Property type' options={[]}/>
+                    <Selector label='Property type' options={[]} />
                   </FormField>
                   <FormField>
                     <Input type='numeric' label='bedrooms' name='bedrooms' />
@@ -51,25 +50,25 @@ const Buildings = () => {
                     </div>
                   </FormField>
                   <FormField>
-                    <RadioButton options={['yes', 'no']} name='furnished' title='furnished'/>
+                    <RadioButton options={['yes', 'no']} name='furnished' title='furnished' />
                   </FormField>
                   <FormField>
-                    <RadioButton options={['yes', 'no']} name='parking' title='parking'/>
+                    <RadioButton options={['yes', 'no']} name='parking' title='parking' />
                   </FormField>
                   <FormField>
-                    <RadioButton options={['yes', 'no']} name='pool' title='Swimming pool'/>
+                    <RadioButton options={['yes', 'no']} name='pool' title='Swimming pool' />
                   </FormField>
                   <FormField>
-                    <RadioButton options={['yes', 'no']} name='heating' title='heating'/>
+                    <RadioButton options={['yes', 'no']} name='heating' title='heating' />
                   </FormField>
                   <FormField>
-                    <RadioButton options={['yes', 'no']} name='warehouse' title='warehouse'/>
+                    <RadioButton options={['yes', 'no']} name='warehouse' title='warehouse' />
                   </FormField>
                   <FormField>
-                    <RadioButton options={['yes', 'no']} name='elevator' title='elevator'/>
+                    <RadioButton options={['yes', 'no']} name='elevator' title='elevator' />
                   </FormField>
                   <FormField>
-                    <RadioButton options={['yes', 'no']} name='security' title='security service'/>
+                    <RadioButton options={['yes', 'no']} name='security' title='security service' />
                   </FormField>
                   <Button buttonType='submit' buttonClass='grayButton' value='Apply filter' />
                 </Form>
