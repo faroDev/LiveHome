@@ -3,7 +3,6 @@ const express = require('express')
 const UserService = require('./../services/user')
 const validationHandler = require('./../utils/middleware/validationHandler')
 const { userIdSchema, userCreateSchema, userUpdateSchema } = require('./../utils/schemas/users')
-const passport = require('passport')
 
 // jwt strategy
 require('./../utils/auth/strategies/jwt')
@@ -15,7 +14,6 @@ function userApi (app) {
   app.use('/api/users', router)
 
   router.get('/',
-    passport.authenticate('jwt', { session: false }),
     async function (req, res, next) {
       try {
         const users = await userService.get()
@@ -30,7 +28,7 @@ function userApi (app) {
     })
 
   router.get('/:id',
-    passport.authenticate('jwt', { session: false }),
+
     validationHandler({ id: userIdSchema }, 'params'),
     async function (req, res, next) {
       try {
@@ -48,7 +46,7 @@ function userApi (app) {
     })
 
   router.put('/:id',
-    passport.authenticate('jwt', { session: false }),
+
     validationHandler({ id: userIdSchema }, 'params'),
     validationHandler(userUpdateSchema),
     async function (req, res, next) {
@@ -68,7 +66,7 @@ function userApi (app) {
     })
 
   router.post('/',
-    passport.authenticate('jwt', { session: false }),
+
     validationHandler(userCreateSchema),
     async function (req, res, next) {
       try {
@@ -86,7 +84,7 @@ function userApi (app) {
     })
 
   router.get('/:id/dashboard',
-    passport.authenticate('jwt', { session: false }),
+
     validationHandler({ id: userIdSchema }, 'params'),
     async function (req, res, next) {
       try {
@@ -97,16 +95,19 @@ function userApi (app) {
             favorites: 40,
             properties: [
               {
+                id: 1,
                 name: 'Casa',
                 date: '2020-05-15',
                 image: 'url'
               },
               {
+                id: 2,
                 name: 'Casa',
                 date: '2020-05-15',
                 image: 'url'
               },
               {
+                id: 3,
                 name: 'Casa',
                 date: '2020-05-15',
                 image: 'url'

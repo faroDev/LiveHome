@@ -3,7 +3,6 @@ const express = require('express')
 const FileService = require('./../services/file')
 const validationHandler = require('./../utils/middleware/validationHandler')
 const { fileIdSchema, fileCreateSchema, fileUpdateSchema } = require('./../utils/schemas/file')
-const passport = require('passport')
 
 // jwt strategy
 require('./../utils/auth/strategies/jwt')
@@ -15,7 +14,6 @@ function fileApi (app) {
   app.use('/api/files', router)
 
   router.get('/',
-    passport.authenticate('jwt', { session: false }),
     async function (req, res, next) {
       try {
         const files = await fileService.get()

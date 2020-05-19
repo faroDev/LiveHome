@@ -76,6 +76,7 @@ module.exports = async function (config) {
   const modality = setupModalityService(modalityModel)
   const approveUser = setupAproveUserService(aproveUserModel)
   const favorites = setupFavoritesService(favoritesModel)
+
   return {
     typeUser,
     user,

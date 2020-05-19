@@ -1,7 +1,6 @@
 'use strict'
 const express = require('express')
 const ApproveUserService = require('./../services/approveUser')
-const passport = require('passport')
 
 // jwt strategy
 require('./../utils/auth/strategies/jwt')
@@ -13,7 +12,7 @@ function approveUserApi (app) {
   app.use('/api/approveUsers', router)
 
   router.get('/',
-    passport.authenticate('jwt', { session: false }),
+
     async function (req, res, next) {
       try {
         const approveUsers = await approveUserService.get()
@@ -28,7 +27,7 @@ function approveUserApi (app) {
     })
 
   router.get('/:id',
-    passport.authenticate('jwt', { session: false }),
+
     async function (req, res, next) {
       try {
         const { id } = req.params
@@ -45,7 +44,7 @@ function approveUserApi (app) {
     })
 
   router.put('/:id',
-    passport.authenticate('jwt', { session: false }),
+
     async function (req, res, next) {
       try {
         const { id } = req.params
@@ -63,7 +62,7 @@ function approveUserApi (app) {
     })
 
   router.post('/',
-    passport.authenticate('jwt', { session: false }),
+
     async function (req, res, next) {
       try {
         const { body: approveUser } = req

@@ -4,7 +4,6 @@ const express = require('express')
 const PropertyDetailService = require('./../services/propertyDetail')
 const validationHandler = require('./../utils/middleware/validationHandler')
 const { propertyDetailIdSchema, propertyDetailCreateSchema, propertyDetailUpdateSchema } = require('./../utils/schemas/propertyDetail')
-const passport = require('passport')
 
 // jwt strategy
 require('./../utils/auth/strategies/jwt')
@@ -16,7 +15,7 @@ function propertyDetailApi (app) {
   app.use('/api/propertyDetail', router)
 
   router.get('/',
-    passport.authenticate('jwt', { session: false }),
+
     async function (req, res, next) {
       try {
         const result = await propertyDetailService.get()
@@ -31,7 +30,7 @@ function propertyDetailApi (app) {
     })
 
   router.get('/:id',
-    passport.authenticate('jwt', { session: false }),
+
     validationHandler({ id: propertyDetailIdSchema }, 'params'),
     async function (req, res, next) {
       try {
@@ -48,7 +47,7 @@ function propertyDetailApi (app) {
     })
 
   router.put('/:id',
-    passport.authenticate('jwt', { session: false }),
+
     validationHandler({ id: propertyDetailIdSchema }, 'params'),
     validationHandler(propertyDetailUpdateSchema),
     async function (req, res, next) {
@@ -68,7 +67,7 @@ function propertyDetailApi (app) {
     })
 
   router.post('/',
-    passport.authenticate('jwt', { session: false }),
+
     validationHandler(propertyDetailCreateSchema),
     async function (req, res, next) {
       try {
