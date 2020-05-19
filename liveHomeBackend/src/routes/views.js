@@ -1,6 +1,9 @@
 'use strict'
 const express = require('express')
+const passport = require('passport')
 const ViewsService = require('./../services/views')
+const validationHandler = require('./../utils/middleware/validationHandler')
+const { viewIdSchema, viewCreateSchema, viewUpdateSchema, viewQuerySchema } = require('./../utils/schemas/views')
 
 // jwt strategy
 require('./../utils/auth/strategies/jwt')
@@ -12,7 +15,8 @@ function viewApi (app) {
   app.use('/api/views', router)
 
   router.get('/',
-
+    passport.authenticate('jwt', { session: false }),
+    validationHandler(viewQuerySchema, 'query'),
     async function (req, res, next) {
       try {
         const views = await viewsService.get()
@@ -27,7 +31,8 @@ function viewApi (app) {
     })
 
   router.get('/:id',
-
+    passport.authenticate('jwt', { session: false }),
+    validationHandler({ id: viewIdSchema }, 'params'),
     async function (req, res, next) {
       try {
         const { id } = req.params
@@ -44,7 +49,9 @@ function viewApi (app) {
     })
 
   router.put('/:id',
-
+    passport.authenticate('jwt', { session: false }),
+    validationHandler({ id: viewIdSchema }, 'params'),
+    validationHandler(viewUpdateSchema),
     async function (req, res, next) {
       try {
         const { id } = req.params
@@ -62,7 +69,8 @@ function viewApi (app) {
     })
 
   router.post('/',
-
+    passport.authenticate('jwt', { session: false }),
+    validationHandler(viewCreateSchema),
     async function (req, res, next) {
       try {
         const { body: view } = req
