@@ -1,10 +1,10 @@
 'use strict'
 
 const express = require('express')
+const passport = require('passport')
 const PropertyTypeService = require('./../services/propertyType')
 const validationHandler = require('./../utils/middleware/validationHandler')
 const { propertyTypeUpdateSchema, propertyTypeCreateSchema, propertyTypeId } = require('./../utils/schemas/propertyType')
-const passport = require('passport')
 
 // jwt strategy
 require('./../utils/auth/strategies/jwt')
@@ -16,6 +16,7 @@ function propertyTypeApi (app) {
   app.use('/api/propertyType', router)
   passport.authenticate('jwt', { session: false })
   router.get('/',
+  passport.authenticate('jwt',{ session: false }),
     async function (req, res, next) {
       try {
         const result = await propertyTypeService.get()
@@ -30,7 +31,7 @@ function propertyTypeApi (app) {
     })
 
   router.get('/:id',
-
+  passport.authenticate('jwt',{ session: false }),
     validationHandler({ id: propertyTypeId }, 'params'),
     async function (req, res, next) {
       try {
@@ -47,7 +48,7 @@ function propertyTypeApi (app) {
     })
 
   router.put('/:id',
-
+  passport.authenticate('jwt',{ session: false }),
     validationHandler({ id: propertyTypeId }, 'params'),
     validationHandler(propertyTypeUpdateSchema),
     async function (req, res, next) {
@@ -67,7 +68,7 @@ function propertyTypeApi (app) {
     })
 
   router.post('/',
-
+  passport.authenticate('jwt',{ session: false }),
     validationHandler(propertyTypeCreateSchema),
     async function (req, res, next) {
       try {

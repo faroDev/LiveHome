@@ -13,10 +13,10 @@ function userApi (app) {
   const userService = new UserService()
 
   app.use('/api/users', router)
-  
+
   router.get('/',
-  passport.authenticate('jwt', { session: false }),
-  validationHandler(userQuerySchema, 'query'),
+    passport.authenticate('jwt', { session: false }),
+    validationHandler(userQuerySchema, 'query'),
     async function (req, res, next) {
       try {
         const users = await userService.get()
@@ -31,7 +31,7 @@ function userApi (app) {
     })
 
   router.get('/:id',
-  passport.authenticate('jwt', { session: false }),
+    passport.authenticate('jwt', { session: false }),
     validationHandler({ id: userIdSchema }, 'params'),
     async function (req, res, next) {
       try {
@@ -49,7 +49,7 @@ function userApi (app) {
     })
 
   router.put('/:id',
-  passport.authenticate('jwt', { session: false }),
+    passport.authenticate('jwt', { session: false }),
     validationHandler({ id: userIdSchema }, 'params'),
     validationHandler(userUpdateSchema),
     async function (req, res, next) {
@@ -69,7 +69,7 @@ function userApi (app) {
     })
 
   router.post('/',
-  passport.authenticate('jwt', { session: false }),
+    passport.authenticate('jwt', { session: false }),
     validationHandler(userCreateSchema),
     async function (req, res, next) {
       try {
@@ -87,7 +87,7 @@ function userApi (app) {
     })
 
   router.get('/:id/dashboard',
-  passport.authenticate('jwt', { session: false }),
+    passport.authenticate('jwt', { session: false }),
     validationHandler({ id: userIdSchema }, 'params'),
     async function (req, res, next) {
       try {
