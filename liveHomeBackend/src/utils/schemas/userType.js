@@ -2,7 +2,7 @@
 
 const joi = require('@hapi/joi')
 
-const userTypeId = joi.number()
+const userTypeIdSchema = joi.number()
 const userTypeName = joi.string()
 
 const userTypeCreateSchema = {
@@ -16,5 +16,5 @@ const userTypeUpdateSchema = {
 module.exports = {
   userTypeUpdateSchema,
   userTypeCreateSchema,
-  userTypeId
+  userTypeIdSchema
 }

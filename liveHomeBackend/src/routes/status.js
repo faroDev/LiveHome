@@ -1,27 +1,27 @@
 'use strict'
 const express = require('express')
-const UsersTypeService = require('./../services/usersType')
+const StatusService = require('./../services/status')
 const passport = require('passport')
 const validationHandler = require('./../utils/middleware/validationHandler')
-const { userTypeUpdateSchema, userTypeCreateSchema, userTypeIdSchema } = require('./../utils/schemas/userType')
+const { statusUpdateSchema, statusCreateSchema, statusIdSchema } = require('./../utils/schemas/userType')
 
 // jwt strategy
 require('./../utils/auth/strategies/jwt')
 
-function usersTypeApi (app) {
+function statusApi (app) {
   const router = express()
-  const usersTypeService = new UsersTypeService()
+  const statusService = new StatusService()
 
-  app.use('/api/usersType', router)
+  app.use('/api/status', router)
 
   router.get('/',
     passport.authenticate('jwt', { session: false }),
     async function (req, res, next) {
       try {
-        const result = await usersTypeService.get()
+        const result = await statusService.get()
         res.status(200).json({
           data: result || [],
-          message: 'Users type listed'
+          message: 'Status listed'
         })
       } catch (error) {
         next(error)
@@ -30,16 +30,16 @@ function usersTypeApi (app) {
 
   router.get('/:id',
     passport.authenticate('jwt', { session: false }),
-    validationHandler({ id: userTypeIdSchema }, 'params'),
+    validationHandler({ id: statusIdSchema }, 'params'),
     async function (req, res, next) {
       try {
         const { id } = req.params
 
-        const result = await usersTypeService.getById(id)
+        const result = await statusService.getById(id)
 
         res.status(200).json({
           data: result || {},
-          message: 'User type retrieved'
+          message: 'Status retrieved'
         })
       } catch (error) {
         next(error)
@@ -48,18 +48,18 @@ function usersTypeApi (app) {
 
   router.put('/:id',
     passport.authenticate('jwt', { session: false }),
-    validationHandler({ id: userTypeIdSchema }, 'params'),
-    validationHandler(userTypeUpdateSchema),
+    validationHandler({ id: statusIdSchema }, 'params'),
+    validationHandler(statusUpdateSchema),
     async function (req, res, next) {
       try {
         const { id } = req.params
-        const { body: userType } = req
+        const { body: status } = req
 
-        const result = await usersTypeService.update(id, userType)
+        const result = await statusService.update(id, status)
 
         res.status(200).json({
           data: result,
-          message: 'User type updated'
+          message: 'Status updated'
         })
       } catch (error) {
         next(error)
@@ -68,16 +68,16 @@ function usersTypeApi (app) {
 
   router.post('/',
     passport.authenticate('jwt', { session: false }),
-    validationHandler(userTypeCreateSchema),
+    validationHandler(statusCreateSchema),
     async function (req, res, next) {
       try {
-        const { body: userType } = req
+        const { body: status } = req
 
-        const result = await usersTypeService.create(userType)
+        const result = await statusService.create(status)
 
         res.status(201).json({
           data: result,
-          message: 'User type created'
+          message: 'Status created'
         })
       } catch (error) {
         next(error)
@@ -85,4 +85,4 @@ function usersTypeApi (app) {
     })
 }
 
-module.exports = usersTypeApi
+module.exports = statusApi

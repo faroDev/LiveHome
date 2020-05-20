@@ -21,6 +21,7 @@ const propertyDetailApi = require('./routes/propertyDetail')
 const favoriteApi = require('./routes/favorite')
 const modalityApi = require('./routes/modality')
 const approveUserApi = require('./routes/approveUser')
+const statusApi = require('./routes/status')
 
 const app = express()
 
@@ -41,6 +42,7 @@ propertyDetailApi(app)
 favoriteApi(app)
 modalityApi(app)
 approveUserApi(app)
+statusApi(app)
 
 // Error handler
 app.use(logError)
