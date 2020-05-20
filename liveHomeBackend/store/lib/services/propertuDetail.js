@@ -1,6 +1,6 @@
 'use strict'
 
-module.exports = function setupTypeUserService (propertyDetailModel) {
+module.exports = function setupPropertyDetailService (propertyDetailModel) {
   async function createOrUpdate (propertyDetail) {
     if (propertyDetail.id) {
       const cond = {

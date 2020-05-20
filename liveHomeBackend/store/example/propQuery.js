@@ -1,7 +1,6 @@
 'use strict'
 const config = require('../config/index')
 const db = require('../index')
-const { Op } = require('sequelize')
 
 async function run () {
   const configuration = {
@@ -19,19 +18,30 @@ async function run () {
 
   const { properties } = await db(configuration).catch(handleFatalError)
 
-  const object = {
-    m2: {
-      [Op.between]: [62, 800]
-    },
-    approved: true,
-    pool: true
-  }
-  const queryProp = await properties.findByQuery(object).catch(handleFatalError)
+  // const object = {
+  //   m2: {
+  //     [Op.between]: [60, 800]
+  //   },
+  //   approved: true,
+  //   pool: true
+  // // }
+  // const queryProp = await properties.findByQuery(object).catch(handleFatalError)
 
-  console.log('--userType4--')
-  console.log(queryProp)
-  const length = queryProp.length
-  console.log('El tamaño es :', length)
+  // const obj1 = {
+  //   "min": 60,
+  //   "max": 100,
+  // }
+
+  // const queryRank = await properties.findByRank(obj1, 'm2build')
+
+  // console.log('queryRank : ', queryRank)
+
+  const userp = await properties.userProperties(3)
+  console.log(userp)
+  // console.log('--userType4--')
+  // console.log(queryProp)
+  // const length = queryProp.length
+  // console.log('El tamaño es :', length)
 }
 run()
 function handleFatalError (err) {

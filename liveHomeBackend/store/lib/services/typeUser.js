@@ -1,6 +1,6 @@
 'use strict'
 
-module.exports = function setupPropertyDetailService (typeUserModel) {
+module.exports = function setupTypeUserService (typeUserModel) {
   async function createOrUpdate (typeUser) {
     if (typeUser.id) {
       const cond = {

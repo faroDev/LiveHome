@@ -28,10 +28,24 @@ module.exports = function setupViewsService (viewsModel) {
     return viewsModel.findAll({ raw: true })
   }
 
+  function viewsBypropId (propertyId) {
+    return viewsModel.findAll({
+      attributes: ['id', 'counter'],
+      group: ['id', 'counter'],
+      where: {
+
+        propertyId: propertyId
+      },
+
+      raw: true
+    })
+  }
+
   return {
     create,
     update,
     findById,
-    findAll
+    findAll,
+    viewsBypropId
   }
 }

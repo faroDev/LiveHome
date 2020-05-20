@@ -15,17 +15,17 @@ async function run () {
 
   const { views } = await db(configuration).catch(handleFatalError)
 
-  const viewsC = await views.update({
-    id: 1,
-    date: new Date(),
-    counter: 1,
-    createdAt: new Date(),
-    updatedAt: new Date(),
-    propertyId: 1
-  }).catch(handleFatalError)
+  // const viewsC = await views.update({
+  //   id: 1,
+  //   date: new Date(),
+  //   counter: 1,
+  //   createdAt: new Date(),
+  //   updatedAt: new Date(),
+  //   propertyId: 1
+  // }).catch(handleFatalError)
 
-  console.log('--viewsC--')
-  console.log(viewsC)
+  // console.log('--viewsC--')
+  // console.log(viewsC)
 
   const view1 = await views.findAll()
   console.log('--view--')
@@ -34,6 +34,11 @@ async function run () {
   const views2 = await views.findById(1)
   console.log('--views--')
   console.log(views2)
+
+  const viewsByProperty = await views.viewsBypropId(3)
+  console.log('--viewsByProperty--')
+  console.log(viewsByProperty)
+  console.log('El numero de vicitas de la propiedad 3 :', viewsByProperty.length)
 }
 run()
 function handleFatalError (err) {

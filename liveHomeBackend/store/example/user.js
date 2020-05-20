@@ -15,19 +15,19 @@ async function run () {
 
   const { user } = await db(configuration).catch(handleFatalError)
 
-  const user1 = await user.create({
-    name: 'Vivi',
-    lastName: 'Guti',
-    secondLastName: 'Faja',
-    status: 'false',
-    createAt: new Date(),
-    updateAt: new Date(),
-    authId: 3,
-    typeUserId: 2
-  }).catch(handleFatalError)
+  // const user1 = await user.create({
+  //   name: 'Vivi',
+  //   lastName: 'Guti',
+  //   secondLastName: 'Faja',
+  //   status: 'false',
+  //   createAt: new Date(),
+  //   updateAt: new Date(),
+  //   authId: 3,
+  //   typeUserId: 2
+  // }).catch(handleFatalError)
 
-  console.log('--userType--')
-  console.log(user1)
+  // console.log('--userType--')
+  // console.log(user1)
 
   // const typeUser3 = await typeUser.createOrUpdate({
   //   id: '3',
@@ -43,9 +43,15 @@ async function run () {
   console.log('--userss--')
   console.log(users)
 
-  const user2 = await user.findById(1)
+  const user2 = await user.findById(5)
   console.log('--user--')
   console.log(user2)
+
+  const propertyUser = await user.propertyUser(3)
+  console.log('Properties ', propertyUser)
+
+  const viewsProperties = await user.viewsUser(5)
+  console.log('views ', viewsProperties)
 }
 run()
 function handleFatalError (err) {

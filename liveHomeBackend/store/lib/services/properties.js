@@ -1,6 +1,6 @@
 'use strict'
-
-module.exports = function setupPropertiesService (propertyModel) {
+const { Op } = require('sequelize')
+module.exports = function setupPropertiesService (propertyModel, userModel) {
   async function createOrUpdate (property) {
     if (property.id) {
       const cond = {
@@ -59,12 +59,42 @@ module.exports = function setupPropertiesService (propertyModel) {
     })
   }
 
+  async function findByRank (obj, prop) {
+    const cond = { prop }
+    const val = { [Op.between]: [obj.min, obj.max] }
+
+    Object.assign(cond, val)
+    // const prop2 = prop
+    // const min = obj.min
+    // const max = obj.max
+    console.log(cond)
+    return propertyModel.findAll({
+      where: cond
+    })
+  }
+
+  function userProperties (userId) {
+    return propertyModel.findAll({
+      attributes: ['id', 'm2', 'approved'],
+      include: [{
+        attributes: ['name'],
+        model: userModel,
+        where: {
+          id: userId
+        }
+      }],
+      raw: true
+    })
+  }
+
   return {
     createOrUpdate,
     findById,
     findAll,
     update,
     create,
-    findByQuery
+    findByQuery,
+    findByRank,
+    userProperties
   }
 }
