@@ -10,4 +10,4 @@ const Chip = ({ nameLabel, labelClass }) => {
   );
 };
 
-export default Chip
+export default Chip;
