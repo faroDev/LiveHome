@@ -67,7 +67,7 @@ module.exports = async function (config) {
   typeUserModel.hasMany(userModel)
 
   await sequialize.authenticate()
-  await sequialize.sync({ force: true })
+  await sequialize.sync()
 
   const typeUser = setupTypeUserService(typeUserModel)
   const user = setupUserService(userModel, propertyModel, viewsModel)

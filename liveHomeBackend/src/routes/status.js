@@ -3,7 +3,7 @@ const express = require('express')
 const StatusService = require('./../services/status')
 const passport = require('passport')
 const validationHandler = require('./../utils/middleware/validationHandler')
-const { statusUpdateSchema, statusCreateSchema, statusIdSchema } = require('./../utils/schemas/userType')
+const { statusUpdateSchema, statusCreateSchema, statusIdSchema } = require('./../utils/schemas/status')
 
 // jwt strategy
 require('./../utils/auth/strategies/jwt')

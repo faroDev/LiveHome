@@ -15,7 +15,6 @@ function usersTypeApi (app) {
   app.use('/api/usersType', router)
 
   router.get('/',
-    passport.authenticate('jwt', { session: false }),
     async function (req, res, next) {
       try {
         const result = await usersTypeService.get()
@@ -29,7 +28,6 @@ function usersTypeApi (app) {
     })
 
   router.get('/:id',
-    passport.authenticate('jwt', { session: false }),
     validationHandler({ id: userTypeIdSchema }, 'params'),
     async function (req, res, next) {
       try {
@@ -67,7 +65,6 @@ function usersTypeApi (app) {
     })
 
   router.post('/',
-    passport.authenticate('jwt', { session: false }),
     validationHandler(userTypeCreateSchema),
     async function (req, res, next) {
       try {
