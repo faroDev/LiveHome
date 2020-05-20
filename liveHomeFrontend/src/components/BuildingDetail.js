@@ -28,7 +28,7 @@ const BuildingDetail = ({ building, children }) => {
         <a href={`tel:${building.telefono}`}>
           <Icon name='phone' />
         </a>
-        <a href={`mailto:${building.email}`} target='_blank'>
+        <a href={`mailto:${building.email}`} target='_blank' rel='noopener noreferrer'>
           <Icon name='mail' />
         </a>
         <a>
@@ -76,9 +76,7 @@ const BuildingDetail = ({ building, children }) => {
           <p>Elevator</p>
         </InformationIcon>
       </div>
-      <div className={styles.buildingDetail__map_container}>
-        
-      </div>
+      <div className={styles.buildingDetail__map_container} />
       <div>
         <Chip nameLabel='Nearby places' labelClass='purple_label' />
       </div>
@@ -88,7 +86,7 @@ const BuildingDetail = ({ building, children }) => {
       <div className={styles.buildingDetail__aux_component}>
         {children}
       </div>
-    </div> 
+    </div>
   );
 };
 
