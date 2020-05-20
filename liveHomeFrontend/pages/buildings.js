@@ -10,7 +10,7 @@ import styles from '../src/styles/pages/buildings.module.sass';
 
 const Buildings = () => {
   return (
-    <Layout>    
+    <Layout>
       <div className={styles.buildings__container}>
         <div className={styles.buildings__filter_container}>
           <div className={styles.buildings__filter_container_button}>
@@ -21,7 +21,7 @@ const Buildings = () => {
           </div>
         </div>
         <div className={styles.buildings__label}>
-          <Chip nameLabel={`Where found ### properties`} labelClass='gray_label' />
+          <Chip nameLabel='Where found ### properties' labelClass='gray_label' />
         </div>
         <CardPreviewPublication
           images={[]}

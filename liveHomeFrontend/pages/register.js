@@ -25,16 +25,16 @@ const Register = () => {
         <h3>Register</h3>
         <Form onSubmit={handleSubmit}>
           <FormField>
-            <Input type='email' label='Email' {...email} required={true} name='email'/>
+            <Input type='email' label='Email' {...email} required name='email' />
           </FormField>
           <FormField>
-            <Input type='password' label='Password' {...password} required={true} name='password'/>
+            <Input type='password' label='Password' {...password} required name='password' />
           </FormField>
           <FormField>
-            <Input type='password' label='Repeat password' {...repeatPassword} required={true} name='repeatpassword'/>
+            <Input type='password' label='Repeat password' {...repeatPassword} required name='repeatpassword' />
           </FormField>
           <FormField>
-            <Button value='Sign up' buttonType='submit' buttonClass='greenButton'/>
+            <Button value='Sign up' buttonType='submit' buttonClass='greenButton' />
           </FormField>
         </Form>
       </div>
