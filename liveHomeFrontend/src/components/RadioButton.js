@@ -1,4 +1,7 @@
 import React from 'react';
+
+import Label from './Label';
+
 import styles from '../styles/components/RadioButton.module.sass';
 
 function RadioButton ({ options, name, title, value, onChange }) {

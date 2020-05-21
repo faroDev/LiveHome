@@ -2,7 +2,7 @@ import React from 'react';
 import styles from '../styles/components/Carousel.module.sass';
 import CarouselComponent from 'react-multi-carousel';
 
-function Carousel ({ images }) {
+function Carousel ({ images = [] }) {
   const responsive = {
     superLargeDesktop: {
       breakpoint: { max: 4000, min: 992 },
