@@ -1,12 +1,15 @@
 import React from 'react';
+
+import Carousel from './Carousel';
+
 import styles from '../styles/components/Card.module.sass';
 
-const Card = ({ imgSource, children }) => {
+const Card = ({ images, children }) => {
   return (
     <div className={styles.card}>
-      <figure className={styles.imageContainer}>
-        <img className={styles.primaryImage} src={imgSource} />
-      </figure>
+      <div className={styles.imageContainer}>
+        <Carousel images={images} />
+      </div>
       <div className={styles.content}>{children}</div>
     </div>
   );

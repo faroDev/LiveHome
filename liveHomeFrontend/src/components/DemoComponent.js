@@ -11,11 +11,10 @@ import RadioButton from './RadioButton';
 import Modal from './Modal';
 import Select from './Select';
 import Footer from './Footer';
-import Carousel from './Carousel';
+// import Carousel from './Carousel';
 
 import Input from './Input';
 import TextArea from './TextArea';
-import Selector from './Selector';
 import HeaderInfoDashboard from './HeaderInfoDashboard';
 import PreviewImage from './PreviewImage';
 import SearchBar from './SearchBar';
@@ -96,18 +95,16 @@ function DemoComponent () {
       <Modal buttonText='Abril modal'>
         <p>Este es el conetido del modal</p>
       </Modal>
-      <h4>Select</h4>
-      <Select name='test' options={['prueba 1', 'prueba 2', 'prueba 3']} />
       <h4>Footer</h4>
       <Footer />
       <h4>Carousel</h4>
-      <Carousel images={images} />
+      {/* <Carousel images={images} /> */}
       <Input type='text' label='text' />
       <Input type='email' label='email' />
       <Input type='number' minValue='0' label='number' />
       <Input type='password' label='password' />
       <TextArea label='textArea' />
-      <Selector label='selector' options={[{ value: 1, label: 'opcion1' }, { value: 2, label: 'opcion2' }, { value: 3, label: 'opcion3' }]} />
+      <Select name='selector' label='selector' options={[{ value: 1, label: 'opcion1' }, { value: 2, label: 'opcion2' }, { value: 3, label: 'opcion3' }]} />
       <p>Component: Header info dashboard</p>
       <HeaderInfoDashboard offers={20} visitors={52435} favourites={50} />
       <p>Component: Preview Image</p>
