@@ -1,7 +1,6 @@
 'use strict'
 
-const config = require('./config/index')
-const debug = require('debug')(`${config.db.database}:setup`)
+const config = require('./../config')
 const db = require('./index')
 const chalk = require('chalk')
 
@@ -13,12 +12,10 @@ async function setup () {
     host: config.db.host,
     returning: true,
     dialect: config.db.dialect,
-    logging: s => debug(s),
     setup: true
   }
   console.log(config.db.database)
   await db(configuration).catch(handleFatalError)
-
   console.log('Success!')
   process.exit(0)
 }

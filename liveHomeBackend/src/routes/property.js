@@ -4,8 +4,8 @@ const express = require('express')
 const Multer = require('multer')
 const joi = require('@hapi/joi')
 const boom = require('@hapi/boom')
+const path = require('path')
 const { Storage } = require('@google-cloud/storage')
-const passport = require('passport')
 const PropertyService = require('./../services/property')
 const FileService = require('./../services/file')
 const config = require('./../../config')
@@ -18,7 +18,7 @@ require('./../utils/auth/strategies/jwt')
 
 var googleStorageConfig = {
   projectId: config.googleStorage.projectId,
-  keyFilename: './config/store.json'
+  keyFilename: path.resolve(__dirname, './../../config/store.json')
 }
 
 const storage = new Storage(googleStorageConfig)
@@ -51,6 +51,7 @@ function propertyApi (app) {
     })
 
   router.get('/:id',
+
     validationHandler({ id: propertyIdSchema }, 'params'),
     async function (req, res, next) {
       try {
@@ -67,7 +68,7 @@ function propertyApi (app) {
     })
 
   router.put('/:id',
-    passport.authenticate('jwt', { session: false }),
+
     validationHandler({ id: propertyIdSchema }, 'params'),
     validationHandler(propertyUpdateSchema),
     async function (req, res, next) {
@@ -87,7 +88,6 @@ function propertyApi (app) {
     })
 
   router.post('/',
-    passport.authenticate('jwt', { session: false }),
     upload.array('photos', 6), async function (req, res, next) {
       try {
         const { body: property, files } = req
@@ -100,23 +100,25 @@ function propertyApi (app) {
 
         const newProperty = await propertyService.create(property)
 
-        const promisesToUploadFiles = files.map(file => {
-          return uploadImageToStorage(file, bucket)
-        })
+        if (bucket) {
+          const promisesToUploadFiles = files.map(file => {
+            return uploadImageToStorage(file, bucket)
+          })
 
-        const imagesUploaded = await Promise.all(promisesToUploadFiles)
+          const imagesUploaded = await Promise.all(promisesToUploadFiles)
 
-        const filesPromises = imagesUploaded.map(imgUploaded => {
-          const newFile = {
-            url: imgUploaded.url,
-            fileType: imgUploaded.mimeType,
-            propertyId: newProperty.id
-          }
+          const filesPromises = imagesUploaded.map(imgUploaded => {
+            const newFile = {
+              url: imgUploaded.url,
+              fileType: imgUploaded.mimeType,
+              propertyId: newProperty.id
+            }
 
-          return fileService.create(newFile)
-        })
+            return fileService.create(newFile)
+          })
 
-        await Promise.all(filesPromises)
+          await Promise.all(filesPromises)
+        }
 
         res.status(201).json({
           data: newProperty || {},
@@ -128,7 +130,7 @@ function propertyApi (app) {
     })
 
   router.get('/:id/dashboard',
-    passport.authenticate('jwt', { session: false }),
+
     validationHandler({ id: propertyIdSchema }, 'params'),
     async function (req, res, next) {
       try {

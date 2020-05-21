@@ -72,7 +72,7 @@ const propertyQuerySchema = {
   pool: propertyPoolSchema,
   security: propertySecuritySchema,
   elevator: propertyElevatorSchema,
-  statusId: propertyApprovedSchema.required(),
+  statusId: propertyApprovedSchema,
   nearTo: propertyNearToSchema,
   available: propertyAvailableSchema,
   propertyTypeId: propertyPropertyTypeIdSchema,
