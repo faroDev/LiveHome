@@ -29,14 +29,13 @@ module.exports = function setupTypeUserService (typeUserModel) {
     return result.toJSON({ raw: true })
   }
 
-  async function update (id, typeUser) {
+  async function update (typeUser) {
     const cond = {
       where: {
-        id
+        id: typeUser.id
       }
     }
 
-    typeUser.updatedAt = new Date()
     await typeUserModel.update(typeUser, cond)
     const existingTypeUser = await typeUserModel.findOne(cond)
     return existingTypeUser

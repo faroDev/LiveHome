@@ -14,7 +14,6 @@ function propertyTypeApi (app) {
   const propertyTypeService = new PropertyTypeService()
 
   app.use('/api/propertyType', router)
-  passport.authenticate('jwt', { session: false })
   router.get('/',
     passport.authenticate('jwt', { session: false }),
     async function (req, res, next) {
@@ -31,7 +30,6 @@ function propertyTypeApi (app) {
     })
 
   router.get('/:id',
-    passport.authenticate('jwt', { session: false }),
     validationHandler({ id: propertyTypeId }, 'params'),
     async function (req, res, next) {
       try {
@@ -68,7 +66,6 @@ function propertyTypeApi (app) {
     })
 
   router.post('/',
-    passport.authenticate('jwt', { session: false }),
     validationHandler(propertyTypeCreateSchema),
     async function (req, res, next) {
       try {
