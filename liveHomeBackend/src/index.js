@@ -1,7 +1,9 @@
 'use strict'
 const express = require('express')
 const bodyParser = require('body-parser')
+const cors = require('cors')
 const config = require('./../config')
+
 
 // Middleware
 const notFoundHandler = require('./utils/middleware/notFoundHandler')
@@ -27,6 +29,7 @@ const app = express()
 
 // Body Parse
 app.use(bodyParser.json())
+app.use(cors())
 
 // Routes
 healthApp(app)
