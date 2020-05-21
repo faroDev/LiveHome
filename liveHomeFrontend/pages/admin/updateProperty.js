@@ -10,7 +10,7 @@ import useCheckValue from './../../src/hooks/useCheckValue';
 import Map from './../../src/components/Map';
 import Button from './../../src/components/Button';
 import FormField from './../../src/components/FormField';
-import Selector from './../../src/components/Selector';
+import Selector from './../../src/components/Select';
 
 const mockProperty = {
   images: ['img1', 'img2'],

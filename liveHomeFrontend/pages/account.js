@@ -5,7 +5,7 @@ import Input from '../src/components/Input';
 import useInputValue from '../src/hooks/useInputValue';
 import FormField from '../src/components/FormField';
 import Form from '../src/components/Form';
-import Selector from './../src/components/Selector';
+import Selector from './../src/components/Select';
 import Button from './../src/components/Button';
 
 const account = () => {

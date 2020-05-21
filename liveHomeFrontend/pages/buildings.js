@@ -11,13 +11,12 @@ import CardPreviewPublication from '../src/components/CardPreviewPublication';
 import Form from '../src/components/Form';
 import FormField from '../src/components/FormField';
 import Input from '../src/components/Input';
-import Selector from '../src/components/Selector';
+import Selector from '../src/components/Select';
 import RadioButton from '../src/components/RadioButton';
 
 import styles from '../src/styles/pages/buildings.module.sass';
 
 const Buildings = () => {
-
   const typePropertyFilter = useInputValue('');
   const bedroomsFilter = useInputValue('');
   const bathroomsFilter = useInputValue('');
@@ -45,7 +44,7 @@ const Buildings = () => {
                 <h3>Filter</h3>
                 <Form>
                   <FormField>
-                    <Selector label='Property type' options={[{value:1, label: 1},{value:2, label: 2},{value:3, label: 3}]} {...typePropertyFilter} />
+                    <Selector label='Property type' options={[{ value: 1, label: 1 }, { value: 2, label: 2 }, { value: 3, label: 3 }]} {...typePropertyFilter} />
                   </FormField>
                   <FormField>
                     <Input type='number' label='bedrooms' name='bedrooms' {...bedroomsFilter} />
