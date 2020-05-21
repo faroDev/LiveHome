@@ -4,18 +4,28 @@ import Label from './Label';
 
 import styles from '../styles/components/RadioButton.module.sass';
 
-function RadioButton ({ options, name }) {
+function RadioButton ({ options, name, title, value, onChange }) {
   return (
-    <Label nameLabel='Demo'>
-      {options.map((item, key) => {
-        return (
-          <div key={key} className={styles.radio}>
-            <input id={item} type='radio' name={name} value={item} />
-            <label htmlFor={item}>{item}</label>
-          </div>
-        );
-      })}
-    </Label>
+    <>
+      <span className={styles.radio_title}>{title}</span>
+      <div className={styles.radio_container}>
+        {options.map((item, key) => {
+          return (
+            <div key={key} className={styles.radio_item}>
+              <input 
+                id={item}
+                type='radio'
+                name={name}
+                value={item}
+                checked={item === value ? true : false}
+                onChange={onChange}
+              />
+              <label htmlFor={item}>{item}</label>
+            </div>
+          );
+        })}
+      </div>
+    </>
   );
 }
 

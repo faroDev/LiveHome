@@ -11,7 +11,7 @@ import RadioButton from './RadioButton';
 import Modal from './Modal';
 import Select from './Select';
 import Footer from './Footer';
-import Carousel from './Carousel';
+// import Carousel from './Carousel';
 
 import Input from './Input';
 import TextArea from './TextArea';
@@ -98,7 +98,7 @@ function DemoComponent () {
       <h4>Footer</h4>
       <Footer />
       <h4>Carousel</h4>
-      <Carousel images={images} />
+      {/* <Carousel images={images} /> */}
       <Input type='text' label='text' />
       <Input type='email' label='email' />
       <Input type='number' minValue='0' label='number' />
