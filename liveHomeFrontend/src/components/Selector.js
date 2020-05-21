@@ -4,14 +4,14 @@ import Label from './Label';
 
 import styles from '../styles/components/Selector.module.sass';
 
-const Selector = (props) => {
+const Selector = ({ label, name, options=[], value, onChange }) => {
   return (
-    <Label nameLabel={props.label}>
+    <Label nameLabel={label}>
       <div className={styles.selector}>
-        <select>
+        <select name={name} value={value} onChange={onChange}>
           {
-            props.options.length &&
-            props.options.map((item, idx) => <option key={idx} value={item.value}>{item.label}</option>)
+            options.length &&
+            options.map((item, idx) => <option key={idx} value={item.value}>{item.label}</option>)
           }
         </select>
       </div>

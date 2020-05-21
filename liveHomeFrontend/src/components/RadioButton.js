@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from '../styles/components/RadioButton.module.sass';
 
-function RadioButton ({ options, name, title }) {
+function RadioButton ({ options, name, title, value, onChange }) {
   return (
     <>
       <span className={styles.radio_title}>{title}</span>
@@ -9,7 +9,14 @@ function RadioButton ({ options, name, title }) {
         {options.map((item, key) => {
           return (
             <div key={key} className={styles.radio_item}>
-              <input id={item} type='radio' name={name} value={item} />
+              <input 
+                id={item}
+                type='radio'
+                name={name}
+                value={item}
+                checked={item === value ? true : false}
+                onChange={onChange}
+              />
               <label htmlFor={item}>{item}</label>
             </div>
           );
