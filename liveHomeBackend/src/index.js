@@ -4,7 +4,6 @@ const bodyParser = require('body-parser')
 const cors = require('cors')
 const config = require('./../config')
 
-
 // Middleware
 const notFoundHandler = require('./utils/middleware/notFoundHandler')
 const { errorHandler, logError, wrapError } = require('./utils/middleware/errorHandler')
