@@ -1,11 +1,20 @@
 import React from 'react';
+
+import Label from './Label';
+
 import styles from '../styles/components/Select.module.sass';
 
-const Select = ({ name, options }) => {
+const Select = ({ label, name, options = [] }) => {
   return (
-    <select className={styles.select} name={name}>
-      {options.map((item, key) => <option key={key} value={item}>{item}</option>)}
-    </select>
+    <Label nameLabel={label}>
+      <div className={styles.selector}>
+        <select name={name}>
+          {
+            options.map((item, idx) => <option key={idx} value={item.value}>{item.label}</option>)
+          }
+        </select>
+      </div>
+    </Label>
   );
 };
 
