@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "livehome-89195",
+  "private_key_id": "ea9916dc91e685f66c5ea8cd7e6197f0238caadb",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQC//60p16oyGIu1\nineojDznPyDvIbEO2bs43I4b5cgqO9afdMexopqay1QlgckJDwLMCczOdby6GUxV\nNXezjR7zFcWvaLKxnIIQpe4dMIR17DE/7Xzd+xfyC6CzwzuE5aYnH+r1waiyvaQG\n4WBaWhdPvOI0YPhH7EPfMr01SP6kweZ+sbiGnroBBHLzzwO0JTjvDe1TxTYiMCmc\nWJixtjQ3agQ9v8d5bIvNrDgvG8QmL56TmtlhjqzB+BPWrpytaNS7KPp/8A6sxJIU\nLgn+DR/T775SPqweiLFI5aGL6jWjD+TqkRYMI5kQE14h8Jq0q0LJakBSlUva9Ovl\nyXTzno9ZAgMBAAECggEACGhj9vYIBgy/n3n6aUyHhTvlOhDrDe1YeXIPx2Z4WGse\n6AQx6NQ9T3kxzI5X//gi5U2qOkH7JgN3bYV7d1wpxmIwx5CUP1q3x7lbHvbx3K/K\nF1R+eEJnkcn9u1QvGM/YBxTAJ2DCkwiNdIoC5r9VD9ZDv0tIzBjV/wyb2bJs3kjr\nshoAKzUxYrWZEIyMVNvoCXT3nZ2jpmxA/5SP+4YB98au1eyJgs3cRh7mJP7AUSPA\ncRa24aId0/NePeENz1Ui2tHOIZoxzL+9v6WOVf46niyywOQm494GYwxBuc5QQwy5\nCD2zRTS+3KgaDqClexwDzk9eQLuEEBQJ/ieiMqAJ9QKBgQDlKkGXlJeSqaww7SCp\nYm00ICgggqisHAmZhuC58x5hwkyQsZl/oHjj9tiLoH6OrrGyFuadSg+MMqRSXf70\nTflh5vBVvpbvCX1ZWrhL0Dldj1lanz/Tw52ga/ZOoE+MB2kkqdyZmokVJHEQ5P7H\nH5bT2Bv3LIFZl5NhF9ULBOqlxQKBgQDWe0ZpE2L8RAbYRbx6xFnS/JVKHWSXCrdE\n4TaVhmPGIyP7mXd7Wl8z9+9PaSbGG9qU6ch+VlbKFpNruh5coPkqedTRJB/QKDqb\ndTdVVV/r1FRMOzbS0q2sOur1V7o0N3FP6h1RnP25KPSjPL+B4YaPGbLLha148PFO\nTw4FL7OwhQKBgQDT6muVfLddzMGKzP1zJa3Okh4JUkogPh0yd+PAkO37gO3EsDc+\nKmsgg9hj5hqiXzG7einwMdiG0R3bfUiTKrf+rMx6vjBdA+2Cf74FfZxOxIzgnHst\nnKta+ftfYietWf0FBn8VHC6/+l8EPH7OLIwRgrr5q5JCA0UqeBtugTFr8QKBgQDS\nrOgukkJqtI9cpLNMi84Hdt9Vm6WQz4/Rcr7hBM7AcwgHPWmlmtFlBKbmg8z4T6fX\nGgQ8RKaffqlz6a+lIOFenakzfZ5aIwneZbbidSfxR/E9p/RkBVlekcj1ESTv4X3G\nF5qQ7fozhE04gpVCCLrZmU6Mp1QMNe9xEiodYgvI2QKBgDOl1ZUR7A6/vvjIXN8Q\nJXQrDBw7u0YUyJWJDXeUTqQKy2C1VzssbtBasrfF6D5eDFazLWOKeHKugltqKsCt\n1SRHPwFo14cnGTi5SmgvFouXu5FVz4ut1uJLjuJs/wFhLF2W8/b/Gr977cs9wCuI\niiaY6PbyLUwsvdNuhw0lfPrr\n-----END PRIVATE KEY-----\n",
+  "client_email": "livehome-test@livehome-89195.iam.gserviceaccount.com",
+  "client_id": "112452808234498596044",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/livehome-test%40livehome-89195.iam.gserviceaccount.com"
+}

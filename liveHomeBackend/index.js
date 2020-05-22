@@ -41,8 +41,10 @@ app.use(bodyParser.json())
 app.use('*', async (req, res, next) => {
   if (!services) {
     console.log('Connecting to database')
+
     try {
       services = await db(config.db)
+
     } catch (e) {
       return next(e)
     }
