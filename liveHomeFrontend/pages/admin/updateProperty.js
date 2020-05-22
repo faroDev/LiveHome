@@ -50,7 +50,6 @@ const updateProperty = ({ property = mockProperty }) => {
   const warehouse = useCheckValue(property.warehouse);
   const location = useInputValue(property.location);
   const options = [{ value: 1, label: 'Approved' }, { value: 1, label: 'Pending' }, { value: 1, label: 'Deny' }];
-  console.log('fur', furnished);
 
   return (
     <Layout>
