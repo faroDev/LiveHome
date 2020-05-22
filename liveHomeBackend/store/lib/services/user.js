@@ -1,5 +1,7 @@
 'use strict'
 
+const { getQuery } = require('./../../utils')
+
 module.exports = function setupUserService (userModel, propertyModel, viewsModel) {
   async function create (user) {
     const result = await userModel.create(user)
@@ -23,9 +25,14 @@ module.exports = function setupUserService (userModel, propertyModel, viewsModel
     return userModel.findByPk(id, { raw: true })
   }
 
-  function findAll () {
-    return userModel.findAll({ raw: true })
+  function findAll (query) {
+    const newQuery = getQuery(query)
+    return userModel.findAll({
+      where: newQuery,
+      order: [['createdAt', 'DESC']]
+    })
   }
+
   function propertyUser (userId) {
     return userModel.findAll({
       attributes: ['name', 'id'],

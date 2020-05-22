@@ -6,6 +6,7 @@ const boom = require('@hapi/boom')
 const jwt = require('jsonwebtoken')
 const AuthService = require('./../services/auth')
 const UserService = require('./../services/user')
+const UsersTypeService = require('./../services/usersType')
 const validationHandler = require('./../utils/middleware/validationHandler')
 const { authCreateSchema } = require('./../utils/schemas/auth')
 const config = require('./../../config')
@@ -17,6 +18,7 @@ function authApi (app) {
   const router = express()
   const authService = new AuthService()
   const userService = new UserService()
+  const usersTypeService = new UsersTypeService()
 
   app.use('/api/auth', router)
   router.post('/sign-in', async function (req, res, next) {
@@ -36,11 +38,22 @@ function authApi (app) {
           }
         })
 
+        const query = {
+          authId: auth.id
+        }
+
+        const user = await userService.get(query)
+        let userType
+        if (user) {
+          userType = await usersTypeService.getById(user[0].typeUserId)
+        }
+
         const { id, userName, email } = auth
         const payload = {
           sub: id,
           userName,
-          email
+          email,
+          userType: userType ? userType.name : ''
         }
 
         const token = jwt.sign(payload, config.auth.authJwtSecret, { expiresIn: '15m' })

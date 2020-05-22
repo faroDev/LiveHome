@@ -9,6 +9,8 @@ const userSecondLastNameSchema = joi.string()
 const userStatusSchema = joi.boolean()
 const userAuthIdSchema = joi.number()
 const userTypeUserIdSchema = joi.number()
+const userCreatedAtSchema = joi.array().items(joi.date())
+const userUpdatedAtSchema = joi.array().items(joi.date())
 
 const userCreateSchema = {
   name: userNameSchema.required(),
@@ -34,7 +36,9 @@ const userQuerySchema = {
   secondLastName: userSecondLastNameSchema,
   status: userStatusSchema,
   authId: userAuthIdSchema,
-  typeUserId: userTypeUserIdSchema
+  typeUserId: userTypeUserIdSchema,
+  createdAt: userCreatedAtSchema,
+  updatedAt: userUpdatedAtSchema
 }
 
 module.exports = {
