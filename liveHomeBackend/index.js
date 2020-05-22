@@ -44,7 +44,6 @@ app.use('*', async (req, res, next) => {
 
     try {
       services = await db(config.db)
-
     } catch (e) {
       return next(e)
     }
