@@ -19,7 +19,8 @@ function userApi (app) {
     validationHandler(userQuerySchema, 'query'),
     async function (req, res, next) {
       try {
-        const users = await userService.get()
+        const { query } = req
+        const users = await userService.get(query)
 
         res.status(200).json({
           data: users || [],

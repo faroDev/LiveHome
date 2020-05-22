@@ -12,8 +12,8 @@ class UserService {
   /**
    * List of users
    */
-  async get () {
-    return this.service.user.findAll()
+  async get (query) {
+    return this.service.user.findAll(query)
   }
 
   /**
