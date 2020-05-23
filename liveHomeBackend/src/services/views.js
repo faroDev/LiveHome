@@ -46,7 +46,20 @@ class ViewsService {
    * Get amount of views by user
    */
   async getByUserId (id) {
-    return this.service.views.findByUserId(id)
+    const query = {
+      userId: id
+    }
+    return this.service.views.getAmountByQuery(query)
+  }
+
+  /**
+   * Get amount of views by property
+   */
+  async getAmountByUserId (id) {
+    const query = {
+      userId: id
+    }
+    return this.service.views.getAmountByQuery(query)
   }
 }
 

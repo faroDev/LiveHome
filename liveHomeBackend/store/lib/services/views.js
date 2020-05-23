@@ -1,6 +1,8 @@
 'use strict'
 
-module.exports = function setupViewsService (viewsModel) {
+const { getQuery } = require('./../../utils')
+
+module.exports = function setupViewsService (viewsModel, propertyModel) {
   async function create (views) {
     const result = await viewsModel.create(views)
     return result.toJSON()
@@ -33,22 +35,27 @@ module.exports = function setupViewsService (viewsModel) {
       attributes: ['id', 'counter'],
       group: ['id', 'counter'],
       where: {
-
         propertyId: propertyId
       },
-
       raw: true
     })
   }
 
   /**
-   * Find all views by user id
+   * Find amount of views by query
    * @param {*} id
    */
-  function findByUserId (id) {
-    return viewsModel.count({
+  function getAmountByQuery (query) {
+    const newQuery = getQuery(query)
+    return propertyModel.count({
+      include: [
+        {
+          model: viewsModel,
+          where: newQuery
+        }
+      ],
       where: {
-        userId: id
+        statusId: 2 // approved property
       },
       raw: true
     })
@@ -60,6 +67,6 @@ module.exports = function setupViewsService (viewsModel) {
     findById,
     findAll,
     viewsByPropId,
-    findByUserId
+    getAmountByQuery
   }
 }

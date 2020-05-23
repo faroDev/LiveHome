@@ -44,8 +44,11 @@ class FavoriteService {
   /**
    * Get amount of favorites by user
    */
-  async getByUserId (id) {
-    return this.service.favorites.findByUserId(id)
+  async getAmountByUserId (id) {
+    const query = {
+      userId: id
+    }
+    return this.service.favorites.getAmountByQuery(query)
   }
 }
 

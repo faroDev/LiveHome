@@ -44,7 +44,7 @@ const propertyUpdateSchema = {
   pool: propertyPoolSchema,
   security: propertySecuritySchema,
   elevator: propertyElevatorSchema,
-  statusId: propertyApprovedSchema.required(),
+  statusId: propertyApprovedSchema,
   bathrooms: propertyBathroomsSchema,
   nearTo: propertyNearToSchema,
   available: propertyAvailableSchema,

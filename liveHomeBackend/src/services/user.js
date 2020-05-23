@@ -39,13 +39,6 @@ class UserService {
     user.createdAt = new Date()
     return this.service.user.create(user)
   }
-
-  /**
-   * Get views by user id
-   */
-  async getViewsByUserId (id) {
-    return this.service.user.viewsUser(id)
-  }
 }
 
 module.exports = UserService
