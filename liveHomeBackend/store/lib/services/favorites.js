@@ -1,6 +1,8 @@
 'use strict'
 
-module.exports = function setupFavoritesService (favoritesModel) {
+const { getQuery } = require('./../../utils')
+
+module.exports = function setupFavoritesService (favoritesModel, propertyModel) {
   async function createOrUpdate (favorite, propertyId, userId) {
     if (favorite.id) {
       const cond = {
@@ -50,13 +52,20 @@ module.exports = function setupFavoritesService (favoritesModel) {
   }
 
   /**
-   * Find all favorites by user id
+   * Find amount of favorites by query
    * @param {*} id
    */
-  function findByUserId (id) {
-    return favoritesModel.count({
+  function getAmountByQuery (query) {
+    const newQuery = getQuery(query)
+    return propertyModel.count({
+      include: [
+        {
+          model: favoritesModel,
+          where: newQuery
+        }
+      ],
       where: {
-        userId: id
+        statusId: 2 // approved property
       },
       raw: true
     })
@@ -68,6 +77,6 @@ module.exports = function setupFavoritesService (favoritesModel) {
     findAll,
     update,
     create,
-    findByUserId
+    getAmountByQuery
   }
 }

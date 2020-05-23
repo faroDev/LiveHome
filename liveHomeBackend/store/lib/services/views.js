@@ -1,6 +1,9 @@
 'use strict'
 
-module.exports = function setupViewsService (viewsModel) {
+const { Sequelize } = require('sequelize')
+const { getQuery } = require('./../../utils')
+
+module.exports = function setupViewsService (viewsModel, propertyModel) {
   async function create (views) {
     const result = await viewsModel.create(views)
     return result.toJSON()
@@ -33,24 +36,45 @@ module.exports = function setupViewsService (viewsModel) {
       attributes: ['id', 'counter'],
       group: ['id', 'counter'],
       where: {
-
         propertyId: propertyId
       },
-
       raw: true
     })
   }
 
   /**
-   * Find all views by user id
+   * Find amount of views by query
    * @param {*} id
    */
-  function findByUserId (id) {
-    return viewsModel.count({
+  function getAmountByQuery (query) {
+    const newQuery = getQuery(query)
+    console.log('newQuery ', newQuery)
+
+    return propertyModel.count({
+      include: [
+        {
+          model: viewsModel,
+          where: newQuery
+        }
+      ],
       where: {
-        userId: id
+        statusId: 2 // approved property
       },
       raw: true
+    })
+  }
+
+  /**
+   * Get views per date
+   * @param {*} id
+   */
+  function getDataPerDateByPropertyId (id) {
+    return viewsModel.count({
+      attributes: [Sequelize.fn('date_trunc', 'day', Sequelize.col('date'))],
+      group: [Sequelize.fn('date_trunc', 'day', Sequelize.col('date'))],
+      where: {
+        propertyId: id
+      }
     })
   }
 
@@ -60,6 +84,7 @@ module.exports = function setupViewsService (viewsModel) {
     findById,
     findAll,
     viewsByPropId,
-    findByUserId
+    getAmountByQuery,
+    getDataPerDateByPropertyId
   }
 }

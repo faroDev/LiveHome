@@ -73,15 +73,17 @@ module.exports = async function (config) {
   const user = setupUserService(userModel, propertyModel, viewsModel)
   const auth = setupAuthService(authModel)
   const propertyType = setupPropertyTypeService(propertyTypeModel)
-  const properties = setupPropertiesService(propertyModel)
-  const views = setupViewsService(viewsModel)
+
+  const views = setupViewsService(viewsModel, propertyModel)
   const files = setupFilesService(filesModel)
+
   const propertyDetail = setupPropertyDetailService(propertyDetailModel)
   const modalityType = setupModalityTypeService(modalityTypeModel)
   const modality = setupModalityService(modalityModel)
   const approveUser = setupAproveUserService(aproveUserModel)
-  const favorites = setupFavoritesService(favoritesModel)
+  const favorites = setupFavoritesService(favoritesModel, propertyModel)
   const status = setupStatusService(statusModel)
+  const properties = setupPropertiesService(propertyModel, filesModel)
 
   return {
     typeUser,

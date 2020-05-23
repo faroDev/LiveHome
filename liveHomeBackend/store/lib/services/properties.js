@@ -1,6 +1,6 @@
 'use strict'
 const { Op } = require('sequelize')
-module.exports = function setupPropertiesService (propertyModel, userModel) {
+module.exports = function setupPropertiesService (propertyModel, filesModel) {
   async function createOrUpdate (property) {
     if (property.id) {
       const cond = {
@@ -75,11 +75,17 @@ module.exports = function setupPropertiesService (propertyModel, userModel) {
 
   function userProperties (userId) {
     return propertyModel.findAll({
-      attributes: ['id', 'm2', 'approved', 'createdAt'],
+      attributes: ['id', 'm2', 'm2build', 'statusId', 'createdAt'],
+      include: [
+        {
+          attributes: ['id', 'url', 'fileType'],
+          model: filesModel
+        }
+      ],
       where: {
-        userId: userId
-      },
-      raw: true
+        userId: userId,
+        statusId: 2 // approved
+      }
     })
   }
 
