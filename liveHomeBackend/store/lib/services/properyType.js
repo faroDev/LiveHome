@@ -1,27 +1,9 @@
 'use strict'
 
-module.exports = function setupPropertyTypeServices (propertyTypeModel) {
-  async function createOrUpdate (properyType) {
-    if (properyType.id) {
-      const cond = {
-        where: {
-          id: properyType.id
-        }
-      }
+module.exports = function setupPropertyTypeServices(propertyTypeModel) {
 
-      const existingPropertyType = await propertyTypeModel.findOne(cond)
 
-      if (existingPropertyType) {
-        const update = await propertyTypeModel.update(properyType, cond)
-        return update ? propertyTypeModel.findOne(cond, { raw: true }) : existingPropertyType.toJSON({ raw: true })
-      }
-    }
-
-    const result = await propertyTypeModel.create(properyType)
-    return result.toJSON({ raw: true })
-  }
-
-  async function create (properyType) {
+  async function create(properyType) {
     properyType.updatedAt = new Date()
     properyType.createdAt = new Date()
 
@@ -29,7 +11,7 @@ module.exports = function setupPropertyTypeServices (propertyTypeModel) {
     return result.toJSON({ raw: true })
   }
 
-  async function update (properyType) {
+  async function update(properyType) {
     const cond = {
       where: {
         id: properyType.id
@@ -42,11 +24,11 @@ module.exports = function setupPropertyTypeServices (propertyTypeModel) {
     return existingPropertyType
   }
 
-  function findById (id) {
+  function findById(id) {
     return propertyTypeModel.findByPk(id, { raw: true })
   }
 
-  function findAll () {
+  function findAll() {
     return propertyTypeModel.findAll({ raw: true })
   }
 

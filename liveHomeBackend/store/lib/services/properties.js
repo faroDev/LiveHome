@@ -1,27 +1,8 @@
 'use strict'
 const { Op } = require('sequelize')
-module.exports = function setupPropertiesService (propertyModel, userModel) {
-  async function createOrUpdate (property) {
-    if (property.id) {
-      const cond = {
-        where: {
-          id: property.id
-        }
-      }
+module.exports = function setupPropertiesService(propertyModel, userModel) {
 
-      const exitingproperty = await propertyModel.findOne(cond)
-
-      if (exitingproperty) {
-        const update = await propertyModel.update(property, cond)
-        return update ? propertyModel.findOne(cond, { raw: true }) : exitingproperty.toJSON({ raw: true })
-      }
-    }
-
-    const result = await propertyModel.create(property)
-    return result.toJSON({ raw: true })
-  }
-
-  async function create (property) {
+  async function create(property) {
     property.updatedAt = new Date()
     property.createdAt = new Date()
 
@@ -29,7 +10,7 @@ module.exports = function setupPropertiesService (propertyModel, userModel) {
     return result.toJSON({ raw: true })
   }
 
-  async function update (property) {
+  async function update(property) {
     const cond = {
       where: {
         id: property.id
@@ -42,38 +23,15 @@ module.exports = function setupPropertiesService (propertyModel, userModel) {
     return exitingproperty
   }
 
-  function findById (id) {
+  function findById(id) {
     return propertyModel.findByPk(id, { raw: true })
   }
 
-  function findAll () {
+  function findAll() {
     return propertyModel.findAll({ raw: true })
   }
 
-  async function findByQuery (object) {
-    // MODIFICAR OBJETO
-
-    return propertyModel.findAll({
-      where: object,
-      order: [['createdAt', 'DESC']]
-    })
-  }
-
-  async function findByRank (obj, prop) {
-    const cond = { prop }
-    const val = { [Op.between]: [obj.min, obj.max] }
-
-    Object.assign(cond, val)
-    // const prop2 = prop
-    // const min = obj.min
-    // const max = obj.max
-    console.log(cond)
-    return propertyModel.findAll({
-      where: cond
-    })
-  }
-
-  function userProperties (userId) {
+  function userProperties(userId) {
     return propertyModel.findAll({
       attributes: ['id', 'm2', 'approved'],
       include: [{
@@ -88,13 +46,10 @@ module.exports = function setupPropertiesService (propertyModel, userModel) {
   }
 
   return {
-    createOrUpdate,
     findById,
     findAll,
     update,
     create,
-    findByQuery,
-    findByRank,
     userProperties
   }
 }
