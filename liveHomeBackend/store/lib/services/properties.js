@@ -89,6 +89,23 @@ module.exports = function setupPropertiesService (propertyModel, filesModel) {
     })
   }
 
+  function getPropertiesByIds (ids) {
+    return propertyModel.findAll({
+      include: [
+        {
+          attributes: ['url', 'fileType'],
+          model: filesModel
+        }
+      ],
+      where: {
+        id: {
+          [Op.in]: [...ids]
+        },
+        statusId: 2 // approved
+      }
+    })
+  }
+
   return {
     createOrUpdate,
     findById,
@@ -97,6 +114,7 @@ module.exports = function setupPropertiesService (propertyModel, filesModel) {
     create,
     findByQuery,
     findByRank,
-    userProperties
+    userProperties,
+    getPropertiesByIds
   }
 }

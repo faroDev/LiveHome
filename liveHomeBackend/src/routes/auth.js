@@ -39,12 +39,14 @@ function authApi (app) {
         })
 
         const query = {
-          authId: auth.id
+          authId: parseInt(auth.id)
         }
 
         const user = await userService.get(query)
         let userType
+        let userId
         if (user) {
+          userId = user[0].id
           userType = await usersTypeService.getById(user[0].typeUserId)
         }
 
@@ -53,7 +55,8 @@ function authApi (app) {
           sub: id,
           userName,
           email,
-          userType: userType ? userType.name : ''
+          userType: userType ? userType.name : '',
+          userId
         }
 
         const token = jwt.sign(payload, config.auth.authJwtSecret, { expiresIn: '15m' })

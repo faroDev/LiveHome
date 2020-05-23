@@ -12,6 +12,14 @@ module.exports = function setupProperties (config) {
       autoIncrement: true,
       primaryKey: true
     },
+    title: {
+      type: Sequelize.STRING,
+      allowNull: false
+    },
+    description: {
+      type: Sequelize.STRING,
+      allowNull: false
+    },
     m2: {
       type: Sequelize.DECIMAL,
       allowNull: false

@@ -117,6 +117,24 @@ function userApi (app) {
         next(error)
       }
     })
+
+  router.get('/:id/favorites',
+    passport.authenticate('jwt', { session: false }),
+    validationHandler({ id: userIdSchema }, 'params'),
+    async function (req, res, next) {
+      try {
+        const { id } = req.params
+
+        const favorites = await favoriteService.getAllByUserId(id)
+
+        res.status(200).json({
+          data: favorites || [],
+          message: 'Favorites retrieved'
+        })
+      } catch (error) {
+        next(error)
+      }
+    })
 }
 
 module.exports = userApi

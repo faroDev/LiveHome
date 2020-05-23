@@ -60,6 +60,15 @@ class FavoriteService {
     }
     return this.service.favorites.getAmountByQuery(query)
   }
+
+  /**
+   * Get favorites by user id
+   */
+  async getAllByUserId (id) {
+    const favorites = await this.service.favorites.findAllByUserId(id)
+    const propertiesId = favorites.map(favorite => favorite.propertyId)
+    return this.service.properties.getPropertiesByIds(propertiesId)
+  }
 }
 
 module.exports = FavoriteService

@@ -18,6 +18,8 @@ const propertyCreatedAtSchema = joi.date()
 const propertyUpdatedAtSchema = joi.date()
 const propertyPropertyTypeIdSchema = joi.number()
 const propertyUserIdSchema = joi.number()
+const propertyTitleSchema = joi.string()
+const propertyDescriptionSchema = joi.string()
 
 const propertyCreateSchema = {
   m2: propertyM2Schema.required(),
@@ -33,7 +35,9 @@ const propertyCreateSchema = {
   available: propertyAvailableSchema.required(),
   downAt: propertyDownAtSchema,
   propertyTypeId: propertyPropertyTypeIdSchema.required(),
-  userId: propertyUserIdSchema.required()
+  userId: propertyUserIdSchema.required(),
+  title: propertyTitleSchema.required(),
+  description: propertyDescriptionSchema.required()
 }
 
 const propertyUpdateSchema = {
@@ -50,7 +54,9 @@ const propertyUpdateSchema = {
   available: propertyAvailableSchema,
   downAt: propertyDownAtSchema,
   propertyTypeId: propertyPropertyTypeIdSchema,
-  userId: propertyUserIdSchema
+  userId: propertyUserIdSchema,
+  title: propertyTitleSchema,
+  description: propertyDescriptionSchema
 }
 
 const propertyQuerySchema = {
