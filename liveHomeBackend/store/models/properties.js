@@ -44,11 +44,6 @@ module.exports = function setupProperties (config) {
       allowNull: true,
       defaultValue: false
     },
-    approved: {
-      type: Sequelize.BOOLEAN,
-      allowNull: true,
-      defaultValue: false
-    },
     bathrooms: {
       type: Sequelize.INTEGER,
       allowNull: true

@@ -1,7 +1,7 @@
 'use strict'
-
-module.exports = function setupPropertiesService (propertyModel, userModel) {
-  async function create (property) {
+const { Op } = require('sequelize')
+module.exports = function setupPropertiesService(propertyModel, userModel, modalityModel, propertyDetailModel, filesModel) {
+  async function create(property) {
     property.updatedAt = new Date()
     property.createdAt = new Date()
 
@@ -9,7 +9,7 @@ module.exports = function setupPropertiesService (propertyModel, userModel) {
     return result.toJSON({ raw: true })
   }
 
-  async function update (property) {
+  async function update(property) {
     const cond = {
       where: {
         id: property.id
@@ -22,15 +22,15 @@ module.exports = function setupPropertiesService (propertyModel, userModel) {
     return exitingproperty
   }
 
-  function findById (id) {
+  function findById(id) {
     return propertyModel.findByPk(id, { raw: true })
   }
 
-  function findAll () {
+  function findAll() {
     return propertyModel.findAll({ raw: true })
   }
 
-  function userProperties (userId) {
+  function userProperties(userId) {
     return propertyModel.findAll({
       attributes: ['id', 'm2', 'approved'],
       include: [{
@@ -43,12 +43,66 @@ module.exports = function setupPropertiesService (propertyModel, userModel) {
       raw: true
     })
   }
+  function propertiesHomeQuery(obj) {
+    const { statusId, propertyTypeId, modalTypeId, location } = obj
+    let prop = {}
+    if (statusId && propertyTypeId) {
+      prop = {
+        statusId,
+        propertyTypeId
+      }
+    } else {
+      prop = {
+        [Op.or]: {
+          statusId,
+          propertyTypeId
+        }
+      }
+    }
 
+    return propertyModel.findAll({
+      attributes: ['*'],
+      where: prop,
+      include: [
+        {
+          attributes: ['*'],
+          model: modalityModel,
+          where: {
+            modalTypeId
+          }
+        },
+        (location) ? {
+          attributes: ['*'],
+          model: propertyDetailModel,
+          where: {
+            [Op.or]: [
+              { city: { [Op.iLike]: `%${location}%` } },
+              { neighborhood: { [Op.iLike]: `%${location}%` } }
+            ]
+
+          }
+
+        } :
+          {
+            attributes: ['*'],
+            model: propertyDetailModel
+          }
+        ,
+        {
+          attributes: ['id', 'url'],
+          model: filesModel
+        }
+      ],
+      raw: true
+    })
+  }
   return {
+
     findById,
     findAll,
     update,
     create,
-    userProperties
+    userProperties,
+    propertiesHomeQuery
   }
 }
