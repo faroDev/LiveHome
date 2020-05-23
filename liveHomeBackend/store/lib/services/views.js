@@ -28,7 +28,7 @@ module.exports = function setupViewsService (viewsModel) {
     return viewsModel.findAll({ raw: true })
   }
 
-  function viewsBypropId (propertyId) {
+  function viewsByPropId (propertyId) {
     return viewsModel.findAll({
       attributes: ['id', 'counter'],
       group: ['id', 'counter'],
@@ -41,11 +41,25 @@ module.exports = function setupViewsService (viewsModel) {
     })
   }
 
+  /**
+   * Find all views by user id
+   * @param {*} id
+   */
+  function findByUserId (id) {
+    return viewsModel.count({
+      where: {
+        userId: id
+      },
+      raw: true
+    })
+  }
+
   return {
     create,
     update,
     findById,
     findAll,
-    viewsBypropId
+    viewsByPropId,
+    findByUserId
   }
 }

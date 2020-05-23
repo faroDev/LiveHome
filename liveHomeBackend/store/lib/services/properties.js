@@ -75,14 +75,10 @@ module.exports = function setupPropertiesService (propertyModel, userModel) {
 
   function userProperties (userId) {
     return propertyModel.findAll({
-      attributes: ['id', 'm2', 'approved'],
-      include: [{
-        attributes: ['name'],
-        model: userModel,
-        where: {
-          id: userId
-        }
-      }],
+      attributes: ['id', 'm2', 'approved', 'createdAt'],
+      where: {
+        userId: userId
+      },
       raw: true
     })
   }

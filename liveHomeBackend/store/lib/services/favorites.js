@@ -23,12 +23,7 @@ module.exports = function setupFavoritesService (favoritesModel) {
     return result.toJSON({ raw: true })
   }
 
-  async function create (favorite, propertyId, userId) {
-    favorite.propertyId = propertyId
-    favorite.userId = userId
-    favorite.updatedAt = new Date()
-    favorite.createdAt = new Date()
-
+  async function create (favorite) {
     const result = await favoritesModel.create(favorite)
     return result.toJSON({ raw: true })
   }
@@ -54,11 +49,25 @@ module.exports = function setupFavoritesService (favoritesModel) {
     return favoritesModel.findAll({ raw: true })
   }
 
+  /**
+   * Find all favorites by user id
+   * @param {*} id
+   */
+  function findByUserId (id) {
+    return favoritesModel.count({
+      where: {
+        userId: id
+      },
+      raw: true
+    })
+  }
+
   return {
     createOrUpdate,
     findById,
     findAll,
     update,
-    create
+    create,
+    findByUserId
   }
 }

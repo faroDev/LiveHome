@@ -17,7 +17,7 @@ class ViewsService {
   }
 
   /**
-   * Get specific files by id
+   * Get specific views by id
    */
   async getById (id) {
     return this.service.views.findById(id)
@@ -40,6 +40,13 @@ class ViewsService {
     view.counter = 1
     view.createdAt = new Date()
     return this.service.views.create(view)
+  }
+
+  /**
+   * Get amount of views by user
+   */
+  async getByUserId (id) {
+    return this.service.views.findByUserId(id)
   }
 }
 

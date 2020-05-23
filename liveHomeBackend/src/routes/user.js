@@ -2,6 +2,9 @@
 const express = require('express')
 const passport = require('passport')
 const UserService = require('./../services/user')
+const PropertyService = require('./../services/property')
+const ViewsService = require('./../services/views')
+const FavoriteService = require('./../services/favorite')
 const validationHandler = require('./../utils/middleware/validationHandler')
 const { userIdSchema, userCreateSchema, userUpdateSchema, userQuerySchema } = require('./../utils/schemas/users')
 
@@ -11,6 +14,9 @@ require('./../utils/auth/strategies/jwt')
 function userApi (app) {
   const router = express()
   const userService = new UserService()
+  const propertyService = new PropertyService()
+  const viewsService = new ViewsService()
+  const favoriteService = new FavoriteService()
 
   app.use('/api/users', router)
 
@@ -92,31 +98,18 @@ function userApi (app) {
     validationHandler({ id: userIdSchema }, 'params'),
     async function (req, res, next) {
       try {
+        const { id } = req.params
+
+        const properties = await propertyService.getByUserId(id)
+        const views = await viewsService.getByUserId(id)
+        const favorites = await favoriteService.getByUserId(id)
+
         res.status(200).json({
           data: {
-            offers: 10,
-            visitors: 2000,
-            favorites: 40,
-            properties: [
-              {
-                id: 1,
-                name: 'Casa',
-                date: '2020-05-15',
-                image: 'url'
-              },
-              {
-                id: 2,
-                name: 'Casa',
-                date: '2020-05-15',
-                image: 'url'
-              },
-              {
-                id: 3,
-                name: 'Casa',
-                date: '2020-05-15',
-                image: 'url'
-              }
-            ]
+            offers: properties.length,
+            visitors: views || 0,
+            favorites: favorites || 0,
+            properties: properties || []
           },
           message: 'User dashboard retrieved'
         })

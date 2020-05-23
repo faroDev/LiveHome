@@ -27,6 +27,14 @@ class PropertyService {
   }
 
   /**
+   * Get properties by id
+   * @param {*} id
+   */
+  async getByUserId (id) {
+    return this.service.properties.userProperties(id)
+  }
+
+  /**
    * Update specific property
    * @param {*} id
    * @param {*} property
