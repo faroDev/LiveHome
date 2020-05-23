@@ -1,8 +1,7 @@
 'use strict'
 
-module.exports = function setupFavoritesService(favoritesModel) {
-
-  async function create(favorite, propertyId, userId) {
+module.exports = function setupFavoritesService (favoritesModel) {
+  async function create (favorite, propertyId, userId) {
     favorite.propertyId = propertyId
     favorite.userId = userId
     favorite.updatedAt = new Date()
@@ -12,7 +11,7 @@ module.exports = function setupFavoritesService(favoritesModel) {
     return result.toJSON({ raw: true })
   }
 
-  async function update(favorite) {
+  async function update (favorite) {
     const cond = {
       where: {
         id: favorite.id
@@ -25,11 +24,11 @@ module.exports = function setupFavoritesService(favoritesModel) {
     return existingfavorite
   }
 
-  function findById(id) {
+  function findById (id) {
     return favoritesModel.findByPk(id, { raw: true })
   }
 
-  function findAll() {
+  function findAll () {
     return favoritesModel.findAll({ raw: true })
   }
 

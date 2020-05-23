@@ -1,8 +1,7 @@
 'use strict'
 
-module.exports = function setupAuthService(authModel) {
-
-  async function create(auth) {
+module.exports = function setupAuthService (authModel) {
+  async function create (auth) {
     auth.updatedAt = new Date()
     auth.createdAt = new Date()
 
@@ -10,7 +9,7 @@ module.exports = function setupAuthService(authModel) {
     return result.toJSON({ raw: true })
   }
 
-  async function update(auth) {
+  async function update (auth) {
     const cond = {
       where: {
         id: auth.id
@@ -23,15 +22,15 @@ module.exports = function setupAuthService(authModel) {
     return existingAuth
   }
 
-  function findById(id) {
+  function findById (id) {
     return authModel.findByPk(id, { raw: true })
   }
 
-  function findAll() {
+  function findAll () {
     return authModel.findAll({ raw: true })
   }
 
-  function findByEmail(email) {
+  function findByEmail (email) {
     const cond = {
       where: {
         email: email

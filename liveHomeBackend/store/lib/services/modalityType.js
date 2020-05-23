@@ -1,8 +1,7 @@
 'use strict'
 
-module.exports = function setupModalityTypeService(modalityTypeModel) {
-
-  async function create(modalityType) {
+module.exports = function setupModalityTypeService (modalityTypeModel) {
+  async function create (modalityType) {
     modalityType.updatedAt = new Date()
     modalityType.createdAt = new Date()
 
@@ -10,7 +9,7 @@ module.exports = function setupModalityTypeService(modalityTypeModel) {
     return result.toJSON({ raw: true })
   }
 
-  async function update(modalityType) {
+  async function update (modalityType) {
     const cond = {
       where: {
         id: modalityType.id
@@ -23,11 +22,11 @@ module.exports = function setupModalityTypeService(modalityTypeModel) {
     return existingModalityType
   }
 
-  function findById(id) {
+  function findById (id) {
     return modalityTypeModel.findByPk(id, { raw: true })
   }
 
-  function findAll() {
+  function findAll () {
     return modalityTypeModel.findAll({ raw: true })
   }
 

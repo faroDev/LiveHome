@@ -1,8 +1,7 @@
 'use strict'
 
-module.exports = function setupAproveUserService(aproveUserModel) {
-
-  async function create(aprove, propertyId, userId) {
+module.exports = function setupAproveUserService (aproveUserModel) {
+  async function create (aprove, propertyId, userId) {
     aprove.propertyId = propertyId
     aprove.userId = userId
     aprove.updatedAt = new Date()
@@ -12,7 +11,7 @@ module.exports = function setupAproveUserService(aproveUserModel) {
     return result.toJSON({ raw: true })
   }
 
-  async function update(aprove) {
+  async function update (aprove) {
     const cond = {
       where: {
         id: aprove.id
@@ -25,11 +24,11 @@ module.exports = function setupAproveUserService(aproveUserModel) {
     return existingAproveUser
   }
 
-  function findById(id) {
+  function findById (id) {
     return aproveUserModel.findByPk(id, { raw: true })
   }
 
-  function findAll() {
+  function findAll () {
     return aproveUserModel.findAll({ raw: true })
   }
 
