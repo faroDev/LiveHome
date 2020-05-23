@@ -101,8 +101,6 @@ function userApi (app) {
         const { id } = req.params
 
         const properties = await propertyService.getByUserId(id)
-        console.log(properties)
-
         const views = await viewsService.getAmountByUserId(id)
         const favorites = await favoriteService.getAmountByUserId(id)
 

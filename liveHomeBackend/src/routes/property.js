@@ -9,6 +9,8 @@ const { Storage } = require('@google-cloud/storage')
 const PropertyService = require('./../services/property')
 const FileService = require('./../services/file')
 const config = require('./../../config')
+const ViewsService = require('./../services/views')
+const FavoriteService = require('./../services/favorite')
 const validationHandler = require('./../utils/middleware/validationHandler')
 const { propertyIdSchema, propertyUpdateSchema, propertyCreateSchema, propertyQuerySchema } = require('./../utils/schemas/property')
 const { uploadImageToStorage } = require('./../utils/files')
@@ -30,6 +32,8 @@ function propertyApi (app) {
   const router = express()
   const propertyService = new PropertyService()
   const fileService = new FileService()
+  const viewsService = new ViewsService()
+  const favoriteService = new FavoriteService()
 
   app.use('/api/properties', router)
 
@@ -134,32 +138,16 @@ function propertyApi (app) {
     validationHandler({ id: propertyIdSchema }, 'params'),
     async function (req, res, next) {
       try {
+        const { id } = req.params
+        const favorites = await favoriteService.getAmountByPropertyId(id)
+        const views = await viewsService.getAmountByPropertyId(id)
+        const graph = await viewsService.getDataPerDateByPropertyId(id)
+
         res.status(200).json({
           data: {
-            favorites: 20,
-            visitors: 200,
-            graph: [
-              {
-                date: '2020-05-10',
-                count: 2
-              },
-              {
-                date: '2020-05-11',
-                count: 3
-              },
-              {
-                date: '2020-05-12',
-                count: 5
-              },
-              {
-                date: '2020-05-13',
-                count: 6
-              },
-              {
-                date: '2020-05-14',
-                count: 7
-              }
-            ]
+            favorites: favorites || 0,
+            visitors: views || 0,
+            graph: graph || 0
           },
           message: 'Property dashboard retrieved'
         })

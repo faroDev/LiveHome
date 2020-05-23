@@ -5,6 +5,7 @@ const joi = require('@hapi/joi')
 const viewIdSchema = joi.number()
 const viewPropertyIdSchema = joi.number()
 const viewUserIdSchema = joi.number()
+const viewDateSchema = joi.date()
 
 const viewCreateSchema = {
   propertyId: viewPropertyIdSchema.required(),
@@ -13,7 +14,8 @@ const viewCreateSchema = {
 
 const viewUpdateSchema = {
   propertyId: viewPropertyIdSchema,
-  userId: viewUserIdSchema
+  userId: viewUserIdSchema,
+  date: viewDateSchema
 }
 
 const viewQuerySchema = {

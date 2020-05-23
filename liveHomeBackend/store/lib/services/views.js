@@ -1,5 +1,6 @@
 'use strict'
 
+const { Sequelize } = require('sequelize')
 const { getQuery } = require('./../../utils')
 
 module.exports = function setupViewsService (viewsModel, propertyModel) {
@@ -47,6 +48,8 @@ module.exports = function setupViewsService (viewsModel, propertyModel) {
    */
   function getAmountByQuery (query) {
     const newQuery = getQuery(query)
+    console.log('newQuery ', newQuery)
+
     return propertyModel.count({
       include: [
         {
@@ -61,12 +64,27 @@ module.exports = function setupViewsService (viewsModel, propertyModel) {
     })
   }
 
+  /**
+   * Get views per date
+   * @param {*} id
+   */
+  function getDataPerDateByPropertyId (id) {
+    return viewsModel.count({
+      attributes: [Sequelize.fn('date_trunc', 'day', Sequelize.col('date'))],
+      group: [Sequelize.fn('date_trunc', 'day', Sequelize.col('date'))],
+      where: {
+        propertyId: id
+      }
+    })
+  }
+
   return {
     create,
     update,
     findById,
     findAll,
     viewsByPropId,
-    getAmountByQuery
+    getAmountByQuery,
+    getDataPerDateByPropertyId
   }
 }
