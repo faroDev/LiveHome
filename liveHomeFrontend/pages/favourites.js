@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import Layout from './../src/components/Layout';
 import CardPreviewPublication from './../src/components/CardPreviewPublication';
 import styles from '../src/styles/pages/favourites.module.sass';
+import UserContext from './../src/components/UserContext';
 
 const dataMock = [
   {
@@ -51,10 +52,11 @@ const dataMock = [
 ];
 
 const Favourites = ({ data = dataMock }) => {
+  const { user } = useContext(UserContext);
   return (
     <Layout>
       <div className={styles.__container}>
-        <h1>Favourites</h1>
+        <h1>Favourites {user.userName}</h1>
         {data.map(property => <CardPreviewPublication key={property.id} {...property} />)}
       </div>
     </Layout>
