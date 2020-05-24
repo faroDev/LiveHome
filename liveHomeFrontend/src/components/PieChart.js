@@ -1,6 +1,9 @@
 import React from 'react';
-import styles from '../styles/components/PieChart.module.sass';
+
+import favouritesIcon from '../assets/statics/images/like.png';
 import { ResponsiveContainer, PieChart as Chart, Pie, Cell } from 'recharts';
+
+import styles from '../styles/components/PieChart.module.sass';
 
 const dataMock = [
   {
@@ -42,10 +45,15 @@ const renderCustomizedLabel = ({
   );
 };
 
-const PieChart = ({ data = dataMock, children }) => {
+const PieChart = ({ data = dataMock }) => {
   return (
     <div className={styles.chartContainer}>
-      {children}
+
+      <div className={styles.info}>
+        <img src={favouritesIcon} alt='Icon visitors' />
+        <span><b>Favourites:</b> 10</span>
+      </div>
+      
       <ResponsiveContainer>
         <Chart>
           <Pie
