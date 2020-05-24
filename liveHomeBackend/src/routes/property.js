@@ -10,7 +10,7 @@ const PropertyService = require('./../services/property')
 const FileService = require('./../services/file')
 const config = require('./../../config')
 const validationHandler = require('./../utils/middleware/validationHandler')
-const { propertyIdSchema, propertyUpdateSchema, propertyCreateSchema, propertyQuerySchema } = require('./../utils/schemas/property')
+const { propertyIdSchema, propertyUpdateSchema, propertyCreateSchema, propertyQuerySchema, propertyQueryhome } = require('./../utils/schemas/property')
 const { uploadImageToStorage } = require('./../utils/files')
 
 // jwt strategy
@@ -26,7 +26,7 @@ const bucket = storage.bucket(config.googleStorage.bucketName)
 
 var upload = Multer(config.multer)
 
-function propertyApi (app) {
+function propertyApi(app) {
   const router = express()
   const propertyService = new PropertyService()
   const fileService = new FileService()
@@ -46,6 +46,29 @@ function propertyApi (app) {
           message: 'Properties  listed'
         })
       } catch (error) {
+        next(error)
+      }
+    })
+  router.get('/home',
+    validationHandler(propertyQueryhome, 'query'),
+    async function (req, res, next) {
+      try {
+        const { propertyTypeId, modalTypeId, location } = req.query
+
+        const propertiesQuery = {
+          propertyTypeId: parseInt(propertyTypeId) || null,
+          modalTypeId: parseInt(modalTypeId),
+          location: location || null
+        }
+
+        const result = await propertyService.homeQuery(propertiesQuery)
+
+        res.status(200).json({
+          data: result || [],
+          message: 'Properties  listed'
+        })
+      }
+      catch (error) {
         next(error)
       }
     })
