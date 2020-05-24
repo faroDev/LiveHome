@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import Router from 'next/router';
 
 import setInputValue from '../../src/hooks/useInputValue';
@@ -11,22 +11,36 @@ import Checkbox from '../../src/components/Checkbox';
 import Input from '../../src/components/Input';
 import Textarea from '../../src/components/Textarea';
 import Button from '../../src/components/Button';
+import UserContext from '../../src/components/UserContext';
 
 import styles from '../../src/styles/pages/post/new_post_step_three.module.sass';
 
 const newPostStepThree = () => {
 
-  const furnished = useCheckValue('');
-  const elevator = useCheckValue('');
-  const pool = useCheckValue('');
-  const heating = useCheckValue('');
-  const security = useCheckValue('');
-  const warehouse = useCheckValue('');
+  const furnished = useCheckValue(false);
+  const elevator = useCheckValue(false);
+  const pool = useCheckValue(false);
+  const heating = useCheckValue(false);
+  const security = useCheckValue(false);
+  const warehouse = useCheckValue(false);
   const parking = setInputValue('');
+  const nearby_places = setInputValue('text');
+  const {post, setPost} = useContext(UserContext);
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log('entró');
+    setPost({
+      ...post,
+      furnished: furnished.checked,
+      elevator: elevator.checked,
+      pool: pool.checked,
+      heating: heating.checked,
+      security: security.checked,
+      warehouse: warehouse.checked,
+      parking: parking.value,
+      nearby_places: nearby_places.value,
+    })
+    Router.push('/post/new_post_step_one')
   };
 
   return (
@@ -56,7 +70,7 @@ const newPostStepThree = () => {
             <Input type='number' label='Parkig' name='parkng' required={true} {...parking} />
           </FormField>
           <FormField>
-            <Textarea label='Nearby places' name='nearby_places' />
+            <Textarea label='Nearby places' name='nearby_places' required={true} {...nearby_places} />
           </FormField>
           <div className={styles.buttons}>
             <Button value='Back' buttonClass='grayLightLinearButton' buttonType='button' handleClick={() => {Router.push('/')}}/>

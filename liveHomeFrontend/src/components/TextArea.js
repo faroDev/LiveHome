@@ -14,7 +14,7 @@ const TextArea = (props) => {
         maxLength='300'
         name={props.name}
         required={props.required}
-        onChange={props.handleChange}
+        onChange={props.onChange}
       />
     </Label>
   );

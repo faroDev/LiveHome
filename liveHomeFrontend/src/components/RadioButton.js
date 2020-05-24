@@ -4,7 +4,7 @@ import Label from './Label';
 
 import styles from '../styles/components/RadioButton.module.sass';
 
-function RadioButton ({ options, name, title, value, onChange }) {
+function RadioButton ({ options, name, title, onChange }) {
   return (
     <>
       <span className={styles.radio_title}>{title}</span>
@@ -17,7 +17,6 @@ function RadioButton ({ options, name, title, value, onChange }) {
                 type='radio'
                 name={name}
                 value={item}
-                checked={item === value ? true : false}
                 onChange={onChange}
               />
               <label htmlFor={item}>{item}</label>
