@@ -1,7 +1,7 @@
 'use strict'
 const { Op } = require('sequelize')
-module.exports = function setupPropertiesService(propertyModel, userModel, modalityModel, propertyDetailModel, filesModel) {
-  async function create(property) {
+module.exports = function setupPropertiesService (propertyModel, userModel, modalityModel, propertyDetailModel, filesModel) {
+  async function create (property) {
     property.updatedAt = new Date()
     property.createdAt = new Date()
 
@@ -9,7 +9,7 @@ module.exports = function setupPropertiesService(propertyModel, userModel, modal
     return result.toJSON({ raw: true })
   }
 
-  async function update(property) {
+  async function update (property) {
     const cond = {
       where: {
         id: property.id
@@ -22,15 +22,15 @@ module.exports = function setupPropertiesService(propertyModel, userModel, modal
     return exitingproperty
   }
 
-  function findById(id) {
+  function findById (id) {
     return propertyModel.findByPk(id, { raw: true })
   }
 
-  function findAll() {
+  function findAll () {
     return propertyModel.findAll({ raw: true })
   }
 
-  function userProperties(userId) {
+  function userProperties (userId) {
     return propertyModel.findAll({
       attributes: ['id', 'm2', 'approved'],
       include: [{
@@ -43,7 +43,7 @@ module.exports = function setupPropertiesService(propertyModel, userModel, modal
       raw: true
     })
   }
-  function propertiesHomeQuery(obj) {
+  function propertiesHomeQuery (obj) {
     const { statusId, propertyTypeId, modalTypeId, location } = obj
     let prop = {}
     if (statusId && propertyTypeId) {
@@ -82,12 +82,11 @@ module.exports = function setupPropertiesService(propertyModel, userModel, modal
 
           }
 
-        } :
-          {
+        }
+          : {
             attributes: ['*'],
             model: propertyDetailModel
-          }
-        ,
+          },
         {
           attributes: ['id', 'url'],
           model: filesModel
