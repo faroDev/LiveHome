@@ -4,7 +4,7 @@ const config = require('./../../config')
 const db = require('./../../store')
 
 class PropertyService {
-  constructor() {
+  constructor () {
     db(config.db).then(service => {
       this.service = service
     })
@@ -14,7 +14,7 @@ class PropertyService {
    * List of property
    * @param {*} query
    */
-  async get(query) {
+  async get (query) {
     return this.service.properties.findByQuery(query)
   }
 
@@ -22,7 +22,7 @@ class PropertyService {
    * Get specific property
    * @param {*} id
    */
-  async getById(id) {
+  async getById (id) {
     return this.service.properties.findById(id)
   }
 
@@ -31,7 +31,7 @@ class PropertyService {
    * @param {*} id
    * @param {*} property
    */
-  async update(id, property) {
+  async update (id, property) {
     property.id = id
     property.updated = new Date()
     return this.service.properties.update(property)
@@ -41,7 +41,7 @@ class PropertyService {
    * Create property
    * @param {*} property
    */
-  async create(property) {
+  async create (property) {
     property.createdAt = new Date()
     return this.service.properties.create(property)
   }
@@ -54,10 +54,9 @@ class PropertyService {
   * Return properties filtered by query
   */
 
-  async homeQuery(obj) {
+  async homeQuery (obj) {
     return this.service.properties.propertiesHomeQuery(obj)
   }
-
 }
 
 module.exports = PropertyService

@@ -26,7 +26,7 @@ const bucket = storage.bucket(config.googleStorage.bucketName)
 
 var upload = Multer(config.multer)
 
-function propertyApi(app) {
+function propertyApi (app) {
   const router = express()
   const propertyService = new PropertyService()
   const fileService = new FileService()
@@ -67,8 +67,7 @@ function propertyApi(app) {
           data: result || [],
           message: 'Properties  listed'
         })
-      }
-      catch (error) {
+      } catch (error) {
         next(error)
       }
     })

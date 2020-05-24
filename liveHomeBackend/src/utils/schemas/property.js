@@ -84,7 +84,7 @@ const propertyQuerySchema = {
 const propertyQueryhome = {
   propertyTypeId: propertyPropertyTypeIdSchema,
   modalTypeId: propertymodalTypeId.required(),
-  location: propertyLocation,
+  location: propertyLocation
 }
 
 module.exports = {
