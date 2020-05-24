@@ -1,45 +1,31 @@
-import React from 'react';
+import React, { useState } from 'react';
+
+import Icon from './Icon';
+
 import styles from '../styles/components/Carousel.module.sass';
-import CarouselComponent from 'react-multi-carousel';
 
 function Carousel ({ images = [] }) {
-  const responsive = {
-    superLargeDesktop: {
-      breakpoint: { max: 4000, min: 992 },
-      items: 4
-    },
-    desktop: {
-      breakpoint: { max: 1200, min: 768 },
-      items: 3
-    },
-    tablet: {
-      breakpoint: { max: 768, min: 576 },
-      items: 2
-    },
-    mobile: {
-      breakpoint: { max: 576, min: 0 },
-      items: 1
-    }
-  };
+  const [index, setIndex] = useState(0);
 
   return (
-    <CarouselComponent
-      responsive={responsive}
-      ssr
-      infinite
-      autoPlay
-      autoPlaySpeed={3000}
-      keyBoardControl
-      customTransition='all .5'
-    >
-      {images.map((item, key) => {
-        return (
-          <div key={key}>
-            <img className={styles.image} src={item.url} alt={item.title} />
-          </div>
-        );
-      })}
-    </CarouselComponent>
+    <div className={styles.carousel}>
+      <img id="image" src={images[index]} alt="Photo gallery" />
+      <nav>
+        <button 
+          type='button' 
+          onClick={() => setIndex((index + images.length + 1) % images.length)}
+        >
+          <Icon name='chevron-left' size='24' fill='transparent' />
+        </button>
+
+        <button 
+          type='button' 
+          onClick={() => setIndex((index + images.length - 1) % images.length)}
+        > 
+          <Icon name='chevron-right' size='24' fill='transparent' />
+        </button>
+      </nav>
+    </div>
   );
 }
 

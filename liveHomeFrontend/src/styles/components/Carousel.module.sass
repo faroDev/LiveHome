@@ -1,5 +1,27 @@
 @import "../vars.sass"
 
-.image
+.carousel
   width: 100%
-  min-height: 400px
+  position: relative
+  display: flex
+  flex-direction: column
+  justify-content: center
+
+  img
+    width: 100%
+  
+  nav
+    position: absolute
+    z-index: 999
+    width: 96%
+    margin-left: 2%
+    display: flex
+    flex-direction: row
+    justify-content: space-between
+
+    button
+      line-height: 0
+      background-color: rgba(255, 255, 255, .7)
+      border: none
+      padding: $spacing/2
+      border-radius: 50% 
