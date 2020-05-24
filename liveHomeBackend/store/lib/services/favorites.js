@@ -2,7 +2,7 @@
 
 const { getQuery } = require('./../../utils')
 
-module.exports = function setupFavoritesService (favoritesModel, propertyModel, filesModel, userModel) {
+module.exports = function setupFavoritesService (favoritesModel, propertyModel) {
   async function createOrUpdate (favorite, propertyId, userId) {
     if (favorite.id) {
       const cond = {
@@ -79,44 +79,6 @@ module.exports = function setupFavoritesService (favoritesModel, propertyModel, 
         userId: userId
       }
     })
-    /*
-    return propertyModel.findAll({
-      include: [
-        {
-          attributes: ['url', 'fileType'],
-          model: filesModel
-        }
-      ],
-      where: {
-        id: {
-          [Op.in]: [1]
-        },
-        statusId: 2 // approved
-      }
-    })
-    */
-    /*
-    return propertyModel.findAll({
-      include: [
-        {
-          model: favoritesModel,
-          where: {
-            userId: parseInt(id),
-            propertyId: Sequelize.col('properties.id')
-          }
-        }
-      ],
-      include: [
-        {
-          attributes: ['url', 'fileType'],
-          model: filesModel
-        }
-      ],
-      where: {
-        statusId: 2 // approved
-      }
-    })
-    */
   }
 
   return {

@@ -1,26 +1,6 @@
 'use strict'
 
 module.exports = function setupPropertyDetailService (propertyDetailModel) {
-  async function createOrUpdate (propertyDetail) {
-    if (propertyDetail.id) {
-      const cond = {
-        where: {
-          id: propertyDetail.id
-        }
-      }
-
-      const existingPropertyDetail = await propertyDetailModel.findOne(cond)
-
-      if (existingPropertyDetail) {
-        const update = await propertyDetailModel.update(propertyDetail, cond)
-        return update ? propertyDetailModel.findOne(cond, { raw: true }) : existingPropertyDetail.toJSON({ raw: true })
-      }
-    }
-
-    const result = await propertyDetailModel.create(propertyDetail)
-    return result.toJSON({ raw: true })
-  }
-
   async function create (propertyDetail) {
     propertyDetail.updatedAt = new Date()
     propertyDetail.createdAt = new Date()
@@ -51,7 +31,7 @@ module.exports = function setupPropertyDetailService (propertyDetailModel) {
   }
 
   return {
-    createOrUpdate,
+
     findById,
     findAll,
     update,

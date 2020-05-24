@@ -1,26 +1,6 @@
 'use strict'
 
 module.exports = function setupAuthService (authModel) {
-  async function createOrUpdate (auth) {
-    if (auth.id) {
-      const cond = {
-        where: {
-          id: auth.id
-        }
-      }
-
-      const existingAuth = await authModel.findOne(cond)
-
-      if (existingAuth) {
-        const update = await authModel.update(auth, cond)
-        return update ? authModel.findOne(cond, { raw: true }) : authModel.toJSON({ raw: true })
-      }
-    }
-
-    const result = await authModel.create(auth)
-    return result.toJSON({ raw: true })
-  }
-
   async function create (auth) {
     auth.updatedAt = new Date()
     auth.createdAt = new Date()
@@ -60,7 +40,7 @@ module.exports = function setupAuthService (authModel) {
     return user
   }
   return {
-    createOrUpdate,
+
     findById,
     findAll,
     update,

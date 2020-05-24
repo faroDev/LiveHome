@@ -15,8 +15,9 @@ async function run () {
 
   const { status } = await db(configuration).catch(handleFatalError)
 
-  const status1 = await status.create({
-    name: 'approved'
+  const status1 = await status.update({
+    id: 2,
+    name: 'denied'
   }).catch(handleFatalError)
 
   console.log('--userType4--')

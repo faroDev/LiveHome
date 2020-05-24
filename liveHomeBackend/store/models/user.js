@@ -24,6 +24,18 @@ module.exports = function setupUser (config) {
       type: Sequelize.STRING,
       allowNull: true
     },
+    documentType: {
+      type: Sequelize.STRING,
+      allowNull: true
+    },
+    documentNumber: {
+      type: Sequelize.STRING,
+      allowNull: true
+    },
+    phone: {
+      type: Sequelize.STRING,
+      allowNull: true
+    },
     status: {
       type: Sequelize.BOOLEAN,
       allowNull: false,

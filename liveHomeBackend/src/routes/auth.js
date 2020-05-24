@@ -73,26 +73,36 @@ function authApi (app) {
     async function (req, res, next) {
       try {
         const { body: auth } = req
-        const authCreated = await authService.create(auth)
-        delete authCreated.password
+        const { email } = auth
+        const validateUser = await authService.findByEmail(email)
 
-        const user = {
-          name: null,
-          lastName: null,
-          secondLastName: null,
-          status: true,
-          createAt: new Date(),
-          updateAt: new Date(),
-          authId: authCreated.id,
-          typeUserId: 1
+        if (validateUser) {
+          res.status(401).json({
+            data: {},
+            message: 'Invalid user name or email'
+          })
+        } else {
+          const authCreated = await authService.create(auth)
+          delete authCreated.password
+
+          const user = {
+            name: null,
+            lastName: null,
+            secondLastName: null,
+            status: true,
+            createAt: new Date(),
+            updateAt: new Date(),
+            authId: authCreated.id,
+            typeUserId: 1
+          }
+
+          await userService.create(user)
+
+          res.status(201).json({
+            data: authCreated,
+            message: 'Auth created'
+          })
         }
-
-        await userService.create(user)
-
-        res.status(201).json({
-          data: authCreated,
-          message: 'Auth created'
-        })
       } catch (error) {
         next(error)
       }

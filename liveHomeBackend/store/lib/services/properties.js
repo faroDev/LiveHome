@@ -1,26 +1,6 @@
 'use strict'
 const { Op } = require('sequelize')
-module.exports = function setupPropertiesService (propertyModel, filesModel) {
-  async function createOrUpdate (property) {
-    if (property.id) {
-      const cond = {
-        where: {
-          id: property.id
-        }
-      }
-
-      const exitingproperty = await propertyModel.findOne(cond)
-
-      if (exitingproperty) {
-        const update = await propertyModel.update(property, cond)
-        return update ? propertyModel.findOne(cond, { raw: true }) : exitingproperty.toJSON({ raw: true })
-      }
-    }
-
-    const result = await propertyModel.create(property)
-    return result.toJSON({ raw: true })
-  }
-
+module.exports = function setupPropertiesService (propertyModel, userModel, modalityModel, propertyDetailModel, filesModel) {
   async function create (property) {
     property.updatedAt = new Date()
     property.createdAt = new Date()
@@ -48,29 +28,6 @@ module.exports = function setupPropertiesService (propertyModel, filesModel) {
 
   function findAll () {
     return propertyModel.findAll({ raw: true })
-  }
-
-  async function findByQuery (object) {
-    // MODIFICAR OBJETO
-
-    return propertyModel.findAll({
-      where: object,
-      order: [['createdAt', 'DESC']]
-    })
-  }
-
-  async function findByRank (obj, prop) {
-    const cond = { prop }
-    const val = { [Op.between]: [obj.min, obj.max] }
-
-    Object.assign(cond, val)
-    // const prop2 = prop
-    // const min = obj.min
-    // const max = obj.max
-    console.log(cond)
-    return propertyModel.findAll({
-      where: cond
-    })
   }
 
   function userProperties (userId) {
@@ -105,16 +62,63 @@ module.exports = function setupPropertiesService (propertyModel, filesModel) {
       }
     })
   }
+  function propertiesHomeQuery (obj) {
+    const { propertyTypeId, modalTypeId, location } = obj
+    let prop = {}
+    if (propertyTypeId) {
+      prop = {
+        propertyTypeId,
+        statusId: 2
+      }
+    } else {
+      prop = {
+        statusId: 2
+      }
+    }
 
+    return propertyModel.findAll({
+      attributes: ['*'],
+      where: prop,
+      include: [
+        {
+          attributes: ['*'],
+          model: modalityModel,
+          where: {
+            modalTypeId
+          }
+        },
+        (location) ? {
+          attributes: ['*'],
+          model: propertyDetailModel,
+          where: {
+            [Op.or]: [
+              { city: { [Op.iLike]: `%${location}%` } },
+              { neighborhood: { [Op.iLike]: `%${location}%` } }
+            ]
+
+          }
+
+        }
+          : {
+            attributes: ['*'],
+            model: propertyDetailModel
+          },
+        {
+          attributes: ['id', 'url'],
+          model: filesModel
+        }
+      ],
+      raw: true
+    })
+  }
   return {
-    createOrUpdate,
+
     findById,
     findAll,
     update,
     create,
-    findByQuery,
-    findByRank,
     userProperties,
-    getPropertiesByIds
+    getPropertiesByIds,
+    propertiesHomeQuery
   }
 }

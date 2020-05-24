@@ -15,7 +15,7 @@ class PropertyService {
    * @param {*} query
    */
   async get (query) {
-    return this.service.properties.findByQuery(query)
+    return this.service.properties.findAll()
   }
 
   /**
@@ -52,6 +52,18 @@ class PropertyService {
   async create (property) {
     property.createdAt = new Date()
     return this.service.properties.create(property)
+  }
+
+  /**
+  * Home Page properties
+  * @param {*} propertyTypeId
+  * @param {*} modalTypeId
+  * @param {*} location
+  * Return properties filtered by query
+  */
+
+  async homeQuery (obj) {
+    return this.service.properties.propertiesHomeQuery(obj)
   }
 }
 

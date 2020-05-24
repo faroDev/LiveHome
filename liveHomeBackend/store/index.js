@@ -83,7 +83,7 @@ module.exports = async function (config) {
   const approveUser = setupAproveUserService(aproveUserModel)
   const favorites = setupFavoritesService(favoritesModel, propertyModel, filesModel, userModel)
   const status = setupStatusService(statusModel)
-  const properties = setupPropertiesService(propertyModel, filesModel)
+  const properties = setupPropertiesService(propertyModel, userModel, modalityModel, propertyDetailModel, filesModel)
 
   return {
     typeUser,

@@ -1,26 +1,6 @@
 'use strict'
 
 module.exports = function setupModalityTypeService (modalityTypeModel) {
-  async function createOrUpdate (modalityType) {
-    if (modalityType.id) {
-      const cond = {
-        where: {
-          id: modalityType.id
-        }
-      }
-
-      const existingModalityType = await modalityTypeModel.findOne(cond)
-
-      if (existingModalityType) {
-        const update = await modalityTypeModel.update(modalityType, cond)
-        return update ? modalityTypeModel.findOne(cond, { raw: true }) : existingModalityType.toJSON({ raw: true })
-      }
-    }
-
-    const result = await modalityTypeModel.create(modalityType)
-    return result.toJSON({ raw: true })
-  }
-
   async function create (modalityType) {
     modalityType.updatedAt = new Date()
     modalityType.createdAt = new Date()
@@ -51,7 +31,6 @@ module.exports = function setupModalityTypeService (modalityTypeModel) {
   }
 
   return {
-    createOrUpdate,
     findById,
     findAll,
     update,

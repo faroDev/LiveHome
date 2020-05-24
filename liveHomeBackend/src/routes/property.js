@@ -53,6 +53,27 @@ function propertyApi (app) {
         next(error)
       }
     })
+  router.get('/home',
+    async function (req, res, next) {
+      try {
+        const { propertyTypeId, modalTypeId, location } = req.query
+
+        const propertiesQuery = {
+          propertyTypeId: parseInt(propertyTypeId) || null,
+          modalTypeId: parseInt(modalTypeId),
+          location: location || null
+        }
+
+        const result = await propertyService.homeQuery(propertiesQuery)
+
+        res.status(200).json({
+          data: result || [],
+          message: 'Properties  listed'
+        })
+      } catch (error) {
+        next(error)
+      }
+    })
 
   router.get('/:id',
 

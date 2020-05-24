@@ -21,6 +21,9 @@ const propertyUserIdSchema = joi.number()
 const propertyTitleSchema = joi.string()
 const propertyDescriptionSchema = joi.string()
 
+const propertyLocation = joi.string()
+const propertymodalTypeId = joi.number()
+
 const propertyCreateSchema = {
   m2: propertyM2Schema.required(),
   m2build: propertyM2buildSchema.required(),
@@ -84,10 +87,16 @@ const propertyQuerySchema = {
   propertyTypeId: propertyPropertyTypeIdSchema,
   userId: propertyUserIdSchema
 }
+const propertyQueryhome = {
+  propertyTypeId: propertyPropertyTypeIdSchema,
+  modalTypeId: propertymodalTypeId.required(),
+  location: propertyLocation
+}
 
 module.exports = {
   propertyIdSchema,
   propertyCreateSchema,
   propertyUpdateSchema,
-  propertyQuerySchema
+  propertyQuerySchema,
+  propertyQueryhome
 }
