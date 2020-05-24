@@ -1,20 +1,30 @@
-import React from 'react';
+import React, { useContext, useState } from 'react';
 import Link from 'next/link';
 import FeatherIcon from 'feather-icons-react';
 import styles from '../styles/components/HamburguerMenu.module.sass';
 import Button from './Button';
+import UserContext from './UserContext';
 
-const HamburguerMenu = ({ isLoggedIn, isActive }) => {
+const HamburguerMenu = () => {
+  const { isLoggedIn, setIsLoggedIn } = useContext(UserContext);
+  const [isActive, setIsActive] = useState(false);
+
+  const logOut = () => {
+    setIsLoggedIn(false);
+    setIsActive(false);
+  };
+
   return (
     <nav className={styles.burgerMenu}>
       {isActive ? (
-        <FeatherIcon icon='x' size={20} stroke='#4424A6' />
+        <FeatherIcon icon='x' size={20} stroke='#4424A6' onClick={() => setIsActive(false)} />
       ) : (
         <FeatherIcon
           icon='menu'
           className={styles.burguerIcon}
           size={70}
           stroke='#4424A6'
+          onClick={() => setIsActive(true)}
         />
       )}
       {isActive && (
@@ -22,7 +32,7 @@ const HamburguerMenu = ({ isLoggedIn, isActive }) => {
           {isLoggedIn ? (
             <>
               <li>
-                <Button value='Publish a property' buttonType='publishButton' />
+                <Button value='Publish a property' buttonType='button' buttonClass='redLinearButton' />
               </li>
               <li className={styles.link}>
                 <Link href='/'>
@@ -40,21 +50,25 @@ const HamburguerMenu = ({ isLoggedIn, isActive }) => {
                 </Link>
               </li>
               <li>
-                <Button value='Logout' buttonType='exitButton' />
+                <Button value='Logout' buttonType='exitButton' buttonClass='redButton' handleClick={logOut} />
               </li>
             </>
           ) : (
             <>
               <li>
-                <Button value='Publish a property' buttonType='publishButton' />
+                <Button value='Publish a property' buttonType='button' buttonClass='redLinearButton' />
               </li>
               <li className={styles.link}>
-                <Link href='/'>
+                <Link href='/register'>
                   <a>Register</a>
                 </Link>
               </li>
               <li>
-                <Button value='Login' buttonType='loginButton' />
+                <Link href='/login'>
+                  <a>
+                    <Button value='Login' buttonType='loginButton' buttonClass='purpleButton' />
+                  </a>
+                </Link>
               </li>
             </>
           )}

@@ -4,6 +4,7 @@ import FilterBar from '../../src/components/FilterBar';
 import styles from '../../src/styles/pages/admin/home.module.sass';
 import Card from '../../src/components/Card';
 import FeatherIcon from 'feather-icons-react';
+import { useRouter } from 'next/router';
 
 const home = () => {
   const properties = [
@@ -63,6 +64,10 @@ const home = () => {
     }
   ];
   const count = '###';
+  const router = useRouter();
+  const { pid } = router.query;
+  console.log('pid', pid);
+
   return (
     <Layout>
       <div className={styles.__container}>
