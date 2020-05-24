@@ -1,5 +1,7 @@
 import React from 'react';
 import styles from '../styles/components/BarChart.module.sass';
+
+import visitorIcon from '../assets/statics/images/visitors.png';
 import {
   ResponsiveContainer,
   ComposedChart,
@@ -46,9 +48,12 @@ const dataMock = [
 const BarChart = ({ data = dataMock, children }) => {
   return (
     <div className={styles.chartContainer}>
-      {
-        children
-      }
+
+      <div className={styles.info}>
+        <img src={visitorIcon} alt='Icon visitors' />
+        <span><b>Visitors:</b> 2070</span>
+      </div>
+
       <ResponsiveContainer>
         <ComposedChart
           data={data}
