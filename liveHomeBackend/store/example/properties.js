@@ -59,10 +59,10 @@ async function run() {
   console.log(property2)
 
   const obj = {
-    statusId: null,
+    statusId: 2,
     propertyTypeId: 2,
     modalTypeId: 2,
-    location: null
+    location: 'env'
   }
   const homeQuery = await properties.propertiesHomeQuery(obj)
   console.log('--------------HomeQuery---------------------------')

@@ -3,7 +3,7 @@
 const Sequelize = require('sequelize')
 const setupDatabase = require('../lib/db')
 
-module.exports = function setupUser (config) {
+module.exports = function setupUser(config) {
   const sequelize = setupDatabase(config)
 
   return sequelize.define('user', {
@@ -22,6 +22,18 @@ module.exports = function setupUser (config) {
     },
     secondLastName: {
       type: Sequelize.STRING,
+      allowNull: true
+    },
+    documentType: {
+      type: Sequelize.STRING,
+      allowNull: true
+    },
+    documentNumber: {
+      type: Sequelize.NUMBER,
+      allowNull: true
+    },
+    phone: {
+      type: Sequelize.NUMBER,
       allowNull: true
     },
     status: {

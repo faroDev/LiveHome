@@ -3,7 +3,7 @@
 const Sequelize = require('sequelize')
 const setupDatabase = require('../lib/db')
 
-module.exports = function setupAuth (config) {
+module.exports = function setupAuth(config) {
   const sequelize = setupDatabase(config)
 
   return sequelize.define('auth', {
@@ -14,7 +14,8 @@ module.exports = function setupAuth (config) {
     },
     email: {
       type: Sequelize.STRING,
-      allowNull: false
+      allowNull: false,
+      unique: true
     },
     password: {
       type: Sequelize.STRING,
