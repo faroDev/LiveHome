@@ -10,8 +10,9 @@ import ButtonIcon from './ButtonIcon';
 import RadioButton from './RadioButton';
 import Modal from './Modal';
 import Select from './Select';
+import OffererCardPublication from './OffererCardPublication';
 import Footer from './Footer';
-// import Carousel from './Carousel';
+import Carousel from './Carousel';
 
 import Input from './Input';
 import TextArea from './TextArea';
@@ -48,6 +49,13 @@ function DemoComponent () {
       url: 'https://fakeimg.pl/450x200/?text=Item_6&font=lobster'
     }
   ];
+
+  const carousel = [
+    'https://photos.zillowstatic.com/cc_ft_768/ISb9pqnpgqa00v0000000000.webp',
+    'https://photos.zillowstatic.com/cc_ft_384/ISnmbaw9w1c48j0000000000.webp',
+    'https://photos.zillowstatic.com/cc_ft_384/ISzbj27ywyu1ij0000000000.webp',
+    'https://photos.zillowstatic.com/cc_ft_384/ISvwkib2p26wcj0000000000.webp'
+  ]
 
   return (
     <>
@@ -98,7 +106,7 @@ function DemoComponent () {
       <h4>Footer</h4>
       <Footer />
       <h4>Carousel</h4>
-      {/* <Carousel images={images} /> */}
+      <Carousel images={carousel} />
       <Input type='text' label='text' />
       <Input type='email' label='email' />
       <Input type='number' minValue='0' label='number' />
@@ -116,6 +124,8 @@ function DemoComponent () {
       <p>Component: Title info dashboard detail</p>
       <InfoDetailDashboard iconSrc='/static/visitors.png' title='Visitors' value='2543' />
       <InfoDetailDashboard iconSrc='/static/like.png' title='Favourites' value='23' />
+      <p>Offerer card publication</p>
+      <OffererCardPublication />
     </>
   );
 }

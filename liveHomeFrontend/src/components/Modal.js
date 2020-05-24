@@ -1,5 +1,7 @@
 import React from 'react';
 import styles from '../styles/components/Modal.module.sass';
+
+import Button from '../components/Button';
 import FeatherIcon from 'feather-icons-react';
 
 function handleOpen () {
@@ -13,7 +15,7 @@ function handleClose (e) {
 function Modal ({ buttonText, children }) {
   return (
     <>
-      <button className={styles.button} type='button' onClick={handleOpen}>{buttonText}</button>
+      <Button value={buttonText} buttonClass='grayLightLinearButton' buttonType='button' handleClick={handleOpen} />
       <div className={styles.modal} id='modal'>
         <div className={styles.modal__content}>
           <a className={styles.modal__content_close} href='' onClick={(e) => { handleClose(e); }}>
