@@ -1,3 +1,4 @@
+import base64 from 'base-64';
 const API_URL = 'https://live-home.now.sh/api';
 
 class API {
@@ -14,11 +15,13 @@ class API {
         });
       const data = await result.json();
 
-      if (data.message) {
+      if (!data.error) {
         return { ...data };
+      } else {
+        return { error: new Error(data.error) };
       }
     } catch (error) {
-      return { error: new Error('Imposible conectar') };
+      return { error: new Error('Impossible connect') };
     }
   }
 
@@ -37,12 +40,60 @@ class API {
         });
       const data = await result.json();
 
-      if (data.message) {
+      if (!data.error) {
         return { ...data };
+      } else {
+        return { error: new Error(data.error) };
       }
     } catch (error) {
-      return { error: new Error('Imposible conectar') };
+      return { error: new Error('Impossible connect') };
     }
+  }
+
+  async signUp (newUser) {
+    const result = await window.fetch(
+      `${API_URL}/auth/sign-up`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ ...newUser })
+      }
+    );
+    if (!result.ok) {
+      const dataError = await result.json();
+      console.error('[error]', dataError.message);
+      throw new Error(dataError.message);
+    }
+    const data = await result.json();
+    return data;
+  }
+
+  async signIn (userData) {
+    const result = await window.fetch(
+      `${API_URL}/auth/sign-in`,
+      {
+        method: 'POST',
+        headers: {
+          Authorization: `Basic ${base64.encode(`${userData.userName}:${userData.password}`)}`
+        }
+      }
+    );
+    console.log('[Result-Login]', result);
+    if (result.status === 401) {
+      console.error('[error] Unauthorized');
+      const data = await result.json();
+      return data;
+    }
+    if (!result.ok) {
+      const dataError = await result.json();
+      console.error('[error]', dataError.message);
+      throw new Error(dataError.message);
+    }
+
+    const data = await result.json();
+    return data;
   }
 }
 
