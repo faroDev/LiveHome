@@ -13,6 +13,7 @@
   "author": "faroDev",
   "license": "MIT",
   "dependencies": {
+    "base-64": "^0.1.0",
     "feather-icons-react": "^0.4.1",
     "next": "9.3.6",
     "next-images": "^1.4.0",
