@@ -1,21 +1,20 @@
 @import '../vars'
 
-.__container 
+.__container
 	width: 100%
-	height: 80vh
+	// height: 80vh
 	display: flex
 	flex-direction: column
 	align-items: center
 	justify-content: center
 
-.__info 
+.__info
 	display: inline-block
 	position: relative
 	width: 64px
 	height: 64px
 
-
-.__info div 
+.__info div
 	position: absolute
 	width: 13px
 	height: 13px
@@ -23,67 +22,55 @@
 	background: $primary-extra-dark
 	animation: __info 1.2s linear infinite
 
-
-.__info div:nth-child(1) 
+.__info div:nth-child(1)
 	top: 6px
 	left: 6px
 	animation-delay: 0s
 
-
-.__info div:nth-child(2) 
+.__info div:nth-child(2)
 	top: 6px
 	left: 26px
 	animation-delay: -0.4s
 
-
-.__info div:nth-child(3) 
+.__info div:nth-child(3)
 	top: 6px
 	left: 45px
 	animation-delay: -0.8s
 
-
-.__info div:nth-child(4) 
+.__info div:nth-child(4)
 	top: 26px
 	left: 6px
 	animation-delay: -0.4s
 
-
-.__info div:nth-child(5) 
+.__info div:nth-child(5)
 	top: 26px
 	left: 26px
 	animation-delay: -0.8s
 
-
-.__info div:nth-child(6) 
+.__info div:nth-child(6)
 	top: 26px
 	left: 45px
 	animation-delay: -1.2s
 
-
-.__info div:nth-child(7) 
+.__info div:nth-child(7)
 	top: 45px
 	left: 6px
 	animation-delay: -0.8s
 
-
-.__info div:nth-child(8) 
+.__info div:nth-child(8)
 	top: 45px
 	left: 26px
 	animation-delay: -1.2s
 
-
-.__info div:nth-child(9) 
+.__info div:nth-child(9)
 	top: 45px
 	left: 45px
 	animation-delay: -1.6s
 
-
-@keyframes __info 
+@keyframes __info
 	0%,
-	100% 
+	100%
 		opacity: 1
-	
 
-	50% 
+	50%
 		opacity: 0.5
-	
