@@ -16,13 +16,15 @@ import UserContext from '../../src/components/UserContext';
 import styles from '../../src/styles/pages/post/new_post_step_one.module.sass';
 
 const newPostStepOne = () => {
+  
+  const {post, setPost} = useContext(UserContext);
 
-  const title = setInputValue('');
-  const rooms = setInputValue('');
-  const bathrooms = setInputValue('');
-  const address = setInputValue('');
-  const area = setInputValue('');
-  const price = setInputValue('');
+  const title = setInputValue(post.title || '');
+  const rooms = setInputValue(post.rooms || '');
+  const bathrooms = setInputValue(post.bathrooms || '');
+  const address = setInputValue(post.address || '');
+  const area = setInputValue(post.area || '');
+  const price = setInputValue(post.price || '');
   const property_type = [
     {
       value: 'casa',
@@ -41,8 +43,7 @@ const newPostStepOne = () => {
       label: 'Estudio',
     }
   ];
-  const add_type = useRadioButtonValue('');
-  const {setPost} = useContext(UserContext);
+  const add_type = useRadioButtonValue(post.add_type || '');
 
   const handleSubmit = (event) => {
     event.preventDefault();

@@ -16,16 +16,16 @@ import UserContext from '../../src/components/UserContext';
 import styles from '../../src/styles/pages/post/new_post_step_three.module.sass';
 
 const newPostStepThree = () => {
-
-  const furnished = useCheckValue(false);
-  const elevator = useCheckValue(false);
-  const pool = useCheckValue(false);
-  const heating = useCheckValue(false);
-  const security = useCheckValue(false);
-  const warehouse = useCheckValue(false);
-  const parking = setInputValue('');
-  const nearby_places = setInputValue('text');
   const {post, setPost} = useContext(UserContext);
+
+  const furnished = useCheckValue(post.furnished || false);
+  const elevator = useCheckValue(post.elevator || false);
+  const pool = useCheckValue(post.pool || false);
+  const heating = useCheckValue(post.heating || false);
+  const security = useCheckValue(post.security || false);
+  const warehouse = useCheckValue(post.warehouse || false);
+  const parking = setInputValue(post.parking || '');
+  const nearby_places = setInputValue(post.nearby_places || '');
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -40,7 +40,7 @@ const newPostStepThree = () => {
       parking: parking.value,
       nearby_places: nearby_places.value,
     })
-    Router.push('/post/new_post_step_one')
+    Router.push('/post/new_post_step_four')
   };
 
   return (
@@ -73,7 +73,7 @@ const newPostStepThree = () => {
             <Textarea label='Nearby places' name='nearby_places' required={true} {...nearby_places} />
           </FormField>
           <div className={styles.buttons}>
-            <Button value='Back' buttonClass='grayLightLinearButton' buttonType='button' handleClick={() => {Router.push('/')}}/>
+            <Button value='Back' buttonClass='grayLightLinearButton' buttonType='button' handleClick={() => {Router.back()}} />
             <Button value='Continue' buttonClass='greenLinearButton' buttonType='submit' />
           </div>
         </Form>
