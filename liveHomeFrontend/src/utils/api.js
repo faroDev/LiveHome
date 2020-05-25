@@ -14,11 +14,13 @@ class API {
         });
       const data = await result.json();
 
-      if (data.message) {
+      if (!data.error) {
         return { ...data };
+      } else {
+        return { error: new Error(data.error) };
       }
     } catch (error) {
-      return { error: new Error('Imposible conectar') };
+      return { error: new Error('Impossible connect') };
     }
   }
 
@@ -37,8 +39,10 @@ class API {
         });
       const data = await result.json();
 
-      if (data.message) {
+      if (!data.error) {
         return { ...data };
+      } else {
+        return { error: new Error(data.error) };
       }
     } catch (error) {
       return { error: new Error('Imposible conectar') };

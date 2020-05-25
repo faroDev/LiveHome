@@ -20,7 +20,6 @@ const account = () => {
   const lastName = useInputValue('');
   const id = useInputValue('');
   const phone = useInputValue('');
-  const email = useInputValue('');
   const password = useInputValue('');
   const options = [{ value: 1, label: 'Cedula' }, { value: 2, label: 'Nit' }];
 
@@ -28,11 +27,12 @@ const account = () => {
     setLoading(true);
     getData()
       .then(async ({ data, error }) => {
+        console.log('data', data);
+
         if (!error) {
           name.setValue(data.name || '');
-          lastName.setValue(`${data.lastName} ${data.secondLastName}` || '');
+          lastName.setValue(`${data.lastName || ''} ${data.secondLastName || ''}` || '');
           id.setValue(data.id || '');
-          email.setValue(user.email || '');
         } else {
           setError(error);
         }
@@ -95,7 +95,7 @@ const account = () => {
                 <Input label='Phone Number' type='text' name='name' required {...phone} />
               </FormField>
               <FormField>
-                <Input label='Email' type='text' name='name' required {...email} />
+                <Input label='Email' type='text' name='name' required value={user.email} />
               </FormField>
               <FormField>
                 <Input label='Password' type='password' name='name' required {...password} />
