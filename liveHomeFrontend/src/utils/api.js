@@ -46,10 +46,6 @@ class API {
     }
   }
 
-  /****************/
-  /**** Sign-up ***/
-  /****************/
-
   async signUp ( newUser ) {
     const result = await window.fetch(
       `${API_URL}/auth/sign-up`,
@@ -76,8 +72,6 @@ class API {
       {
         method: 'POST',
         headers: {
-          // Authorization: `Basic ${userData.userName}:${userData.password}`
-          // Authorization: `Basic ${btoa(`${userData.userName}:${userData.password}`)}`
           Authorization: `Basic ${base64.encode(`${userData.userName}:${userData.password}`)}`
         },
       }

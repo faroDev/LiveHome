@@ -54,7 +54,6 @@ const Login = () => {
         ...response.user,
         token: response.token
       }
-      console.log('[Login-ok]', response);
       setUserData(userData);
       setIsLoggedIn(true);
       sessionStorage.setItem('isLoggedIn', true);
