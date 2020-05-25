@@ -19,7 +19,10 @@
     "next-images": "^1.4.0",
     "react": "16.13.1",
     "react-dom": "16.13.1",
+<<<<<<< HEAD
     "react-multi-carousel": "^2.5.5",
+=======
+>>>>>>> d4b3a0474e4e590d15fd0375344140b5ca0c96fb
     "recharts": "^1.8.5",
     "sass": "1.26.5"
   },
