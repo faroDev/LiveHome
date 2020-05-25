@@ -13,13 +13,13 @@
   "author": "faroDev",
   "license": "MIT",
   "dependencies": {
+    "base-64": "^0.1.0",
     "feather-icons-react": "^0.4.1",
     "next": "9.3.6",
     "next-images": "^1.4.0",
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "recharts": "^1.8.5",
-    "react-multi-carousel": "^2.5.5",
     "sass": "1.26.5"
   },
   "devDependencies": {
