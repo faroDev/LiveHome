@@ -21,7 +21,7 @@ const dashboardProperty = () => {
         </PieChart>
       </div>
     </Layout>
-  )
-}
+  );
+};
 
 export default dashboardProperty;

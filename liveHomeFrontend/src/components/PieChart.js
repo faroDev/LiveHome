@@ -53,7 +53,7 @@ const PieChart = ({ data = dataMock }) => {
         <img src={favouritesIcon} alt='Icon visitors' />
         <span><b>Favourites:</b> 10</span>
       </div>
-      
+
       <ResponsiveContainer>
         <Chart>
           <Pie
