@@ -16,7 +16,6 @@ function modalityTypeApi (app) {
   app.use('/api/modalityType', router)
 
   router.get('/',
-    passport.authenticate('jwt', { session: false }),
     async function (req, res, next) {
       try {
         const result = await modalityTypeService.get()

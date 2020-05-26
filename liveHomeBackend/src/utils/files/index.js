@@ -13,7 +13,7 @@ const uploadImageToStorage = (file, bucket) => {
       reject(new Error('There are not images'))
     }
 
-    const fileName = `${file.originalname}_${Date.now()}`
+    const fileName = `${Date.now()}.${file.originalname.split('.').pop()}`
     const fileUpload = bucket.file(fileName)
     const blobStream = fileUpload.createWriteStream({
       metadata: {

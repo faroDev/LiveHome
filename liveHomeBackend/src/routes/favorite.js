@@ -15,7 +15,6 @@ function favoriteApi (app) {
   app.use('/api/favorites', router)
 
   router.get('/',
-    passport.authenticate('jwt', { session: false }),
     validationHandler(favoriteQuerySchema, 'query'),
     async function (req, res, next) {
       try {

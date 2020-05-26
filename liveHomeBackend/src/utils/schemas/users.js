@@ -47,7 +47,10 @@ const userQuerySchema = {
   authId: userAuthIdSchema,
   typeUserId: userTypeUserIdSchema,
   createdAt: userCreatedAtSchema,
-  updatedAt: userUpdatedAtSchema
+  updatedAt: userUpdatedAtSchema,
+  documentType: userDocumentTypeSchema,
+  documentNumber: userDocumentNumberSchema,
+  phone: userPhoneSchema
 }
 
 module.exports = {

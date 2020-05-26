@@ -27,7 +27,14 @@ module.exports = function setupPropertiesService (propertyModel, userModel, moda
   }
 
   function findAll () {
-    return propertyModel.findAll({ raw: true })
+    return propertyModel.findAll({
+      include: [
+        {
+          attributes: ['url', 'fileType'],
+          model: filesModel
+        }
+      ]
+    })
   }
 
   function userProperties (userId) {

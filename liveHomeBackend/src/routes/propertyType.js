@@ -8,14 +8,12 @@ const { propertyTypeUpdateSchema, propertyTypeCreateSchema, propertyTypeId } = r
 
 // jwt strategy
 require('./../utils/auth/strategies/jwt')
-
 function propertyTypeApi (app) {
   const router = express()
   const propertyTypeService = new PropertyTypeService()
 
   app.use('/api/propertyType', router)
   router.get('/',
-    passport.authenticate('jwt', { session: false }),
     async function (req, res, next) {
       try {
         const result = await propertyTypeService.get()

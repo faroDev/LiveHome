@@ -51,5 +51,8 @@
     "hooks": {
       "pre-commit": "standard --fix"
     }
+  },
+  "engines": {
+    "node": "12.16.2"
   }
 }

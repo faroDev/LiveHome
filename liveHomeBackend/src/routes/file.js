@@ -15,7 +15,6 @@ function fileApi (app) {
   app.use('/api/files', router)
 
   router.get('/',
-    passport.authenticate('jwt', { session: false }),
     async function (req, res, next) {
       try {
         const files = await fileService.get()

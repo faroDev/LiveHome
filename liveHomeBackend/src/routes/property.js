@@ -5,6 +5,7 @@ const Multer = require('multer')
 const joi = require('@hapi/joi')
 const boom = require('@hapi/boom')
 const path = require('path')
+const passport = require('passport')
 const { Storage } = require('@google-cloud/storage')
 const PropertyService = require('./../services/property')
 const FileService = require('./../services/file')
@@ -47,7 +48,7 @@ function propertyApi (app) {
 
         res.status(200).json({
           data: result || [],
-          message: 'Properties  listed'
+          message: 'Properties listed'
         })
       } catch (error) {
         next(error)
@@ -68,7 +69,7 @@ function propertyApi (app) {
 
         res.status(200).json({
           data: result || [],
-          message: 'Properties  listed'
+          message: 'Properties listed'
         })
       } catch (error) {
         next(error)
@@ -76,7 +77,6 @@ function propertyApi (app) {
     })
 
   router.get('/:id',
-
     validationHandler({ id: propertyIdSchema }, 'params'),
     async function (req, res, next) {
       try {
@@ -85,7 +85,7 @@ function propertyApi (app) {
 
         res.status(200).json({
           data: result || {},
-          message: 'Property  retrieved'
+          message: 'Property retrieved'
         })
       } catch (error) {
         next(error)
@@ -93,7 +93,6 @@ function propertyApi (app) {
     })
 
   router.put('/:id',
-
     validationHandler({ id: propertyIdSchema }, 'params'),
     validationHandler(propertyUpdateSchema),
     async function (req, res, next) {
@@ -105,7 +104,7 @@ function propertyApi (app) {
 
         res.status(200).json({
           data: result,
-          message: 'Property  updated'
+          message: 'Property updated'
         })
       } catch (error) {
         next(error)
@@ -155,7 +154,7 @@ function propertyApi (app) {
     })
 
   router.get('/:id/dashboard',
-
+    passport.authenticate('jwt', { session: false }),
     validationHandler({ id: propertyIdSchema }, 'params'),
     async function (req, res, next) {
       try {

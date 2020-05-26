@@ -12,7 +12,8 @@ const config = {
     username: process.env.DB_USER,
     password: process.env.DB_PASS,
     host: process.env.DB_HOST,
-    dialect: process.env.DIALECT
+    dialect: process.env.DIALECT,
+    port: process.env.DB_PORT
   },
   auth: {
     authJwtSecret: process.env.AUTH_JWT_SECRET || 'secret'

@@ -15,7 +15,6 @@ function statusApi (app) {
   app.use('/api/status', router)
 
   router.get('/',
-    passport.authenticate('jwt', { session: false }),
     async function (req, res, next) {
       try {
         const result = await statusService.get()
