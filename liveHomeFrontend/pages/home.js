@@ -1,5 +1,6 @@
 import React from 'react';
 import useInputValue from '../src/hooks/useInputValue';
+import API from '../src/utils/api';
 
 import Layout from '../src/components/Layout';
 import Form from '../src/components/Form';
@@ -10,7 +11,7 @@ import Button from '../src/components/Button';
 
 import styles from '../src/styles/pages/home.module.sass';
 
-const Home = () => {
+export const Home = ({ dataPropertyType }) => {
   const location = useInputValue('');
 
   return (
@@ -18,7 +19,7 @@ const Home = () => {
       <div className={styles.home__container}>
         <Form>
           <FormField>
-            <Selector label='Property type' options={[]} />
+            <Selector label='Property type' options={dataPropertyType} />
           </FormField>
           <FormField>
             <Selector label='Rent / Sell' options={[]} />
@@ -35,4 +36,18 @@ const Home = () => {
   );
 };
 
-export default Home;
+// export default Home;
+
+export default function getStaticProps ({query}) {
+
+  const id = query.id;
+  const { token } = JSON.parse(sessionStorage.getItem('userData'));
+
+  const dataPropertyType = API.propertyType(token);
+  
+  return {
+    props: {
+      dataPropertyType,
+    }
+  }
+}

@@ -91,6 +91,26 @@ class API {
     const data = await result.json();
     return data;
   }
+
+  async propertyType ( token ){
+    const result = await window.fetch(
+      `${API_URL}/propertyType`,
+      {
+        method: 'GET',
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      }
+    )
+    if(!result.ok){
+      const dataError = await result.json();
+      console.error('[error]', dataError.message);
+      throw new Error(dataError.message);
+    }
+    const data = await result.json();
+    return data;
+  }
+  
 }
 
 export default new API();
