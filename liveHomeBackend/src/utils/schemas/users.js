@@ -9,6 +9,9 @@ const userSecondLastNameSchema = joi.string()
 const userStatusSchema = joi.boolean()
 const userAuthIdSchema = joi.number()
 const userTypeUserIdSchema = joi.number()
+const userDocumentTypeSchema = joi.string()
+const userDocumentNumberSchema = joi.string()
+const userPhoneSchema = joi.string()
 const userCreatedAtSchema = joi.array().items(joi.date())
 const userUpdatedAtSchema = joi.array().items(joi.date())
 
@@ -18,7 +21,10 @@ const userCreateSchema = {
   secondLastName: userSecondLastNameSchema.required(),
   status: userStatusSchema,
   authId: userAuthIdSchema.required(),
-  typeUserId: userTypeUserIdSchema.required()
+  typeUserId: userTypeUserIdSchema.required(),
+  documentType: userDocumentTypeSchema.required(),
+  documentNumber: userDocumentNumberSchema.required(),
+  phone: userPhoneSchema.required(),
 }
 
 const userUpdateSchema = {
@@ -27,7 +33,10 @@ const userUpdateSchema = {
   secondLastName: userSecondLastNameSchema,
   status: userStatusSchema,
   authId: userAuthIdSchema,
-  typeUserId: userTypeUserIdSchema
+  typeUserId: userTypeUserIdSchema,
+  documentType: userDocumentTypeSchema,
+  documentNumber: userDocumentNumberSchema,
+  phone: userPhoneSchema,
 }
 
 const userQuerySchema = {

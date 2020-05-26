@@ -1,5 +1,5 @@
-
 'use strict'
+
 const express = require('express')
 const passport = require('passport')
 const boom = require('@hapi/boom')
@@ -61,7 +61,7 @@ function authApi (app) {
 
         const token = jwt.sign(payload, config.auth.authJwtSecret, { expiresIn: '15m' })
 
-        return res.status(200).json({ token, user: { id, userName, email } })
+        return res.status(200).json({ token })
       } catch (error) {
         next(error)
       }
@@ -93,7 +93,10 @@ function authApi (app) {
             createAt: new Date(),
             updateAt: new Date(),
             authId: authCreated.id,
-            typeUserId: 1
+            typeUserId: 1,
+            documentType: null,
+            documentNumber: null,
+            phone: null
           }
 
           await userService.create(user)
