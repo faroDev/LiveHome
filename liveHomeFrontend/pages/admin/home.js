@@ -4,7 +4,6 @@ import FilterBar from '../../src/components/FilterBar';
 import styles from '../../src/styles/pages/admin/home.module.sass';
 import Card from '../../src/components/Card';
 import FeatherIcon from 'feather-icons-react';
-import { useRouter } from 'next/router';
 
 const home = () => {
   const properties = [
@@ -64,9 +63,6 @@ const home = () => {
     }
   ];
   const count = '###';
-  const router = useRouter();
-  const { pid } = router.query;
-  console.log('pid', pid);
 
   return (
     <Layout>
@@ -79,7 +75,7 @@ const home = () => {
           {
             properties.map(property => {
               return (
-                <Card imgSource={property.img} key={property.name}>
+                <Card images={[property.img]} key={property.name}>
                   <div className={styles.__card__header}>
                     <h4 className={styles.property__name}>{property.name}</h4>
                     {

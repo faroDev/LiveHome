@@ -18,20 +18,20 @@ const Register = () => {
   const email = useInputValue('');
   const password = useInputValue('');
   const repeatPassword = useInputValue('');
-  const [loading, setLoading ] = useState(false);
-  const [ error, setError ] = useState();
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     setLoading(true);
-    
+
     const data = { email: email.value, password: password.value, userName: email.value };
 
     try {
       const response = await API.signUp(data);
-      console.log('[respuesta register ok]',response);
+      console.log('[respuesta register ok]', response);
       setLoading(false);
-      if(response.data.id > 0 ){
+      if (response.data.id > 0) {
         Router.push('/login');
       }
     } catch (error) {
@@ -43,7 +43,7 @@ const Register = () => {
 
   const passwordValidate = () => {
     if (password.value === repeatPassword.value) {
-      return false
+      return false;
     }
     return true;
   };
@@ -59,25 +59,25 @@ const Register = () => {
           error && <Error error={error} />
         }
         {
-          !loading && !error && 
-          <Form onSubmit={handleSubmit}>
-            <FormField>
-              <Input type='email' label='Email' {...email} required name='email' />
-            </FormField>
-            <FormField>
-              <Input type='password' label='Password' {...password} required name='password' />
-            </FormField>
-            <FormField>
-              <Input type='password' label='Repeat password' {...repeatPassword} required name='repeatpassword' />
-              {
-                passwordValidate() &&
-                <AlertField message={`Fields password and repeat password isn't equals, please check values`} />
-              }
-            </FormField>
-            <FormField>
-              <Button value='Sign up' buttonType='submit' buttonClass='greenButton' disabled={passwordValidate()} />
-            </FormField>
-          </Form>
+          !loading && !error &&
+            <Form onSubmit={handleSubmit}>
+              <FormField>
+                <Input type='email' label='Email' {...email} required name='email' />
+              </FormField>
+              <FormField>
+                <Input type='password' label='Password' {...password} required name='password' />
+              </FormField>
+              <FormField>
+                <Input type='password' label='Repeat password' {...repeatPassword} required name='repeatpassword' />
+                {
+                  passwordValidate() &&
+                    <AlertField message={'Fields password and repeat password isn\'t equals, please check values'} />
+                }
+              </FormField>
+              <FormField>
+                <Button value='Sign up' buttonType='submit' buttonClass='greenButton' disabled={passwordValidate()} />
+              </FormField>
+            </Form>
         }
       </div>
     </Layout>

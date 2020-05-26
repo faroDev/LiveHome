@@ -1,5 +1,5 @@
-const API_URL = 'https://live-home.now.sh/api';
 import base64 from 'base-64';
+const API_URL = 'https://live-home.now.sh/api';
 
 class API {
   async getAccount (userId, token) {
@@ -25,6 +25,8 @@ class API {
 
   async updateAccount (userId, token, newUserData) {
     try {
+      console.log(`${API_URL}/users/${userId}`);
+
       const result = await window.fetch(
         `${API_URL}/users/${userId}`,
         {
@@ -46,18 +48,18 @@ class API {
     }
   }
 
-  async signUp ( newUser ) {
+  async signUp (newUser) {
     const result = await window.fetch(
       `${API_URL}/auth/sign-up`,
       {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
+          'Content-Type': 'application/json'
         },
         body: JSON.stringify({ ...newUser })
       }
     );
-    if(!result.ok){
+    if (!result.ok) {
       const dataError = await result.json();
       console.error('[error]', dataError.message);
       throw new Error(dataError.message);
@@ -66,23 +68,23 @@ class API {
     return data;
   }
 
-  async signIn ( userData ) {
+  async signIn (userData) {
     const result = await window.fetch(
       `${API_URL}/auth/sign-in`,
       {
         method: 'POST',
         headers: {
           Authorization: `Basic ${base64.encode(`${userData.userName}:${userData.password}`)}`
-        },
+        }
       }
     );
-    console.log('[Result-Login]', result)
-    if(result.status === 401){
+    console.log('[Result-Login]', result);
+    if (result.status === 401) {
       console.error('[error] Unauthorized');
       const data = await result.json();
       return data;
-    } 
-    if(!result.ok){
+    }
+    if (!result.ok) {
       const dataError = await result.json();
       console.error('[error]', dataError.message);
       throw new Error(dataError.message);

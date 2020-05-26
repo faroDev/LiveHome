@@ -6,7 +6,6 @@ import Map from '../../src/components/Map';
 import styles from '../../src/styles/pages/post/new_post_step_two.module.sass';
 
 const newPostStepTwo = () => {
-
   return (
     <Layout>
       <div className={styles.container}>
@@ -14,7 +13,7 @@ const newPostStepTwo = () => {
         <Map />
       </div>
     </Layout>
-  )
-}
+  );
+};
 
 export default newPostStepTwo;
