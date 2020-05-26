@@ -20,6 +20,7 @@ const propertyPropertyTypeIdSchema = joi.number()
 const propertyUserIdSchema = joi.number()
 const propertyTitleSchema = joi.string()
 const propertyDescriptionSchema = joi.string()
+const propertyRoomsSchema = joi.number()
 
 const propertyLocation = joi.string()
 const propertymodalTypeId = joi.number()
@@ -34,6 +35,7 @@ const propertyCreateSchema = {
   elevator: propertyElevatorSchema.required(),
   statusId: propertyApprovedSchema.required(),
   bathrooms: propertyBathroomsSchema.required(),
+  rooms: propertyRoomsSchema.required(),
   nearTo: propertyNearToSchema.required(),
   available: propertyAvailableSchema.required(),
   downAt: propertyDownAtSchema,
@@ -53,6 +55,7 @@ const propertyUpdateSchema = {
   elevator: propertyElevatorSchema,
   statusId: propertyApprovedSchema,
   bathrooms: propertyBathroomsSchema,
+  rooms: propertyRoomsSchema,
   nearTo: propertyNearToSchema,
   available: propertyAvailableSchema,
   downAt: propertyDownAtSchema,
@@ -63,29 +66,25 @@ const propertyUpdateSchema = {
 }
 
 const propertyQuerySchema = {
-  m2Min: propertyM2Schema,
-  m2Max: propertyM2Schema,
-  m2buildMin: propertyM2buildSchema,
-  m2buildMax: propertyM2buildSchema,
-  bathroomsMin: propertyBathroomsSchema,
-  bathroomsMax: propertyBathroomsSchema,
-  downAtMin: propertyDownAtSchema,
-  downAtMax: propertyDownAtSchema,
-  createdAtMin: propertyCreatedAtSchema,
-  createdAtMax: propertyCreatedAtSchema,
-  updatedAtMin: propertyUpdatedAtSchema,
-  updatedAtMax: propertyUpdatedAtSchema,
-  parkingMin: propertyParkingSchema,
-  parkingMax: propertyParkingSchema,
+  m2: propertyM2Schema,
+  m2build: propertyM2buildSchema,
   furnished: propertyFurnishedSchema,
+  parking: propertyParkingSchema,
   pool: propertyPoolSchema,
   security: propertySecuritySchema,
   elevator: propertyElevatorSchema,
   statusId: propertyApprovedSchema,
+  bathrooms: propertyBathroomsSchema,
+  rooms: propertyRoomsSchema,
   nearTo: propertyNearToSchema,
   available: propertyAvailableSchema,
+  downAt: propertyDownAtSchema,
   propertyTypeId: propertyPropertyTypeIdSchema,
-  userId: propertyUserIdSchema
+  userId: propertyUserIdSchema,
+  title: propertyTitleSchema,
+  description: propertyDescriptionSchema,
+  createdAt: propertyCreatedAtSchema,
+  updatedAt: propertyUpdatedAtSchema
 }
 const propertyQueryhome = {
   propertyTypeId: propertyPropertyTypeIdSchema,

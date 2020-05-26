@@ -56,6 +56,10 @@ module.exports = function setupProperties (config) {
       type: Sequelize.INTEGER,
       allowNull: true
     },
+    rooms: {
+      type: Sequelize.INTEGER,
+      allowNull: true
+    },
     nearTo: {
       type: Sequelize.TEXT,
       allowNull: false

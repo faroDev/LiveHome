@@ -24,7 +24,7 @@ const userCreateSchema = {
   typeUserId: userTypeUserIdSchema.required(),
   documentType: userDocumentTypeSchema.required(),
   documentNumber: userDocumentNumberSchema.required(),
-  phone: userPhoneSchema.required(),
+  phone: userPhoneSchema.required()
 }
 
 const userUpdateSchema = {
@@ -36,7 +36,7 @@ const userUpdateSchema = {
   typeUserId: userTypeUserIdSchema,
   documentType: userDocumentTypeSchema,
   documentNumber: userDocumentNumberSchema,
-  phone: userPhoneSchema,
+  phone: userPhoneSchema
 }
 
 const userQuerySchema = {
