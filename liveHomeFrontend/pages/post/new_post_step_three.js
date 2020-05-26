@@ -15,7 +15,6 @@ import Button from '../../src/components/Button';
 import styles from '../../src/styles/pages/post/new_post_step_three.module.sass';
 
 const newPostStepThree = () => {
-
   const furnished = useCheckValue('');
   const elevator = useCheckValue('');
   const pool = useCheckValue('');
@@ -53,19 +52,19 @@ const newPostStepThree = () => {
             <Checkbox name='warehouse' {...warehouse} text='Warehouse' />
           </FormField>
           <FormField>
-            <Input type='number' label='Parkig' name='parkng' required={true} {...parking} />
+            <Input type='number' label='Parkig' name='parkng' required {...parking} />
           </FormField>
           <FormField>
             <Textarea label='Nearby places' name='nearby_places' />
           </FormField>
           <div className={styles.buttons}>
-            <Button value='Back' buttonClass='grayLightLinearButton' buttonType='button' handleClick={() => {Router.push('/')}}/>
+            <Button value='Back' buttonClass='grayLightLinearButton' buttonType='button' handleClick={() => { Router.push('/'); }} />
             <Button value='Continue' buttonClass='greenLinearButton' buttonType='submit' />
           </div>
         </Form>
       </div>
     </Layout>
-  )
-}
+  );
+};
 
 export default newPostStepThree;

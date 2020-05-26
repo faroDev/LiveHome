@@ -1,4 +1,5 @@
 import React, { useContext, useState } from 'react';
+import Router from 'next/router';
 import Link from 'next/link';
 import FeatherIcon from 'feather-icons-react';
 import styles from '../styles/components/HamburguerMenu.module.sass';
@@ -6,12 +7,17 @@ import Button from './Button';
 import UserContext from './UserContext';
 
 const HamburguerMenu = () => {
-  const { isLoggedIn, setIsLoggedIn } = useContext(UserContext);
+  const { isLoggedIn, setIsLoggedIn, setUserData, setToken } = useContext(UserContext);
   const [isActive, setIsActive] = useState(false);
 
   const logOut = () => {
     setIsLoggedIn(false);
     setIsActive(false);
+    setUserData({});
+    setToken('');
+    window.sessionStorage.removeItem('jwt-token');
+    window.alert('Your Session finished');
+    Router.push('/login');
   };
 
   return (

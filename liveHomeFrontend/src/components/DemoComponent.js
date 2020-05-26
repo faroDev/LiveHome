@@ -23,39 +23,12 @@ import Checkbox from './Checkbox';
 import InfoDetailDashboard from './InfoDetailDashboard';
 
 function DemoComponent () {
-  const images = [
-    {
-      title: 'Demo image',
-      url: 'https://fakeimg.pl/450x200/?text=Item_1&font=lobster'
-    },
-    {
-      title: 'Demo image',
-      url: 'https://fakeimg.pl/450x200/?text=Item_2&font=lobster'
-    },
-    {
-      title: 'Demo image',
-      url: 'https://fakeimg.pl/450x200/?text=Item_3&font=lobster'
-    },
-    {
-      title: 'Demo image',
-      url: 'https://fakeimg.pl/450x200/?text=Item_4&font=lobster'
-    },
-    {
-      title: 'Demo image',
-      url: 'https://fakeimg.pl/450x200/?text=Item_5&font=lobster'
-    },
-    {
-      title: 'Demo image',
-      url: 'https://fakeimg.pl/450x200/?text=Item_6&font=lobster'
-    }
-  ];
-
   const carousel = [
     'https://photos.zillowstatic.com/cc_ft_768/ISb9pqnpgqa00v0000000000.webp',
     'https://photos.zillowstatic.com/cc_ft_384/ISnmbaw9w1c48j0000000000.webp',
     'https://photos.zillowstatic.com/cc_ft_384/ISzbj27ywyu1ij0000000000.webp',
     'https://photos.zillowstatic.com/cc_ft_384/ISvwkib2p26wcj0000000000.webp'
-  ]
+  ];
 
   return (
     <>

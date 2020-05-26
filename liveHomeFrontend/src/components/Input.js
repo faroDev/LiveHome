@@ -15,6 +15,7 @@ const Input = (props) => {
         min={props.minValue}
         name={props.name}
         required={props.required}
+        disabled={props.disabled}
       />
     </Label>
   );

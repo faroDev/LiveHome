@@ -3,6 +3,7 @@ import Link from 'next/link';
 import Router from 'next/router';
 import API from '../src/utils/api';
 import UserContext from '../src/components/UserContext';
+import decode from 'jwt-decode';
 
 import useInputValue from '../src/hooks/useInputValue';
 
@@ -20,18 +21,17 @@ import LogoImage from '../src/assets/statics/images/LiveHome-logo.png';
 import styles from '../src/styles/pages/login.module.sass';
 
 const Login = () => {
+  const { setUserData, setIsLoggedIn, setToken } = useContext(UserContext);
 
-  const { setUserData, setIsLoggedIn } = useContext(UserContext);
-
-  useEffect( ()=>{
-    if ( sessionStorage.getItem('isLoggedIn')){
+  useEffect(() => {
+    if (window.sessionStorage.getItem('isLoggedIn')) {
       Router.push('/home');
     }
-  },[])
+  }, []);
 
-  const [ loading, setLoading ] = useState(false);
-  const [ error, setError ] = useState();
-  const [ alert, setAlert ] = useState(false); 
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState();
+  const [alert, setAlert] = useState(false);
 
   const email = useInputValue('');
   const password = useInputValue('');
@@ -40,28 +40,23 @@ const Login = () => {
     event.preventDefault();
     setLoading(true);
     setAlert(false);
-    const userData = { userName: email.value, password: password.value};
+    const userData = { userName: email.value, password: password.value };
     const response = await API.signIn(userData);
 
     try {
-      if (response.statusCode === 401){
+      if (response.statusCode === 401) {
         setAlert(true);
         setLoading(false);
         return false;
       }
-      
-      const userData = { 
-        ...response.user,
-        token: response.token
-      }
-      setUserData(userData);
+
+      setToken(response.token);
+      setUserData(decode(response.token));
       setIsLoggedIn(true);
-      sessionStorage.setItem('isLoggedIn', true);
-      sessionStorage.setItem('userData', JSON.stringify(userData));
+      window.sessionStorage.setItem('jwt-token', response.token);
       setAlert(false);
       setLoading(false);
       Router.push('/account');
-     
     } catch (error) {
       console.error('[error]', error);
       setLoading(false);
@@ -75,30 +70,30 @@ const Login = () => {
         error && <Error error={error} />
       }
       {
-        !error && 
-        <div className={styles.login__container}>
-          <div className={styles.login__container_img}>
-            <img src={LogoImage} alt='Logo live home' />
+        !error &&
+          <div className={styles.login__container}>
+            <div className={styles.login__container_img}>
+              <img src={LogoImage} alt='Logo live home' />
+            </div>
+            <Form onSubmit={handleSubmit}>
+              <FormField>
+                <Input type='email' label='email' name='email' required {...email} />
+              </FormField>
+              <FormField>
+                <Input type='password' label='password' name='password' required {...password} />
+              </FormField>
+              <FormField>
+                <Button buttonClass='purpleButton' buttonType='submit' value='Login' disabled={loading} />
+                {
+                  alert && <AlertField message='user or password incorrect!' />
+                }
+              </FormField>
+            </Form>
+            <div className={styles.login__container_info}>
+              <p>You do not have an account? <Link href='/register'><a>Register</a></Link></p>
+            </div>
+            {loading && <Loading />}
           </div>
-          <Form onSubmit={handleSubmit}>
-            <FormField>
-              <Input type='email' label='email' name='email' required={true} {...email} />
-            </FormField>
-            <FormField>
-              <Input type='password' label='password' name='password' required={true} {...password} />
-            </FormField>
-            <FormField>
-              <Button buttonClass='purpleButton' buttonType='submit' value='Login' disabled={loading}/>
-              {
-                alert && <AlertField message='user or password incorrect!' />
-              }
-            </FormField>
-          </Form>
-          <div className={styles.login__container_info}>
-            <p>You do not have an account? <Link href='/register'><a>Register</a></Link></p>
-          </div>
-          { loading && <Loading /> }
-        </div>
       }
     </Layout>
   );
