@@ -30,7 +30,7 @@ module.exports = function setupPropertiesService (propertyModel, userModel, moda
     return propertyModel.findAll({
       include: [
         {
-          attributes: ['url', 'fileType'],
+          attributes: ['id', 'url'],
           model: filesModel
         }
       ]
@@ -84,7 +84,6 @@ module.exports = function setupPropertiesService (propertyModel, userModel, moda
     }
 
     return propertyModel.findAll({
-      attributes: ['*'],
       where: prop,
       include: [
         {
@@ -109,13 +108,14 @@ module.exports = function setupPropertiesService (propertyModel, userModel, moda
           : {
             attributes: ['*'],
             model: propertyDetailModel
-          },
+          }
+      ],
+      include: [
         {
           attributes: ['id', 'url'],
           model: filesModel
         }
-      ],
-      raw: true
+      ]
     })
   }
   return {

@@ -1,11 +1,11 @@
-'use strict';
+'use strict'
 
-const Sequelize = require('sequelize');
-let sequelize = null;
+const Sequelize = require('sequelize')
+let sequelize = null
 
 module.exports = function setupDataBase (config) {
   if (!sequelize) {
-    console.log('Init sequelize', config);
+    console.log('Init sequelize', config)
 
     const options = {
       dialect: 'postgres',
@@ -18,8 +18,8 @@ module.exports = function setupDataBase (config) {
       },
       returning: true,
       setup: true
-    };
-    sequelize = new Sequelize({ ...config, ...options });
+    }
+    sequelize = new Sequelize({ ...config, ...options })
   }
-  return sequelize;
-};
+  return sequelize
+}
