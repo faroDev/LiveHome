@@ -23,23 +23,24 @@ const newPostStepOne = () => {
   const rooms = setInputValue(post.rooms || '');
   const bathrooms = setInputValue(post.bathrooms || '');
   const address = setInputValue(post.address || '');
-  const area = setInputValue(post.area || '');
+  const m2 = setInputValue(post.m2 || '');
+  const m2build = setInputValue(post.m2build || '');
   const price = setInputValue(post.price || '');
   const property_type = [
     {
-      value: 'casa',
+      value: '1',
       label: 'Casa'
     },
     {
-      value: 'apartamento',
+      value: '2',
       label: 'Apartamento'
     },
     {
-      value: 'oficina',
+      value: '3',
       label: 'Oficina'
     },
     {
-      value: 'estudio',
+      value: '4',
       label: 'Estudio'
     }
   ];
@@ -52,7 +53,8 @@ const newPostStepOne = () => {
       rooms: rooms.value,
       bathrooms: bathrooms.value,
       address: address.value,
-      area: area.value,
+      m2: m2.value,
+      m2build: m2build.value,
       price: price.value,
       add_type: add_type.value,
     })
@@ -62,7 +64,7 @@ const newPostStepOne = () => {
   return (
     <Layout>
       <div className={styles.container}>
-        <h1>New post - step 1/4</h1>
+        <h1>New offer - step 1/4</h1>
         <Form onSubmit={handleSubmit}>
           <FormField>
             <Input type='text' label='Add title' name='title' required {...title} />
@@ -80,7 +82,10 @@ const newPostStepOne = () => {
             <Input type='text' label='Address' name='address' required {...address} />
           </FormField>
           <FormField>
-            <Input type='text' label='Area' name='area' required {...area} />
+            <Input type='number' label='Area m2' name='m2' required {...m2} />
+          </FormField>
+          <FormField>
+            <Input type='number' label='Built area m2' name='m2build' required {...m2build} />
           </FormField>
           <FormField>
             <Input type='text' label='Price' name='price' required {...price} />

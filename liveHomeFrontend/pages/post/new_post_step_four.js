@@ -1,5 +1,7 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import Router from 'next/router';
+
+import setInputValue from '../../src/hooks/useInputValue';
 
 import Layout from '../../src/components/Layout';
 import Form from '../../src/components/Form';
@@ -7,13 +9,33 @@ import FormField from '../../src/components/FormField';
 import TextAreaComponent from '../../src/components/TextAreaComponent';
 import PreviewImage from '../../src/components/PreviewImage';
 import Button from '../../src/components/Button';
+import UserContext from '../../src/components/UserContext';
+
+import API from '../../src/utils/api';
 
 import styles from '../../src/styles/pages/post/new_post_step_four.module.sass';
 
 const newPostStepFour = () => {
+  const {post, setPost} = useContext(UserContext);
+
+  const description = setInputValue(post.description || '');
+
+  const saveProperty = async () => {
+    const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsInVzZXJOYW1lIjoiamwiLCJlbWFpbCI6ImNhbXBvc2IxOTkwQGhvdG1haWwuY29tIiwidXNlclR5cGUiOiJDbGllbnRlIiwidXNlcklkIjoxLCJpYXQiOjE1OTA1NTY2NDQsImV4cCI6MTU5MDU1NzU0NH0.qrzpiO7ZFMZSzxY0A2fB96j6Pa1v2tXm1wL-UwJ_pk0';
+    const result = await API.postProperty(token, post)
+    .then((res) => res)
+    .catch((error) => new Error(error.message))
+    
+    console.log(result);
+  };
+
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log('entró');
+    setPost({
+      ...post,
+      description: description.value,
+    });
+    saveProperty();
   };
 
   return (
@@ -22,7 +44,7 @@ const newPostStepFour = () => {
         <h1>Media - step 4/4</h1>
         <Form onSubmit={handleSubmit}>
           <FormField>
-            <TextAreaComponent label='Description' />
+            <TextAreaComponent label='Description' name='description' required={true} {...description} />
             <span className={styles.info}>Max. 6 photos and 1 video</span>
           </FormField>
           <FormField>
@@ -38,7 +60,7 @@ const newPostStepFour = () => {
           </div>
           <div className={styles.buttons}>
             <Button value='Back' buttonClass='grayLightLinearButton' buttonType='button' handleClick={() => {Router.back()}}/>
-            <Button value='Create post' buttonClass='greenButton' buttonType='submit' />
+            <Button value='Create post' buttonClass='greenButton' buttonType='button' handleClick={(e) => handleSubmit(e)}/>
           </div>
         </Form>
       </div>
