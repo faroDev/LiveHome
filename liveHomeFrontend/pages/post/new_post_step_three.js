@@ -9,7 +9,7 @@ import Form from '../../src/components/Form';
 import FormField from '../../src/components/FormField';
 import Checkbox from '../../src/components/Checkbox';
 import Input from '../../src/components/Input';
-import Textarea from '../../src/components/Textarea';
+import TextareaComponent from '../../src/components/TextAreaComponent';
 import Button from '../../src/components/Button';
 import UserContext from '../../src/components/UserContext';
 
@@ -70,7 +70,7 @@ const newPostStepThree = () => {
             <Input type='number' label='Parkig' name='parkng' required {...parking} />
           </FormField>
           <FormField>
-            <Textarea label='Nearby places' name='nearby_places' required={true} {...nearby_places} />
+            <TextareaComponent label='Nearby places' name='nearby_places' required={true} {...nearby_places} />
           </FormField>
           <div className={styles.buttons}>
             <Button value='Back' buttonClass='grayLightLinearButton' buttonType='button' handleClick={() => {Router.back()}} />

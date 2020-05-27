@@ -15,7 +15,6 @@ function RadioButton ({ options = [], name, title, value, onChange }) {
                 type='radio'
                 name={name}
                 value={value}
-                checked={item === value}
                 onChange={onChange}
               />
               <label htmlFor={item}>{item}</label>

@@ -4,7 +4,7 @@ import Router from 'next/router';
 import Layout from '../../src/components/Layout';
 import Form from '../../src/components/Form';
 import FormField from '../../src/components/FormField';
-import TextArea from '../../src/components/TextArea';
+import TextAreaComponent from '../../src/components/TextAreaComponent';
 import PreviewImage from '../../src/components/PreviewImage';
 import Button from '../../src/components/Button';
 
@@ -22,7 +22,7 @@ const newPostStepFour = () => {
         <h1>Media - step 4/4</h1>
         <Form onSubmit={handleSubmit}>
           <FormField>
-            <TextArea label='Description' />
+            <TextAreaComponent label='Description' />
             <span className={styles.info}>Max. 6 photos and 1 video</span>
           </FormField>
           <FormField>
