@@ -116,3 +116,4 @@ dist
 .pnp.*
 .vercel
 store.json
+.vercel
