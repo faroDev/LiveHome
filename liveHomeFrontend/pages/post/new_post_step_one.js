@@ -28,19 +28,19 @@ const newPostStepOne = () => {
   const property_type = [
     {
       value: 'casa',
-      label: 'Casa',
+      label: 'Casa'
     },
     {
       value: 'apartamento',
-      label: 'Apartamento',
+      label: 'Apartamento'
     },
     {
       value: 'oficina',
-      label: 'Oficina',
+      label: 'Oficina'
     },
     {
       value: 'estudio',
-      label: 'Estudio',
+      label: 'Estudio'
     }
   ];
   const add_type = useRadioButtonValue(post.add_type || '');
@@ -65,37 +65,37 @@ const newPostStepOne = () => {
         <h1>New post - step 1/4</h1>
         <Form onSubmit={handleSubmit}>
           <FormField>
-            <Input type='text' label='Add title' name='title' required={true} {...title} />
+            <Input type='text' label='Add title' name='title' required {...title} />
           </FormField>
           <FormField>
             <Select label='Property type' options={property_type} />
           </FormField>
           <FormField>
-            <Input type='number' label='Rooms' name='rooms' required={true} {...rooms} />
+            <Input type='number' label='Rooms' name='rooms' required {...rooms} />
           </FormField>
           <FormField>
-            <Input type='number' label='Bathrooms' name='bathrooms' required={true} {...bathrooms} />
+            <Input type='number' label='Bathrooms' name='bathrooms' required {...bathrooms} />
           </FormField>
           <FormField>
-            <Input type='text' label='Address' name='address' required={true} {...address} />
+            <Input type='text' label='Address' name='address' required {...address} />
           </FormField>
           <FormField>
-            <Input type='text' label='Area' name='area' required={true} {...area} />
+            <Input type='text' label='Area' name='area' required {...area} />
           </FormField>
           <FormField>
-            <Input type='text' label='Price' name='price' required={true} {...price} />
+            <Input type='text' label='Price' name='price' required {...price} />
           </FormField>
           <FormField>
             <RadioButton options={['Rent', 'Sell']} name='add_type' title='Add type' {...add_type} />
           </FormField>
           <div className={styles.buttons}>
-            <Button value='Cancel' buttonClass='redLinearButton' buttonType='button' handleClick={() => {Router.push('/')}}/>
+            <Button value='Cancel' buttonClass='redLinearButton' buttonType='button' handleClick={() => { Router.push('/'); }} />
             <Button value='Continue' buttonClass='greenLinearButton' buttonType='submit' />
           </div>
         </Form>
       </div>
     </Layout>
-  )
-}
+  );
+};
 
 export default newPostStepOne;

@@ -27,6 +27,8 @@ class API {
 
   async updateAccount (userId, token, newUserData) {
     try {
+      console.log(`${API_URL}/users/${userId}`);
+
       const result = await window.fetch(
         `${API_URL}/users/${userId}`,
         {

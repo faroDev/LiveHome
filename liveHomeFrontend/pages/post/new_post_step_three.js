@@ -67,7 +67,7 @@ const newPostStepThree = () => {
             <Checkbox name='warehouse' {...warehouse} text='Warehouse' />
           </FormField>
           <FormField>
-            <Input type='number' label='Parkig' name='parkng' required={true} {...parking} />
+            <Input type='number' label='Parkig' name='parkng' required {...parking} />
           </FormField>
           <FormField>
             <Textarea label='Nearby places' name='nearby_places' required={true} {...nearby_places} />
@@ -79,7 +79,7 @@ const newPostStepThree = () => {
         </Form>
       </div>
     </Layout>
-  )
-}
+  );
+};
 
 export default newPostStepThree;
