@@ -39,7 +39,6 @@ function propertyApi (app) {
   app.use('/api/properties', router)
 
   router.get('/',
-    validationHandler(propertyQuerySchema, 'query'),
     async function (req, res, next) {
       try {
         const { query } = req

@@ -63,7 +63,7 @@ function userApi(app) {
         const { id } = req.params
 
         const properties = await userService.findPropertiesByUserId(id)
-        console.log(properties)
+        
         res.status(200).json({
           data: properties || {},
           message: 'All User properties'

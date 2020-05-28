@@ -1,5 +1,7 @@
 'use strict'
 const { Op } = require('sequelize')
+const { getQuery } = require('./../../utils')
+
 module.exports = function setupPropertiesService(propertyModel, userModel, modalityModel, propertyDetailModel, filesModel) {
   async function create(property) {
     property.updatedAt = new Date()
@@ -26,14 +28,16 @@ module.exports = function setupPropertiesService(propertyModel, userModel, modal
     return propertyModel.findByPk(id, { raw: true })
   }
 
-  function findAll() {
+  function findAll(query) {
+    query = getQuery(query)
     return propertyModel.findAll({
       include: [
         {
           attributes: ['id', 'url'],
           model: filesModel
         }
-      ]
+      ],
+      where: query
     })
   }
 

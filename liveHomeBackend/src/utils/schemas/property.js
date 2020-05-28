@@ -22,6 +22,9 @@ const propertyTitleSchema = joi.string()
 const propertyDescriptionSchema = joi.string()
 const propertyRoomsSchema = joi.number()
 
+const propertyM2FilterSchema = joi.array().items(propertyM2Schema).min(1)
+
+
 const propertyLocation = joi.string()
 const propertymodalTypeId = joi.number()
 
@@ -66,7 +69,7 @@ const propertyUpdateSchema = {
 }
 
 const propertyQuerySchema = {
-  m2: propertyM2Schema,
+  m2: propertyM2FilterSchema,
   m2build: propertyM2buildSchema,
   furnished: propertyFurnishedSchema,
   parking: propertyParkingSchema,
