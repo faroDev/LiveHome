@@ -24,7 +24,6 @@ const propertyRoomsSchema = joi.number()
 
 const propertyM2FilterSchema = joi.array().items(propertyM2Schema).min(1)
 
-
 const propertyLocation = joi.string()
 const propertymodalTypeId = joi.number()
 

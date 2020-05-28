@@ -2,12 +2,12 @@
 
 const { getQuery } = require('./../../utils')
 
-module.exports = function setupUserService(userModel, propertyModel, viewsModel, filesModel) {
-  async function create(user) {
+module.exports = function setupUserService (userModel, propertyModel, viewsModel, filesModel) {
+  async function create (user) {
     const result = await userModel.create(user)
     return result.toJSON()
   }
-  async function update(user) {
+  async function update (user) {
     const cond = {
       where: {
         id: user.id
@@ -21,11 +21,11 @@ module.exports = function setupUserService(userModel, propertyModel, viewsModel,
     }
   }
 
-  function findById(id) {
+  function findById (id) {
     return userModel.findByPk(id, { raw: true })
   }
 
-  function findAll(query) {
+  function findAll (query) {
     const newQuery = getQuery(query)
     return userModel.findAll({
       where: newQuery,
@@ -33,8 +33,7 @@ module.exports = function setupUserService(userModel, propertyModel, viewsModel,
     })
   }
 
-  function propertyUser(userId) {
-
+  function propertyUser (userId) {
     return userModel.findAll({
 
       include: [
@@ -42,19 +41,20 @@ module.exports = function setupUserService(userModel, propertyModel, viewsModel,
           attributes: ['*'],
           model: propertyModel,
           where: {
-            userId: userId,
+            userId: userId
           },
           include: [{
             attributes: ['id', 'url'],
             model: filesModel
           }]
         }
-      ], raw: true
+      ],
+      raw: true
 
     })
   }
 
-  function viewsUser(userId) {
+  function viewsUser (userId) {
     return userModel.findAll({
       attributes: ['name', 'id'],
       include: [
@@ -70,7 +70,7 @@ module.exports = function setupUserService(userModel, propertyModel, viewsModel,
           model: propertyModel
         }
       ],
-      include: [
+      include: [ // eslint-disable-line
         {
           attributes: ['id', 'url'],
           model: filesModel

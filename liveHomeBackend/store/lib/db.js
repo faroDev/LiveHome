@@ -5,11 +5,11 @@ const config = require('./../../config')
 
 let sequelize = null
 
-module.exports = function setupDataBase(configuration) {
+module.exports = function setupDataBase (configuration) {
   if (!sequelize) {
     console.log('Init sequelize')
 
-    const options = config.app.env ? { logging: false } :{
+    const options = config.app.env ? { logging: false } : {
       dialect: configuration.dialect,
       ssl: true,
       dialectOptions: {
@@ -23,7 +23,6 @@ module.exports = function setupDataBase(configuration) {
     }
 
     sequelize = new Sequelize({ ...configuration, ...options })
-
   }
   return sequelize
 }
