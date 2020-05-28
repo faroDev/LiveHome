@@ -70,7 +70,7 @@ module.exports = async function (config) {
   await sequialize.sync()
 
   const typeUser = setupTypeUserService(typeUserModel)
-  const user = setupUserService(userModel, propertyModel, viewsModel)
+  const user = setupUserService(userModel, propertyModel, viewsModel, filesModel)
   const auth = setupAuthService(authModel)
   const propertyType = setupPropertyTypeService(propertyTypeModel)
 

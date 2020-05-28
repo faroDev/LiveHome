@@ -11,7 +11,7 @@ const { userIdSchema, userCreateSchema, userUpdateSchema, userQuerySchema } = re
 // jwt strategy
 require('./../utils/auth/strategies/jwt')
 
-function userApi (app) {
+function userApi(app) {
   const router = express()
   const userService = new UserService()
   const propertyService = new PropertyService()
@@ -49,6 +49,24 @@ function userApi (app) {
         res.status(200).json({
           data: user || {},
           message: 'User retrieved'
+        })
+      } catch (error) {
+        next(error)
+      }
+    })
+
+  router.get('/:id/properties',
+    passport.authenticate('jwt', { session: false }),
+    validationHandler({ id: userIdSchema }, 'params'),
+    async function (req, res, next) {
+      try {
+        const { id } = req.params
+
+        const properties = await userService.findPropertiesByUserId(id)
+        console.log(properties)
+        res.status(200).json({
+          data: properties || {},
+          message: 'All User properties'
         })
       } catch (error) {
         next(error)

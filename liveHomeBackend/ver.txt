@@ -1,0 +1,27 @@
+ vercel secret  rm lh-bucket-base-url
+ vercel secret  rm lh-bucket-name    
+ vercel secret  rm lh-db-dialect     
+ vercel secret  rm lh_db_url 
+ vercel secret  rm lh_db_host
+vercel secret  rm lh_db_pass
+vercel secret  rm lh_db_user
+ vercel secret  rm lh_db_name 
+
+vercel secret add lh_db_url postgres://nbomyogbocmzgx:57300ed5be563dfe1a706f942e3db0dc5d7a8ac39b12efa9a0e6ceba216e5bb1@ec2-18-206-84-251.compute-1.amazonaws.com:5432/da4gohd5rarsem
+vercel secret add lh-db-host ec2-18-206-84-251.compute-1.amazonaws.com
+vercel secret add lh-db-pass 57300ed5be563dfe1a706f942e3db0dc5d7a8ac39b12efa9a0e6ceba216e5bb1
+vercel secret add lh-db-user nbomyogbocmzgx
+vercel secret add lh-db-name da4gohd5rarsem
+vercel secret add lh-db-dialect postgres
+vercel secret add lh-bucket-base-url livehome-89195@appspot.gserviceaccount.com
+vercel secret add lh-bucket-name https://storage.cloud.google.com
+vercel secret add lh-jwt-secret 5Wrx08D4vBEHbuAwThqdtRsQP1jkYFUO
+
+   "DB_NAME": "@lh-db-name",
+    "AUTH_JWT_SECRET": "@lh-jwt-secret",
+    "DB_USER": "@lh-db-user",
+    "DB_PASS": "@lh-db-pass",
+    "DB_HOST": "@lh-db-host",
+    "DIALECT": "@lh-db-dialect",
+    "BUCKET_NAME": "@lh-bucket-name",
+    "BASE_URL": "@lh-bucket-base-url"
