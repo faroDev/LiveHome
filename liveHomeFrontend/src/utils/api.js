@@ -97,6 +97,41 @@ class API {
     const data = await result.json();
     return data;
   }
+
+  async postProperty (token, data) {
+    let formData = new FormData();
+
+    formData.append('m2', data.m2);
+    formData.append('m2build', data.m2build);
+    formData.append('furnished', data.furnished);
+    formData.append('parking', data.parking);
+    formData.append('pool', data.pool);
+    formData.append('security', data.security);
+    formData.append('elevator', data.elevator);
+    formData.append('bathrooms', data.bathrooms);
+    formData.append('nearTo', data.nearby_places);
+    formData.append('available', false);
+    formData.append('title', data.title);
+    formData.append('description', data.description);
+    formData.append('rooms', data.rooms);
+    formData.append('propertyTypeId', 1);
+    formData.append('statusId', 1);
+    formData.append('userId', 1);
+
+    const result = await window.fetch('https://live-home-ashy.now.sh/api/properties/',
+    {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${token}`
+      },
+      body: formData,
+    })
+    .then((res) => res)
+    .catch((error) => new Error('Impossible connect'))
+
+    return result;
+  }
+  
 }
 
 export default new API();

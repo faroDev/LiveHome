@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import Router from 'next/router';
 
 import setInputValue from '../../src/hooks/useInputValue';
@@ -9,23 +9,38 @@ import Form from '../../src/components/Form';
 import FormField from '../../src/components/FormField';
 import Checkbox from '../../src/components/Checkbox';
 import Input from '../../src/components/Input';
-import Textarea from '../../src/components/Textarea';
+import TextareaComponent from '../../src/components/TextAreaComponent';
 import Button from '../../src/components/Button';
+import UserContext from '../../src/components/UserContext';
 
 import styles from '../../src/styles/pages/post/new_post_step_three.module.sass';
 
 const newPostStepThree = () => {
-  const furnished = useCheckValue('');
-  const elevator = useCheckValue('');
-  const pool = useCheckValue('');
-  const heating = useCheckValue('');
-  const security = useCheckValue('');
-  const warehouse = useCheckValue('');
-  const parking = setInputValue('');
+  const {post, setPost} = useContext(UserContext);
+
+  const furnished = useCheckValue(post.furnished || false);
+  const elevator = useCheckValue(post.elevator || false);
+  const pool = useCheckValue(post.pool || false);
+  const heating = useCheckValue(post.heating || false);
+  const security = useCheckValue(post.security || false);
+  const warehouse = useCheckValue(post.warehouse || false);
+  const parking = setInputValue(post.parking || '');
+  const nearby_places = setInputValue(post.nearby_places || '');
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log('entró');
+    setPost({
+      ...post,
+      furnished: furnished.checked,
+      elevator: elevator.checked,
+      pool: pool.checked,
+      heating: heating.checked,
+      security: security.checked,
+      warehouse: warehouse.checked,
+      parking: parking.value,
+      nearby_places: nearby_places.value,
+    })
+    Router.push('/post/new_post_step_four')
   };
 
   return (
@@ -55,10 +70,10 @@ const newPostStepThree = () => {
             <Input type='number' label='Parkig' name='parkng' required {...parking} />
           </FormField>
           <FormField>
-            <Textarea label='Nearby places' name='nearby_places' />
+            <TextareaComponent label='Nearby places' name='nearby_places' required={true} {...nearby_places} />
           </FormField>
           <div className={styles.buttons}>
-            <Button value='Back' buttonClass='grayLightLinearButton' buttonType='button' handleClick={() => { Router.push('/'); }} />
+            <Button value='Back' buttonClass='grayLightLinearButton' buttonType='button' handleClick={() => {Router.back()}} />
             <Button value='Continue' buttonClass='greenLinearButton' buttonType='submit' />
           </div>
         </Form>
