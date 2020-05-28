@@ -1,7 +1,9 @@
 'use strict'
 const { Op } = require('sequelize')
-module.exports = function setupPropertiesService(propertyModel, userModel, modalityModel, propertyDetailModel, filesModel) {
-  async function create(property) {
+const { getQuery } = require('./../../utils')
+
+module.exports = function setupPropertiesService (propertyModel, userModel, modalityModel, propertyDetailModel, filesModel) {
+  async function create (property) {
     property.updatedAt = new Date()
     property.createdAt = new Date()
 
@@ -9,7 +11,7 @@ module.exports = function setupPropertiesService(propertyModel, userModel, modal
     return result.toJSON({ raw: true })
   }
 
-  async function update(property) {
+  async function update (property) {
     const cond = {
       where: {
         id: property.id
@@ -22,22 +24,24 @@ module.exports = function setupPropertiesService(propertyModel, userModel, modal
     return exitingproperty
   }
 
-  function findById(id) {
+  function findById (id) {
     return propertyModel.findByPk(id, { raw: true })
   }
 
-  function findAll() {
+  function findAll (query) {
+    query = getQuery(query)
     return propertyModel.findAll({
       include: [
         {
           attributes: ['id', 'url'],
           model: filesModel
         }
-      ]
+      ],
+      where: query
     })
   }
 
-  function userProperties(userId) {
+  function userProperties (userId) {
     return propertyModel.findAll({
       attributes: ['id', 'm2', 'm2build', 'statusId', 'createdAt'],
       include: [
@@ -53,7 +57,7 @@ module.exports = function setupPropertiesService(propertyModel, userModel, modal
     })
   }
 
-  function getPropertiesByIds(ids) {
+  function getPropertiesByIds (ids) {
     return propertyModel.findAll({
       include: [
         {
@@ -69,7 +73,7 @@ module.exports = function setupPropertiesService(propertyModel, userModel, modal
       }
     })
   }
-  function propertiesHomeQuery(obj) {
+  function propertiesHomeQuery (obj) {
     const { propertyTypeId, modalTypeId, location } = obj
     let prop = {}
     if (propertyTypeId) {
@@ -86,19 +90,18 @@ module.exports = function setupPropertiesService(propertyModel, userModel, modal
     return propertyModel.findAll({
       where: prop,
       include: [
-        (modalTypeId) ?
-          {
+        (modalTypeId)
+          ? {
             attributes: ['*'],
             model: modalityModel,
             where: {
               modalTypeId
             }
-          } :
-          {
-            attributes: ['*'],
-            model: modalityModel,
           }
-        ,
+          : {
+            attributes: ['*'],
+            model: modalityModel
+          },
         {
           attributes: ['*'],
           model: propertyDetailModel,
@@ -111,7 +114,7 @@ module.exports = function setupPropertiesService(propertyModel, userModel, modal
           }
         }
       ],
-      include: [
+      include: [ // eslint-disable-line
         {
           attributes: ['id', 'url'],
           model: filesModel

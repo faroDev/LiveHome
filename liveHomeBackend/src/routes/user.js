@@ -11,7 +11,7 @@ const { userIdSchema, userCreateSchema, userUpdateSchema, userQuerySchema } = re
 // jwt strategy
 require('./../utils/auth/strategies/jwt')
 
-function userApi(app) {
+function userApi (app) {
   const router = express()
   const userService = new UserService()
   const propertyService = new PropertyService()
@@ -63,7 +63,7 @@ function userApi(app) {
         const { id } = req.params
 
         const properties = await userService.findPropertiesByUserId(id)
-        console.log(properties)
+
         res.status(200).json({
           data: properties || {},
           message: 'All User properties'

@@ -15,7 +15,7 @@ class PropertyService {
    * @param {*} query
    */
   async get (query) {
-    return this.service.properties.findAll()
+    return this.service.properties.findAll(query)
   }
 
   /**

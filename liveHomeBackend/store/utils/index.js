@@ -8,8 +8,8 @@ const { Op } = require('sequelize')
  */
 function getQuery (query) {
   const newQuery = {}
-  for (var [key, value] of Object.entries(query)) {
-    if (value.length > 1) {
+  for (const [key, value] of Object.entries(query)) {
+    if (Array.isArray(value)) {
       const betweenCondition = { [Op.between]: value }
       newQuery[key] = betweenCondition
     } else {
