@@ -1,7 +1,7 @@
 'use strict'
 const { Op } = require('sequelize')
-module.exports = function setupPropertiesService (propertyModel, userModel, modalityModel, propertyDetailModel, filesModel) {
-  async function create (property) {
+module.exports = function setupPropertiesService(propertyModel, userModel, modalityModel, propertyDetailModel, filesModel) {
+  async function create(property) {
     property.updatedAt = new Date()
     property.createdAt = new Date()
 
@@ -9,7 +9,7 @@ module.exports = function setupPropertiesService (propertyModel, userModel, moda
     return result.toJSON({ raw: true })
   }
 
-  async function update (property) {
+  async function update(property) {
     const cond = {
       where: {
         id: property.id
@@ -22,11 +22,11 @@ module.exports = function setupPropertiesService (propertyModel, userModel, moda
     return exitingproperty
   }
 
-  function findById (id) {
+  function findById(id) {
     return propertyModel.findByPk(id, { raw: true })
   }
 
-  function findAll () {
+  function findAll() {
     return propertyModel.findAll({
       include: [
         {
@@ -37,7 +37,7 @@ module.exports = function setupPropertiesService (propertyModel, userModel, moda
     })
   }
 
-  function userProperties (userId) {
+  function userProperties(userId) {
     return propertyModel.findAll({
       attributes: ['id', 'm2', 'm2build', 'statusId', 'createdAt'],
       include: [
@@ -53,7 +53,7 @@ module.exports = function setupPropertiesService (propertyModel, userModel, moda
     })
   }
 
-  function getPropertiesByIds (ids) {
+  function getPropertiesByIds(ids) {
     return propertyModel.findAll({
       include: [
         {
@@ -69,7 +69,7 @@ module.exports = function setupPropertiesService (propertyModel, userModel, moda
       }
     })
   }
-  function propertiesHomeQuery (obj) {
+  function propertiesHomeQuery(obj) {
     const { propertyTypeId, modalTypeId, location } = obj
     let prop = {}
     if (propertyTypeId) {
@@ -86,14 +86,20 @@ module.exports = function setupPropertiesService (propertyModel, userModel, moda
     return propertyModel.findAll({
       where: prop,
       include: [
-        {
-          attributes: ['*'],
-          model: modalityModel,
-          where: {
-            modalTypeId
+        (modalTypeId) ?
+          {
+            attributes: ['*'],
+            model: modalityModel,
+            where: {
+              modalTypeId
+            }
+          } :
+          {
+            attributes: ['*'],
+            model: modalityModel,
           }
-        },
-        (location) ? {
+        ,
+        {
           attributes: ['*'],
           model: propertyDetailModel,
           where: {
@@ -103,12 +109,7 @@ module.exports = function setupPropertiesService (propertyModel, userModel, moda
             ]
 
           }
-
         }
-          : {
-            attributes: ['*'],
-            model: propertyDetailModel
-          }
       ],
       include: [
         {
