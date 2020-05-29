@@ -60,6 +60,16 @@ module.exports = function setupProperties (config) {
       type: Sequelize.INTEGER,
       allowNull: true
     },
+    heating: {
+      type: Sequelize.BOOLEAN,
+      allowNull: true,
+      defaultValue: false
+    },
+    cellar: {
+      type: Sequelize.BOOLEAN,
+      allowNull: true,
+      defaultValue: false
+    },
     nearTo: {
       type: Sequelize.TEXT,
       allowNull: false

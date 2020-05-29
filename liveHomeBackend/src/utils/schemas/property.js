@@ -21,6 +21,8 @@ const propertyUserIdSchema = joi.number()
 const propertyTitleSchema = joi.string()
 const propertyDescriptionSchema = joi.string()
 const propertyRoomsSchema = joi.number()
+const propertyHeatingSchema = joi.boolean()
+const propertyCellarSchema = joi.boolean()
 
 const propertyM2FilterSchema = joi.array().items(propertyM2Schema).min(1)
 
@@ -44,7 +46,9 @@ const propertyCreateSchema = {
   propertyTypeId: propertyPropertyTypeIdSchema.required(),
   userId: propertyUserIdSchema.required(),
   title: propertyTitleSchema.required(),
-  description: propertyDescriptionSchema.required()
+  description: propertyDescriptionSchema.required(),
+  cellar: propertyCellarSchema.required(),
+  heating: propertyHeatingSchema.required()
 }
 
 const propertyUpdateSchema = {
@@ -64,7 +68,9 @@ const propertyUpdateSchema = {
   propertyTypeId: propertyPropertyTypeIdSchema,
   userId: propertyUserIdSchema,
   title: propertyTitleSchema,
-  description: propertyDescriptionSchema
+  description: propertyDescriptionSchema,
+  cellar: propertyCellarSchema,
+  heating: propertyHeatingSchema
 }
 
 const propertyQuerySchema = {
@@ -86,7 +92,9 @@ const propertyQuerySchema = {
   title: propertyTitleSchema,
   description: propertyDescriptionSchema,
   createdAt: propertyCreatedAtSchema,
-  updatedAt: propertyUpdatedAtSchema
+  updatedAt: propertyUpdatedAtSchema,
+  cellar: propertyCellarSchema,
+  heating: propertyHeatingSchema
 }
 const propertyQueryhome = {
   propertyTypeId: propertyPropertyTypeIdSchema.allow('').optional(),
