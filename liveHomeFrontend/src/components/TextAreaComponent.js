@@ -4,7 +4,7 @@ import Label from './Label';
 
 import styles from '../styles/components/TextArea.module.sass';
 
-const TextArea = (props) => {
+const TextAreaComponent = (props) => {
   return (
     <Label nameLabel={props.label}>
       <textarea
@@ -14,10 +14,10 @@ const TextArea = (props) => {
         maxLength='300'
         name={props.name}
         required={props.required}
-        onChange={props.handleChange}
+        onChange={props.onChange}
       />
     </Label>
   );
 };
 
-export default TextArea;
+export default TextAreaComponent;

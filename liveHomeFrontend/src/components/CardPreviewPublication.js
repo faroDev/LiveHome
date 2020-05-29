@@ -1,4 +1,7 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import slug from '../utils/slug';
+import UserContext from './UserContext';
+import Router from 'next/router';
 
 import Card from './Card';
 import Icon from './Icon';
@@ -11,15 +14,27 @@ import AreaIcon from '../assets/statics/images/area.png';
 import GarageIcon from '../assets/statics/images/garage.png';
 
 import styles from '../styles/components/CardPreviewPublication.module.sass';
+import Link from 'next/link';
 
-const CardPreviewPublication = ({ images, title, price, type, description, rooms, bathrooms, area, parking }) => {
+const CardPreviewPublication = ({ images, id, title, price, type, description, rooms, bathrooms, area, parking }) => {
+
+  // const { post, setPost } = useContext(UserContext);
+
+  const handleClickDetail = (id) => {
+    // setPost(post);
+    Router.push(`/property/buildings?id=${id}`, slug(title), { shallow: true });
+  }
   return (
     <div className={styles.buildings__card_container}>
       <Card images={images}>
         <div className={styles.buildings__card_detail}>
           <div className={styles.buildings__card_detail_title}>
             <div>
-              <p>{title}</p>
+              {/* <Link href={`/property/${id}`} as={`/property/${slug(title)}`}>
+                <a target='_blank'> */}
+                  <p onClick={() => handleClickDetail(id)}>{title}</p>
+                {/* </a>
+              </Link> */}
             </div>
             <div>
               <Icon name='heart' />

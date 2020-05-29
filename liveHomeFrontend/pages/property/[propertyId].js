@@ -1,5 +1,8 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
 import { useRouter } from 'next/router';
+import UserContext from '../../src/components/UserContext';
+
+import Link from 'next/link';
 
 import BuildingDetail from '../../src/components/BuildingDetail';
 
@@ -23,11 +26,22 @@ const data = {
 };
 
 const PublicationDetail = (props) => {
-  const router = useRouter();
-  const {propertyId} = router.query
-  console.log(propertyId);
+  const { post } = useContext(UserContext);
+
+  useEffect( () => {
+    console.log('[Detail build]', post);
+  }, [])
+  
+  // const router = useRouter();
+  // const {propertyId} = router.query
+  // console.log(propertyId);
   return (
-    <BuildingDetail building={data} />
+    <>
+      <Link href='/property/buildings'>
+        <a>Back</a>
+      </Link>
+      <BuildingDetail building={data} />
+    </>
   );
 };
 

@@ -1,6 +1,8 @@
-import React, { useEffect } from 'react';
+import React, { useState, useContext } from 'react';
+import Router from 'next/router';
 import useInputValue from '../src/hooks/useInputValue';
 import API from '../src/utils/api';
+import UserContext from '../src/components/UserContext';
 
 import Layout from '../src/components/Layout';
 import Form from '../src/components/Form';
@@ -15,32 +17,41 @@ import styles from '../src/styles/pages/home.module.sass';
 
 const Home = ({dataPropertyType, dataModalityType}) => {
 
+  const { setPost } = useContext(UserContext);
+
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState();
 
-  const handleSubmit = (event) => {
+  const location = useInputValue('');
+  const propertyType = useInputValue(0);
+  const modalityType = useInputValue(0);
+
+  const dataSelectorProperty = dataPropertyType.data.map( (item)=> ({value: item.id, label: item.name}));
+  const dataSelectorModality = dataModalityType.data.map( (item)=> ({value: item.id, label: item.name}));
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
     setLoading(true);
 
     try {
-      const response = await API.getPropertyHome(propertyType.value, modalityType.value);
+      const response = await API.getPropertyHome(propertyType.value, modalityType.value, location.value);
       setLoading(false);
-      // if (response.data.id > 0) {
-      //   Router.push('/login');
-      // }
+      setPost(response.data);
+      Router.push('/property/buildings');
     } catch (error) {
       console.error('[error]', error);
       setLoading(false);
       setError(error);
     }
-  }
+  };
 
-  const location = useInputValue('');
-  const propertyType = useInputValue('');
-  const modalityType = useInputValue('');
-
-  const dataSelectorProperty = dataPropertyType.data.map( (item)=> ({value: item.id, label: item.name}));
-  const dataSelectorModality = dataModalityType.data.map( (item)=> ({value: item.id, label: item.name}));
+  const validateButton = () => {
+    // if (modalityType.value === 0 || location.value === '' || loading){
+    if (modalityType.value === 0 || loading){
+      return true
+    }
+    return false;
+  };
 
   return (
     <Layout>
@@ -60,7 +71,7 @@ const Home = ({dataPropertyType, dataModalityType}) => {
               <Input label='Location (neighborhood / city)' type='text' required {...location} />
             </FormField>
             <FormField>
-              <Button value='Search' buttonType='button' buttonClass='greenButton' disabled={loading} />
+              <Button value='Search' buttonType='submit' buttonClass='greenButton' disabled={validateButton()} />
             </FormField>
           </Form>
         }
