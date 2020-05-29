@@ -1,7 +1,6 @@
 'use strict'
 
 const Sequelize = require('sequelize')
-const config = require('./../../config')
 
 let sequelize = null
 
@@ -9,7 +8,7 @@ module.exports = function setupDataBase (configuration) {
   if (!sequelize) {
     console.log('Init sequelize')
 
-    const options = config.app.env ? { logging: false } : {
+    const options = {
       dialect: configuration.dialect,
       ssl: true,
       dialectOptions: {
