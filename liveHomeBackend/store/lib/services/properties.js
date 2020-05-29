@@ -73,6 +73,7 @@ module.exports = function setupPropertiesService (propertyModel, userModel, moda
       }
     })
   }
+
   function propertiesHomeQuery (obj) {
     const { propertyTypeId, modalTypeId, location } = obj
     let prop = {}
@@ -88,20 +89,20 @@ module.exports = function setupPropertiesService (propertyModel, userModel, moda
     }
 
     return propertyModel.findAll({
+      attributes: ['*'],
       where: prop,
       include: [
-        (modalTypeId)
-          ? {
-            attributes: ['*'],
-            model: modalityModel,
-            where: {
-              modalTypeId
-            }
+        (modalTypeId) ? {
+          attributes: ['*'],
+          model: modalityModel,
+          where: {
+            modalTypeId
           }
-          : {
-            attributes: ['*'],
-            model: modalityModel
-          },
+        } : {
+          attributes: ['*'],
+          model: modalityModel
+
+        },
         {
           attributes: ['*'],
           model: propertyDetailModel,
@@ -110,16 +111,16 @@ module.exports = function setupPropertiesService (propertyModel, userModel, moda
               { city: { [Op.iLike]: `%${location}%` } },
               { neighborhood: { [Op.iLike]: `%${location}%` } }
             ]
-
           }
-        }
-      ],
-      include: [ // eslint-disable-line
+
+        },
         {
           attributes: ['id', 'url'],
           model: filesModel
         }
-      ]
+      ],
+
+      raw: true
     })
   }
   return {
