@@ -4,8 +4,8 @@
   "description": "Web platform that offers properties to the public",
   "main": "index.js",
   "scripts": {
+    "test": "mocha ./src/test/* --exit",
     "start": "NODE_ENV=production node ./index.js",
-    "test": "mocha",
     "dev": "nodemon ./index.js",
     "lint": "standard",
     "lint:fix": "standard --fix",
@@ -49,10 +49,13 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npm run lint:fix"
+      "pre-commit": "npm run lint:fix && npm run test"
     }
   },
   "engines": {
     "node": "12.16.2"
+  },
+  "standard": {
+    "globals": [ "describe", "it" ]
   }
 }
