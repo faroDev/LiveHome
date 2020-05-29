@@ -1,6 +1,7 @@
 import React from 'react';
+import { useRouter } from 'next/router';
 
-import BuildingDetail from '../src/components/BuildingDetail';
+import BuildingDetail from '../../src/components/BuildingDetail';
 
 const data = {
   images: ['img1', 'img2'],
@@ -22,6 +23,9 @@ const data = {
 };
 
 const PublicationDetail = (props) => {
+  const router = useRouter();
+  const {propertyId} = router.query
+  console.log(propertyId);
   return (
     <BuildingDetail building={data} />
   );

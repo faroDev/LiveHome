@@ -1,20 +1,20 @@
 import React from 'react';
 
-import useInputValue from '../src/hooks/useInputValue';
+import useInputValue from '../../src/hooks/useInputValue';
 
-import Layout from '../src/components/Layout';
-import Button from '../src/components/Button';
-import Modal from '../src/components/Modal';
-import SearchBar from '../src/components/SearchBar';
-import Chip from '../src/components/Chip';
-import CardPreviewPublication from '../src/components/CardPreviewPublication';
-import Form from '../src/components/Form';
-import FormField from '../src/components/FormField';
-import Input from '../src/components/Input';
-import Selector from '../src/components/Select';
-import RadioButton from '../src/components/RadioButton';
+import Layout from '../../src/components/Layout';
+import Button from '../../src/components/Button';
+import Modal from '../../src/components/Modal';
+import SearchBar from '../../src/components/SearchBar';
+import Chip from '../../src/components/Chip';
+import CardPreviewPublication from '../../src/components/CardPreviewPublication';
+import Form from '../../src/components/Form';
+import FormField from '../../src/components/FormField';
+import Input from '../../src/components/Input';
+import Selector from '../../src/components/Select';
+import RadioButton from '../../src/components/RadioButton';
 
-import styles from '../src/styles/pages/buildings.module.sass';
+import styles from '../../src/styles/pages/buildings.module.sass';
 
 const Buildings = () => {
   const typePropertyFilter = useInputValue('');
@@ -38,7 +38,6 @@ const Buildings = () => {
       <div className={styles.buildings__container}>
         <div className={styles.buildings__filter_container}>
           <div className={styles.buildings__filter_container_button}>
-            {/* <Button value='Filter' buttonClass='grayLinearButton' /> */}
             <Modal buttonText='Filter'>
               <div className={styles.buildings__modal_container}>
                 <h3>Filter</h3>

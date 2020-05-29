@@ -1,10 +1,13 @@
 import base64 from 'base-64';
+import fetch from 'node-fetch';
+
 const API_URL = 'https://live-home.now.sh/api';
+
 
 class API {
   async getAccount (userId, token) {
     try {
-      const result = await window.fetch(
+      const result = await fetch(
         `${API_URL}/users/${userId}`,
         {
           method: 'GET',
@@ -29,7 +32,7 @@ class API {
     try {
       console.log(`${API_URL}/users/${userId}`);
 
-      const result = await window.fetch(
+      const result = await fetch(
         `${API_URL}/users/${userId}`,
         {
           method: 'PUT',
@@ -53,7 +56,7 @@ class API {
   }
 
   async signUp (newUser) {
-    const result = await window.fetch(
+    const result = await fetch(
       `${API_URL}/auth/sign-up`,
       {
         method: 'POST',
@@ -73,7 +76,7 @@ class API {
   }
 
   async signIn (userData) {
-    const result = await window.fetch(
+    const result = await fetch(
       `${API_URL}/auth/sign-in`,
       {
         method: 'POST',
@@ -98,16 +101,9 @@ class API {
     return data;
   }
 
-  async propertyType ( token ){
-    const result = await window.fetch(
-      `${API_URL}/propertyType`,
-      {
-        method: 'GET',
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
-      }
-    )
+  async getPropertyType (){
+    const result = await fetch(`${API_URL}/propertyType`);
+
     if(!result.ok){
       const dataError = await result.json();
       console.error('[error]', dataError.message);
@@ -117,6 +113,30 @@ class API {
     return data;
   }
   
+  async getModalityType (){
+    const result = await fetch(`${API_URL}/modalityType`);
+    
+    if(!result.ok){
+      const dataError = await result.json();
+      console.error('[error]', dataError.message);
+      throw new Error(dataError.message);
+    }
+    const data = await result.json();
+    return data;
+  }
+
+  async getPropertyHome (propertyType, modalityType){
+    const result = await fetch(`${API_URL}/properties/home?propertyTypeId=${propertyType}&modalTypeId=${modalityType}`);
+
+    if(!result.ok){
+      const dataError = await result.json();
+      console.error('[error]', dataError.message);
+      throw new Error(dataError.message);
+    }
+    const data = await result.json();
+    return data;
+  }
+
 }
 
 export default new API();
