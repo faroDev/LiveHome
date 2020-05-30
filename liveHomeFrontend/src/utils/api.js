@@ -1,6 +1,7 @@
 import base64 from 'base-64';
-const API_URL = 'https://live-home-ashy.now.sh/api';
 import fetch from 'node-fetch';
+import FormData from 'form-data';
+const API_URL = 'https://live-home.now.sh/api';
 
 class API {
   async getAccount (userId, token) {
@@ -101,12 +102,14 @@ class API {
 
   async getProperties () {
     const result = await fetch(`${API_URL}/properties`)
-    .then((res) => res.json())
-    .catch((error) => new Error('Impossible connect'))
+      .then((res) => res.json())
+      .catch((error) => new Error(`Impossible connect ${error.message}`));
     return result;
   }
-  
+
   async postProperty (token, data) {
+    const formData = new FormData();
+
     formData.append('m2', data.m2);
     formData.append('m2build', data.m2build);
     formData.append('furnished', data.furnished);
@@ -125,17 +128,18 @@ class API {
     formData.append('userId', 1);
 
     const result = await window.fetch(`${API_URL}/properties`,
-    {
-      method: 'POST',
-      headers: {
-        Authorization: `Bearer ${token}`
-      },
-      body: formData,
-    })
-    .then((res) => res)
-    .catch((error) => new Error('Impossible connect'))
-  }
+      {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${token}`
+        },
+        body: formData
+      })
+      .then((res) => res)
+      .catch((error) => new Error(`Impossible connect ${error.message}`));
 
+    return result;
+  }
 }
 
 export default new API();

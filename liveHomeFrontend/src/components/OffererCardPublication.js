@@ -5,7 +5,7 @@ import ButtonIcon from './ButtonIcon';
 
 import styles from '../styles/components/OffererCardPublication.module.sass';
 
-const OffererCardPublication = ({id, title, date}) => {
+const OffererCardPublication = ({ id, title, date }) => {
   const images = [
     'https://photos.zillowstatic.com/cc_ft_768/ISb9pqnpgqa00v0000000000.webp',
     'https://photos.zillowstatic.com/cc_ft_384/ISnmbaw9w1c48j0000000000.webp',
