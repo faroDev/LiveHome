@@ -4,6 +4,7 @@ import Card from './Card';
 import Icon from './Icon';
 import Chip from './Chip';
 import InformationIcon from './InformationIcon';
+import FavButton from './FavButton';
 
 import BedIcon from '../assets/statics/images/bed.png';
 import ShowerIcon from '../assets/statics/images/shower.png';
@@ -12,19 +13,17 @@ import GarageIcon from '../assets/statics/images/garage.png';
 
 import styles from '../styles/components/CardPreviewPublication.module.sass';
 
-const CardPreviewPublication = ({ id, images, title, price, type, description, rooms, bathrooms, area, parking, favourite, favouriteClick }) => {
+const CardPreviewPublication = ({ images, id, title, price, type, description, rooms, bathrooms, area, parking, liked, handleLike, handleClickDetail }) => {
   return (
     <div className={styles.buildings__card_container}>
       <Card images={images}>
         <div className={styles.buildings__card_detail}>
           <div className={styles.buildings__card_detail_title}>
             <div>
-              <p>{title}</p>
+              <p onClick={() => handleClickDetail(id)}>{title}</p>
             </div>
-            <div onClick={() => favouriteClick(id)}>
-              {
-                favourite ? <Icon className={styles.__favourite_icon} name='heart' fill='red' stroke='#000' /> : <Icon name='heart' />
-              }
+            <div>
+              <FavButton liked={liked} onClick={() => handleLike(id, liked)} />
             </div>
           </div>
           <div className={styles.buildings__card_detail_price}>

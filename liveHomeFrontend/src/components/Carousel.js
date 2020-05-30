@@ -6,7 +6,6 @@ import styles from '../styles/components/Carousel.module.sass';
 
 function Carousel ({ images = [] }) {
   const [index, setIndex] = useState(0);
-
   return (
     <div className={styles.carousel}>
       <img id='image' src={images[index]} alt='Photo gallery' />
