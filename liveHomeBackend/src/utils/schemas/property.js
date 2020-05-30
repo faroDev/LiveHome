@@ -26,7 +26,7 @@ const propertyCellarSchema = joi.boolean()
 
 const propertyM2FilterSchema = joi.array().items(propertyM2Schema).min(1)
 
-const propertyZoneId = joi.number()
+const propertyZoneIdSchema = joi.number()
 const propertymodalityTypeId = joi.number()
 
 const propertyCreateSchema = {
@@ -48,7 +48,8 @@ const propertyCreateSchema = {
   title: propertyTitleSchema.required(),
   description: propertyDescriptionSchema.required(),
   cellar: propertyCellarSchema.required(),
-  heating: propertyHeatingSchema.required()
+  heating: propertyHeatingSchema.required(),
+  zoneId: propertyZoneIdSchema.required()
 }
 
 const propertyUpdateSchema = {
@@ -70,7 +71,8 @@ const propertyUpdateSchema = {
   title: propertyTitleSchema,
   description: propertyDescriptionSchema,
   cellar: propertyCellarSchema,
-  heating: propertyHeatingSchema
+  heating: propertyHeatingSchema,
+  zoneId: propertyZoneIdSchema
 }
 
 const propertyQuerySchema = {
@@ -94,12 +96,13 @@ const propertyQuerySchema = {
   createdAt: propertyCreatedAtSchema,
   updatedAt: propertyUpdatedAtSchema,
   cellar: propertyCellarSchema,
-  heating: propertyHeatingSchema
+  heating: propertyHeatingSchema,
+  zoneId: propertyZoneIdSchema
 }
 const propertyQueryhome = {
   propertyTypeId: propertyPropertyTypeIdSchema.allow('').optional(),
   modalityTypeId: propertymodalityTypeId.allow('').optional(),
-  zoneId: propertyZoneId.required()
+  zoneId: propertyZoneIdSchema.required()
 }
 
 module.exports = {
