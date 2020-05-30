@@ -100,6 +100,27 @@ class API {
     return data;
   }
 
+  async getZones () {
+    const result = await fetch(`${API_URL}/zones`)
+      .then((res) => res.json())
+      .catch((error) => new Error(`Impossible connect ${error.message}`));
+    return result;
+  }
+
+  async getPropertyType () {
+    const result = await fetch(`${API_URL}/propertyType`)
+      .then((res) => res.json())
+      .catch((error) => new Error(`Impossible connect ${error.message}`));
+    return result;
+  }
+
+  async getModalityType () {
+    const result = await fetch(`${API_URL}/modalityType`)
+      .then((res) => res.json())
+      .catch((error) => new Error(`Impossible connect ${error.message}`));
+    return result;
+  }
+
   async getProperties () {
     const result = await fetch(`${API_URL}/properties`)
       .then((res) => res.json())

@@ -4,6 +4,8 @@ import Router from 'next/router';
 import setInputValue from '../../src/hooks/useInputValue';
 import useRadioButtonValue from '../../src/hooks/useRadioButtonValue';
 
+import API from '../../src/utils/api';
+
 import Layout from '../../src/components/Layout';
 import Form from '../../src/components/Form';
 import FormField from '../../src/components/FormField';
@@ -15,7 +17,9 @@ import UserContext from '../../src/components/UserContext';
 
 import styles from '../../src/styles/pages/post/new_post_step_one.module.sass';
 
-const newPostStepOne = () => {
+const newPostStepOne = (props) => {
+  const { zones, propertyTypes, modalityTypes } = props;
+
   const { post, setPost } = useContext(UserContext);
 
   const title = setInputValue(post.title || '');
@@ -25,25 +29,8 @@ const newPostStepOne = () => {
   const m2 = setInputValue(post.m2 || '');
   const m2build = setInputValue(post.m2build || '');
   const price = setInputValue(post.price || '');
-  const propertyType = [
-    {
-      value: '1',
-      label: 'Casa'
-    },
-    {
-      value: '2',
-      label: 'Apartamento'
-    },
-    {
-      value: '3',
-      label: 'Oficina'
-    },
-    {
-      value: '4',
-      label: 'Estudio'
-    }
-  ];
-  const addType = useRadioButtonValue(post.addType || '');
+  const postType = useRadioButtonValue('');
+  console.log(postType);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -55,7 +42,7 @@ const newPostStepOne = () => {
       m2: m2.value,
       m2build: m2build.value,
       price: price.value,
-      addType: addType.value
+      postType: postType.value
     });
     Router.push('/post/new_post_step_two');
   };
@@ -69,16 +56,13 @@ const newPostStepOne = () => {
             <Input type='text' label='Add title' name='title' required {...title} />
           </FormField>
           <FormField>
-            <Select label='Property type' options={propertyType} />
-          </FormField>
-          <FormField>
-            <Input type='number' label='Rooms' name='rooms' required {...rooms} />
-          </FormField>
-          <FormField>
-            <Input type='number' label='Bathrooms' name='bathrooms' required {...bathrooms} />
+            <Select label='Property type' options={propertyTypes.data} />
           </FormField>
           <FormField>
             <Input type='text' label='Address' name='address' required {...address} />
+          </FormField>
+          <FormField>
+            <Select label='Zone' options={zones.data} />
           </FormField>
           <FormField>
             <Input type='number' label='Area m2' name='m2' required {...m2} />
@@ -87,10 +71,16 @@ const newPostStepOne = () => {
             <Input type='number' label='Built area m2' name='m2build' required {...m2build} />
           </FormField>
           <FormField>
-            <Input type='text' label='Price' name='price' required {...price} />
+            <Input type='number' label='Rooms' name='rooms' required {...rooms} />
           </FormField>
           <FormField>
-            <RadioButton options={['Rent', 'Sell']} name='addType' title='Add type' {...addType} />
+            <Input type='number' label='Bathrooms' name='bathrooms' required {...bathrooms} />
+          </FormField>
+          <FormField>
+            <Input type='number' label='Price' name='price' required {...price} />
+          </FormField>
+          <FormField>
+            <RadioButton options={modalityTypes.data} title='Add type' name='postType' {...postType} />
           </FormField>
           <div className={styles.buttons}>
             <Button value='Cancel' buttonClass='redLinearButton' buttonType='button' handleClick={() => { Router.push('/'); }} />
@@ -101,5 +91,27 @@ const newPostStepOne = () => {
     </Layout>
   );
 };
+
+export async function getStaticProps () {
+  const zones = await API.getZones()
+  .then((res) => res)
+  .catch(error => console.log(error))
+
+  const propertyTypes = await API.getPropertyType()
+  .then((res) => res)
+  .catch(error => console.log(error))
+
+  const modalityTypes = await API.getModalityType()
+  .then((res) => res)
+  .catch(error => console.log(error))
+  
+  return {
+    props: {
+      zones,
+      propertyTypes,
+      modalityTypes
+    }
+  }
+}
 
 export default newPostStepOne;
