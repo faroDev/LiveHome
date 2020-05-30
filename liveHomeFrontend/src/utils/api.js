@@ -101,34 +101,49 @@ class API {
   }
 
   async getZones () {
-    const result = await fetch(`${API_URL}/zones`)
-      .then((res) => res.json())
-      .catch((error) => new Error(`Impossible connect ${error.message}`));
-    return result;
+    try {
+      const result = await fetch(`${API_URL}/zones`)
+      const data = result.json();
+      return data;
+    } catch (error) {
+      return new Error(`Impossible connect ${error.message}`);
+    }
   }
 
   async getPropertyType () {
-    const result = await fetch(`${API_URL}/propertyType`)
-      .then((res) => res.json())
-      .catch((error) => new Error(`Impossible connect ${error.message}`));
-    return result;
+    try {
+      const result = await fetch(`${API_URL}/propertyType`)
+      const data = result.json();
+      return data;
+    } catch (error) {
+      return new Error(`Impossible connect ${error.message}`);
+    }
   }
 
   async getModalityType () {
-    const result = await fetch(`${API_URL}/modalityType`)
-      .then((res) => res.json())
-      .catch((error) => new Error(`Impossible connect ${error.message}`));
-    return result;
+    try {
+      const result = await fetch(`${API_URL}/modalityType`)
+      const data = result.json();
+      return data;
+    } catch (error) {
+      return new Error(`Impossible connect ${error.message}`);
+    }
   }
 
   async getProperties () {
-    const result = await fetch(`${API_URL}/properties`)
-      .then((res) => res.json())
-      .catch((error) => new Error(`Impossible connect ${error.message}`));
-    return result;
+    try {
+      const result = await fetch(`${API_URL}/properties`)
+      const data = result.json();
+      return data;
+    } catch (error) {
+      return new Error(`Impossible connect ${error.message}`);
+    }
   }
 
   async postProperty (token, data) {
+    // const location = await this.GoogleMapsApi();
+    // console.log(location.results[0].geometry.location);
+
     const formData = new FormData();
 
     formData.append('m2', data.m2);
@@ -138,6 +153,7 @@ class API {
     formData.append('pool', data.pool);
     formData.append('security', data.security);
     formData.append('elevator', data.elevator);
+    formData.append('heating', data.heating);
     formData.append('bathrooms', data.bathrooms);
     formData.append('nearTo', data.nearbyPlaces);
     formData.append('cellar', data.warehouse);
@@ -150,7 +166,8 @@ class API {
     formData.append('userId', 1);
     formData.append('zoneId', data.zone);
 
-    const result = await fetch(`${API_URL}/properties`,
+    try {
+      const result = await fetch(`${API_URL}/properties`,
       {
         method: 'POST',
         headers: {
@@ -158,10 +175,53 @@ class API {
         },
         body: formData
       })
-      .then((res) => res)
-      .catch((error) => new Error(`Impossible connect ${error.message}`));
+      const data = await result.json();
+      return data;
+    } catch (error) {
+      return new Error(`Impossible connect ${error.message}`);
+    }
+  }
 
-    return result;
+  async postModality (token, data, price, modalityId) {
+    let modality = {
+      propertyId: data.id,
+      modalityTypeId: modalityId
+    }
+
+    if (modalityId == 1) {
+      modality.pricem2 = 0;
+      modality.pricePerMoth = price;
+      modality.totalPrice = 0;
+    } else {
+      modality.pricem2 = parseInt(price/data.m2);
+      modality.pricePerMoth = 0;
+      modality.totalPrice = price;
+    }
+    
+    try {
+      const result = await fetch(
+        `${API_URL}/modalities`,
+        {
+          method: 'POST',
+          headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ ...modality })
+        }
+      );
+      const data = await result.json();
+      return data;
+    } catch (error) {
+      return new Error(`Impossible connect ${error.message}`);
+    }
+  }
+
+  async postPropertyDetails (token, direction) {
+    // const dir = 'Cl.+150+%2319-23,+Bogotá';
+    const api_token = '';
+    const data = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${direction}&key=${api_token}`)
+    return data.json();
   }
 }
 

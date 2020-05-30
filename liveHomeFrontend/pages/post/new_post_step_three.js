@@ -16,26 +16,26 @@ import API from '../../src/utils/api';
 import styles from '../../src/styles/pages/post/new_post_step_three.module.sass';
 
 const newPostStepThree = () => {
-  const { post, setPost } = useContext(UserContext);
-
-  const description = setInputValue(post.description || '');
-
-  const saveProperty = async () => {
-    const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjMsInVzZXJOYW1lIjoiamwiLCJlbWFpbCI6ImNhbXBvc2IxOTkxQGhvdG1haWwuY29tIiwidXNlclR5cGUiOiJDbGllbnRlIiwidXNlcklkIjozLCJpYXQiOjE1OTA4NzAzNTQsImV4cCI6MTU5MDg3MTI1NH0.HIA94Pu2Kcsy9ULNNxunHac_pi_XqBvq8wzR7zoyIe4';
-    const result = await API.postProperty(token, post)
-      .then((res) => res)
-      .catch((error) => new Error(error.message));
-    console.log(result);
-  };
-
-  const handleSubmit = (event) => {
+  const { offer, setOffer } = useContext(UserContext);
+  const description = setInputValue('');
+  
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    setPost({
-      ...post,
+    const newPost = {
+      ...offer,
       description: description.value
-    });
-    saveProperty();
-  };
+    };
+
+    const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjMsInVzZXJOYW1lIjoiamwiLCJlbWFpbCI6ImNhbXBvc2IxOTkxQGhvdG1haWwuY29tIiwidXNlclR5cGUiOiJDbGllbnRlIiwidXNlcklkIjozLCJpYXQiOjE1OTA5MDMxNjcsImV4cCI6MTU5MDkwNDA2N30.cRTtgmYiWzV2CBW6m-ebsbRXZthp_nZ2vOxgcKlAUcQ';
+    const property = await API.postProperty(token, newPost);
+    console.log(property);
+    // Validar si no tiene ID
+    const modality = await API.postModality(token, property.data, newPost.price, newPost.modalityType);
+    console.log(modality);
+    const details = await API.postPropertyDetails(token, newPost.address)
+    console.log(details);
+
+  }
 
   return (
     <Layout>

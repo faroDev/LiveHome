@@ -16,21 +16,21 @@ import UserContext from '../../src/components/UserContext';
 import styles from '../../src/styles/pages/post/new_post_step_two.module.sass';
 
 const newPostStepTwo = () => {
-  const { post, setPost } = useContext(UserContext);
+  const { offer, setOffer } = useContext(UserContext);
 
-  const furnished = useCheckValue(post.furnished || false);
-  const elevator = useCheckValue(post.elevator || false);
-  const pool = useCheckValue(post.pool || false);
-  const heating = useCheckValue(post.heating || false);
-  const security = useCheckValue(post.security || false);
-  const warehouse = useCheckValue(post.warehouse || false);
-  const parking = setInputValue(post.parking || '');
-  const nearbyPlaces = setInputValue(post.nearbyPlaces || '');
+  const furnished = useCheckValue(offer.furnished || false);
+  const elevator = useCheckValue(offer.elevator || false);
+  const pool = useCheckValue(offer.pool || false);
+  const heating = useCheckValue(offer.heating || false);
+  const security = useCheckValue(offer.security || false);
+  const warehouse = useCheckValue(offer.warehouse || false);
+  const parking = setInputValue(offer.parking || '');
+  const nearbyPlaces = setInputValue(offer.nearbyPlaces || '');
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    setPost({
-      ...post,
+    setOffer({
+      ...offer,
       furnished: furnished.checked,
       elevator: elevator.checked,
       pool: pool.checked,
