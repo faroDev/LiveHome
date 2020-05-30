@@ -1,5 +1,5 @@
 import base64 from 'base-64';
-const API_URL = 'https://live-home.now.sh/api';
+const API_URL = 'https://live-home-ashy.now.sh/api';
 
 class API {
   async getAccount (userId, token) {
@@ -95,11 +95,12 @@ class API {
     }
 
     const data = await result.json();
+
     return data;
   }
 
   async postProperty (token, data) {
-    let formData = new FormData();
+    const formData = new FormData();
 
     formData.append('m2', data.m2);
     formData.append('m2build', data.m2build);
@@ -119,19 +120,41 @@ class API {
     formData.append('userId', 1);
 
     const result = await window.fetch('https://live-home-ashy.now.sh/api/properties/',
-    {
-      method: 'POST',
-      headers: {
-        Authorization: `Bearer ${token}`
-      },
-      body: formData,
-    })
-    .then((res) => res)
-    .catch((error) => new Error('Impossible connect'))
+      {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${token}`
+        },
+        body: formData
+      })
+      .then((res) => res)
+      .catch((error) => new Error('Impossible connect'));
 
     return result;
   }
-  
+
+  async getUserFavourites (userId, token) {
+    try {
+      const result = await window.fetch(
+        `${API_URL}/users/${userId}/favorites`,
+        {
+          method: 'GET',
+          headers:
+            {
+              Authorization: `Bearer ${token}`
+            }
+        });
+      const data = await result.json();
+
+      if (!data.error) {
+        return { ...data };
+      } else {
+        return { error: new Error(data.error) };
+      }
+    } catch (error) {
+      return { error: new Error('Impossible connect') };
+    }
+  }
 }
 
 export default new API();

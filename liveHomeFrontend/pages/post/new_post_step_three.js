@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React, { useContext } from 'react';
 import Router from 'next/router';
 
 import setInputValue from '../../src/hooks/useInputValue';
@@ -16,7 +16,7 @@ import UserContext from '../../src/components/UserContext';
 import styles from '../../src/styles/pages/post/new_post_step_three.module.sass';
 
 const newPostStepThree = () => {
-  const {post, setPost} = useContext(UserContext);
+  const { post, setPost } = useContext(UserContext);
 
   const furnished = useCheckValue(post.furnished || false);
   const elevator = useCheckValue(post.elevator || false);
@@ -38,9 +38,9 @@ const newPostStepThree = () => {
       security: security.checked,
       warehouse: warehouse.checked,
       parking: parking.value,
-      nearby_places: nearby_places.value,
-    })
-    Router.push('/post/new_post_step_four')
+      nearby_places: nearby_places.value
+    });
+    Router.push('/post/new_post_step_four');
   };
 
   return (
@@ -70,10 +70,10 @@ const newPostStepThree = () => {
             <Input type='number' label='Parkig' name='parkng' required {...parking} />
           </FormField>
           <FormField>
-            <TextareaComponent label='Nearby places' name='nearby_places' required={true} {...nearby_places} />
+            <TextareaComponent label='Nearby places' name='nearby_places' required {...nearby_places} />
           </FormField>
           <div className={styles.buttons}>
-            <Button value='Back' buttonClass='grayLightLinearButton' buttonType='button' handleClick={() => {Router.back()}} />
+            <Button value='Back' buttonClass='grayLightLinearButton' buttonType='button' handleClick={() => { Router.back(); }} />
             <Button value='Continue' buttonClass='greenLinearButton' buttonType='submit' />
           </div>
         </Form>

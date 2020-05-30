@@ -12,7 +12,7 @@ import GarageIcon from '../assets/statics/images/garage.png';
 
 import styles from '../styles/components/CardPreviewPublication.module.sass';
 
-const CardPreviewPublication = ({ images, title, price, type, description, rooms, bathrooms, area, parking }) => {
+const CardPreviewPublication = ({ id, images, title, price, type, description, rooms, bathrooms, area, parking, favourite, favouriteClick }) => {
   return (
     <div className={styles.buildings__card_container}>
       <Card images={images}>
@@ -21,8 +21,10 @@ const CardPreviewPublication = ({ images, title, price, type, description, rooms
             <div>
               <p>{title}</p>
             </div>
-            <div>
-              <Icon name='heart' />
+            <div onClick={() => favouriteClick(id)}>
+              {
+                favourite ? <Icon className={styles.__favourite_icon} name='heart' fill='red' stroke='#000' /> : <Icon name='heart' />
+              }
             </div>
           </div>
           <div className={styles.buildings__card_detail_price}>
