@@ -75,7 +75,7 @@ module.exports = function setupPropertiesService (propertyModel, userModel, moda
   }
 
   function propertiesHomeQuery (obj) {
-    const { propertyTypeId, modalTypeId, location } = obj
+    const { propertyTypeId, modalityTypeId, location } = obj
     let prop = {}
     if (propertyTypeId) {
       prop = {
@@ -92,11 +92,11 @@ module.exports = function setupPropertiesService (propertyModel, userModel, moda
       attributes: ['*'],
       where: prop,
       include: [
-        (modalTypeId) ? {
+        (modalityTypeId) ? {
           attributes: ['*'],
           model: modalityModel,
           where: {
-            modalTypeId
+            modalityTypeId
           }
         } : {
           attributes: ['*'],

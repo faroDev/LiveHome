@@ -23,7 +23,7 @@ async function run () {
     createdAt: new Date(),
     updatedAt: new Date(),
     propertyId: 1,
-    modalTypeId: 2
+    modalityTypeId: 2
   }, 1, 2).catch(handleFatalError)
 
   console.log('---modalityC--')

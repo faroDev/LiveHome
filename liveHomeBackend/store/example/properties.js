@@ -61,7 +61,7 @@ async function run () {
   const obj = {
 
     propertyTypeId: 2,
-    modalTypeId: 2,
+    modalityTypeId: 2,
     location: 'env'
   }
   const homeQuery = await properties.propertiesHomeQuery(obj)

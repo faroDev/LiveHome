@@ -6,7 +6,7 @@ const setupDatabase = require('../lib/db')
 module.exports = function setupModalityType (config) {
   const sequelize = setupDatabase(config)
 
-  return sequelize.define('modal_type', {
+  return sequelize.define('modality_type', {
     id: {
       type: Sequelize.INTEGER,
       autoIncrement: true,

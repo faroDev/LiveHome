@@ -57,11 +57,11 @@ function propertyApi (app) {
     validationHandler(propertyQueryhome, 'query'),
     async function (req, res, next) {
       try {
-        const { propertyTypeId, modalTypeId, location } = req.query
+        const { propertyTypeId, modalityTypeId, location } = req.query
 
         const propertiesQuery = {
           propertyTypeId: parseInt(propertyTypeId) || null,
-          modalTypeId: parseInt(modalTypeId) || null,
+          modalityTypeId: parseInt(modalityTypeId) || null,
           location: location || null
         }
 
