@@ -53,6 +53,7 @@ function propertyApi (app) {
         next(error)
       }
     })
+
   router.get('/home',
     validationHandler(propertyQueryhome, 'query'),
     async function (req, res, next) {

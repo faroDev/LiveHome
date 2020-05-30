@@ -81,6 +81,19 @@ module.exports = function setupFavoritesService (favoritesModel, propertyModel) 
     })
   }
 
+  function deleteByPropertyIdAndUserId (propertyId, userId) {
+    favoritesModel.destroy({
+      where: {
+        propertyId,
+        userId
+      }
+    })
+  }
+
+  function deleteById (id) {
+    favoritesModel.deleteById(id)
+  }
+
   return {
     createOrUpdate,
     findById,
@@ -88,6 +101,8 @@ module.exports = function setupFavoritesService (favoritesModel, propertyModel) 
     update,
     create,
     getAmountByQuery,
-    findAllByUserId
+    findAllByUserId,
+    deleteByPropertyIdAndUserId,
+    deleteById
   }
 }

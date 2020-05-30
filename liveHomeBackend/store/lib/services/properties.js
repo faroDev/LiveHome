@@ -2,7 +2,7 @@
 const { Op } = require('sequelize')
 const { getQuery } = require('./../../utils')
 
-module.exports = function setupPropertiesService (propertyModel, userModel, modalityModel, propertyDetailModel, filesModel) {
+module.exports = function setupPropertiesService (propertyModel, userModel, modalityModel, propertyDetailModel, filesModel, favoritesModel) {
   async function create (property) {
     property.updatedAt = new Date()
     property.createdAt = new Date()
@@ -29,14 +29,30 @@ module.exports = function setupPropertiesService (propertyModel, userModel, moda
   }
 
   function findAll (query) {
+    const { inSession } = query
+
+    const includes = [
+      {
+        attributes: ['id', 'url'],
+        model: filesModel
+      }
+    ]
+
+    if (inSession) {
+      includes.push({
+        attributes: ['id'],
+        model: favoritesModel,
+        required: false,
+        where: {
+          userId: inSession
+        },
+        raw: true
+      })
+    }
+
     query = getQuery(query)
     return propertyModel.findAll({
-      include: [
-        {
-          attributes: ['id', 'url'],
-          model: filesModel
-        }
-      ],
+      include: includes,
       where: query
     })
   }
