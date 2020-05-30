@@ -32,9 +32,9 @@ const PublicationDetail = (props) => {
     console.log('[Detail build]', post);
   }, [])
   
-  // const router = useRouter();
-  // const {propertyId} = router.query
-  // console.log(propertyId);
+  const router = useRouter();
+  const {propertyId} = router.query
+  console.log(propertyId);
   return (
     <>
       <Link href='/property/buildings'>

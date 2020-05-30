@@ -18,11 +18,6 @@ export default function MyApp ({ Component, pageProps }) {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [post, setPost] = useState([]);
 
-  return (
-    <UserContext.Provider value={{ user: userData, setUserData, isLoggedIn, setIsLoggedIn, token, setToken, post, setPost }}>
-      <Component {...pageProps} />
-    </UserContext.Provider>
-  );
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -49,4 +44,4 @@ export default function MyApp ({ Component, pageProps }) {
   } else {
     return '';
   }
-}
+};

@@ -19,6 +19,13 @@ import ElevatorIcon from '../assets/statics/images/elevator.png';
 import styles from '../styles/components/BuildingDetail.module.sass';
 
 const BuildingDetail = ({ building, children }) => {
+
+  const validateService = (service) => {
+    if(service){
+      return 'Yes';
+    }
+    return 'No';
+  }
   return (
     <div className={styles.buildingDetail__container}>
       <div className={styles.buildingDetail__carousel}>
@@ -45,7 +52,7 @@ const BuildingDetail = ({ building, children }) => {
         <Chip nameLabel='Detail' labelClass='rose_label' />
       </div>
       <div className={styles.buildingDetail__detail}>
-        <InformationIcon icon={AreaIcon} value={building.area} sup='2'>
+        <InformationIcon icon={AreaIcon} value={`${building.m2}m`} sup='2'>
           <p>Area</p>
         </InformationIcon>
         <InformationIcon icon={BedIcon} value={building.rooms}>
@@ -57,22 +64,22 @@ const BuildingDetail = ({ building, children }) => {
         <InformationIcon icon={GarageIcon} value={building.parking}>
           <p>Garage</p>
         </InformationIcon>
-        <InformationIcon icon={FurnishedIcon} value={building.furnished}>
+        <InformationIcon icon={FurnishedIcon} value={validateService(building.furnished)}>
           <p>Furnished</p>
         </InformationIcon>
-        <InformationIcon icon={PoolIcon} value={building.pool}>
+        <InformationIcon icon={PoolIcon} value={validateService(building.pool)}>
           <p>Pool</p>
         </InformationIcon>
-        <InformationIcon icon={HeatingIcon} value={building.heating}>
+        <InformationIcon icon={HeatingIcon} value={validateService(building.heating)}>
           <p>Heating</p>
         </InformationIcon>
-        <InformationIcon icon={WarehouseIcon} value={building.warehouse}>
+        <InformationIcon icon={WarehouseIcon} value={validateService(building.warehouse)}>
           <p>Warehose</p>
         </InformationIcon>
-        <InformationIcon icon={SecurityIcon} value={building.security}>
+        <InformationIcon icon={SecurityIcon} value={validateService(building.security)}>
           <p>Security</p>
         </InformationIcon>
-        <InformationIcon icon={ElevatorIcon} value={building.elevator}>
+        <InformationIcon icon={ElevatorIcon} value={validateService(building.elevator)}>
           <p>Elevator</p>
         </InformationIcon>
       </div>
@@ -81,7 +88,7 @@ const BuildingDetail = ({ building, children }) => {
         <Chip nameLabel='Nearby places' labelClass='purple_label' />
       </div>
       <div className={styles.buildingDetail__description}>
-        <p>{building.nearby}</p>
+        <p>{building.nearTo}</p>
       </div>
       <div className={styles.buildingDetail__aux_component}>
         {children}

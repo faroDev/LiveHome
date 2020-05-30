@@ -49,14 +49,13 @@ const Login = () => {
         setLoading(false);
         return false;
       }
-
       setToken(response.token);
       setUserData(decode(response.token));
       setIsLoggedIn(true);
       window.sessionStorage.setItem('jwt-token', response.token);
       setAlert(false);
       setLoading(false);
-      Router.push('/account');
+      Router.push('/home');
     } catch (error) {
       console.error('[error]', error);
       setLoading(false);

@@ -1,12 +1,10 @@
-import React, { useContext } from 'react';
-import slug from '../utils/slug';
-import UserContext from './UserContext';
-import Router from 'next/router';
+import React from 'react';
 
 import Card from './Card';
 import Icon from './Icon';
 import Chip from './Chip';
 import InformationIcon from './InformationIcon';
+import FavButton from './FavButton';
 
 import BedIcon from '../assets/statics/images/bed.png';
 import ShowerIcon from '../assets/statics/images/shower.png';
@@ -14,30 +12,18 @@ import AreaIcon from '../assets/statics/images/area.png';
 import GarageIcon from '../assets/statics/images/garage.png';
 
 import styles from '../styles/components/CardPreviewPublication.module.sass';
-import Link from 'next/link';
 
-const CardPreviewPublication = ({ images, id, title, price, type, description, rooms, bathrooms, area, parking }) => {
-
-  // const { post, setPost } = useContext(UserContext);
-
-  const handleClickDetail = (id) => {
-    // setPost(post);
-    Router.push(`/property/buildings?id=${id}`, slug(title), { shallow: true });
-  }
+const CardPreviewPublication = ({ images, id, title, price, type, description, rooms, bathrooms, area, parking, liked, handleLike, handleClickDetail }) => {
   return (
     <div className={styles.buildings__card_container}>
       <Card images={images}>
         <div className={styles.buildings__card_detail}>
           <div className={styles.buildings__card_detail_title}>
             <div>
-              {/* <Link href={`/property/${id}`} as={`/property/${slug(title)}`}>
-                <a target='_blank'> */}
-                  <p onClick={() => handleClickDetail(id)}>{title}</p>
-                {/* </a>
-              </Link> */}
+              <p onClick={() => handleClickDetail(id)}>{title}</p>
             </div>
             <div>
-              <Icon name='heart' />
+              <FavButton liked={liked} onClick={() => handleLike(id, liked)} />
             </div>
           </div>
           <div className={styles.buildings__card_detail_price}>
