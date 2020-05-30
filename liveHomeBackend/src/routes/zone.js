@@ -71,12 +71,11 @@ function zoneApi (app) {
     async function (req, res, next) {
       try {
         const { body: zone } = req
-        console.log(zone)
         const result = await zoneService.create(zone)
 
         res.status(201).json({
           data: result,
-          message: 'Zone  created'
+          message: 'Zone created'
         })
       } catch (error) {
         next(error)
