@@ -88,7 +88,7 @@ module.exports = async function (config) {
   const favorites = setupFavoritesService(favoritesModel, propertyModel, filesModel, userModel)
   const status = setupStatusService(statusModel)
   const zones = setupZoneService(zonesModel)
-  const properties = setupPropertiesService(propertyModel, userModel, modalityModel, propertyDetailModel, filesModel)
+  const properties = setupPropertiesService(propertyModel, userModel, modalityModel, propertyDetailModel, filesModel, favoritesModel)
 
   return {
     typeUser,

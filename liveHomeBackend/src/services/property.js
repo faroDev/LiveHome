@@ -16,6 +16,13 @@ class PropertyService {
    */
   async get (query) {
     return this.service.properties.findAll(query)
+      .then(property => {
+        property.map(p => {
+          p.dataValues.favorites = p.dataValues.favorites ? p.dataValues.favorites.length > 0 : false
+          return p
+        })
+        return property
+      })
   }
 
   /**

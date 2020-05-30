@@ -43,6 +43,7 @@ class FavoriteService {
 
   /**
    * Get amount of favorites by user id
+   * @param {integer} id
    */
   async getAmountByUserId (id) {
     const query = {
@@ -53,6 +54,7 @@ class FavoriteService {
 
   /**
    * Get amount of favorites by property id
+   * @param {integer} id
    */
   async getAmountByPropertyId (id) {
     const query = {
@@ -63,11 +65,29 @@ class FavoriteService {
 
   /**
    * Get favorites by user id
+   * @param {integer} id
    */
   async getAllByUserId (id) {
     const favorites = await this.service.favorites.findAllByUserId(id)
     const propertiesId = favorites.map(favorite => favorite.propertyId)
     return this.service.properties.getPropertiesByIds(propertiesId)
+  }
+
+  /**
+   * Delete favorites by propertyId and userId
+   * @param {integer} propertyId
+   * @param {integer} userId
+   */
+  async deleteByPropertyIdAndUserId (propertyId, userId) {
+    return this.service.favorites.deleteByPropertyIdAndUserId(propertyId, userId)
+  }
+
+  /**
+   * Delete favorites by favorite id
+   * @param {integer} id
+   */
+  async delete (id) {
+    return this.service.favorites.deleteById(id)
   }
 }
 

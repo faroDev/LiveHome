@@ -84,6 +84,40 @@ function favoriteApi (app) {
         next(error)
       }
     })
+
+  router.delete('/:propertyId/:userId',
+    passport.authenticate('jwt', { session: false }),
+    async function (req, res, next) {
+      try {
+        const { propertyId, userId } = req.params
+
+        await favoriteService.deleteByPropertyIdAndUserId(propertyId, userId)
+
+        res.status(201).json({
+          data: null,
+          message: 'Favorite deleted'
+        })
+      } catch (error) {
+        next(error)
+      }
+    })
+
+  router.delete('/:id',
+    passport.authenticate('jwt', { session: false }),
+    async function (req, res, next) {
+      try {
+        const { id } = req.params
+
+        await favoriteService.delete(id)
+
+        res.status(201).json({
+          data: null,
+          message: 'Favorite deleted'
+        })
+      } catch (error) {
+        next(error)
+      }
+    })
 }
 
 module.exports = favoriteApi

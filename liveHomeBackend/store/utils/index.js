@@ -7,6 +7,7 @@ const { Op } = require('sequelize')
  * @param {*} query
  */
 function getQuery (query) {
+  delete query.inSession
   const newQuery = {}
   for (const [key, value] of Object.entries(query)) {
     if (Array.isArray(value)) {
