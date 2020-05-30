@@ -2,8 +2,8 @@
 const { Op } = require('sequelize')
 const { getQuery } = require('./../../utils')
 
-module.exports = function setupPropertiesService (propertyModel, userModel, modalityModel, propertyDetailModel, filesModel) {
-  async function create (property) {
+module.exports = function setupPropertiesService(propertyModel, userModel, modalityModel, propertyDetailModel, filesModel) {
+  async function create(property) {
     property.updatedAt = new Date()
     property.createdAt = new Date()
 
@@ -11,7 +11,7 @@ module.exports = function setupPropertiesService (propertyModel, userModel, moda
     return result.toJSON({ raw: true })
   }
 
-  async function update (property) {
+  async function update(property) {
     const cond = {
       where: {
         id: property.id
@@ -24,11 +24,11 @@ module.exports = function setupPropertiesService (propertyModel, userModel, moda
     return exitingproperty
   }
 
-  function findById (id) {
+  function findById(id) {
     return propertyModel.findByPk(id, { raw: true })
   }
 
-  function findAll (query) {
+  function findAll(query) {
     query = getQuery(query)
     return propertyModel.findAll({
       include: [
@@ -41,7 +41,7 @@ module.exports = function setupPropertiesService (propertyModel, userModel, moda
     })
   }
 
-  function userProperties (userId) {
+  function userProperties(userId) {
     return propertyModel.findAll({
       attributes: ['id', 'm2', 'm2build', 'statusId', 'createdAt'],
       include: [
@@ -57,7 +57,7 @@ module.exports = function setupPropertiesService (propertyModel, userModel, moda
     })
   }
 
-  function getPropertiesByIds (ids) {
+  function getPropertiesByIds(ids) {
     return propertyModel.findAll({
       include: [
         {
@@ -74,16 +74,20 @@ module.exports = function setupPropertiesService (propertyModel, userModel, moda
     })
   }
 
-  function propertiesHomeQuery (obj) {
-    const { propertyTypeId, modalityTypeId, location } = obj
+  function propertiesHomeQuery(obj) {
+    console.log(obj)
+    const { propertyTypeId, modalityTypeId, zoneId } = obj
     let prop = {}
     if (propertyTypeId) {
       prop = {
+        zoneId,
         propertyTypeId,
         statusId: 2
       }
     } else {
       prop = {
+
+        zoneId,
         statusId: 2
       }
     }
@@ -99,27 +103,17 @@ module.exports = function setupPropertiesService (propertyModel, userModel, moda
             modalityTypeId
           }
         } : {
-          attributes: ['*'],
-          model: modalityModel
+            attributes: ['*'],
+            model: modalityModel
 
-        },
-        {
-          attributes: ['*'],
-          model: propertyDetailModel,
-          where: {
-            [Op.or]: [
-              { city: { [Op.iLike]: `%${location}%` } },
-              { neighborhood: { [Op.iLike]: `%${location}%` } }
-            ]
           }
-
-        },
+      ],
+      include: [
         {
           attributes: ['id', 'url'],
           model: filesModel
         }
       ],
-
       raw: true
     })
   }

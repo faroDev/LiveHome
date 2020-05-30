@@ -2,7 +2,7 @@
 const config = require('../config/index')
 const db = require('../index')
 
-async function run () {
+async function run() {
   const configuration = {
     database: config.db.name || 'livehome_db',
     username: config.db.user || 'admin',
@@ -10,10 +10,10 @@ async function run () {
     host: config.db.host || 'localhost',
     dialect: 'postgres',
     returning: true,
-    setup: true
-    // query: {
-    //   raw: true
-    // }
+    setup: true,
+    query: {
+      raw: true
+    }
   }
 
   const { properties } = await db(configuration).catch(handleFatalError)
@@ -55,22 +55,21 @@ async function run () {
   console.log('--user--')
   console.log(properties1)
 
-  const property2 = await properties.findById(1)
-  console.log('--user--')
-  console.log(property2)
+  // const property2 = await properties.findById(1)
+  // console.log('--user--')
+  // console.log(property2)
 
-  const obj = {
-
-    propertyTypeId: 2,
-    modalityTypeId: 2,
-    location: 'env'
-  }
-  const homeQuery = await properties.propertiesHomeQuery(obj)
-  console.log('--------------HomeQuery---------------------------')
-  console.log(homeQuery)
+  // const ob = {
+  //   propertyTypeId: null,
+  //   modalityTypeId: null,
+  //   zoneId: 1
+  // }
+  // const homeQuery = await properties.propertiesHomeQuery(ob)
+  // console.log('--------------HomeQuery---------------------------')
+  // console.log(homeQuery)
 }
 run()
-function handleFatalError (err) {
+function handleFatalError(err) {
   console.error(err.message)
   console.error(err.stack)
   process.exit(1)

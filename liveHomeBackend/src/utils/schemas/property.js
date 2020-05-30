@@ -26,7 +26,7 @@ const propertyCellarSchema = joi.boolean()
 
 const propertyM2FilterSchema = joi.array().items(propertyM2Schema).min(1)
 
-const propertyLocation = joi.string()
+const propertyZoneId = joi.number()
 const propertymodalityTypeId = joi.number()
 
 const propertyCreateSchema = {
@@ -99,7 +99,7 @@ const propertyQuerySchema = {
 const propertyQueryhome = {
   propertyTypeId: propertyPropertyTypeIdSchema.allow('').optional(),
   modalityTypeId: propertymodalityTypeId.allow('').optional(),
-  location: propertyLocation.required()
+  zoneId: propertyZoneId.required()
 }
 
 module.exports = {

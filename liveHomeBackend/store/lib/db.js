@@ -4,7 +4,7 @@ const Sequelize = require('sequelize')
 
 let sequelize = null
 
-module.exports = function setupDataBase (configuration) {
+module.exports = function setupDataBase(configuration) {
   if (!sequelize) {
     console.log('Init sequelize')
 
@@ -21,8 +21,8 @@ module.exports = function setupDataBase (configuration) {
       setup: true
     }
 
-    sequelize = new Sequelize({ ...configuration, ...options })
-    // sequelize = new Sequelize(configuration)
+    //sequelize = new Sequelize({ ...configuration, ...options })
+    sequelize = new Sequelize(configuration)
   }
 
   return sequelize

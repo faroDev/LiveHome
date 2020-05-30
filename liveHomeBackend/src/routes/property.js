@@ -29,7 +29,7 @@ const bucket = storage.bucket(config.googleStorage.bucketName)
 
 var upload = Multer(config.multer)
 
-function propertyApi (app) {
+function propertyApi(app) {
   const router = express()
   const propertyService = new PropertyService()
   const fileService = new FileService()
@@ -57,12 +57,12 @@ function propertyApi (app) {
     validationHandler(propertyQueryhome, 'query'),
     async function (req, res, next) {
       try {
-        const { propertyTypeId, modalityTypeId, location } = req.query
+        const { propertyTypeId, modalityTypeId, zoneId } = req.query
 
         const propertiesQuery = {
           propertyTypeId: parseInt(propertyTypeId) || null,
           modalityTypeId: parseInt(modalityTypeId) || null,
-          location: location || null
+          zoneId: zoneId
         }
 
         const result = await propertyService.homeQuery(propertiesQuery)
