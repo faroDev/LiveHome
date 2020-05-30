@@ -1,53 +1,40 @@
 
-/* const assert = require('assert');
-const proxyquire = require('proxyquire');
+const assert = require('assert')
+const proxyquire = require('proxyquire')
 
-const { DataBaseMock } = require('./../../../m');
-const dataBaseMock = require('./../../mocks/dataBaseMock');
+const dataBaseMock = require('./../../mocks/dataBaseMock')
+const { create, findAll, update, findById } = require('./../../mocks/dataBaseMock/statusDatabaseMock')
 
-describe('Services products', function() {
-    const StatusService = proxyquire('./../../service/status.js', {
-        './../../store/index': DataBaseMock
-    });
+describe('Services - status', function () {
+  const StatusService = proxyquire('./../../services/status.js', {
+    './../../store/index': dataBaseMock
+  })
 
-    const productsService = new ProductsService();
+  const statusService = new StatusService()
 
-    describe('when getProducts method is called', async function(){
-        it('should call the getAll MongoLib method', async function(){
-            await productsService.getProducts();
-            assert.strictEqual(getAllStub.called, true);
-        });
-        /*
-        it('should return an array of products', async function(){
-            const products = await productsService.getProducts();
-            const expected = producs;
+  describe('When get method is called', async function () {
+    it('* should call the findAll method', async function () {
+      await statusService.get()
+      assert.strictEqual(findAll.called, true)
+    })
 
-            assert.deepEqual(products,expected);
-        });
+    it('* should call the findById method', async function () {
+      await statusService.getById(1)
+      assert.strictEqual(findById.called, true)
+    })
+  })
 
-        it('should return an id producte created', async function(){
-            const productId = await productsService.createProduct(producs[0]);
-            const expected = productId;
+  describe('When post method is called', async function () {
+    it('* should call the create method', async function () {
+      await statusService.create({})
+      assert.strictEqual(create.called, true)
+    })
+  })
 
-            assert.deepEqual(producs[0].id, expected);
-            assert.strictEqual(createStub.called, true);
-        });
-
-        it('should return an id updated', async function(){
-            const productId = await productsService.updateProduct(producs[0].id, producs[0]);
-            const expected = productId;
-
-            assert.deepEqual(producs[0].id, expected);
-            assert.strictEqual(updateStub.called, true);
-        });
-
-        it('should return an id deleted', async function(){
-            const productId = await productsService.deleteProduct(producs[0].id);
-            const expected = productId;
-
-            assert.deepEqual(producs[0].id, expected);
-            assert.strictEqual(deleteStub.called, true);
-        });
-        */
-//  })
-// })
+  describe('When update method is called', async function () {
+    it('* should call the update method', async function () {
+      await statusService.update(1, {})
+      assert.strictEqual(update.called, true)
+    })
+  })
+})

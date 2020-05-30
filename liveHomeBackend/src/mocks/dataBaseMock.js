@@ -1,17 +1,7 @@
-function status () {
-  function create (status) {
-    return status
-  }
-
-  return {
-    create
-  }
-}
-
-function dataBaseMock () {
+'use strict'
+const status = require('./dataBaseMock/statusDatabaseMock')
+module.exports = async function (config) {
   return {
     status
   }
 }
-
-module.exports = dataBaseMock
