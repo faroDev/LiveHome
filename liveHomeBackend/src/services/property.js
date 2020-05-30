@@ -27,10 +27,18 @@ class PropertyService {
 
   /**
    * Get specific property
-   * @param {*} id
+   * @param {integer} id property id
+   * * @param {integer} inSession id of user in session
    */
-  async getById (id) {
-    return this.service.properties.findById(id)
+  async getById (id, inSession) {
+    return this.service.properties.findById(id, inSession)
+      .then(property => {
+        property.map(p => {
+          p.dataValues.favorites = p.dataValues.favorites ? p.dataValues.favorites.length > 0 : false
+          return p
+        })
+        return property
+      })
   }
 
   /**

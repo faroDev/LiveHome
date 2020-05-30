@@ -24,8 +24,32 @@ module.exports = function setupPropertiesService (propertyModel, userModel, moda
     return exitingproperty
   }
 
-  function findById (id) {
-    return propertyModel.findByPk(id, { raw: true })
+  function findById (id, inSession) {
+    const includes = [
+      {
+        attributes: ['id', 'url'],
+        model: filesModel
+      }
+    ]
+
+    if (inSession) {
+      includes.push({
+        attributes: ['id'],
+        model: favoritesModel,
+        required: false,
+        where: {
+          userId: inSession
+        },
+        raw: true
+      })
+    }
+
+    return propertyModel.findAll({
+      include: includes,
+      where: {
+        id: id
+      }
+    })
   }
 
   function findAll (query) {

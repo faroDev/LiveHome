@@ -75,7 +75,8 @@ function propertyApi (app) {
     async function (req, res, next) {
       try {
         const { id } = req.params
-        const result = await propertyService.getById(id)
+        const { inSession } = req.query
+        const result = await propertyService.getById(id, inSession)
 
         res.status(200).json({
           data: result || {},
