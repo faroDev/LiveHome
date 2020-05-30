@@ -1,5 +1,6 @@
 import base64 from 'base-64';
 import fetch from 'node-fetch';
+import FormData from 'form-data';
 const API_URL = 'https://live-home.now.sh/api';
 
 class API {
@@ -102,7 +103,7 @@ class API {
   async getProperties () {
     const result = await fetch(`${API_URL}/properties`)
       .then((res) => res.json())
-      .catch((error) => new Error('Impossible connect'));
+      .catch((error) => new Error(`Impossible connect ${error.message}`));
     return result;
   }
 
@@ -135,7 +136,9 @@ class API {
         body: formData
       })
       .then((res) => res)
-      .catch((error) => new Error('Impossible connect'));
+      .catch((error) => new Error(`Impossible connect ${error.message}`));
+
+    return result;
   }
 }
 

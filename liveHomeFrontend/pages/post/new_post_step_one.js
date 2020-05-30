@@ -25,7 +25,7 @@ const newPostStepOne = () => {
   const m2 = setInputValue(post.m2 || '');
   const m2build = setInputValue(post.m2build || '');
   const price = setInputValue(post.price || '');
-  const property_type = [
+  const propertyType = [
     {
       value: '1',
       label: 'Casa'
@@ -43,7 +43,7 @@ const newPostStepOne = () => {
       label: 'Estudio'
     }
   ];
-  const add_type = useRadioButtonValue(post.add_type || '');
+  const addType = useRadioButtonValue(post.addType || '');
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -55,7 +55,7 @@ const newPostStepOne = () => {
       m2: m2.value,
       m2build: m2build.value,
       price: price.value,
-      add_type: add_type.value
+      addType: addType.value
     });
     Router.push('/post/new_post_step_two');
   };
@@ -69,7 +69,7 @@ const newPostStepOne = () => {
             <Input type='text' label='Add title' name='title' required {...title} />
           </FormField>
           <FormField>
-            <Select label='Property type' options={property_type} />
+            <Select label='Property type' options={propertyType} />
           </FormField>
           <FormField>
             <Input type='number' label='Rooms' name='rooms' required {...rooms} />
@@ -90,7 +90,7 @@ const newPostStepOne = () => {
             <Input type='text' label='Price' name='price' required {...price} />
           </FormField>
           <FormField>
-            <RadioButton options={['Rent', 'Sell']} name='add_type' title='Add type' {...add_type} />
+            <RadioButton options={['Rent', 'Sell']} name='addType' title='Add type' {...addType} />
           </FormField>
           <div className={styles.buttons}>
             <Button value='Cancel' buttonClass='redLinearButton' buttonType='button' handleClick={() => { Router.push('/'); }} />

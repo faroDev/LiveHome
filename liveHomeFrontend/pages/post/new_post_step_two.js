@@ -25,7 +25,7 @@ const newPostStepTwo = () => {
   const security = useCheckValue(post.security || false);
   const warehouse = useCheckValue(post.warehouse || false);
   const parking = setInputValue(post.parking || '');
-  const nearby_places = setInputValue(post.nearby_places || '');
+  const nearbyPlaces = setInputValue(post.nearbyPlaces || '');
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -38,7 +38,7 @@ const newPostStepTwo = () => {
       security: security.checked,
       warehouse: warehouse.checked,
       parking: parking.value,
-      nearby_places: nearby_places.value
+      nearbyPlaces: nearbyPlaces.value
     });
     Router.push('/post/new_post_step_three');
   };
@@ -70,7 +70,7 @@ const newPostStepTwo = () => {
             <Input type='number' label='Parkig' name='parkng' required {...parking} />
           </FormField>
           <FormField>
-            <TextareaComponent label='Nearby places' name='nearby_places' required {...nearby_places} />
+            <TextareaComponent label='Nearby places' name='nearbyPlaces' required {...nearbyPlaces} />
           </FormField>
           <div className={styles.buttons}>
             <Button value='Back' buttonClass='grayLightLinearButton' buttonType='button' handleClick={() => { Router.back(); }} />
