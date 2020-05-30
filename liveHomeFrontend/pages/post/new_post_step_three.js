@@ -21,11 +21,10 @@ const newPostStepThree = () => {
   const description = setInputValue(post.description || '');
 
   const saveProperty = async () => {
-    const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsInVzZXJOYW1lIjoiamwiLCJlbWFpbCI6ImNhbXBvc2IxOTkwQGhvdG1haWwuY29tIiwidXNlclR5cGUiOiJDbGllbnRlIiwidXNlcklkIjoxLCJpYXQiOjE1OTA4MDc5MzgsImV4cCI6MTU5MDgwODgzOH0.QS9TFAq_hZWrqRSDd0eHsknsTpfok5_q3F0HUgfr1MY';
+    const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjMsInVzZXJOYW1lIjoiamwiLCJlbWFpbCI6ImNhbXBvc2IxOTkxQGhvdG1haWwuY29tIiwidXNlclR5cGUiOiJDbGllbnRlIiwidXNlcklkIjozLCJpYXQiOjE1OTA4NzAzNTQsImV4cCI6MTU5MDg3MTI1NH0.HIA94Pu2Kcsy9ULNNxunHac_pi_XqBvq8wzR7zoyIe4';
     const result = await API.postProperty(token, post)
       .then((res) => res)
       .catch((error) => new Error(error.message));
-
     console.log(result);
   };
 

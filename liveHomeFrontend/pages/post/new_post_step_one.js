@@ -32,7 +32,6 @@ const newPostStepOne = (props) => {
   const propertyType = setInputValue(post.propertyType || '');
   const zone = setInputValue(post.zone || '');
   const modalityType = useRadioButtonValue(post.modalityType || '');
-  console.log(modalityType);
 
   const handleSubmit = (event) => {
     event.preventDefault();

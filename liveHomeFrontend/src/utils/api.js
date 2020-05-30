@@ -139,16 +139,18 @@ class API {
     formData.append('security', data.security);
     formData.append('elevator', data.elevator);
     formData.append('bathrooms', data.bathrooms);
-    formData.append('nearTo', data.nearby_places);
+    formData.append('nearTo', data.nearbyPlaces);
+    formData.append('cellar', data.warehouse);
     formData.append('available', false);
     formData.append('title', data.title);
     formData.append('description', data.description);
     formData.append('rooms', data.rooms);
-    formData.append('propertyTypeId', 1);
+    formData.append('propertyTypeId', data.propertyType);
     formData.append('statusId', 1);
     formData.append('userId', 1);
+    formData.append('zoneId', data.zone);
 
-    const result = await window.fetch(`${API_URL}/properties`,
+    const result = await fetch(`${API_URL}/properties`,
       {
         method: 'POST',
         headers: {
