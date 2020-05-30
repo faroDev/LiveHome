@@ -5,7 +5,7 @@ import ButtonIcon from './ButtonIcon';
 
 import styles from '../styles/components/OffererCardPublication.module.sass';
 
-const OffererCardPublication = () => {
+const OffererCardPublication = ({ id, title, date }) => {
   const images = [
     'https://photos.zillowstatic.com/cc_ft_768/ISb9pqnpgqa00v0000000000.webp',
     'https://photos.zillowstatic.com/cc_ft_384/ISnmbaw9w1c48j0000000000.webp',
@@ -16,8 +16,8 @@ const OffererCardPublication = () => {
   return (
     <div className={styles.demo}>
       <Card images={images}>
-        <h5>Property name</h5>
-        <span className={styles.date}>2020-05-05</span>
+        <h5>{title}</h5>
+        <span className={styles.date}>{date}</span>
         <div className={styles.icons}>
           <ButtonIcon icon='activity' size='24' />
           <ButtonIcon icon='eye-off' size='24' />

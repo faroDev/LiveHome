@@ -1,7 +1,6 @@
 import base64 from 'base-64';
 import fetch from 'node-fetch';
-
-// const API_URL = 'https://live-home-ashy.now.sh/api';
+import FormData from 'form-data';
 const API_URL = 'https://live-home.now.sh/api';
 
 
@@ -236,7 +235,7 @@ class API {
   }
 
   async postProperty (token, data) {
-    let formData = new FormData();
+    const formData = new FormData();
 
     formData.append('m2', data.m2);
     formData.append('m2build', data.m2build);
@@ -255,20 +254,19 @@ class API {
     formData.append('statusId', 1);
     formData.append('userId', 1);
 
-    const result = await window.fetch('https://live-home-ashy.now.sh/api/properties/',
-    {
-      method: 'POST',
-      headers: {
-        Authorization: `Bearer ${token}`
-      },
-      body: formData,
-    })
-    .then((res) => res)
-    .catch((error) => new Error('Impossible connect'))
+    const result = await window.fetch(`${API_URL}/properties`,
+      {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${token}`
+        },
+        body: formData
+      })
+      .then((res) => res)
+      .catch((error) => new Error(`Impossible connect ${error.message}`));
 
     return result;
   }
-  
 }
 
 export default new API();
