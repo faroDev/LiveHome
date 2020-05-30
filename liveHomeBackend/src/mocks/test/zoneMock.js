@@ -4,41 +4,41 @@ const zones = [
     name: 'Usaquen',
     createdAt: '2020-05-30T16:49:07.102Z',
     updatedAt: '2020-05-30T16:49:07.102Z'
-},
-{
+  },
+  {
     id: 2,
     name: 'Chapinero',
     createdAt: '2020-05-30T16:50:03.327Z',
     updatedAt: '2020-05-30T16:50:03.327Z'
-},
-{
+  },
+  {
     id: 3,
     name: 'Santa Fe',
     createdAt: '2020-05-30T16:50:13.148Z',
     updatedAt: '2020-05-30T16:50:13.149Z'
-}
+  }
 ]
 
 const zoneToCreate = {
-  name: 'Usaquen',
+  name: 'Usaquen'
 }
 
 const zoneToUpdate = {
-  name: 'Usaquen',
+  name: 'Usaquen'
 }
 
 const zoneUpdated = {
   id: 1,
-    name: 'Usaquen',
-    createdAt: '2020-05-30T16:49:07.102Z',
-    updatedAt: '2020-05-30T16:49:07.102Z'
+  name: 'Usaquen',
+  createdAt: '2020-05-30T16:49:07.102Z',
+  updatedAt: '2020-05-30T16:49:07.102Z'
 }
 
 const zoneCreated = {
   id: 1,
-    name: 'Usaquen',
-    createdAt: '2020-05-30T16:49:07.102Z',
-    updatedAt: '2020-05-30T16:49:07.102Z'
+  name: 'Usaquen',
+  createdAt: '2020-05-30T16:49:07.102Z',
+  updatedAt: '2020-05-30T16:49:07.102Z'
 }
 
 const zoneFilter = {

@@ -28,14 +28,13 @@ const request = testServer(route)
 const token = generateToken()
 
 describe('Routes - zones', function () {
-  
   // Get method test
   describe('Get /zones/', function () {
     it('* Should response with status 200', function (done) {
       request.get('/api/zones')
         .expect(200, done)
     })
-    
+
     it('* Should response with list of zones', function (done) {
       request.get('/api/zones')
         .end((err, res) => {
@@ -56,7 +55,7 @@ describe('Routes - zones', function () {
         .set('Authorization', `bearer ${token}`)
         .expect(200, done)
     })
-  
+
     it('* Should response with zone object', function (done) {
       request.get(`/api/zones/${idZone}`)
         .set('Authorization', `bearer ${token}`)
@@ -91,12 +90,11 @@ describe('Routes - zones', function () {
           if (err) {
             console.log(err)
           }
-          
+
           assert.strict.deepEqual(res.body, {
             data: zoneUpdated,
             message: 'Zone updated'
           })
-          
         }, done())
     })
   })
@@ -129,4 +127,3 @@ describe('Routes - zones', function () {
     })
   })
 })
-
