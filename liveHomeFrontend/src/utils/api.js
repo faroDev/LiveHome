@@ -1,10 +1,11 @@
 import base64 from 'base-64';
-const API_URL = 'https://live-home.now.sh/api';
+const API_URL = 'https://live-home-ashy.now.sh/api';
+import fetch from 'node-fetch';
 
 class API {
   async getAccount (userId, token) {
     try {
-      const result = await window.fetch(
+      const result = await fetch(
         `${API_URL}/users/${userId}`,
         {
           method: 'GET',
@@ -29,7 +30,7 @@ class API {
     try {
       console.log(`${API_URL}/users/${userId}`);
 
-      const result = await window.fetch(
+      const result = await fetch(
         `${API_URL}/users/${userId}`,
         {
           method: 'PUT',
@@ -53,7 +54,7 @@ class API {
   }
 
   async signUp (newUser) {
-    const result = await window.fetch(
+    const result = await fetch(
       `${API_URL}/auth/sign-up`,
       {
         method: 'POST',
@@ -73,7 +74,7 @@ class API {
   }
 
   async signIn (userData) {
-    const result = await window.fetch(
+    const result = await fetch(
       `${API_URL}/auth/sign-in`,
       {
         method: 'POST',
@@ -98,9 +99,14 @@ class API {
     return data;
   }
 
+  async getProperties () {
+    const result = await fetch(`${API_URL}/properties`)
+    .then((res) => res.json())
+    .catch((error) => new Error('Impossible connect'))
+    return result;
+  }
+  
   async postProperty (token, data) {
-    let formData = new FormData();
-
     formData.append('m2', data.m2);
     formData.append('m2build', data.m2build);
     formData.append('furnished', data.furnished);
@@ -118,7 +124,7 @@ class API {
     formData.append('statusId', 1);
     formData.append('userId', 1);
 
-    const result = await window.fetch('https://live-home-ashy.now.sh/api/properties/',
+    const result = await window.fetch(`${API_URL}/properties`,
     {
       method: 'POST',
       headers: {
@@ -128,10 +134,8 @@ class API {
     })
     .then((res) => res)
     .catch((error) => new Error('Impossible connect'))
-
-    return result;
   }
-  
+
 }
 
 export default new API();

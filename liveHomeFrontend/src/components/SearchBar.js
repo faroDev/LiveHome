@@ -1,6 +1,7 @@
 import React from 'react';
 
 import styles from '../styles/components/SearchBar.module.sass';
+import iconSearch from '../assets/statics/images/searchIcon.png';
 
 const SearchBar = (props) => {
   return (
@@ -10,7 +11,7 @@ const SearchBar = (props) => {
         onChange={props.onChange}
       />
       <button className={styles.searchBar__container_button} type='submit'>
-        <img src='/static/searchIcon.png' alt='icon search button' />
+        <img src={iconSearch} alt='icon search button' />
       </button>
     </form>
   );
