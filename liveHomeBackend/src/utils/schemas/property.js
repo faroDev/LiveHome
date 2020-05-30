@@ -28,6 +28,7 @@ const propertyM2FilterSchema = joi.array().items(propertyM2Schema).min(1)
 
 const propertyZoneIdSchema = joi.number()
 const propertymodalityTypeId = joi.number()
+const propertyInSessionId = joi.number()
 
 const propertyCreateSchema = {
   m2: propertyM2Schema.required(),
@@ -102,7 +103,8 @@ const propertyQuerySchema = {
 const propertyQueryhome = {
   propertyTypeId: propertyPropertyTypeIdSchema.allow('').optional(),
   modalityTypeId: propertymodalityTypeId.allow('').optional(),
-  zoneId: propertyZoneIdSchema.required()
+  zoneId: propertyZoneIdSchema.required(),
+  inSession: propertyInSessionId.allow('').optional()
 }
 
 module.exports = {

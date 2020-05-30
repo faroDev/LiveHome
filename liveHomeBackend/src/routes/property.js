@@ -13,7 +13,7 @@ const config = require('./../../config')
 const ViewsService = require('./../services/views')
 const FavoriteService = require('./../services/favorite')
 const validationHandler = require('./../utils/middleware/validationHandler')
-const { propertyIdSchema, propertyUpdateSchema, propertyCreateSchema, propertyQueryhome } = require('./../utils/schemas/property')
+const { propertyIdSchema, propertyUpdateSchema, propertyCreateSchema } = require('./../utils/schemas/property')
 const { uploadImageToStorage } = require('./../utils/files')
 
 // jwt strategy
@@ -55,18 +55,11 @@ function propertyApi (app) {
     })
 
   router.get('/home',
-    validationHandler(propertyQueryhome, 'query'),
     async function (req, res, next) {
       try {
-        const { propertyTypeId, modalityTypeId, zoneId } = req.query
+        const { query } = req.query
 
-        const propertiesQuery = {
-          propertyTypeId: parseInt(propertyTypeId) || null,
-          modalityTypeId: parseInt(modalityTypeId) || null,
-          zoneId: zoneId
-        }
-
-        const result = await propertyService.homeQuery(propertiesQuery)
+        const result = await propertyService.homeQuery(query)
 
         res.status(200).json({
           data: result || [],

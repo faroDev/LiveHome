@@ -58,7 +58,8 @@
   "standard": {
     "globals": [
       "describe",
-      "it"
+      "it",
+      "sequialize"
     ]
   }
 }

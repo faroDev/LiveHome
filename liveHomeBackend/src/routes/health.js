@@ -8,7 +8,7 @@ function healthApp (app) {
     res.status(200).json({
       status: 'UP',
       application: 'Live Home API',
-      version: 'v1.0.0'
+      version: '1.0.1'
     })
   })
 }

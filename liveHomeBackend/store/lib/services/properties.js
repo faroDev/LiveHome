@@ -1,6 +1,6 @@
 'use strict'
 const { Op } = require('sequelize')
-const { getQuery } = require('./../../utils')
+const { getQuery, getQueryForModality, getQueryForProperty } = require('./../../utils')
 
 module.exports = function setupPropertiesService (propertyModel, userModel, modalityModel, propertyDetailModel, filesModel, favoritesModel) {
   async function create (property) {
@@ -91,50 +91,43 @@ module.exports = function setupPropertiesService (propertyModel, userModel, moda
   }
 
   function propertiesHomeQuery (obj) {
-    console.log(obj)
-    const { propertyTypeId, modalityTypeId, zoneId } = obj
-    let prop = {}
-    if (propertyTypeId) {
-      prop = {
-        zoneId,
-        propertyTypeId,
-        statusId: 2
-      }
-    } else {
-      prop = {
+    const { inSession } = obj
+    const modalityQuery = getQueryForModality(obj)
+    const propertiesQuery = getQueryForProperty(obj)
 
-        zoneId,
-        statusId: 2
+    const includes = [
+      {
+        attributes: ['id', 'url'],
+        model: filesModel
+      },
+      {
+        model: modalityModel,
+        where: modalityQuery
       }
+    ]
+
+    console.log(modalityQuery)
+    console.log(propertiesQuery)
+
+    if (inSession) {
+      includes.push({
+        attributes: ['id'],
+        model: favoritesModel,
+        required: false,
+        where: {
+          userId: inSession
+        }
+      })
     }
 
     return propertyModel.findAll({
-      attributes: ['*'],
-      where: prop,
-      include: [
-        (modalityTypeId) ? {
-          attributes: ['*'],
-          model: modalityModel,
-          where: {
-            modalityTypeId
-          }
-        } : {
-          attributes: ['*'],
-          model: modalityModel
-
-        }
-      ],
-      include: [ // eslint-disable-line
-        {
-          attributes: ['id', 'url'],
-          model: filesModel
-        }
-      ],
-      raw: true
+      include: includes,
+      where: propertiesQuery,
+      limit: 20
     })
   }
-  return {
 
+  return {
     findById,
     findAll,
     update,
