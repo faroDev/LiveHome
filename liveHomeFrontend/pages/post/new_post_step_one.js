@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React, { useContext } from 'react';
 import Router from 'next/router';
 
 import setInputValue from '../../src/hooks/useInputValue';
@@ -16,8 +16,7 @@ import UserContext from '../../src/components/UserContext';
 import styles from '../../src/styles/pages/post/new_post_step_one.module.sass';
 
 const newPostStepOne = () => {
-  
-  const {post, setPost} = useContext(UserContext);
+  const { post, setPost } = useContext(UserContext);
 
   const title = setInputValue(post.title || '');
   const rooms = setInputValue(post.rooms || '');
@@ -56,15 +55,15 @@ const newPostStepOne = () => {
       m2: m2.value,
       m2build: m2build.value,
       price: price.value,
-      add_type: add_type.value,
-    })
+      add_type: add_type.value
+    });
     Router.push('/post/new_post_step_two');
   };
 
   return (
     <Layout>
       <div className={styles.container}>
-        <h1>New offer - step 1/4</h1>
+        <h1>New offer - step 1/3</h1>
         <Form onSubmit={handleSubmit}>
           <FormField>
             <Input type='text' label='Add title' name='title' required {...title} />
