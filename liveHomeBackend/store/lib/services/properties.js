@@ -126,6 +126,7 @@ module.exports = function setupPropertiesService (propertyModel, userModel, moda
       {
         attributes: ['id', 'pricem2', 'pricePerMoth', 'totalPrice', 'propertyId', 'modalityTypeId'],
         model: modalityModel,
+        required: false,
         where: modalityQuery
       }
     ]
