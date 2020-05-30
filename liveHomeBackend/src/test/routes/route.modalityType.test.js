@@ -2,13 +2,15 @@ const assert = require('assert')
 const proxyquire = require('proxyquire')
 const jwt = require('jsonwebtoken')
 const testServer = require('./../../utils/testService')
-const { modalityTypes,
+const {
+  modalityTypes,
   modalityTypeToCreate,
   ModalityTypeServiceMock,
   modalityTypeFilter,
   modalityTypeToUpdate,
   modalityTypeUpdated,
-  modalityTypeCreated } = require('./../../mocks/test/modalityType')
+  modalityTypeCreated
+} = require('./../../mocks/test/modalityType')
 const PassportMock = require('./../../mocks/PassportMock')
 const config = require('./../../../config')
 const modalityTypeId = 1
@@ -54,7 +56,7 @@ describe('Routes - modality types', function () {
         })
     })
   })
-  
+
   describe('Get /modalityType/:id', function () {
     it('* Should response with status 200', function (done) {
       request.get(`/api/modalityType/${modalityTypeId}`)
@@ -115,7 +117,6 @@ describe('Routes - modality types', function () {
         .expect(201, done)
     })
 
-    
     it('* Should response with status 201 and object created', function (done) {
       request.post('/api/modalityType/')
         .send(modalityTypeToCreate)

@@ -1,24 +1,24 @@
 const modalityTypes = [
   {
-      id: 1,
-      name: 'Rent',
-      createdAt: '2020-05-30T16:46:38.480Z',
-      updatedAt: '2020-05-30T16:46:38.480Z'
+    id: 1,
+    name: 'Rent',
+    createdAt: '2020-05-30T16:46:38.480Z',
+    updatedAt: '2020-05-30T16:46:38.480Z'
   },
   {
-      id: 2,
-      name: 'Sell',
-      createdAt: '2020-05-30T16:46:47.060Z',
-      updatedAt: '2020-05-30T16:46:47.060Z'
+    id: 2,
+    name: 'Sell',
+    createdAt: '2020-05-30T16:46:47.060Z',
+    updatedAt: '2020-05-30T16:46:47.060Z'
   }
 ]
 
 const modalityTypeToCreate = {
-  name: 'Rent',
+  name: 'Rent'
 }
 
 const modalityTypeToUpdate = {
-  name: 'Rent',
+  name: 'Rent'
 }
 
 const modalityTypeUpdated = {
