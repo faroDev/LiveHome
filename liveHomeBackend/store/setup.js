@@ -12,8 +12,8 @@ async function setup () {
     host: config.db.host,
     returning: true,
     dialect: config.db.dialect,
-    setup: true,
-    loggin: false
+    setup: true
+
   }
   console.log(config.db.database)
   await db(configuration).catch(handleFatalError)

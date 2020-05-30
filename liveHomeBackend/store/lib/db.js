@@ -22,6 +22,7 @@ module.exports = function setupDataBase (configuration) {
     }
 
     sequelize = new Sequelize({ ...configuration, ...options })
+    // sequelize = new Sequelize(configuration)
   }
 
   return sequelize

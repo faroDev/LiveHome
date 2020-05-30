@@ -24,6 +24,8 @@ const favoriteApi = require('./src/routes/favorite')
 const modalityApi = require('./src/routes/modality')
 const approveUserApi = require('./src/routes/approveUser')
 const statusApi = require('./src/routes/status')
+const zonesApi = require('./src/routes/zone')
+
 let services
 
 const corsOptions = {
@@ -66,6 +68,7 @@ favoriteApi(app)
 modalityApi(app)
 approveUserApi(app)
 statusApi(app)
+zonesApi(app)
 
 // Error handler
 app.use(logError)
