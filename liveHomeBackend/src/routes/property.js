@@ -57,7 +57,7 @@ function propertyApi (app) {
   router.get('/home',
     async function (req, res, next) {
       try {
-        const { query } = req.query
+        const { query } = req
 
         const result = await propertyService.homeQuery(query)
 

@@ -94,20 +94,17 @@ module.exports = function setupPropertiesService (propertyModel, userModel, moda
     const { inSession } = obj
     const modalityQuery = getQueryForModality(obj)
     const propertiesQuery = getQueryForProperty(obj)
-
     const includes = [
       {
         attributes: ['id', 'url'],
         model: filesModel
       },
       {
+        attributes: ['id', 'pricem2', 'pricePerMoth', 'totalPrice', 'propertyId', 'modalityTypeId'],
         model: modalityModel,
         where: modalityQuery
       }
     ]
-
-    console.log(modalityQuery)
-    console.log(propertiesQuery)
 
     if (inSession) {
       includes.push({
