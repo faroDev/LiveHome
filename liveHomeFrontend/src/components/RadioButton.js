@@ -14,10 +14,11 @@ function RadioButton ({ options = [], name, title, value, onChange }) {
                 id={item.id}
                 type='radio'
                 name={name}
-                value={value}
+                value={item.id}
                 onChange={onChange}
+                checked={item.id == value ? true : false}
               />
-              <label htmlFor={item.name}>{item.name}</label>
+              <label htmlFor={item.id}>{item.name}</label>
             </div>
           );
         })}

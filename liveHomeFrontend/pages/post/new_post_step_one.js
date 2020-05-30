@@ -29,8 +29,10 @@ const newPostStepOne = (props) => {
   const m2 = setInputValue(post.m2 || '');
   const m2build = setInputValue(post.m2build || '');
   const price = setInputValue(post.price || '');
-  const postType = useRadioButtonValue('');
-  console.log(postType);
+  const propertyType = setInputValue(post.propertyType || '');
+  const zone = setInputValue(post.zone || '');
+  const modalityType = useRadioButtonValue(post.modalityType || '');
+  console.log(modalityType);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -42,7 +44,9 @@ const newPostStepOne = (props) => {
       m2: m2.value,
       m2build: m2build.value,
       price: price.value,
-      postType: postType.value
+      propertyType: propertyType.value,
+      zone: zone.value,
+      modalityType: modalityType.value
     });
     Router.push('/post/new_post_step_two');
   };
@@ -56,13 +60,13 @@ const newPostStepOne = (props) => {
             <Input type='text' label='Add title' name='title' required {...title} />
           </FormField>
           <FormField>
-            <Select label='Property type' options={propertyTypes.data} />
+            <Select label='Property type' name='propertyType' options={propertyTypes.data} {...propertyType} />
           </FormField>
           <FormField>
             <Input type='text' label='Address' name='address' required {...address} />
           </FormField>
           <FormField>
-            <Select label='Zone' options={zones.data} />
+            <Select label='Zone' name='zone' options={zones.data} {...zone} />
           </FormField>
           <FormField>
             <Input type='number' label='Area m2' name='m2' required {...m2} />
@@ -80,7 +84,7 @@ const newPostStepOne = (props) => {
             <Input type='number' label='Price' name='price' required {...price} />
           </FormField>
           <FormField>
-            <RadioButton options={modalityTypes.data} title='Add type' name='postType' {...postType} />
+            <RadioButton options={modalityTypes.data} title='Add type' name='modalityType' required {...modalityType} />
           </FormField>
           <div className={styles.buttons}>
             <Button value='Cancel' buttonClass='redLinearButton' buttonType='button' handleClick={() => { Router.push('/'); }} />
