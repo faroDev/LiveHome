@@ -2,10 +2,14 @@ const express = require('express')
 
 function healthApp (app) {
   const router = express.Router()
-  app.use('/api/health', router)
+  app.use('/', router)
 
   router.get('/', function (req, res, next) {
-    res.status(200).json({ status: 'UP' })
+    res.status(200).json({
+      status: 'UP',
+      application: 'Live Home API',
+      version: 'v1.0.0'
+    })
   })
 }
 

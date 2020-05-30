@@ -4,10 +4,12 @@
   "description": "Web platform that offers properties to the public",
   "main": "index.js",
   "scripts": {
-    "start": "NODE_ENV=production node ./src/index.js",
-    "test": "mocha",
-    "dev": "nodemon ./src/index.js",
-    "lint": "standard"
+    "test": "mocha ./src/test/* --exit",
+    "start": "NODE_ENV=production node ./index.js",
+    "dev": "nodemon ./index.js",
+    "lint": "standard",
+    "lint:fix": "standard --fix",
+    "setup:db": "DEBUG=livehome:* node ./store/setup.js"
   },
   "keywords": [
     "Web platform",
@@ -17,10 +19,24 @@
   "author": "faroDev",
   "license": "MIT",
   "dependencies": {
+    "@google-cloud/storage": "^5.0.0",
     "@hapi/boom": "^9.1.0",
+    "@hapi/joi": "^17.1.1",
+    "bcrypt": "^4.0.1",
     "body-parser": "^1.19.0",
+    "chalk": "^4.0.0",
+    "cors": "^2.8.5",
+    "debug": "^4.1.1",
     "dotenv": "^8.2.0",
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "multer": "^1.4.2",
+    "passport": "^0.4.1",
+    "passport-http": "^0.3.0",
+    "passport-jwt": "^4.0.0",
+    "pg": "^8.0.3",
+    "pg-hstore": "^2.3.3",
+    "sequelize": "^5.21.7"
   },
   "devDependencies": {
     "husky": "^4.2.5",
@@ -33,7 +49,16 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "standard --fix"
+      "pre-commit": "npm run lint:fix && npm run test"
     }
+  },
+  "engines": {
+    "node": "12.16.2"
+  },
+  "standard": {
+    "globals": [
+      "describe",
+      "it"
+    ]
   }
 }
