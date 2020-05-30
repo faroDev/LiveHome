@@ -9,8 +9,9 @@ const Select = ({ label, name, options = [], value, onChange }) => {
     <Label nameLabel={label}>
       <div className={styles.selector}>
         <select name={name} value={value} onChange={onChange}>
+         <option value='0'>{label}</option>
           {
-            options.map((item, idx) => <option key={idx} value={item.value}>{item.label}</option>)
+            options.map((item, idx) => <option key={idx} value={item.id}>{item.name}</option>)
           }
         </select>
       </div>

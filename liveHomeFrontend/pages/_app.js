@@ -16,7 +16,8 @@ export default function MyApp ({ Component, pageProps }) {
   );
   const [token, setToken] = useState('');
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [post, setPost] = useState({});
+  const [post, setPost] = useState([]);
+
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -36,11 +37,11 @@ export default function MyApp ({ Component, pageProps }) {
 
   if (!isLoading) {
     return (
-      <UserContext.Provider value={{ user: userData, setUserData, isLoggedIn, setIsLoggedIn, post, setPost, token, setToken }}>
+      <UserContext.Provider value={{ user: userData, setUserData, isLoggedIn, setIsLoggedIn, token, setToken, post, setPost }}>
         <Component {...pageProps} />
       </UserContext.Provider>
     );
   } else {
     return '';
   }
-}
+};
