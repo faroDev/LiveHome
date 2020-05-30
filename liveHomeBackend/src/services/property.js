@@ -57,7 +57,7 @@ class PropertyService {
   /**
   * Home Page properties
   * @param {*} propertyTypeId
-  * @param {*} modalTypeId
+  * @param {*} modalityTypeId
   * @param {*} location
   * Return properties filtered by query
   */

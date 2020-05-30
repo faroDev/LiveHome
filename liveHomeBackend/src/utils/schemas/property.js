@@ -27,7 +27,7 @@ const propertyCellarSchema = joi.boolean()
 const propertyM2FilterSchema = joi.array().items(propertyM2Schema).min(1)
 
 const propertyLocation = joi.string()
-const propertymodalTypeId = joi.number()
+const propertymodalityTypeId = joi.number()
 
 const propertyCreateSchema = {
   m2: propertyM2Schema.required(),
@@ -98,7 +98,7 @@ const propertyQuerySchema = {
 }
 const propertyQueryhome = {
   propertyTypeId: propertyPropertyTypeIdSchema.allow('').optional(),
-  modalTypeId: propertymodalTypeId.allow('').optional(),
+  modalityTypeId: propertymodalityTypeId.allow('').optional(),
   location: propertyLocation.required()
 }
 

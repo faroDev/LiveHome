@@ -7,7 +7,7 @@ const modality = [
     createdAt: '2020-05-15T14:34:38.556Z',
     updatedAt: '2020-05-15T14:34:38.558Z',
     propertyId: 1,
-    modalTypeId: 2
+    modalityTypeId: 2
   },
   {
     id: 2,
@@ -17,7 +17,7 @@ const modality = [
     createdAt: '2020-05-15T14:35:42.500Z',
     updatedAt: '2020-05-15T14:35:42.502Z',
     propertyId: 1,
-    modalTypeId: 2
+    modalityTypeId: 2
   }]
 ]
 module.exports = modality
