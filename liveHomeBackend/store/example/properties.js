@@ -35,6 +35,7 @@ async function run () {
   //   updatedAt: new Date(),
   //   propertyTypeId: 1,
   //   userId: 5
+  //   zoneId: 1
   // }).catch(handleFatalError)
 
   // console.log('--userType4--')

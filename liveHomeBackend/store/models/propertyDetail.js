@@ -18,15 +18,15 @@ module.exports = function setupPropertyDetail (config) {
     },
     city: {
       type: Sequelize.STRING,
-      allowNull: false
+      allowNull: true
     },
     urbanization: {
       type: Sequelize.STRING,
-      allowNull: false
+      allowNull: true
     },
     neighborhood: {
       type: Sequelize.STRING,
-      allowNull: false
+      allowNull: true
     },
     longitude: {
       type: Sequelize.STRING,

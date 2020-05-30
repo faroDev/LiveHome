@@ -2,12 +2,12 @@
 
 const setupDatabase = require('./lib/db')
 
+// models
 const setupTypeUser = require('./models/typeUser')
 const setupUser = require('./models/user')
 const setupAuth = require('./models/auth')
 const setupFavorites = require('./models/favorites')
 const setupAproveUser = require('./models/aproveUser')
-
 const setupPropierties = require('./models/properties')
 const setupPropertyDetail = require('./models/propertyDetail')
 const setupModality = require('./models/modality')
@@ -16,6 +16,7 @@ const setupPropertyType = require('./models/propertyType')
 const setupFiles = require('./models/files')
 const setupViews = require('./models/views')
 const setupStatus = require('./models/status')
+const setupZone = require('./models/zones')
 
 // services
 const setupTypeUserService = require('./lib/services/typeUser')
@@ -31,6 +32,7 @@ const setupModalityService = require('./lib/services/modality')
 const setupAproveUserService = require('./lib/services/aproveUser')
 const setupFavoritesService = require('./lib/services/favorites')
 const setupStatusService = require('./lib/services/status')
+const setupZoneService = require('./lib/services/zones')
 
 module.exports = async function (config) {
   const sequialize = setupDatabase(config)
@@ -47,6 +49,7 @@ module.exports = async function (config) {
   const filesModel = setupFiles(config)
   const viewsModel = setupViews(config)
   const statusModel = setupStatus(config)
+  const zonesModel = setupZone(config)
 
   propertyModel.hasOne(propertyDetailModel)
   propertyModel.hasMany(viewsModel)
@@ -57,6 +60,7 @@ module.exports = async function (config) {
   propertyTypeModel.hasMany(propertyModel)
 
   statusModel.hasMany(propertyModel)
+  zonesModel.hasMany(propertyModel)
   userModel.hasMany(propertyModel)
   modalityTypeModel.hasMany(modalityModel)
 
@@ -67,7 +71,7 @@ module.exports = async function (config) {
   typeUserModel.hasMany(userModel)
 
   await sequialize.authenticate()
-  await sequialize.sync()
+  await sequialize.sync({ alter: true })
 
   const typeUser = setupTypeUserService(typeUserModel)
   const user = setupUserService(userModel, propertyModel, viewsModel, filesModel)
@@ -83,6 +87,7 @@ module.exports = async function (config) {
   const approveUser = setupAproveUserService(aproveUserModel)
   const favorites = setupFavoritesService(favoritesModel, propertyModel, filesModel, userModel)
   const status = setupStatusService(statusModel)
+  const zones = setupZoneService(zonesModel)
   const properties = setupPropertiesService(propertyModel, userModel, modalityModel, propertyDetailModel, filesModel)
 
   return {
@@ -98,6 +103,7 @@ module.exports = async function (config) {
     modality,
     approveUser,
     favorites,
-    status
+    status,
+    zones
   }
 }
