@@ -1,12 +1,7 @@
 import base64 from 'base-64';
-<<<<<<< HEAD
-const API_URL = 'https://live-home-ashy.now.sh/api';
-=======
 import fetch from 'node-fetch';
 import FormData from 'form-data';
 const API_URL = 'https://live-home.now.sh/api';
->>>>>>> d2f69daabf5b48393cd4c92cd2e6ba3fc4607133
-
 
 class API {
   async getAccount (userId, token) {
@@ -106,7 +101,7 @@ class API {
   }
 
   async setLikeProperty (propertyId, userId, token) {
-    const like = {propertyId, userId};
+    const like = { propertyId, userId };
 
     const result = await fetch(
       `${API_URL}/favorites`,
@@ -136,15 +131,15 @@ class API {
   }
 
   async setDislikeProperty (propertyId, userId, token) {
-    const like = {propertyId, userId};
+    const like = { propertyId, userId };
 
     const result = await fetch(
       `${API_URL}/favorites/${propertyId}/${userId}`,
       {
         method: 'DELETE',
         headers: {
-          Authorization: `Bearer ${token}`,
-        },
+          Authorization: `Bearer ${token}`
+        }
       }
     );
 
@@ -163,10 +158,10 @@ class API {
     return data;
   }
 
-  async getPropertyType (){
+  async getPropertyType () {
     const result = await fetch(`${API_URL}/propertyType`);
 
-    if(!result.ok){
+    if (!result.ok) {
       const dataError = await result.json();
       console.error('[error]', dataError.message);
       throw new Error(dataError.message);
@@ -174,11 +169,11 @@ class API {
     const data = await result.json();
     return data;
   }
-  
-  async getModalityType (){
+
+  async getModalityType () {
     const result = await fetch(`${API_URL}/modalityType`);
-    
-    if(!result.ok){
+
+    if (!result.ok) {
       const dataError = await result.json();
       console.error('[error]', dataError.message);
       throw new Error(dataError.message);
@@ -187,10 +182,10 @@ class API {
     return data;
   }
 
-  async getZones (){
+  async getZones () {
     const result = await fetch(`${API_URL}/zones`);
-    
-    if(!result.ok){
+
+    if (!result.ok) {
       const dataError = await result.json();
       console.error('[error]', dataError.message);
       throw new Error(dataError.message);
@@ -199,14 +194,14 @@ class API {
     return data;
   }
 
-  async getPropertyHome (propertyType, modalityType, zoneId, user){
+  async getPropertyHome (propertyType, modalityType, zoneId, user) {
     const propertyTypeId = propertyType !== undefined && propertyType !== 0 ? `propertyTypeId=${propertyType}&` : '';
     const modalityTypeId = modalityType !== undefined && modalityType !== 0 ? `modalityTypeId=${modalityType}&` : '';
     const userId = user !== undefined && modalityType !== 0 ? `inSession=${user}&` : '';
 
     const result = await fetch(`${API_URL}/properties/home?zoneId=${zoneId}&${propertyTypeId}${modalityTypeId}${userId}`);
 
-    if(!result.ok){
+    if (!result.ok) {
       const dataError = await result.json();
       console.error('[error]', dataError.message);
       throw new Error(dataError.message);
@@ -215,10 +210,10 @@ class API {
     return data;
   }
 
-  async getProperties (){
+  async getProperties () {
     const result = await fetch(`${API_URL}/properties`);
 
-    if(!result.ok){
+    if (!result.ok) {
       const dataError = await result.json();
       console.error('[error]', dataError.message);
       throw new Error(dataError.message);
@@ -230,7 +225,7 @@ class API {
   async getPropertyDetail (propertyId) {
     const result = await fetch(`${API_URL}/properties/${propertyId}`);
 
-    if(!result.ok){
+    if (!result.ok) {
       const dataError = await result.json();
       console.error('[error]', dataError.message);
       throw new Error(dataError.message);
@@ -271,6 +266,29 @@ class API {
       .catch((error) => new Error(`Impossible connect ${error.message}`));
 
     return result;
+  }
+
+  async getUserFavourites (userId, token) {
+    try {
+      const result = await fetch(
+        `${API_URL}/users/${userId}/favorites/`,
+        {
+          method: 'GET',
+          headers:
+            {
+              Authorization: `Bearer ${token}`
+            }
+        });
+      const data = await result.json();
+
+      if (!data.error) {
+        return { ...data };
+      } else {
+        return { error: new Error(data.error) };
+      }
+    } catch (error) {
+      return { error: new Error('Impossible connect') };
+    }
   }
 }
 

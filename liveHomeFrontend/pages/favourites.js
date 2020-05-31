@@ -10,8 +10,8 @@ import Router from 'next/router';
 import verifySesion from './../src/utils/verifySession';
 
 const Favourites = () => {
-  const { user, token } = useContext(UserContext);
-  const [data, setData] = useState([]);
+  const { user, token, post, setPost } = useContext(UserContext);
+  // const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [loaded, setLoaded] = useState(false);
   const [error, setError] = useState(false);
@@ -26,7 +26,7 @@ const Favourites = () => {
       getData(user.userId, token)
         .then(async ({ data, error }) => {
           if (!error) {
-            setData(data);
+            setPost(data);
           } else {
             setError(error);
           }
@@ -47,10 +47,22 @@ const Favourites = () => {
     return api.getUserFavourites(id, token);
   };
 
-  const favourteClick = (index) => {
-    console.log('indexc', index);
+  const favourteClick = async (propertyId) => {
+    if (!verifySesion()) {
+      window.alert('You must login');
+      Router.push('/login');
+    }
+    try {
+      await api.setDislikeProperty(propertyId, user.userId, token);
+      setPost(post.filter(item => item.id !== propertyId));
+    } catch (error) {
+      console.error('[error]', error);
+      setError(error);
+    }
+  };
 
-    setData(data.filter(item => item.id !== index));
+  const handleClickDetail = (id) => {
+
   };
 
   return (
@@ -65,12 +77,12 @@ const Favourites = () => {
         }
         {
           loaded &&
-            (data.length > 0
-              ? (data.map(property => {
+            (post.length > 0
+              ? (post.map(property => {
                 const images = property.files.reduce(fileReducer, []);
-                return <CardPreviewPublication key={property.id} {...property} area={property.m2} favourite images={images} favouriteClick={favourteClick} />;
+                return <CardPreviewPublication key={property.id} {...property} area={property.m2} liked images={images} handleLike={favourteClick} handleClickDetail={handleClickDetail} price={property.modalities.length > 0 ? property.modalities[0].totalPrice : '0'} />;
               }))
-              : (<div><br /><h1>No hay datos</h1></div>))
+              : (<div><br /><h1>You have not favourites</h1></div>))
         }
       </div>
     </Layout>

@@ -24,7 +24,7 @@ const account = () => {
   const id = useInputValue('');
   const phone = useInputValue('');
   const email = useInputValue('');
-  const options = [{ value: 'CC', label: 'Cedula de Ciudadania' }, { value: 'NIT', label: 'Numero de Identificacion tributaria' }];
+  const options = [{ id: 'CC', name: 'Cedula de Ciudadania' }, { id: 'NIT', name: 'Numero de Identificacion tributaria' }];
 
   useEffect(() => {
     setLoading(true);
@@ -60,9 +60,9 @@ const account = () => {
       name: name.value,
       lastName: lastName.value,
       secondLastName: ' ',
-      // documentType: idType.value,
-      // documentNumber: id.value,
-      // phone: phone.value,
+      documentType: idType.value,
+      documentNumber: id.value,
+      phone: phone.value,
       // email: email.value,
       status: true
     };
