@@ -2,7 +2,7 @@
 const { Op } = require('sequelize')
 const { getQuery, getQueryForModality, getQueryForProperty } = require('./../../utils')
 
-module.exports = function setupPropertiesService (propertyModel, userModel, modalityModel, propertyDetailModel, filesModel, favoritesModel) {
+module.exports = function setupPropertiesService (propertyModel, userModel, modalityModel, propertyDetailModel, filesModel, favoritesModel, modalityTypeModel) {
   async function create (property) {
     property.updatedAt = new Date()
     property.createdAt = new Date()
@@ -49,7 +49,7 @@ module.exports = function setupPropertiesService (propertyModel, userModel, moda
       })
     }
 
-    return propertyModel.findAll({
+    return propertyModel.findOne({
       include: includes,
       where: {
         id: id

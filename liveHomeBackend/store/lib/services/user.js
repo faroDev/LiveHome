@@ -2,7 +2,7 @@
 
 const { getQuery } = require('./../../utils')
 
-module.exports = function setupUserService (userModel, propertyModel, viewsModel, filesModel) {
+module.exports = function setupUserService (userModel, propertyModel, viewsModel, filesModel, authModel) {
   async function create (user) {
     const result = await userModel.create(user)
     return result.toJSON()
