@@ -18,8 +18,8 @@ import verifySesion from './../../src/utils/verifySession';
 const filter = ({ dataPropertyType, dataZones, dataStatuses }) => {
   const { user, setPost } = useContext(UserContext);
   const zoneId = useInputValue(1);
-  const propertyTypeId = useInputValue();
-  const statusId = useInputValue();
+  const propertyTypeId = useInputValue(0);
+  const statusId = useInputValue(0);
   const dateFrom = useInputValue();
   const dateTo = useInputValue();
   const [loading, setLoading] = useState(false);
@@ -29,8 +29,6 @@ const filter = ({ dataPropertyType, dataZones, dataStatuses }) => {
     window.alert('Your session finisshed');
     Router.push('/login');
   }
-
-  console.log(user);
 
   useEffect(() => {
     if (user.userType !== 'Admin') {
@@ -48,7 +46,7 @@ const filter = ({ dataPropertyType, dataZones, dataStatuses }) => {
       setPost(response.data);
 
       const paramsQuery = { propertyTypeId: propertyTypeId.value, statusId: statusId.value, zoneId: zoneId.value };
-      sessionStorage.setItem('paramsQuery', JSON.stringify(paramsQuery));
+      window.sessionStorage.setItem('paramsQuery', JSON.stringify(paramsQuery));
       Router.push('/admin/home');
     } catch (error) {
       console.error('[error]', error);

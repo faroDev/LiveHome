@@ -295,6 +295,31 @@ class API {
 
     return result;
   }
+
+  async updateProperty (propertyId, token, newData) {
+    try {
+      const result = await fetch(
+        `${API_URL}/properties/${propertyId}`,
+        {
+          method: 'PUT',
+          headers:
+            {
+              'Content-Type': 'application/json',
+              Authorization: `Bearer ${token}`
+            },
+          body: JSON.stringify({ ...newData })
+        });
+      const data = await result.json();
+
+      if (!data.error) {
+        return { ...data };
+      } else {
+        return { error: new Error(data.error) };
+      }
+    } catch (error) {
+      return { error: new Error('Impossible connect') };
+    }
+  }
 }
 
 export default new API();
