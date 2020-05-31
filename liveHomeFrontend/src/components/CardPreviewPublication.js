@@ -1,6 +1,5 @@
 import React from 'react';
 import Link from 'next/link';
-import slug from '../../src/utils/slug';
 
 import Card from './Card';
 import Chip from './Chip';
@@ -13,7 +12,6 @@ import AreaIcon from '../assets/statics/images/area.png';
 import GarageIcon from '../assets/statics/images/garage.png';
 
 import styles from '../styles/components/CardPreviewPublication.module.sass';
-import Link from 'next/link';
 
 const CardPreviewPublication = ({ images, id, title, price, type, description, rooms, bathrooms, area, parking, liked, handleLike }) => {
   return (
@@ -38,7 +36,7 @@ const CardPreviewPublication = ({ images, id, title, price, type, description, r
             <p>{description}</p>
           </div>
           <div className={styles.buildings__card_detail_chip}>
-            <Link href={`/favourite/${id}`}>
+            <Link href={`/property/buildings?id=${id}`} shallow={true}>
               <a>
                 <Chip nameLabel='Detail' labelClass='rose_label' />
               </a>
