@@ -42,6 +42,8 @@ const deleteById = sinon.stub().resolves()
 const getPropertiesByIds = sinon.stub().resolves([])
 const userProperties = sinon.stub().resolves([])
 const propertiesHomeQuery = sinon.stub().resolves([property])
+const propertyUser = sinon.stub().resolves([])
+const findPropertiesByUserId = sinon.stub().resolves([])
 
 module.exports = {
   create,
@@ -56,5 +58,7 @@ module.exports = {
   getPropertiesByIds,
   findByIdAndInSession,
   userProperties,
-  propertiesHomeQuery
+  propertiesHomeQuery,
+  propertyUser,
+  findPropertiesByUserId
 }
