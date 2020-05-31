@@ -22,12 +22,6 @@ const dashboardUser = ({ properties }) => {
   return (
     <Layout>
       <div className={styles.container}>
-        <div className={styles.top}>
-          <Modal buttonText='Filter'>
-            <p>Filter form</p>
-          </Modal>
-          <SearchBar name='search' handleSubmit={handleSubmit} {...inputSearch} />
-        </div>
         <h1>Dashboard</h1>
         <div className={styles.offers}>
           {properties.map((item, key) => {

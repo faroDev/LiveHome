@@ -100,36 +100,6 @@ class API {
     return data;
   }
 
-  // async getZones () {
-  //   try {
-  //     const result = await fetch(`${API_URL}/zones`)
-  //     const data = result.json();
-  //     return data;
-  //   } catch (error) {
-  //     return new Error(`Impossible connect ${error.message}`);
-  //   }
-  // }
-
-  // async getPropertyType () {
-  //   try {
-  //     const result = await fetch(`${API_URL}/propertyType`)
-  //     const data = result.json();
-  //     return data;
-  //   } catch (error) {
-  //     return new Error(`Impossible connect ${error.message}`);
-  //   }
-  // }
-
-  // async getModalityType () {
-  //   try {
-  //     const result = await fetch(`${API_URL}/modalityType`)
-  //     const data = result.json();
-  //     return data;
-  //   } catch (error) {
-  //     return new Error(`Impossible connect ${error.message}`);
-  //   }
-  // }
-
   async getProperties () {
     try {
       const result = await fetch(`${API_URL}/properties`)
@@ -341,8 +311,12 @@ class API {
     return data;
   }
 
-  async postProperty (token, data) {
+  async postProperty (token, data, files) {
     const formData = new FormData();
+
+    files.map((item, key) => {
+      return formData.append("photos", item.data);
+    })
 
     formData.append('m2', data.m2);
     formData.append('m2build', data.m2build);
@@ -416,9 +390,10 @@ class API {
   }
 
   async postPropertyDetails (token, property, id) {
-    const api_token = '';
+    const api_token = process.env.GOOGLE_MAPS;
     const data = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${property.address}&key=${api_token}`)
     const googleInfo = await data.json();
+    console.log(googleInfo);
     
     if (googleInfo.status == 'OK') {
       const details = {
