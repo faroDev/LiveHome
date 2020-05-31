@@ -4,6 +4,8 @@ import Carousel from './Carousel';
 import Icon from './Icon';
 import Chip from './Chip';
 import InformationIcon from './InformationIcon';
+import FavButton from './FavButton';
+import MapView from './MapView';
 
 import BedIcon from '../assets/statics/images/bed.png';
 import ShowerIcon from '../assets/statics/images/shower.png';
@@ -18,31 +20,45 @@ import ElevatorIcon from '../assets/statics/images/elevator.png';
 
 import styles from '../styles/components/BuildingDetail.module.sass';
 
-const BuildingDetail = ({ building, children }) => {
+const BuildingDetail = ({ building, children, handleLike }) => {
+
   const validateService = (service) => {
     if (service) {
       return 'Yes';
     }
     return 'No';
-  };
+  }
+
+  const getLocation = (item) => {
+    if (item.property_detail===null){
+      return [];
+    }
+    const data = {lat: parseFloat(item.property_detail.latitude),lng: parseFloat(item.property_detail.longitude),text:item.price}
+    return [data];
+  } 
+
   return (
     <div className={styles.buildingDetail__container}>
       <div className={styles.buildingDetail__carousel}>
-        <Carousel images={building.images} />
+        <Carousel images={building.files} />
       </div>
       <div className={styles.buildingDetail__section_icon}>
-        <a href={`tel:${building.telefono}`}>
+        <a href={`tel:${building.user.phone}`}>
           <Icon name='phone' />
         </a>
-        <a href={`mailto:${building.email}`} target='_blank' rel='noopener noreferrer'>
+        <a href={`mailto:${building.user.auth.email}`} target='_blank' rel='noopener noreferrer'>
           <Icon name='mail' />
         </a>
         <a>
-          <Icon name='heart' />
+          <FavButton liked={building.favorites} onClick={() => handleLike(building.id, building.favorites)} />
         </a>
       </div>
       <div className={styles.buildingDetail__title}>
         <p>{building.title}</p>
+      </div>
+      <div className={styles.buildingDetail__price}>
+        <span>{`$ ${building.price} `}</span>
+        <p>{` / ${building.type}`}</p>
       </div>
       <div className={styles.buildingDetail__description}>
         <p>{building.description}</p>
@@ -82,7 +98,9 @@ const BuildingDetail = ({ building, children }) => {
           <p>Elevator</p>
         </InformationIcon>
       </div>
-      <div className={styles.buildingDetail__map_container} />
+      <div className={styles.buildingDetail__map_container}>
+        <MapView zoom={16} dataMarker={[...getLocation(building)]} detail={true}/>
+      </div>
       <div>
         <Chip nameLabel='Nearby places' labelClass='purple_label' />
       </div>

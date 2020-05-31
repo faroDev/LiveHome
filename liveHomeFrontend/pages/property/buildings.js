@@ -5,47 +5,50 @@ import verfySession from '../../src/utils/verifySession';
 
 import UserContext from '../../src/components/UserContext';
 import useInputValue from '../../src/hooks/useInputValue';
+import useCheckValue from '../../src/hooks/useCheckValue';
 
 import Layout from '../../src/components/Layout';
 import Button from '../../src/components/Button';
 import Modal from '../../src/components/Modal';
-import SearchBar from '../../src/components/SearchBar';
 import Chip from '../../src/components/Chip';
 import CardPreviewPublication from '../../src/components/CardPreviewPublication';
 import Form from '../../src/components/Form';
 import FormField from '../../src/components/FormField';
 import Input from '../../src/components/Input';
-import Selector from '../../src/components/Select';
-import RadioButton from '../../src/components/RadioButton';
+import Checkbox from '../../src/components/Checkbox';
 import Loading from '../../src/components/Loading';
 import Error from '../../src/components/Error';
+
+import MapView from '../../src/components/MapView';
 
 import BuildingDetail from '../../src/components/BuildingDetail';
 
 import styles from '../../src/styles/pages/buildings.module.sass';
 
 const Buildings = () => {
-  const typePropertyFilter = useInputValue('');
-  const bedroomsFilter = useInputValue('');
-  const bathroomsFilter = useInputValue('');
-  const totalPrinceMinFilter = useInputValue('');
-  const totalPrinceMaxFilter = useInputValue('');
-  const areaFilter = useInputValue('');
-  const mPriceMinFilter = useInputValue('');
-  const mPriceMaxFilter = useInputValue('');
-  const furnishedFilter = useInputValue('');
-  const parkingFilter = useInputValue('');
-  const poolFilter = useInputValue('');
-  const heatingFilter = useInputValue('');
-  const warehouseFilter = useInputValue('');
-  const elevatorFilter = useInputValue('');
-  const securityFilter = useInputValue('');
+  const bedroomsFilter = useInputValue();
+  const bathroomsFilter = useInputValue();
+  const totalPrinceMinFilter = useInputValue();
+  const totalPrinceMaxFilter = useInputValue();
+  const areaFilter = useInputValue();
+  const parkingFilter = useInputValue();
+  const mPriceMinFilter = useInputValue();
+  const mPriceMaxFilter = useInputValue();
+  const furnishedFilter = useCheckValue(false);
+  const poolFilter = useCheckValue(false);
+  const heatingFilter = useCheckValue(false);
+  const warehouseFilter = useCheckValue(false);
+  const elevatorFilter = useCheckValue(false);
+  const securityFilter = useCheckValue(false);
+
+  
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState();
-
+  const mapView = useCheckValue(true);
+  const [dataMarkers, setDataMarkers] = useState([]);
+  
   const { user, post, setPost } = useContext(UserContext);
-
-  const [dataBuild, setDataBuild] = useState([]);
+  
   const [dataDetail, setDataDetail] = useState([]);
   const router = useRouter();
 
@@ -61,7 +64,7 @@ const Buildings = () => {
     if (post.length === 0) {
       fetchDataProperties(paramsSession);
     } else {
-      setDataBuild(post);
+      getDataMap(post);
       setLoading(false);
     }
   }, []);
@@ -72,9 +75,10 @@ const Buildings = () => {
     try {
       const response = await API.getPropertyHome(params.propertyTypeId, params.modalityTypeId, params.zoneId, user.userId);
       setLoading(false);
-      if (response.data.length > 0) {
-        setPost(response.data);
-        // setDataBuild(response.data);
+      if(response.data.length > 0){
+        const data = response.data;
+        await getDataMap(data);
+        setPost(data);
       } else {
         setError({ message: 'No existen datos' });
       }
@@ -85,7 +89,22 @@ const Buildings = () => {
     }
   };
 
-  useEffect(() => {
+  const getDataMap = (data) => {
+
+    const dataFilterMap = data.filter( item => item.property_detail !== null);
+    const dataPriceMap = dataFilterMap.map( item => ({...item,...getPrice(item)}));
+    const dataMap =  dataPriceMap.map( item => {
+      return { 
+        lat: parseFloat(item.property_detail.latitude),
+        lng: parseFloat(item.property_detail.longitude),
+        text: item.price, 
+        propertyId: item.id
+      }
+    })
+    setDataMarkers(dataMap);
+  }
+
+  useEffect( ()=>{
     setLoading(true);
     if (!validateParams()) {
       fetchDataPropertyDetail(router.query.id);
@@ -97,8 +116,10 @@ const Buildings = () => {
   const fetchDataPropertyDetail = async (propertyId) => {
     setLoading(true);
     try {
-      const response = await API.getPropertyDetail(propertyId);
-      setDataDetail(response.data);
+      const response = await API.getPropertyDetail(propertyId, user.userId);
+      const data = response.data;
+      const item = {...data, ...getPrice(data)};
+      setDataDetail(item);
       setLoading(false);
     } catch (error) {
       console.error('[error]', error);
@@ -109,10 +130,6 @@ const Buildings = () => {
 
   const handleBack = () => {
     router.back();
-  };
-
-  const handleClickDetail = (id) => {
-    router.push(`/property/buildings?id=${id}`, undefined, { shallow: true });
   };
 
   const validateParams = () => {
@@ -135,10 +152,85 @@ const Buildings = () => {
         await API.setLikeProperty(propertyId, user.userId, token);
       }
       const newPost = [...post];
-      newPost.find(item => item.id === propertyId).favorites = !newPost.find(item => item.id === propertyId).favorites;
+      newPost.find( item => item.id === propertyId).favorites = !newPost.find( item => item.id === propertyId).favorites;
       setPost(newPost);
     } catch (error) {
       console.error('[error]', error);
+      setError(error);
+    }
+  };
+
+  const handleLikeDetail = async (propertyId, liked) => {
+    if(!verfySession()){
+      alert('You must login');
+      router.push('/login');
+    }
+    const token = sessionStorage.getItem('jwt-token');
+    try {
+      if (liked){
+        await API.setDislikeProperty(propertyId, user.userId, token);
+      } else {
+        await API.setLikeProperty(propertyId, user.userId, token);
+      }
+      const newDetail = {...dataDetail};
+      newDetail.favorites = !newDetail.favorites;
+      setDataDetail(newDetail);
+      const newPost = [...post];
+      newPost.find( item => item.id === propertyId).favorites = !newPost.find( item => item.id === propertyId).favorites;
+      setPost(newPost);
+    } catch (error) {
+      console.error('[error]', error);
+      setError(error);
+    }
+  };
+
+  const handleFilter = async (event) => {
+    event.preventDefault();
+    setLoading(true);
+    const paramsSession = sessionStorage.getItem('paramsQuery');
+    
+    if ( !paramsSession ){
+      setLoading(false);
+      router.push('/home');
+    }
+
+    const paramsFilter = {
+      bedrooms : bedroomsFilter.value,
+      bathrooms : bathroomsFilter.value,
+      totalPrinceMin : totalPrinceMinFilter.value,
+      totalPrinceMax : totalPrinceMaxFilter.value,
+      area : areaFilter.value,
+      mPriceMin : mPriceMinFilter.value,
+      mPriceMax : mPriceMaxFilter.value,
+      furnished : furnishedFilter.checked,
+      parking : parkingFilter.checked,
+      pool : poolFilter.checked,
+      heating : heatingFilter.checked,
+      warehouse : warehouseFilter.checked,
+      elevator : elevatorFilter.checked,
+      security : securityFilter.checked
+    }
+    console.log('Params Filter', paramsFilter);
+
+    fetchDataPropertiesFilter(paramsSession, paramsFilter);
+  };
+
+  const fetchDataPropertiesFilter = async (paramsSession, paramsFilter) => {
+    const params = JSON.parse(paramsSession);
+    try {
+      const response = await API.getPropertyHomeFilter(params.propertyTypeId, params.modalityTypeId, params.zoneId, user.userId, paramsFilter);
+      
+      if(response.data.length > 0){
+        setPost(response.data);
+      } else {
+        setError({message:'No existen datos'});
+      }
+      
+      setLoading(false);
+
+    } catch (error) {
+      console.error('[error]', error);
+      setLoading(false);
       setError(error);
     }
   };
@@ -148,10 +240,7 @@ const Buildings = () => {
       <Modal buttonText='Filter'>
         <div className={styles.buildings__modal_container}>
           <h3>Filter</h3>
-          <Form>
-            <FormField>
-              <Selector label='Property type' options={[{ value: 1, label: 1 }, { value: 2, label: 2 }, { value: 3, label: 3 }]} {...typePropertyFilter} />
-            </FormField>
+          <Form onSubmit={handleFilter}>
             <FormField>
               <Input type='number' label='bedrooms' name='bedrooms' {...bedroomsFilter} />
             </FormField>
@@ -159,47 +248,67 @@ const Buildings = () => {
               <Input type='number' label='bathrooms' name='bathrooms' {...bathroomsFilter} />
             </FormField>
             <FormField>
+              <Input type='number' label='area' name='area' {...areaFilter} />
+            </FormField>
+            <FormField>
+              <Input type='number' label='parking' name='parking' {...parkingFilter} />
+            </FormField>
+            <FormField>
+            <FormField>
               <div className={styles.buildings__modal_field_range}>
                 <Input type='number' label='total price (min - max)' name='price-min' {...totalPrinceMinFilter} />
                 <Input type='number' label='' name='prince-max' {...totalPrinceMaxFilter} />
               </div>
             </FormField>
-            <FormField>
-              <Input type='number' label='area' name='area' {...areaFilter} />
-            </FormField>
-            <FormField>
               <div className={styles.buildings__modal_field_range}>
                 <Input type='number' label='m2 price (min - max)' name='price-min' {...mPriceMinFilter} />
                 <Input type='number' label='' name='prince-max' {...mPriceMaxFilter} />
               </div>
             </FormField>
             <FormField>
-              <RadioButton options={['yes', 'no']} name='furnished' title='furnished' {...furnishedFilter} />
+              <Checkbox name='furnished' text='Furnished' {...furnishedFilter} />
             </FormField>
             <FormField>
-              <RadioButton options={['yes', 'no']} name='parking' title='parking' {...parkingFilter} />
+              <Checkbox name='pool' text='Swimming pool' {...poolFilter} />
             </FormField>
             <FormField>
-              <RadioButton options={['yes', 'no']} name='pool' title='Swimming pool' {...poolFilter} />
+              <Checkbox name='heating' text='Heating' {...heatingFilter} />
             </FormField>
             <FormField>
-              <RadioButton options={['yes', 'no']} name='heating' title='heating' {...heatingFilter} />
+              <Checkbox name='warehouse' text='Warehouse' {...warehouseFilter} />
             </FormField>
             <FormField>
-              <RadioButton options={['yes', 'no']} name='warehouse' title='warehouse' {...warehouseFilter} />
+              <Checkbox name='elevator' text='Elevator' {...elevatorFilter} />
             </FormField>
             <FormField>
-              <RadioButton options={['yes', 'no']} name='elevator' title='elevator' {...elevatorFilter} />
+              <Checkbox name='security' text='Security service' {...securityFilter} />
             </FormField>
             <FormField>
-              <RadioButton options={['yes', 'no']} name='security' title='security service' {...securityFilter} />
+              <Button buttonType='submit' buttonClass='grayButton' value='Apply filter' />
             </FormField>
-            <Button buttonType='submit' buttonClass='grayButton' value='Apply filter' />
           </Form>
         </div>
       </Modal>
     );
   };
+
+  const getPrice = (item) => {
+    let price, type;
+
+    if (item.modalities.length===0 || item.modalities[0].modality_type === null){
+      price = 0;
+      type = 'NT'
+      return {price, type};
+    }
+    if (item.modalities[0].modality_type.name === 'Rent'){
+      price = item.modalities[0].pricePerMoth;
+    } else {
+      price = item.modalities[0].totalPrice;
+    }
+    type = item.modalities[0].modality_type.name;
+
+    return {price, type};
+  }
 
   const buildings = () => {
     if (loading) {
@@ -218,20 +327,26 @@ const Buildings = () => {
                 {modal()}
               </div>
               <div className={styles.buildings__filter_container_searchbar}>
-                <SearchBar />
+                <Checkbox name='map view' text='View Map' {...mapView} />
               </div>
             </div>
           <div className={styles.buildings__label}>
               <Chip nameLabel={`Where found ${post.length} properties`} labelClass='gray_label' />
             </div>
-          {
-              post.map(postItem => {
+            {
+              mapView.checked &&
+              <div className={styles.buildings__map_container}>
+                <MapView zoom={12} dataMarker={dataMarkers} />
+              </div>
+            }
+            {
+              post.map( postItem => {
                 return (
                   <CardPreviewPublication
                     key={postItem.id}
                     images={postItem.files}
                     title={postItem.title}
-                    price={postItem.totalPrice}
+                    {...getPrice(postItem)}
                     description={postItem.description}
                     rooms={postItem.rooms}
                     bathrooms={postItem.bathrooms}
@@ -240,14 +355,13 @@ const Buildings = () => {
                     id={postItem.id}
                     handleLike={handleLike}
                     liked={postItem.favorites}
-                    handleClickDetail={handleClickDetail}
                   />
                 );
               })
             }
-        </>
-      );
-    }
+          </>
+        );
+      }
   };
 
   const buildingDetail = () => {
@@ -262,7 +376,7 @@ const Buildings = () => {
       return (
         <>
           <Button buttonClass='grayLinearButton' buttonType='button' value='Back' handleClick={handleBack} />
-          <BuildingDetail building={dataDetail} />
+          <BuildingDetail building={dataDetail} handleLike={handleLikeDetail} />
         </>
       );
     }
