@@ -19,13 +19,12 @@ import ElevatorIcon from '../assets/statics/images/elevator.png';
 import styles from '../styles/components/BuildingDetail.module.sass';
 
 const BuildingDetail = ({ building, children }) => {
-
   const validateService = (service) => {
-    if(service){
+    if (service) {
       return 'Yes';
     }
     return 'No';
-  }
+  };
   return (
     <div className={styles.buildingDetail__container}>
       <div className={styles.buildingDetail__carousel}>

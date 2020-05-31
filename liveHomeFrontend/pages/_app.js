@@ -52,4 +52,4 @@ export default function MyApp ({ Component, pageProps }) {
   } else {
     return '';
   }
-};
+}

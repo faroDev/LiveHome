@@ -41,12 +41,12 @@ const HamburguerMenu = () => {
                 <Button value='Publish a property' buttonType='button' buttonClass='redLinearButton' handleClick={() => {Router.push('/post/new_post_step_one')}}/>
               </li>
               <li className={styles.link}>
-                <Link href='/'>
+                <Link href='/account'>
                   <a>My account</a>
                 </Link>
               </li>
               <li className={styles.link}>
-                <Link href='/'>
+                <Link href='/favourites'>
                   <a>My favourites</a>
                 </Link>
               </li>
