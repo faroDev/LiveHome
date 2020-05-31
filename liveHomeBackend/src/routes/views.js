@@ -69,7 +69,6 @@ function viewApi (app) {
     })
 
   router.post('/',
-    passport.authenticate('jwt', { session: false }),
     validationHandler(viewCreateSchema),
     async function (req, res, next) {
       try {
