@@ -29,7 +29,7 @@ const newPostStepThree = () => {
     event.preventDefault();
     setLoading(true);
 
-    const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjMsInVzZXJOYW1lIjoiamwiLCJlbWFpbCI6ImNhbXBvc2IxOTkxQGhvdG1haWwuY29tIiwidXNlclR5cGUiOiJDbGllbnRlIiwidXNlcklkIjozLCJpYXQiOjE1OTA5MzcwOTYsImV4cCI6MTU5MDkzNzk5Nn0.ihnKAtkmBAx6l3fqEwmhOJtq5kCls94fpuZdA_9mubQ';
+    const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjMsInVzZXJOYW1lIjoiamwiLCJlbWFpbCI6ImNhbXBvc2IxOTkxQGhvdG1haWwuY29tIiwidXNlclR5cGUiOiJDbGllbnRlIiwidXNlcklkIjozLCJpYXQiOjE1OTA5NDMxOTUsImV4cCI6MTU5MDk0NDA5NX0.dwGZWtCmIJu_EtuqhKBZ2Rk8rHQ-Uv_rBFz6wjxpXbc';
 
     const newPost = { ...offer, description: description.value };
 

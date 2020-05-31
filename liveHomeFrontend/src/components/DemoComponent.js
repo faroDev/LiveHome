@@ -15,7 +15,7 @@ import Footer from './Footer';
 import Carousel from './Carousel';
 
 import Input from './Input';
-import TextArea from './TextArea';
+import TextArea from './TextAreaComponent';
 import HeaderInfoDashboard from './HeaderInfoDashboard';
 import PreviewImage from './PreviewImage';
 import SearchBar from './SearchBar';

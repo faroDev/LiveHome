@@ -1,12 +1,7 @@
-import DemoComponent from '../src/components/DemoComponent';
+import Router from 'next/router';
 
 function Home () {
-  return (
-    <>
-      <h1>Hello World</h1>
-      <DemoComponent />
-    </>
-  );
+  Router.push('/home');
 }
 
 export default Home;

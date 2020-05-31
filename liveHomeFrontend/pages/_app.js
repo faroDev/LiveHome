@@ -17,8 +17,9 @@ export default function MyApp ({ Component, pageProps }) {
   );
   const [token, setToken] = useState('');
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [post, setPost] = useState({});
   const [offer, setOffer] = useState({});
+  const [post, setPost] = useState([]);
+
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -51,4 +52,4 @@ export default function MyApp ({ Component, pageProps }) {
   } else {
     return '';
   }
-}
+};

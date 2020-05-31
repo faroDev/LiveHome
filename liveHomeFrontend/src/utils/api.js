@@ -3,6 +3,7 @@ import fetch from 'node-fetch';
 import FormData from 'form-data';
 const API_URL = 'https://live-home.now.sh/api';
 
+
 class API {
   async getAccount (userId, token) {
     try {
@@ -84,7 +85,6 @@ class API {
         }
       }
     );
-    console.log('[Result-Login]', result);
     if (result.status === 401) {
       console.error('[error] Unauthorized');
       const data = await result.json();
@@ -100,35 +100,35 @@ class API {
     return data;
   }
 
-  async getZones () {
-    try {
-      const result = await fetch(`${API_URL}/zones`)
-      const data = result.json();
-      return data;
-    } catch (error) {
-      return new Error(`Impossible connect ${error.message}`);
-    }
-  }
+  // async getZones () {
+  //   try {
+  //     const result = await fetch(`${API_URL}/zones`)
+  //     const data = result.json();
+  //     return data;
+  //   } catch (error) {
+  //     return new Error(`Impossible connect ${error.message}`);
+  //   }
+  // }
 
-  async getPropertyType () {
-    try {
-      const result = await fetch(`${API_URL}/propertyType`)
-      const data = result.json();
-      return data;
-    } catch (error) {
-      return new Error(`Impossible connect ${error.message}`);
-    }
-  }
+  // async getPropertyType () {
+  //   try {
+  //     const result = await fetch(`${API_URL}/propertyType`)
+  //     const data = result.json();
+  //     return data;
+  //   } catch (error) {
+  //     return new Error(`Impossible connect ${error.message}`);
+  //   }
+  // }
 
-  async getModalityType () {
-    try {
-      const result = await fetch(`${API_URL}/modalityType`)
-      const data = result.json();
-      return data;
-    } catch (error) {
-      return new Error(`Impossible connect ${error.message}`);
-    }
-  }
+  // async getModalityType () {
+  //   try {
+  //     const result = await fetch(`${API_URL}/modalityType`)
+  //     const data = result.json();
+  //     return data;
+  //   } catch (error) {
+  //     return new Error(`Impossible connect ${error.message}`);
+  //   }
+  // }
 
   async getProperties () {
     try {
@@ -138,6 +138,140 @@ class API {
     } catch (error) {
       return new Error(`Impossible connect ${error.message}`);
     }
+  }
+  
+  async setLikeProperty (propertyId, userId, token) {
+    const like = {propertyId, userId};
+
+    const result = await fetch(
+      `${API_URL}/favorites`,
+      {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ ...like })
+      }
+    );
+
+    if (result.status === 401) {
+      console.error('[error] Unauthorized');
+      const data = await result.json();
+      return data;
+    }
+    if (!result.ok) {
+      const dataError = await result.json();
+      console.error('[error]', dataError.message);
+      throw new Error(dataError.message);
+    }
+
+    const data = await result.json();
+    return data;
+  }
+
+  async setDislikeProperty (propertyId, userId, token) {
+    const like = {propertyId, userId};
+
+    const result = await fetch(
+      `${API_URL}/favorites/${propertyId}/${userId}`,
+      {
+        method: 'DELETE',
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    if (result.status === 401) {
+      console.error('[error] Unauthorized');
+      const data = await result.json();
+      return data;
+    }
+    if (!result.ok) {
+      const dataError = await result.json();
+      console.error('[error]', dataError.message);
+      throw new Error(dataError.message);
+    }
+
+    const data = await result.json();
+    return data;
+  }
+
+  async getPropertyType (){
+    const result = await fetch(`${API_URL}/propertyType`);
+
+    if(!result.ok){
+      const dataError = await result.json();
+      console.error('[error]', dataError.message);
+      throw new Error(dataError.message);
+    }
+    const data = await result.json();
+    return data;
+  }
+  
+  async getModalityType (){
+    const result = await fetch(`${API_URL}/modalityType`);
+    
+    if(!result.ok){
+      const dataError = await result.json();
+      console.error('[error]', dataError.message);
+      throw new Error(dataError.message);
+    }
+    const data = await result.json();
+    return data;
+  }
+
+  async getZones (){
+    const result = await fetch(`${API_URL}/zones`);
+    
+    if(!result.ok){
+      const dataError = await result.json();
+      console.error('[error]', dataError.message);
+      throw new Error(dataError.message);
+    }
+    const data = await result.json();
+    return data;
+  }
+
+  async getPropertyHome (propertyType, modalityType, zoneId, user){
+    const propertyTypeId = propertyType !== undefined && propertyType !== 0 ? `propertyTypeId=${propertyType}&` : '';
+    const modalityTypeId = modalityType !== undefined && modalityType !== 0 ? `modalityTypeId=${modalityType}&` : '';
+    const userId = user !== undefined && modalityType !== 0 ? `inSession=${user}&` : '';
+
+    const result = await fetch(`${API_URL}/properties/home?zoneId=${zoneId}&${propertyTypeId}${modalityTypeId}${userId}`);
+
+    if(!result.ok){
+      const dataError = await result.json();
+      console.error('[error]', dataError.message);
+      throw new Error(dataError.message);
+    }
+    const data = await result.json();
+    return data;
+  }
+
+  async getProperties (){
+    const result = await fetch(`${API_URL}/properties`);
+
+    if(!result.ok){
+      const dataError = await result.json();
+      console.error('[error]', dataError.message);
+      throw new Error(dataError.message);
+    }
+    const data = await result.json();
+    return data;
+  }
+
+  async getPropertyDetail (propertyId) {
+    const result = await fetch(`${API_URL}/properties/${propertyId}`);
+
+    if(!result.ok){
+      const dataError = await result.json();
+      console.error('[error]', dataError.message);
+      throw new Error(dataError.message);
+    }
+    const data = await result.json();
+    return data;
   }
 
   async postProperty (token, data) {

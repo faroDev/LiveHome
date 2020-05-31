@@ -29,7 +29,6 @@ const Register = () => {
 
     try {
       const response = await API.signUp(data);
-      console.log('[respuesta register ok]', response);
       setLoading(false);
       if (response.data.id > 0) {
         Router.push('/login');
