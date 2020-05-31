@@ -9,6 +9,7 @@ const auth = require('./dataBaseMock/statusDatabaseMock')
 const favorites = require('./dataBaseMock/statusDatabaseMock')
 const properties = require('./dataBaseMock/statusDatabaseMock')
 const files = require('./dataBaseMock/statusDatabaseMock')
+const modality = require('./dataBaseMock/statusDatabaseMock')
 
 module.exports = async function (config) {
   return {
@@ -21,6 +22,7 @@ module.exports = async function (config) {
     auth,
     favorites,
     properties,
-    files
+    files,
+    modality
   }
 }
