@@ -8,6 +8,7 @@ module.exports = function setupDataBase (configuration) {
   if (!sequelize) {
     console.log('Init sequelize')
 
+    // const options = { logging: false }
     const options = {
       dialect: configuration.dialect,
       ssl: true,

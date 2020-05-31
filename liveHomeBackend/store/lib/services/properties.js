@@ -52,6 +52,10 @@ module.exports = function setupPropertiesService (propertyModel, userModel, moda
             model: authModel
           }
         ]
+      },
+      {
+        attributes: ['id', 'address', 'city', 'urbanization', 'neighborhood', 'longitude', 'latitude'],
+        model: propertyDetailModel
       }
     ]
 
@@ -227,6 +231,10 @@ module.exports = function setupPropertiesService (propertyModel, userModel, moda
             model: authModel
           }
         ]
+      },
+      {
+        attributes: ['id', 'address', 'city', 'urbanization', 'neighborhood', 'longitude', 'latitude'],
+        model: propertyDetailModel
       }
     ]
 
