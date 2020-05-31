@@ -23,7 +23,7 @@ import styles from '../styles/components/BuildingDetail.module.sass';
 const BuildingDetail = ({ building, children, handleLike }) => {
 
   const validateService = (service) => {
-    if(service){
+    if (service) {
       return 'Yes';
     }
     return 'No';

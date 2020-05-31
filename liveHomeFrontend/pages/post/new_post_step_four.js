@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useContext } from 'react';
 import Router from 'next/router';
 
 import setInputValue from '../../src/hooks/useInputValue';
@@ -9,56 +9,39 @@ import FormField from '../../src/components/FormField';
 import TextAreaComponent from '../../src/components/TextAreaComponent';
 import PreviewImage from '../../src/components/PreviewImage';
 import Button from '../../src/components/Button';
-import Lightbox from '../../src/components/Lightbox';
-import Error from '../../src/components/Error';
-import Loading from '../../src/components/Loading';
 import UserContext from '../../src/components/UserContext';
 
 import API from '../../src/utils/api';
 
-import styles from '../../src/styles/pages/post/new_post_step_three.module.sass';
+import styles from '../../src/styles/pages/post/new_post_step_four.module.sass';
 
-const newPostStepThree = () => {
-  const { offer, setOffer } = useContext(UserContext);
+const newPostStepFour = () => {
+  const { post, setPost } = useContext(UserContext);
 
-  const description = setInputValue('');
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState('');
-  
-  const handleSubmit = async (event) => {
+  const description = setInputValue(post.description || '');
+
+  const saveProperty = async () => {
+    const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsInVzZXJOYW1lIjoiamwiLCJlbWFpbCI6ImNhbXBvc2IxOTkwQGhvdG1haWwuY29tIiwidXNlclR5cGUiOiJDbGllbnRlIiwidXNlcklkIjoxLCJpYXQiOjE1OTA1NTY2NDQsImV4cCI6MTU5MDU1NzU0NH0.qrzpiO7ZFMZSzxY0A2fB96j6Pa1v2tXm1wL-UwJ_pk0';
+    const result = await API.postProperty(token, post)
+      .then((res) => res)
+      .catch((error) => new Error(error.message));
+
+    console.log(result);
+  };
+
+  const handleSubmit = (event) => {
     event.preventDefault();
-    setLoading(true);
-
-    const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjMsInVzZXJOYW1lIjoiamwiLCJlbWFpbCI6ImNhbXBvc2IxOTkxQGhvdG1haWwuY29tIiwidXNlclR5cGUiOiJDbGllbnRlIiwidXNlcklkIjozLCJpYXQiOjE1OTA5NDMxOTUsImV4cCI6MTU5MDk0NDA5NX0.dwGZWtCmIJu_EtuqhKBZ2Rk8rHQ-Uv_rBFz6wjxpXbc';
-
-    const newPost = { ...offer, description: description.value };
-
-    const property = await API.postProperty(token, newPost);
-    console.log(property);
-    if (property.error) {
-      setError(property);
-      setLoading(false);
-      return;
-    }
-    const modality = await API.postModality(token, property.data, newPost.price, newPost.modalityType);
-    // Validar si no tiene ID
-    console.log(modality);
-    const details = await API.postPropertyDetails(token, newPost, property.data.id)
-    console.log(details);
-  }
-
-  if (error) {
-    return (
-      <Lightbox>
-        <Error error={error} />
-      </Lightbox>
-    )
-  }
+    setPost({
+      ...post,
+      description: description.value
+    });
+    saveProperty();
+  };
 
   return (
     <Layout>
       <div className={styles.container}>
-        <h1>Media - step 3/3</h1>
+        <h1>Media - step 4/4</h1>
         <Form onSubmit={handleSubmit}>
           <FormField>
             <TextAreaComponent label='Description' name='description' required {...description} />
@@ -81,16 +64,8 @@ const newPostStepThree = () => {
           </div>
         </Form>
       </div>
-
-      {
-        loading && 
-        <Lightbox>
-          <Loading />
-        </Lightbox>
-      }
-
     </Layout>
   );
 };
 
-export default newPostStepThree;
+export default newPostStepFour;

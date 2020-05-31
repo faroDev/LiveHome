@@ -52,24 +52,23 @@ const Buildings = () => {
   const [dataDetail, setDataDetail] = useState([]);
   const router = useRouter();
 
-  useEffect( ()=>{
+  useEffect(() => {
     setLoading(true);
     const paramsSession = sessionStorage.getItem('paramsQuery');
-    
-    if ( !paramsSession ){
+
+    if (!paramsSession) {
       setLoading(false);
       router.push('/home');
     }
 
-    if ( post.length === 0 ){
+    if (post.length === 0) {
       fetchDataProperties(paramsSession);
     } else {
       getDataMap(post);
       setLoading(false);
     }
-
   }, []);
-  
+
   const fetchDataProperties = async (paramsSession) => {
     setLoading(true);
     const params = JSON.parse(paramsSession);
@@ -81,9 +80,8 @@ const Buildings = () => {
         await getDataMap(data);
         setPost(data);
       } else {
-        setError({message:'No existen datos'});
+        setError({ message: 'No existen datos' });
       }
-
     } catch (error) {
       console.error('[error]', error);
       setLoading(false);
@@ -108,7 +106,7 @@ const Buildings = () => {
 
   useEffect( ()=>{
     setLoading(true);
-    if (!validateParams()){
+    if (!validateParams()) {
       fetchDataPropertyDetail(router.query.id);
     } else {
       setLoading(false);
@@ -132,23 +130,23 @@ const Buildings = () => {
 
   const handleBack = () => {
     router.back();
-  }
+  };
 
   const validateParams = () => {
-    if (Object.keys(router.query).length === 0){
+    if (Object.keys(router.query).length === 0) {
       return true;
     }
     return false;
-  }
+  };
 
   const handleLike = async (propertyId, liked) => {
-    if(!verfySession()){
+    if (!verfySession()) {
       alert('You must login');
       router.push('/login');
     }
     const token = sessionStorage.getItem('jwt-token');
     try {
-      if (liked){
+      if (liked) {
         await API.setDislikeProperty(propertyId, user.userId, token);
       } else {
         await API.setLikeProperty(propertyId, user.userId, token);
@@ -313,27 +311,26 @@ const Buildings = () => {
   }
 
   const buildings = () => {
-      if (loading) {
-        return <Loading />
-      }
-      
-      if (error) {
-        return <Error error={error} />
-      }
-      
-      if (validateParams() && !loading && !error) 
-      {
-        return (
-          <>
-            <div className={styles.buildings__filter_container}>
+    if (loading) {
+      return <Loading />;
+    }
+
+    if (error) {
+      return <Error error={error} />;
+    }
+
+    if (validateParams() && !loading && !error) {
+      return (
+        <>
+          <div className={styles.buildings__filter_container}>
               <div className={styles.buildings__filter_container_button}>
-                { modal() }
+                {modal()}
               </div>
               <div className={styles.buildings__filter_container_searchbar}>
                 <Checkbox name='map view' text='View Map' {...mapView} />
               </div>
             </div>
-            <div className={styles.buildings__label}>
+          <div className={styles.buildings__label}>
               <Chip nameLabel={`Where found ${post.length} properties`} labelClass='gray_label' />
             </div>
             {
@@ -369,13 +366,13 @@ const Buildings = () => {
 
   const buildingDetail = () => {
     if (loading) {
-      return <Loading />
+      return <Loading />;
     }
-    
+
     if (error) {
-      return <Error error={error} />
+      return <Error error={error} />;
     }
-    if ( !validateParams() && !loading && !error && Object.keys(dataDetail).length > 0) {
+    if (!validateParams() && !loading && !error && Object.keys(dataDetail).length > 0) {
       return (
         <>
           <Button buttonClass='grayLinearButton' buttonType='button' value='Back' handleClick={handleBack} />
@@ -383,7 +380,7 @@ const Buildings = () => {
         </>
       );
     }
-  }
+  };
 
   return (
     <Layout>
