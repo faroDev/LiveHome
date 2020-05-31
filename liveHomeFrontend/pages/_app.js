@@ -3,6 +3,7 @@ import '../src/styles/global.sass';
 import UserContext from './../src/components/UserContext';
 import decode from 'jwt-decode';
 import verifySesion from './../src/utils/verifySession';
+import Head from 'next/head';
 
 export default function MyApp ({ Component, pageProps }) {
   const [userData, setUserData] = useState(
@@ -38,10 +39,13 @@ export default function MyApp ({ Component, pageProps }) {
   if (!isLoading) {
     return (
       <UserContext.Provider value={{ user: userData, setUserData, isLoggedIn, setIsLoggedIn, token, setToken, post, setPost }}>
+        <Head>
+          <link rel='shortcut icon' href='../static/favicon.ico' />
+        </Head>
         <Component {...pageProps} />
       </UserContext.Provider>
     );
   } else {
     return '';
   }
-};
+}
