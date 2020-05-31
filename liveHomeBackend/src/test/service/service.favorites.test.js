@@ -65,7 +65,7 @@ describe('Services - favorites', function () {
 
   describe('When deleteByPropertyIdAndUserId method is called', async function () {
     it('* should call the deleteByPropertyIdAndUserId method', async function () {
-      await favoriteService.deleteByPropertyIdAndUserId(1,1)
+      await favoriteService.deleteByPropertyIdAndUserId(1, 1)
       assert.strictEqual(deleteByPropertyIdAndUserId.called, true)
     })
   })
