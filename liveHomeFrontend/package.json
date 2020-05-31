@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "next",
     "build": "next build",
-    "start": "next start $PORT",
+    "start": "next start 3000",
     "lint": "semistandard",
     "heroku-postbuild": "npm run build",
     "lint:fix": "semistandard --fix"
