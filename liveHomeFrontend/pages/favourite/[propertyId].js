@@ -25,8 +25,8 @@ const favouriteDetail = () => {
       getData()
         .then(async ({ data, error }) => {
           if (!error) {
-            setDataDetail(data[0]);
-            setImages(data[0].files.reduce(fileReducer, []));
+            setDataDetail(data);
+            setImages(data.files.reduce(fileReducer, []));
           } else {
             setError(error);
           }
