@@ -234,12 +234,41 @@ class API {
     return data;
   }
 
+  async getStatuses () {
+    const result = await fetch(`${API_URL}/status`);
+
+    if (!result.ok) {
+      const dataError = await result.json();
+      console.error('[error]', dataError.message);
+      throw new Error(dataError.message);
+    }
+    const data = await result.json();
+    return data;
+  }
+
   async getPropertyHome (propertyType, modalityType, zoneId, user) {
     const propertyTypeId = propertyType !== undefined && propertyType !== 0 ? `propertyTypeId=${propertyType}&` : '';
     const modalityTypeId = modalityType !== undefined && modalityType !== 0 ? `modalityTypeId=${modalityType}&` : '';
     const userId = user !== undefined && modalityType !== 0 ? `inSession=${user}&` : '';
 
     const result = await fetch(`${API_URL}/properties/home?zoneId=${zoneId}&${propertyTypeId}${modalityTypeId}${userId}`);
+
+    if (!result.ok) {
+      const dataError = await result.json();
+      console.error('[error]', dataError.message);
+      throw new Error(dataError.message);
+    }
+    const data = await result.json();
+    return data;
+  }
+
+  async getPropertyAdmin (propertyType, status, zoneId, dateFrom, dateTo, user) {
+    const propertyTypeId = propertyType !== undefined && propertyType !== 0 ? `propertyTypeId=${propertyType}&` : '';
+    const statusId = status !== undefined && status !== 0 ? `statusId=${status}&` : '';
+    const dateRange = dateFrom !== undefined && dateTo !== 0 ? `createdAt=${dateFrom}&createdAt=${dateTo}&` : '';
+    const userId = user !== undefined ? `inSession=${user}&` : '';
+
+    const result = await fetch(`${API_URL}/properties/home?zoneId=${zoneId}&${propertyTypeId}${statusId}${dateRange}${userId}`);
 
     if (!result.ok) {
       const dataError = await result.json();
@@ -396,6 +425,31 @@ class API {
             {
               Authorization: `Bearer ${token}`
             }
+        });
+      const data = await result.json();
+
+      if (!data.error) {
+        return { ...data };
+      } else {
+        return { error: new Error(data.error) };
+      }
+    } catch (error) {
+      return { error: new Error('Impossible connect') };
+    }
+  }
+
+  async updateProperty (propertyId, token, newData) {
+    try {
+      const result = await fetch(
+        `${API_URL}/properties/${propertyId}`,
+        {
+          method: 'PUT',
+          headers:
+            {
+              'Content-Type': 'application/json',
+              Authorization: `Bearer ${token}`
+            },
+          body: JSON.stringify({ ...newData })
         });
       const data = await result.json();
 
