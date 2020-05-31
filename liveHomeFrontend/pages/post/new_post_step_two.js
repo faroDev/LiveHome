@@ -1,5 +1,7 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import Router from 'next/router';
+
+import verifySesion from '../../src/utils/verifySession';
 
 import setInputValue from '../../src/hooks/useInputValue';
 import useCheckValue from '../../src/hooks/useCheckValue';
@@ -11,26 +13,35 @@ import Checkbox from '../../src/components/Checkbox';
 import Input from '../../src/components/Input';
 import TextareaComponent from '../../src/components/TextAreaComponent';
 import Button from '../../src/components/Button';
+import Lightbox from '../../src/components/Lightbox';
+import Loading from '../../src/components/Loading';
 import UserContext from '../../src/components/UserContext';
 
 import styles from '../../src/styles/pages/post/new_post_step_two.module.sass';
 
 const newPostStepTwo = () => {
-  const { post, setPost } = useContext(UserContext);
+  const { offer, setOffer } = useContext(UserContext);
+  const [loading, setLoading] = useState(false);
 
-  const furnished = useCheckValue(post.furnished || false);
-  const elevator = useCheckValue(post.elevator || false);
-  const pool = useCheckValue(post.pool || false);
-  const heating = useCheckValue(post.heating || false);
-  const security = useCheckValue(post.security || false);
-  const warehouse = useCheckValue(post.warehouse || false);
-  const parking = setInputValue(post.parking || '');
-  const nearbyPlaces = setInputValue(post.nearbyPlaces || '');
+  const furnished = useCheckValue(offer.furnished || false);
+  const elevator = useCheckValue(offer.elevator || false);
+  const pool = useCheckValue(offer.pool || false);
+  const heating = useCheckValue(offer.heating || false);
+  const security = useCheckValue(offer.security || false);
+  const warehouse = useCheckValue(offer.warehouse || false);
+  const parking = setInputValue(offer.parking || '');
+  const nearbyPlaces = setInputValue(offer.nearbyPlaces || '');
+
+  useEffect(() => {
+    if (!verifySesion()) {
+      Router.push('/login');
+    }
+  }, [])
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    setPost({
-      ...post,
+    setOffer({
+      ...offer,
       furnished: furnished.checked,
       elevator: elevator.checked,
       pool: pool.checked,
@@ -78,6 +89,14 @@ const newPostStepTwo = () => {
           </div>
         </Form>
       </div>
+
+      {
+      loading && 
+        <Lightbox>
+          <Loading />
+        </Lightbox>
+      }
+
     </Layout>
   );
 };

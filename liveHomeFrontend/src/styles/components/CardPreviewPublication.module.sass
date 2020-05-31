@@ -1,5 +1,8 @@
 @import '../vars'
 
+.__favourite_icon
+  cursor: pointer
+
 .buildings__card_container
   width: 100%
   margin-top: $spacing*5
@@ -14,10 +17,13 @@
   justify-content: space-between
   padding-bottom: $spacing*4
 
-.buildings__card_detail_title p
+.buildings__card_detail_title a
   margin: 0
   font-size: 20px
   font-weight: bold
+  text-decoration: none
+  cursor: pointer
+  color: $secondary-extra-dark
 
 .buildings__card_detail_price
   padding-bottom: $spacing*3
@@ -38,6 +44,9 @@
 
 .buildings__card_detail_chip
   padding: $spacing*2 0
+
+.buildings__card_detail_chip a
+  text-decoration: none
 
 .buildings__card_detail_complements
   display: flex

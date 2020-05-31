@@ -1,7 +1,7 @@
 import React from 'react';
+import Link from 'next/link';
 
 import Card from './Card';
-import Icon from './Icon';
 import Chip from './Chip';
 import InformationIcon from './InformationIcon';
 import FavButton from './FavButton';
@@ -13,14 +13,16 @@ import GarageIcon from '../assets/statics/images/garage.png';
 
 import styles from '../styles/components/CardPreviewPublication.module.sass';
 
-const CardPreviewPublication = ({ images, id, title, price, type, description, rooms, bathrooms, area, parking, liked, handleLike, handleClickDetail }) => {
+const CardPreviewPublication = ({ images, id, title, price, type, description, rooms, bathrooms, area, parking, liked, handleLike }) => {
   return (
     <div className={styles.buildings__card_container}>
       <Card images={images}>
         <div className={styles.buildings__card_detail}>
           <div className={styles.buildings__card_detail_title}>
             <div>
-              <p onClick={() => handleClickDetail(id)}>{title}</p>
+              <Link href={`/property/buildings?id=${id}`} shallow={true} >
+                <a>{title}</a>
+              </Link>
             </div>
             <div>
               <FavButton liked={liked} onClick={() => handleLike(id, liked)} />
@@ -34,7 +36,11 @@ const CardPreviewPublication = ({ images, id, title, price, type, description, r
             <p>{description}</p>
           </div>
           <div className={styles.buildings__card_detail_chip}>
-            <Chip nameLabel='Detail' labelClass='rose_label' />
+            <Link href={`/property/buildings?id=${id}`} shallow={true}>
+              <a>
+                <Chip nameLabel='Detail' labelClass='rose_label' />
+              </a>
+            </Link>
           </div>
           <div className={styles.buildings__card_detail_complements}>
             <InformationIcon icon={BedIcon} value={rooms} />
