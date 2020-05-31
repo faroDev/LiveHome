@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "mocha ./src/test/* --exit",
+    "test:db": "mocha ./store/test/* --exit || true",
     "start": "NODE_ENV=production node ./index.js",
     "dev": "nodemon ./index.js",
     "lint": "standard",
@@ -39,10 +40,13 @@
     "sequelize": "^5.21.7"
   },
   "devDependencies": {
+    "chai": "^4.2.0",
+    "defaults": "^1.0.3",
     "husky": "^4.2.5",
     "mocha": "^7.1.2",
     "nodemon": "^2.0.3",
     "proxyquire": "^2.1.3",
+    "sequelize-test-helpers": "^1.2.2",
     "sinon": "^9.0.2",
     "standard": "^14.3.3",
     "supertest": "^4.0.2"
@@ -59,7 +63,8 @@
     "globals": [
       "describe",
       "it",
-      "sequialize"
+      "sequialize",
+      "context"
     ]
   }
 }
