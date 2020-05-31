@@ -8,11 +8,13 @@ import Input from './../../src/components/Input';
 import useInputValue from './../../src/hooks/useInputValue';
 import Selector from '../../src/components/Select';
 import Button from '../../src/components/Button';
+import api from '../../src/utils/api';
 
-const filter = () => {
+const filter = ({ dataPropertyType, dataZones, dataStatuses }) => {
+  console.log('type', dataStatuses);
+
   const location = useInputValue('');
-  const propertyTypes = [{ value: 1, label: 'Apartment' }, { value: 2, label: 'House' }, { value: 3, label: 'Building' }];
-  const statusTypes = [{ value: 1, label: 'Approved' }, { value: 2, label: 'Pending' }, { value: 3, label: 'Denied' }];
+
   return (
     <Layout>
       <div className={styles.__container}>
@@ -20,13 +22,13 @@ const filter = () => {
         <CloseButton />
         <Form>
           <FormField>
-            <Selector label='Property Type' options={propertyTypes} />
+            <Selector label='Property Type' options={dataPropertyType.data} />
           </FormField>
           <FormField>
-            <Input label='Location' type='text' name='location' required {...location} />
+            <Selector label='Zone / location' options={dataZones.data} />
           </FormField>
           <FormField>
-            <Selector label='Approve / Pending' options={statusTypes} />
+            <Selector label='Approve / Pending' options={dataStatuses.data} />
           </FormField>
           <div className={styles.__date_select}>
             <Input label='Date from' type='date' name='location' required {...location} />
@@ -40,5 +42,19 @@ const filter = () => {
     </Layout>
   );
 };
+
+export async function getStaticProps () {
+  const dataPropertyType = await api.getPropertyType();
+  const dataZones = await api.getZones();
+  const dataStatuses = await api.getStatuses();
+
+  return {
+    props: {
+      dataPropertyType,
+      dataZones,
+      dataStatuses
+    }
+  };
+}
 
 export default filter;
