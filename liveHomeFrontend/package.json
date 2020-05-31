@@ -8,6 +8,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "semistandard",
+    "heroku-postbuild": "npm run build",
     "lint:fix": "semistandard --fix"
   },
   "author": "faroDev",
