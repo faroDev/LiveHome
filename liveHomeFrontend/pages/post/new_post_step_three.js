@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useState, useContext } from 'react';
 import Router from 'next/router';
 
 import setInputValue from '../../src/hooks/useInputValue';
@@ -9,6 +9,9 @@ import FormField from '../../src/components/FormField';
 import TextAreaComponent from '../../src/components/TextAreaComponent';
 import PreviewImage from '../../src/components/PreviewImage';
 import Button from '../../src/components/Button';
+import Lightbox from '../../src/components/Lightbox';
+import Error from '../../src/components/Error';
+import Loading from '../../src/components/Loading';
 import UserContext from '../../src/components/UserContext';
 
 import API from '../../src/utils/api';
@@ -17,24 +20,39 @@ import styles from '../../src/styles/pages/post/new_post_step_three.module.sass'
 
 const newPostStepThree = () => {
   const { offer, setOffer } = useContext(UserContext);
+
   const description = setInputValue('');
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
   
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const newPost = {
-      ...offer,
-      description: description.value
-    };
+    setLoading(true);
 
-    const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjMsInVzZXJOYW1lIjoiamwiLCJlbWFpbCI6ImNhbXBvc2IxOTkxQGhvdG1haWwuY29tIiwidXNlclR5cGUiOiJDbGllbnRlIiwidXNlcklkIjozLCJpYXQiOjE1OTA5MDMxNjcsImV4cCI6MTU5MDkwNDA2N30.cRTtgmYiWzV2CBW6m-ebsbRXZthp_nZ2vOxgcKlAUcQ';
+    const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjMsInVzZXJOYW1lIjoiamwiLCJlbWFpbCI6ImNhbXBvc2IxOTkxQGhvdG1haWwuY29tIiwidXNlclR5cGUiOiJDbGllbnRlIiwidXNlcklkIjozLCJpYXQiOjE1OTA5MzcwOTYsImV4cCI6MTU5MDkzNzk5Nn0.ihnKAtkmBAx6l3fqEwmhOJtq5kCls94fpuZdA_9mubQ';
+
+    const newPost = { ...offer, description: description.value };
+
     const property = await API.postProperty(token, newPost);
     console.log(property);
-    // Validar si no tiene ID
+    if (property.error) {
+      setError(property);
+      setLoading(false);
+      return;
+    }
     const modality = await API.postModality(token, property.data, newPost.price, newPost.modalityType);
+    // Validar si no tiene ID
     console.log(modality);
-    const details = await API.postPropertyDetails(token, newPost.address)
+    const details = await API.postPropertyDetails(token, newPost, property.data.id)
     console.log(details);
+  }
 
+  if (error) {
+    return (
+      <Lightbox>
+        <Error error={error} />
+      </Lightbox>
+    )
   }
 
   return (
@@ -63,6 +81,14 @@ const newPostStepThree = () => {
           </div>
         </Form>
       </div>
+
+      {
+        loading && 
+        <Lightbox>
+          <Loading />
+        </Lightbox>
+      }
+
     </Layout>
   );
 };

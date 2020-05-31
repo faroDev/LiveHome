@@ -141,9 +141,6 @@ class API {
   }
 
   async postProperty (token, data) {
-    // const location = await this.GoogleMapsApi();
-    // console.log(location.results[0].geometry.location);
-
     const formData = new FormData();
 
     formData.append('m2', data.m2);
@@ -217,11 +214,42 @@ class API {
     }
   }
 
-  async postPropertyDetails (token, direction) {
-    // const dir = 'Cl.+150+%2319-23,+Bogotá';
-    const api_token = 'AIzaSyDwvwz-L38kItJd1lwwaP7sjtiTrtThwwg';
-    const data = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${direction}&key=${api_token}`)
-    return data.json();
+  async postPropertyDetails (token, property, id) {
+    const api_token = '';
+    const data = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${property.address}&key=${api_token}`)
+    const googleInfo = await data.json();
+    
+    if (googleInfo.status == 'OK') {
+      const details = {
+        address: property.address,
+        city: "Bogotá",
+        urbanization: "Bogotá",
+	      neighborhood: "Bogotá",
+        latitude: googleInfo.results[0].geometry.location.lat,
+        longitude: googleInfo.results[0].geometry.location.lng,
+        propertyId: id
+      }
+  
+      try {
+        const result = await fetch(
+          `${API_URL}/propertyDetail`,
+          {
+            method: 'POST',
+            headers: {
+              Authorization: `Bearer ${token}`,
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ ...details })
+          }
+        );
+        const data = await result.json();
+        return data;
+      } catch (error) {
+        return new Error(`Impossible connect ${error.message}`);
+      }
+    } else {
+      return new Error(`Impossible find the offer location`);
+    }
   }
 }
 

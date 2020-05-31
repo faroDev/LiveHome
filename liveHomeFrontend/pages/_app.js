@@ -40,7 +40,7 @@ export default function MyApp ({ Component, pageProps }) {
     return (
       <>
         <Head>
-          <script src="https://maps.google.com/maps/api/js?key=AIzaSyDwvwz-L38kItJd1lwwaP7sjtiTrtThwwg&libraries=places&language=es-419"></script>
+          <script src="https://maps.google.com/maps/api/js?key=AIzaSyDwvwz-L38kItJd1lwwaP7sjtiTrtThwwg&libraries=places&language=es-419&components=country:co"></script>
         </Head>
 
         <UserContext.Provider value={{ user: userData, setUserData, isLoggedIn, setIsLoggedIn, post, setPost, offer, setOffer, token, setToken }}>

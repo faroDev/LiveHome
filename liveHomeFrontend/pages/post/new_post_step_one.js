@@ -34,9 +34,13 @@ const newPostStepOne = (props) => {
   const zone = setInputValue(offer.zone || '');
   const modalityType = useRadioButtonValue(offer.modalityType || '');
 
-  useEffect(() => {    
+  useEffect(() => {
     const input = document.getElementById('google-input');
-    const searchBox = new google.maps.places.Autocomplete(input);
+    if(window.google){
+      new window.google.maps.places.Autocomplete(input);
+    } else {
+      <CustomError error={new Error('There is an error, please try again')} />
+    }
   }, [])
 
   const handleSubmit = (event) => {
