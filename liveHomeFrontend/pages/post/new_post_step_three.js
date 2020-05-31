@@ -48,29 +48,7 @@ const newPostStepThree = () => {
             <span className={styles.info}>Max. 6 photos and 1 video</span>
           </FormField>
           <FormField>
-<<<<<<< HEAD
-            <Checkbox name='elevator' {...elevator} text='Elevator' />
-          </FormField>
-          <FormField>
-            <Checkbox name='pool' {...pool} text='Swimming pool' />
-          </FormField>
-          <FormField>
-            <Checkbox name='heating' {...heating} text='Heating' />
-          </FormField>
-          <FormField>
-            <Checkbox name='security' {...security} text='Security service' />
-          </FormField>
-          <FormField>
-            <Checkbox name='warehouse' {...warehouse} text='Warehouse' />
-          </FormField>
-          <FormField>
-            <Input type='number' label='Parkig' name='parkng' required {...parking} />
-          </FormField>
-          <FormField>
-            <TextareaComponent label='Nearby places' name='nearby_places' required {...nearby_places} />
-=======
             <Button value='Upload image' buttonClass='redLinearButton' buttonType='button' />
->>>>>>> d2f69daabf5b48393cd4c92cd2e6ba3fc4607133
           </FormField>
           <div className={styles.thumbnails}>
             <PreviewImage image='https://images.adsttc.com/media/images/5be9/fd5c/08a5/e5a5/8c00/008f/newsletter/CARLES_FAUS_ARQUITECTURA_-_CARMEN_HOUSE_(2).jpg?1542061390' />
@@ -82,11 +60,7 @@ const newPostStepThree = () => {
           </div>
           <div className={styles.buttons}>
             <Button value='Back' buttonClass='grayLightLinearButton' buttonType='button' handleClick={() => { Router.back(); }} />
-<<<<<<< HEAD
-            <Button value='Continue' buttonClass='greenLinearButton' buttonType='submit' />
-=======
             <Button value='Create post' buttonClass='greenButton' buttonType='button' handleClick={(e) => handleSubmit(e)} />
->>>>>>> d2f69daabf5b48393cd4c92cd2e6ba3fc4607133
           </div>
         </Form>
       </div>

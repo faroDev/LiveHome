@@ -11,7 +11,6 @@ import verifySesion from './../src/utils/verifySession';
 
 const Favourites = () => {
   const { user, token, post, setPost } = useContext(UserContext);
-  // const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [loaded, setLoaded] = useState(false);
   const [error, setError] = useState(false);

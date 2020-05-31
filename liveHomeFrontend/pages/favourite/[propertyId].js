@@ -54,27 +54,6 @@ const favouriteDetail = () => {
     return images.concat(obj.url);
   };
 
-  // const handleLike = async (propertyId, liked) => {
-  //   if (!verfySession()) {
-  //     alert('You must login');
-  //     router.push('/login');
-  //   }
-  //   const token = sessionStorage.getItem('jwt-token');
-  //   try {
-  //     if (liked) {
-  //       await API.setDislikeProperty(propertyId, user.userId, token);
-  //     } else {
-  //       await API.setLikeProperty(propertyId, user.userId, token);
-  //     }
-  //     const newPost = [...post];
-  //     newPost.find(item => item.id === propertyId).favorites = !newPost.find(item => item.id === propertyId).favorites;
-  //     setPost(newPost);
-  //   } catch (error) {
-  //     console.error('[error]', error);
-  //     setError(error);
-  //   }
-  // };
-
   return (
     <Layout>
       {
