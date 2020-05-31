@@ -33,10 +33,7 @@ class PropertyService {
   async getById (id, inSession) {
     return this.service.properties.findById(id, inSession)
       .then(property => {
-        property.map(p => {
-          p.dataValues.favorites = p.dataValues.favorites ? p.dataValues.favorites.length > 0 : false
-          return p
-        })
+        property.dataValues.favorites = property.dataValues.favorites ? property.dataValues.favorites.length > 0 : false
         return property
       })
   }
