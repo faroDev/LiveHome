@@ -6,6 +6,8 @@ const propertyType = require('./dataBaseMock/statusDatabaseMock')
 const typeUser = require('./dataBaseMock/statusDatabaseMock')
 const approveUser = require('./dataBaseMock/statusDatabaseMock')
 const auth = require('./dataBaseMock/statusDatabaseMock')
+const favorites = require('./dataBaseMock/statusDatabaseMock')
+const properties = require('./dataBaseMock/statusDatabaseMock')
 
 module.exports = async function (config) {
   return {
@@ -15,6 +17,8 @@ module.exports = async function (config) {
     propertyType,
     typeUser,
     approveUser,
-    auth
+    auth,
+    favorites,
+    properties
   }
 }
