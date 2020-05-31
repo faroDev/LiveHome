@@ -96,6 +96,7 @@ class API {
     }
 
     const data = await result.json();
+
     return data;
   }
 
@@ -294,6 +295,29 @@ class API {
       .catch((error) => new Error(`Impossible connect ${error.message}`));
 
     return result;
+  }
+
+  async getUserFavourites (userId, token) {
+    try {
+      const result = await fetch(
+        `${API_URL}/users/${userId}/favorites/`,
+        {
+          method: 'GET',
+          headers:
+            {
+              Authorization: `Bearer ${token}`
+            }
+        });
+      const data = await result.json();
+
+      if (!data.error) {
+        return { ...data };
+      } else {
+        return { error: new Error(data.error) };
+      }
+    } catch (error) {
+      return { error: new Error('Impossible connect') };
+    }
   }
 
   async updateProperty (propertyId, token, newData) {

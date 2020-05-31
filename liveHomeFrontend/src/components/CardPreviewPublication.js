@@ -12,6 +12,7 @@ import AreaIcon from '../assets/statics/images/area.png';
 import GarageIcon from '../assets/statics/images/garage.png';
 
 import styles from '../styles/components/CardPreviewPublication.module.sass';
+import Link from 'next/link';
 
 const CardPreviewPublication = ({ images, id, title, price, type, description, rooms, bathrooms, area, parking, liked, handleLike, handleClickDetail }) => {
   return (
@@ -34,7 +35,11 @@ const CardPreviewPublication = ({ images, id, title, price, type, description, r
             <p>{description}</p>
           </div>
           <div className={styles.buildings__card_detail_chip}>
-            <Chip nameLabel='Detail' labelClass='rose_label' />
+            <Link href={`/favourite/${id}`}>
+              <a>
+                <Chip nameLabel='Detail' labelClass='rose_label' />
+              </a>
+            </Link>
           </div>
           <div className={styles.buildings__card_detail_complements}>
             <InformationIcon icon={BedIcon} value={rooms} />

@@ -60,11 +60,10 @@ const home = ({ dataPropertyType }) => {
 
   const { user, post, setPost } = useContext(UserContext);
 
-  const [dataBuild, setDataBuild] = useState([]);
   const [dataDetail, setDataDetail] = useState([]);
   const [isUpdate, setIsUpdate] = useState(false);
   const router = useRouter();
-  const count = '###';
+  const [count, setCount] = useState(0);
 
   useEffect(() => {
     setLoading(true);
@@ -77,8 +76,9 @@ const home = ({ dataPropertyType }) => {
 
     if (post.length === 0) {
       fetchDataProperties(paramsSession);
+      setCount(paramsSession.length);
     } else {
-      setDataBuild(post);
+      setCount(post.length);
       setLoading(false);
     }
   }, []);
@@ -119,7 +119,7 @@ const home = ({ dataPropertyType }) => {
       setLoading(false);
       if (response.data.length > 0) {
         setPost(response.data);
-        // setDataBuild(response.data);
+        setCount(response.data.length);
       } else {
         setError({ message: 'No existen datos' });
       }
@@ -127,64 +127,6 @@ const home = ({ dataPropertyType }) => {
       setLoading(false);
       setError(error);
     }
-  };
-
-  const modal = () => {
-    return (
-      <Modal buttonText='Filter'>
-        <div className={styles.__modal_container}>
-          <h3>Filter</h3>
-          <Form>
-            <FormField>
-              <Selector label='Property type' options={[{ value: 1, label: 1 }, { value: 2, label: 2 }, { value: 3, label: 3 }]} {...typePropertyFilter} />
-            </FormField>
-            <FormField>
-              <Input type='number' label='bedrooms' name='bedrooms' {...bedroomsFilter} />
-            </FormField>
-            <FormField>
-              <Input type='number' label='bathrooms' name='bathrooms' {...bathroomsFilter} />
-            </FormField>
-            <FormField>
-              <div className={styles.buildings__modal_field_range}>
-                <Input type='number' label='total price (min - max)' name='price-min' {...totalPrinceMinFilter} />
-                <Input type='number' label='' name='prince-max' {...totalPrinceMaxFilter} />
-              </div>
-            </FormField>
-            <FormField>
-              <Input type='number' label='area' name='area' {...areaFilter} />
-            </FormField>
-            <FormField>
-              <div className={styles.buildings__modal_field_range}>
-                <Input type='number' label='m2 price (min - max)' name='price-min' {...mPriceMinFilter} />
-                <Input type='number' label='' name='prince-max' {...mPriceMaxFilter} />
-              </div>
-            </FormField>
-            <FormField>
-              <RadioButton options={['yes', 'no']} name='furnished' title='furnished' {...furnishedFilter} />
-            </FormField>
-            <FormField>
-              <RadioButton options={['yes', 'no']} name='parking' title='parking' {...parkingFilter} />
-            </FormField>
-            <FormField>
-              <RadioButton options={['yes', 'no']} name='pool' title='Swimming pool' {...poolFilter} />
-            </FormField>
-            <FormField>
-              <RadioButton options={['yes', 'no']} name='heating' title='heating' {...heatingFilter} />
-            </FormField>
-            <FormField>
-              <RadioButton options={['yes', 'no']} name='warehouse' title='warehouse' {...warehouseFilter} />
-            </FormField>
-            <FormField>
-              <RadioButton options={['yes', 'no']} name='elevator' title='elevator' {...elevatorFilter} />
-            </FormField>
-            <FormField>
-              <RadioButton options={['yes', 'no']} name='security' title='security service' {...securityFilter} />
-            </FormField>
-            <Button buttonType='submit' buttonClass='grayButton' value='Apply filter' />
-          </Form>
-        </div>
-      </Modal>
-    );
   };
 
   const handleClickDetail = (id) => {
@@ -285,6 +227,10 @@ const home = ({ dataPropertyType }) => {
     }
   };
 
+  const handleFilter = () => {
+    router.push('/admin/filter');
+  };
+
   return (
     <Layout>
       {
@@ -299,16 +245,11 @@ const home = ({ dataPropertyType }) => {
           ? (
             <div className={styles.__container}>
               <div className={styles.__filter_container}>
-                <div className={styles.__filter_container_button}>
-                  {modal()}
-                </div>
-                <div className={styles.__filter_container_searchbar}>
-                  <SearchBar />
-                </div>
+                <Button value='Filter' buttonClass='grayLightLinearButton' buttonType='button' handleClick={handleFilter} />
+                <h4 className={styles.__founds}>Where found <strong>{count}</strong> properties</h4>
               </div>
-              <h4 className={styles.__founds}>Where found <strong>{count}</strong> properties</h4>
               <h1>Offers published</h1>
-
+              <br />
               <div className={styles.__card__container}>
                 {
                   post.map(property => {
