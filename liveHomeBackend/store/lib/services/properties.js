@@ -29,6 +29,11 @@ module.exports = function setupPropertiesService (propertyModel, userModel, moda
       {
         attributes: ['id', 'url'],
         model: filesModel
+      },
+      {
+        attributes: ['id', 'pricem2', 'pricePerMoth', 'totalPrice', 'propertyId', 'modalityTypeId'],
+        model: modalityModel,
+        required: false,
       }
     ]
 
@@ -59,6 +64,11 @@ module.exports = function setupPropertiesService (propertyModel, userModel, moda
       {
         attributes: ['id', 'url'],
         model: filesModel
+      },
+      {
+        attributes: ['id', 'pricem2', 'pricePerMoth', 'totalPrice', 'propertyId', 'modalityTypeId'],
+        model: modalityModel,
+        required: false,
       }
     ]
 
@@ -103,6 +113,11 @@ module.exports = function setupPropertiesService (propertyModel, userModel, moda
         {
           attributes: ['url', 'fileType'],
           model: filesModel
+        },
+        {
+          attributes: ['id', 'pricem2', 'pricePerMoth', 'totalPrice', 'propertyId', 'modalityTypeId'],
+          model: modalityModel,
+          required: false,
         }
       ],
       where: {
@@ -110,7 +125,8 @@ module.exports = function setupPropertiesService (propertyModel, userModel, moda
           [Op.in]: [...ids]
         },
         statusId: 2 // approved
-      }
+      },
+      limit: 20
     })
   }
 
