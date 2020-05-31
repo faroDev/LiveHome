@@ -2,7 +2,7 @@
 const { Op } = require('sequelize')
 const { getQuery, getQueryForModality, getQueryForProperty } = require('./../../utils')
 
-module.exports = function setupPropertiesService (propertyModel, userModel, modalityModel, propertyDetailModel, filesModel, favoritesModel, modalityTypeModel) {
+module.exports = function setupPropertiesService (propertyModel, userModel, modalityModel, propertyDetailModel, filesModel, favoritesModel, modalityTypeModel, authModel) {
   async function create (property) {
     property.updatedAt = new Date()
     property.createdAt = new Date()
@@ -33,7 +33,25 @@ module.exports = function setupPropertiesService (propertyModel, userModel, moda
       {
         attributes: ['id', 'pricem2', 'pricePerMoth', 'totalPrice', 'propertyId', 'modalityTypeId'],
         model: modalityModel,
-        required: false
+        required: false,
+        include: [
+          {
+            attributes: ['name'],
+            model: modalityTypeModel,
+            required: false
+          }
+        ]
+      },
+      {
+        attributes: ['phone'],
+        model: userModel,
+        required: false,
+        include: [
+          {
+            attributes: ['email'],
+            model: authModel
+          }
+        ]
       }
     ]
 
@@ -68,7 +86,25 @@ module.exports = function setupPropertiesService (propertyModel, userModel, moda
       {
         attributes: ['id', 'pricem2', 'pricePerMoth', 'totalPrice', 'propertyId', 'modalityTypeId'],
         model: modalityModel,
-        required: false
+        required: false,
+        include: [
+          {
+            attributes: ['name'],
+            model: modalityTypeModel,
+            required: false
+          }
+        ]
+      },
+      {
+        attributes: ['phone'],
+        model: userModel,
+        required: false,
+        include: [
+          {
+            attributes: ['email'],
+            model: authModel
+          }
+        ]
       }
     ]
 
@@ -98,6 +134,17 @@ module.exports = function setupPropertiesService (propertyModel, userModel, moda
         {
           attributes: ['id', 'url', 'fileType'],
           model: filesModel
+        },
+        {
+          attributes: ['phone'],
+          model: userModel,
+          required: false,
+          include: [
+            {
+              attributes: ['email'],
+              model: authModel
+            }
+          ]
         }
       ],
       where: {
@@ -117,7 +164,25 @@ module.exports = function setupPropertiesService (propertyModel, userModel, moda
         {
           attributes: ['id', 'pricem2', 'pricePerMoth', 'totalPrice', 'propertyId', 'modalityTypeId'],
           model: modalityModel,
-          required: false
+          required: false,
+          include: [
+            {
+              attributes: ['name'],
+              model: modalityTypeModel,
+              required: false
+            }
+          ]
+        },
+        {
+          attributes: ['phone'],
+          model: userModel,
+          required: false,
+          include: [
+            {
+              attributes: ['email'],
+              model: authModel
+            }
+          ]
         }
       ],
       where: {
@@ -143,7 +208,25 @@ module.exports = function setupPropertiesService (propertyModel, userModel, moda
         attributes: ['id', 'pricem2', 'pricePerMoth', 'totalPrice', 'propertyId', 'modalityTypeId'],
         model: modalityModel,
         required: false,
+        include: [
+          {
+            attributes: ['name'],
+            model: modalityTypeModel,
+            required: false
+          }
+        ],
         where: modalityQuery
+      },
+      {
+        attributes: ['phone'],
+        model: userModel,
+        required: false,
+        include: [
+          {
+            attributes: ['email'],
+            model: authModel
+          }
+        ]
       }
     ]
 

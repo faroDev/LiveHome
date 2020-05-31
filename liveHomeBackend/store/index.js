@@ -61,20 +61,27 @@ module.exports = async function (config) {
 
   statusModel.hasMany(propertyModel)
   zonesModel.hasMany(propertyModel)
+
   userModel.hasMany(propertyModel)
+  propertyModel.belongsTo(userModel)
+
   modalityTypeModel.hasMany(modalityModel)
+  modalityModel.belongsTo(modalityTypeModel)
 
   userModel.hasMany(aproveUserModel)
   userModel.hasMany(favoritesModel)
   userModel.hasMany(viewsModel)
+
   authModel.hasOne(userModel)
+  userModel.belongsTo(authModel)
+
   typeUserModel.hasMany(userModel)
 
   await sequialize.authenticate()
   await sequialize.sync()
 
   const typeUser = setupTypeUserService(typeUserModel)
-  const user = setupUserService(userModel, propertyModel, viewsModel, filesModel, authModel)
+  const user = setupUserService(userModel, propertyModel, viewsModel, filesModel, authModel, modalityModel, modalityTypeModel)
   const auth = setupAuthService(authModel)
   const propertyType = setupPropertyTypeService(propertyTypeModel)
 
@@ -88,7 +95,7 @@ module.exports = async function (config) {
   const favorites = setupFavoritesService(favoritesModel, propertyModel, filesModel, userModel)
   const status = setupStatusService(statusModel)
   const zones = setupZoneService(zonesModel)
-  const properties = setupPropertiesService(propertyModel, userModel, modalityModel, propertyDetailModel, filesModel, favoritesModel, modalityTypeModel)
+  const properties = setupPropertiesService(propertyModel, userModel, modalityModel, propertyDetailModel, filesModel, favoritesModel, modalityTypeModel, authModel)
 
   return {
     typeUser,
