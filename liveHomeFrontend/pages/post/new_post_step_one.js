@@ -1,10 +1,11 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import Router from 'next/router';
 
 import setInputValue from '../../src/hooks/useInputValue';
 import useRadioButtonValue from '../../src/hooks/useRadioButtonValue';
 
 import API from '../../src/utils/api';
+import verifySesion from '../../src/utils/verifySession';
 
 import Layout from '../../src/components/Layout';
 import Form from '../../src/components/Form';
@@ -13,6 +14,8 @@ import Input from '../../src/components/Input';
 import Select from '../../src/components/Select';
 import RadioButton from '../../src/components/RadioButton';
 import Button from '../../src/components/Button';
+import Lightbox from '../../src/components/Lightbox';
+import Loading from '../../src/components/Loading';
 import UserContext from '../../src/components/UserContext';
 import CustomError from '../../src/components/Error';
 
@@ -22,6 +25,7 @@ const newPostStepOne = (props) => {
   const { zones, propertyTypes, modalityTypes } = props;
 
   const { offer, setOffer } = useContext(UserContext);
+  const [loading, setLoading] = useState(false);
 
   const title = setInputValue(offer.title || '');
   const rooms = setInputValue(offer.rooms || '');
@@ -35,11 +39,17 @@ const newPostStepOne = (props) => {
   const modalityType = useRadioButtonValue(offer.modalityType || '');
 
   useEffect(() => {
-    const input = document.getElementById('google-input');
-    if(window.google){
-      new window.google.maps.places.Autocomplete(input);
+    setLoading(true);
+    if (verifySesion()) {
+      setLoading(false);
+      const input = document.getElementById('google-input');
+      if(window.google){
+        new window.google.maps.places.Autocomplete(input);
+      } else {
+        <CustomError error={new Error('There is an error, please try again')} />
+      }
     } else {
-      <CustomError error={new Error('There is an error, please try again')} />
+      Router.push('/login');
     }
   }, [])
 
@@ -108,6 +118,14 @@ const newPostStepOne = (props) => {
             </div>
           </Form>
         </div>
+
+        {
+        loading && 
+          <Lightbox>
+            <Loading />
+          </Lightbox>
+        }
+
       </Layout>
       </>
     );
