@@ -8,8 +8,8 @@ const Error = ({ error }) => {
       <div className={styles.__container}>
         <h1 className={styles.__title}>!Oppps, An error ocurred.</h1>
         <p className={styles.__mesagge}>{`${error.message}, back to `}
-          <Link href='/login'>
-            <a className={styles.__mesagge}>Login</a>
+          <Link href='/home'>
+            <a className={styles.__mesagge}>Home</a>
           </Link>
         </p>
       </div>

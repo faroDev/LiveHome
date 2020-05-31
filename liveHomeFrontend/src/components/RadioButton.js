@@ -11,13 +11,14 @@ function RadioButton ({ options = [], name, title, value, onChange }) {
           return (
             <div key={key} className={styles.radio_item}>
               <input
-                id={item}
+                id={item.id}
                 type='radio'
                 name={name}
-                value={value}
+                value={item.id}
                 onChange={onChange}
+                checked={item.id == value ? true : false}
               />
-              <label htmlFor={item}>{item}</label>
+              <label htmlFor={item.id}>{item.name}</label>
             </div>
           );
         })}
