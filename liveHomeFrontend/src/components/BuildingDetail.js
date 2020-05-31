@@ -5,6 +5,7 @@ import Icon from './Icon';
 import Chip from './Chip';
 import InformationIcon from './InformationIcon';
 import FavButton from './FavButton';
+import MapView from './MapView';
 
 import BedIcon from '../assets/statics/images/bed.png';
 import ShowerIcon from '../assets/statics/images/shower.png';
@@ -88,7 +89,9 @@ const BuildingDetail = ({ building, children, handleLike }) => {
           <p>Elevator</p>
         </InformationIcon>
       </div>
-      <div className={styles.buildingDetail__map_container} />
+      <div className={styles.buildingDetail__map_container}>
+        <MapView zoom={18} />
+      </div>
       <div>
         <Chip nameLabel='Nearby places' labelClass='purple_label' />
       </div>

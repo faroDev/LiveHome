@@ -10,16 +10,16 @@ import useCheckValue from '../../src/hooks/useCheckValue';
 import Layout from '../../src/components/Layout';
 import Button from '../../src/components/Button';
 import Modal from '../../src/components/Modal';
-import SearchBar from '../../src/components/SearchBar';
 import Chip from '../../src/components/Chip';
 import CardPreviewPublication from '../../src/components/CardPreviewPublication';
 import Form from '../../src/components/Form';
 import FormField from '../../src/components/FormField';
 import Input from '../../src/components/Input';
-import Selector from '../../src/components/Select';
 import Checkbox from '../../src/components/Checkbox';
 import Loading from '../../src/components/Loading';
 import Error from '../../src/components/Error';
+
+import MapView from '../../src/components/MapView';
 
 import BuildingDetail from '../../src/components/BuildingDetail';
 
@@ -44,7 +44,7 @@ const Buildings = () => {
   
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState();
-  const mapView = useCheckValue(false);
+  const mapView = useCheckValue(true);
   
   const { user, post, setPost } = useContext(UserContext);
   
@@ -88,7 +88,6 @@ const Buildings = () => {
   };
 
   useEffect( ()=>{
-    console.log(router);
     setLoading(true);
     if (!validateParams()){
       fetchDataPropertyDetail(router.query.id);
@@ -301,9 +300,7 @@ const Buildings = () => {
             {
               mapView.checked &&
               <div className={styles.buildings__map_container}>
-                <div>
-
-                </div>
+                <MapView />
               </div>
             }
             {
