@@ -1,6 +1,6 @@
 'use strict'
 
-const auths = [
+const authsMocks = [
   {
     id: 1,
     email: 'jose luis',
@@ -18,4 +18,4 @@ const auths = [
     updatedAt: '2020-05-12T16:30:24.267Z '
   }
 ]
-module.exports = auths
+module.exports = authsMocks
