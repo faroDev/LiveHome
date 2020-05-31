@@ -221,6 +221,23 @@ class API {
     return data;
   }
 
+  async getPropertyAdmin (propertyType, status, zoneId, dateFrom, dateTo, user) {
+    const propertyTypeId = propertyType !== undefined && propertyType !== 0 ? `propertyTypeId=${propertyType}&` : '';
+    const statusId = status !== undefined && status !== 0 ? `statusId=${status}&` : '';
+    const dateRange = dateFrom !== undefined && dateTo !== 0 ? `createdAt=${dateFrom}&createdAt=${dateTo}&` : '';
+    const userId = user !== undefined ? `inSession=${user}&` : '';
+
+    const result = await fetch(`${API_URL}/properties/home?zoneId=${zoneId}&${propertyTypeId}${statusId}${dateRange}${userId}`);
+
+    if (!result.ok) {
+      const dataError = await result.json();
+      console.error('[error]', dataError.message);
+      throw new Error(dataError.message);
+    }
+    const data = await result.json();
+    return data;
+  }
+
   async getProperties () {
     const result = await fetch(`${API_URL}/properties`);
 
