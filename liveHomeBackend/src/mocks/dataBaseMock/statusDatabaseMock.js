@@ -5,10 +5,11 @@ const create = sinon.stub().resolves({})
 const findAll = sinon.stub().resolves([])
 const update = sinon.stub().resolves({})
 const findById = sinon.stub().resolves({})
-
+const findByEmail = sinon.stub().resolves([])
 module.exports = {
   create,
   findAll,
   update,
-  findById
+  findById,
+  findByEmail
 }

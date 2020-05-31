@@ -4,7 +4,7 @@ const userTypes = [
     name: 'Cliente',
     createdAt: '2020-05-26T02:22:56.919Z',
     updatedAt: '2020-05-26T02:22:56.922Z'
-}
+  }
 ]
 
 const userTypeToCreate = {
