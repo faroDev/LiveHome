@@ -219,7 +219,7 @@ class API {
 
   async postPropertyDetails (token, direction) {
     // const dir = 'Cl.+150+%2319-23,+Bogotá';
-    const api_token = '';
+    const api_token = 'AIzaSyDwvwz-L38kItJd1lwwaP7sjtiTrtThwwg';
     const data = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${direction}&key=${api_token}`)
     return data.json();
   }

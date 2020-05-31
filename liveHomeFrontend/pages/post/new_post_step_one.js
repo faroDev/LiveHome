@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import Router from 'next/router';
 
 import setInputValue from '../../src/hooks/useInputValue';
@@ -34,6 +34,11 @@ const newPostStepOne = (props) => {
   const zone = setInputValue(offer.zone || '');
   const modalityType = useRadioButtonValue(offer.modalityType || '');
 
+  useEffect(() => {    
+    const input = document.getElementById('google-input');
+    const searchBox = new google.maps.places.Autocomplete(input);
+  }, [])
+
   const handleSubmit = (event) => {
     event.preventDefault();
     setOffer({
@@ -57,6 +62,8 @@ const newPostStepOne = (props) => {
     )
   } else {
     return (
+      <>
+
       <Layout>
         <div className={styles.container}>
           <h1>New offer - step 1/3</h1>
@@ -68,7 +75,7 @@ const newPostStepOne = (props) => {
               <Select label='Property type' name='propertyType' options={propertyTypes.data} {...propertyType} />
             </FormField>
             <FormField>
-              <Input type='text' label='Address' name='address' required {...address} />
+              <Input type='text' label='Address' name='address' id='google-input' required {...address} />
             </FormField>
             <FormField>
               <Select label='Zone' name='zone' options={zones.data} {...zone} />
@@ -98,6 +105,7 @@ const newPostStepOne = (props) => {
           </Form>
         </div>
       </Layout>
+      </>
     );
   }
 };

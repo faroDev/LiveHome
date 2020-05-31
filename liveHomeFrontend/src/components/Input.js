@@ -16,6 +16,7 @@ const Input = (props) => {
         name={props.name}
         required={props.required}
         disabled={props.disabled}
+        id={props.id}
       />
     </Label>
   );
