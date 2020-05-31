@@ -41,7 +41,7 @@ class UserService {
   }
 
   /**
-   * Get Proèrties by userId
+   * Get Properties by userId
    */
   async findPropertiesByUserId (id) {
     return this.service.user.propertyUser(id)

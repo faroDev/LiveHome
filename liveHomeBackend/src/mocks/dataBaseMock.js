@@ -6,7 +6,14 @@ const propertyType = require('./dataBaseMock/statusDatabaseMock')
 const typeUser = require('./dataBaseMock/statusDatabaseMock')
 const approveUser = require('./dataBaseMock/statusDatabaseMock')
 const auth = require('./dataBaseMock/statusDatabaseMock')
-
+const favorites = require('./dataBaseMock/statusDatabaseMock')
+const properties = require('./dataBaseMock/statusDatabaseMock')
+const files = require('./dataBaseMock/statusDatabaseMock')
+const modality = require('./dataBaseMock/statusDatabaseMock')
+const propertyDetail = require('./dataBaseMock/statusDatabaseMock')
+const user = require('./dataBaseMock/statusDatabaseMock')
+const getByUserId = require('./dataBaseMock/statusDatabaseMock')
+const views = require('./dataBaseMock/statusDatabaseMock')
 module.exports = async function (config) {
   return {
     status,
@@ -15,6 +22,14 @@ module.exports = async function (config) {
     propertyType,
     typeUser,
     approveUser,
-    auth
+    auth,
+    favorites,
+    properties,
+    files,
+    modality,
+    propertyDetail,
+    user,
+    getByUserId,
+    views
   }
 }

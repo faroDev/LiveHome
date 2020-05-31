@@ -24,7 +24,7 @@ module.exports = function setupPropertiesService (propertyModel, userModel, moda
     return exitingproperty
   }
 
-  function findById (id, inSession) {
+  function findByIdAndInSession (id, inSession) {
     const includes = [
       {
         attributes: ['id', 'url'],
@@ -249,7 +249,7 @@ module.exports = function setupPropertiesService (propertyModel, userModel, moda
   }
 
   return {
-    findById,
+    findByIdAndInSession,
     findAll,
     update,
     create,

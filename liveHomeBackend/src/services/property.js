@@ -31,7 +31,7 @@ class PropertyService {
    * * @param {integer} inSession id of user in session
    */
   async getById (id, inSession) {
-    return this.service.properties.findById(id, inSession)
+    return this.service.properties.findByIdAndInSession(id, inSession)
       .then(property => {
         property.dataValues.favorites = property.dataValues.favorites ? property.dataValues.favorites.length > 0 : false
         return property
