@@ -28,16 +28,25 @@ const BuildingDetail = ({ building, children, handleLike }) => {
     }
     return 'No';
   }
+
+  const getLocation = (item) => {
+    if (item.property_detail===null){
+      return [];
+    }
+    const data = {lat: parseFloat(item.property_detail.latitude),lng: parseFloat(item.property_detail.longitude),text:item.price}
+    return [data];
+  } 
+
   return (
     <div className={styles.buildingDetail__container}>
       <div className={styles.buildingDetail__carousel}>
         <Carousel images={building.files} />
       </div>
       <div className={styles.buildingDetail__section_icon}>
-        <a href={`tel:${building.telefono}`}>
+        <a href={`tel:${building.user.phone}`}>
           <Icon name='phone' />
         </a>
-        <a href={`mailto:${building.email}`} target='_blank' rel='noopener noreferrer'>
+        <a href={`mailto:${building.user.auth.email}`} target='_blank' rel='noopener noreferrer'>
           <Icon name='mail' />
         </a>
         <a>
@@ -48,8 +57,8 @@ const BuildingDetail = ({ building, children, handleLike }) => {
         <p>{building.title}</p>
       </div>
       <div className={styles.buildingDetail__price}>
-        <span>$ {building.modalities.length > 0 && building.modalities[0].totalPrice || 0} </span>
-        <p> / tipo</p>
+        <span>{`$ ${building.price} `}</span>
+        <p>{` / ${building.type}`}</p>
       </div>
       <div className={styles.buildingDetail__description}>
         <p>{building.description}</p>
@@ -90,7 +99,7 @@ const BuildingDetail = ({ building, children, handleLike }) => {
         </InformationIcon>
       </div>
       <div className={styles.buildingDetail__map_container}>
-        <MapView zoom={18} />
+        <MapView zoom={16} dataMarker={[...getLocation(building)]} detail={true}/>
       </div>
       <div>
         <Chip nameLabel='Nearby places' labelClass='purple_label' />

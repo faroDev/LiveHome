@@ -8,7 +8,7 @@ function Carousel ({ images = [] }) {
   const [index, setIndex] = useState(0);
   return (
     <div className={styles.carousel}>
-      <img id='image' src={images.length > 0 && images[index].url} alt='Photo gallery' />
+      <img id='image' src={images.length > 0 ? images[index].url : undefined} alt='Photo gallery' />
       <nav>
         <button
           type='button'

@@ -45,6 +45,7 @@ const Buildings = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState();
   const mapView = useCheckValue(true);
+  const [dataMarkers, setDataMarkers] = useState([]);
   
   const { user, post, setPost } = useContext(UserContext);
   
@@ -63,6 +64,7 @@ const Buildings = () => {
     if ( post.length === 0 ){
       fetchDataProperties(paramsSession);
     } else {
+      getDataMap(post);
       setLoading(false);
     }
 
@@ -75,7 +77,9 @@ const Buildings = () => {
       const response = await API.getPropertyHome(params.propertyTypeId, params.modalityTypeId, params.zoneId, user.userId);
       setLoading(false);
       if(response.data.length > 0){
-        setPost(response.data);
+        const data = response.data;
+        await getDataMap(data);
+        setPost(data);
       } else {
         setError({message:'No existen datos'});
       }
@@ -86,6 +90,21 @@ const Buildings = () => {
       setError(error);
     }
   };
+
+  const getDataMap = (data) => {
+
+    const dataFilterMap = data.filter( item => item.property_detail !== null);
+    const dataPriceMap = dataFilterMap.map( item => ({...item,...getPrice(item)}));
+    const dataMap =  dataPriceMap.map( item => {
+      return { 
+        lat: parseFloat(item.property_detail.latitude),
+        lng: parseFloat(item.property_detail.longitude),
+        text: item.price, 
+        propertyId: item.id
+      }
+    })
+    setDataMarkers(dataMap);
+  }
 
   useEffect( ()=>{
     setLoading(true);
@@ -100,7 +119,9 @@ const Buildings = () => {
     setLoading(true);
     try {
       const response = await API.getPropertyDetail(propertyId, user.userId);
-      setDataDetail(response.data[0]);
+      const data = response.data;
+      const item = {...data, ...getPrice(data)};
+      setDataDetail(item);
       setLoading(false);
     } catch (error) {
       console.error('[error]', error);
@@ -273,6 +294,24 @@ const Buildings = () => {
     );
   };
 
+  const getPrice = (item) => {
+    let price, type;
+
+    if (item.modalities.length===0 || item.modalities[0].modality_type === null){
+      price = 0;
+      type = 'NT'
+      return {price, type};
+    }
+    if (item.modalities[0].modality_type.name === 'Rent'){
+      price = item.modalities[0].pricePerMoth;
+    } else {
+      price = item.modalities[0].totalPrice;
+    }
+    type = item.modalities[0].modality_type.name;
+
+    return {price, type};
+  }
+
   const buildings = () => {
       if (loading) {
         return <Loading />
@@ -300,7 +339,7 @@ const Buildings = () => {
             {
               mapView.checked &&
               <div className={styles.buildings__map_container}>
-                <MapView />
+                <MapView zoom={12} dataMarker={dataMarkers} />
               </div>
             }
             {
@@ -310,7 +349,7 @@ const Buildings = () => {
                     key={postItem.id}
                     images={postItem.files}
                     title={postItem.title}
-                    price={postItem.modalities.length > 0 && postItem.modalities[0].totalPrice || 0 }
+                    {...getPrice(postItem)}
                     description={postItem.description}
                     rooms={postItem.rooms}
                     bathrooms={postItem.bathrooms}

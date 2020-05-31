@@ -254,15 +254,20 @@ class API {
     return data;
   }
 
-  async getPropertyDetail (propertyId, user) {
-    const userId = user !== undefined && user !== 0 ? `?inSession=${user}` : '';
-    const result = await fetch(`${API_URL}/properties/${propertyId}${userId}`);
+  async getPropertyDetail (propertyId, userId) {
+    const user = userId !== undefined && userId !== 0 ? `?inSession=${userId}` : '';
+    const result = await fetch(`${API_URL}/properties/${propertyId}${user}`);
 
     if(!result.ok){
       const dataError = await result.json();
       console.error('[error]', dataError.message);
       throw new Error(dataError.message);
     }
+    const newView = { 
+      propertyId,
+      userId
+    }
+    await fetch(`${API_URL}/views/`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({...newView} )});
     const data = await result.json();
     return data;
   }
