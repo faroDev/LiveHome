@@ -4,6 +4,7 @@ import Carousel from './Carousel';
 import Icon from './Icon';
 import Chip from './Chip';
 import InformationIcon from './InformationIcon';
+import FavButton from './FavButton';
 
 import BedIcon from '../assets/statics/images/bed.png';
 import ShowerIcon from '../assets/statics/images/shower.png';
@@ -18,7 +19,7 @@ import ElevatorIcon from '../assets/statics/images/elevator.png';
 
 import styles from '../styles/components/BuildingDetail.module.sass';
 
-const BuildingDetail = ({ building, children }) => {
+const BuildingDetail = ({ building, children, handleLike }) => {
 
   const validateService = (service) => {
     if(service){
@@ -29,7 +30,7 @@ const BuildingDetail = ({ building, children }) => {
   return (
     <div className={styles.buildingDetail__container}>
       <div className={styles.buildingDetail__carousel}>
-        <Carousel images={building.images} />
+        <Carousel images={building.files} />
       </div>
       <div className={styles.buildingDetail__section_icon}>
         <a href={`tel:${building.telefono}`}>
@@ -39,11 +40,15 @@ const BuildingDetail = ({ building, children }) => {
           <Icon name='mail' />
         </a>
         <a>
-          <Icon name='heart' />
+          <FavButton liked={building.favorites} onClick={() => handleLike(building.id, building.favorites)} />
         </a>
       </div>
       <div className={styles.buildingDetail__title}>
         <p>{building.title}</p>
+      </div>
+      <div className={styles.buildingDetail__price}>
+        <span>$ {building.modalities.length > 0 && building.modalities[0].totalPrice || 0} </span>
+        <p> / tipo</p>
       </div>
       <div className={styles.buildingDetail__description}>
         <p>{building.description}</p>

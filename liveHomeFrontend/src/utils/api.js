@@ -195,11 +195,43 @@ class API {
   }
 
   async getPropertyHome (propertyType, modalityType, zoneId, user){
-    const propertyTypeId = propertyType !== undefined && propertyType !== 0 ? `propertyTypeId=${propertyType}&` : '';
-    const modalityTypeId = modalityType !== undefined && modalityType !== 0 ? `modalityTypeId=${modalityType}&` : '';
-    const userId = user !== undefined && modalityType !== 0 ? `inSession=${user}&` : '';
+    
+    const propertyTypeId = propertyType !== undefined && propertyType > 0 ? `propertyTypeId=${propertyType}&` : '';
+    const modalityTypeId = modalityType !== undefined && modalityType > 0 ? `modalityTypeId=${modalityType}&` : '';
+    const userId = user !== undefined && user !== 0 ? `inSession=${user}&` : '';
 
     const result = await fetch(`${API_URL}/properties/home?zoneId=${zoneId}&${propertyTypeId}${modalityTypeId}${userId}`);
+
+    if(!result.ok){
+      const dataError = await result.json();
+      console.error('[error]', dataError.message);
+      throw new Error(dataError.message);
+    }
+    const data = await result.json();
+    return data;
+  }
+
+  async getPropertyHomeFilter (propertyType, modalityType, zoneId, user, paramsFilter){
+
+    const propertyTypeId = propertyType !== undefined && propertyType > 0 ? `propertyTypeId=${propertyType}&` : '';
+    const modalityTypeId = modalityType !== undefined && modalityType > 0 ? `modalityTypeId=${modalityType}&` : '';
+    const userId = user !== undefined && user !== 0 ? `inSession=${user}&` : '';
+    const bedrooms = paramsFilter.bedrooms !== undefined && paramsFilter.bedrooms > 0 ? `rooms=${paramsFilter.bedrooms}&` : '';
+    const bathrooms = paramsFilter.bathrooms !== undefined && paramsFilter.bathrooms > 0 ? `bathrooms=${paramsFilter.bathrooms}&` : '';
+    const totalPrinceMin = paramsFilter.totalPrinceMin !== undefined ? `totalPrice=${paramsFilter.totalPrinceMin}&` : '';
+    const totalPrinceMax = paramsFilter.totalPrinceMax !== undefined ? `totalPrice=${paramsFilter.totalPrinceMax}&` : '';
+    const area = paramsFilter.area !== undefined && paramsFilter.area > 0 ? `m2=${paramsFilter.area}&` : '';
+    const parking = paramsFilter.parking !== undefined && paramsFilter.parking > 0 ? `parking=${paramsFilter.parking}&` : '';
+    const mPriceMin = paramsFilter.mPriceMin !== undefined ? `pricem2=${paramsFilter.mPriceMin}&` : '';
+    const mPriceMax = paramsFilter.mPriceMax !== undefined ? `pricem2=${paramsFilter.mPriceMax}&` : '';
+    const furnished = paramsFilter.furnished !== undefined && paramsFilter.furnished ? `furnished=${paramsFilter.furnished}&` : '';
+    const pool = paramsFilter.pool !== undefined && paramsFilter.pool ? `pool=${paramsFilter.pool}&` : '';
+    const heating = paramsFilter.heating !== undefined && paramsFilter.heating ? `heating=${paramsFilter.heating}&` : '';
+    const warehouse = paramsFilter.warehouse !== undefined && paramsFilter.warehouse ? `cellar=${paramsFilter.warehouse}&` : '';
+    const elevator = paramsFilter.elevator !== undefined && paramsFilter.elevator ? `elevator=${paramsFilter.elevator}&` : '';
+    const security = paramsFilter.security !== undefined && paramsFilter.security ? `security=${paramsFilter.security}&` : '';
+
+    const result = await fetch(`${API_URL}/properties/home?zoneId=${zoneId}&${propertyTypeId}${modalityTypeId}${userId}${bedrooms}${bathrooms}${totalPrinceMin}${totalPrinceMax}${area}${mPriceMin}${mPriceMax}${furnished}${parking}${pool}${heating}${warehouse}${elevator}${security}`);
 
     if(!result.ok){
       const dataError = await result.json();
@@ -222,8 +254,9 @@ class API {
     return data;
   }
 
-  async getPropertyDetail (propertyId) {
-    const result = await fetch(`${API_URL}/properties/${propertyId}`);
+  async getPropertyDetail (propertyId, user) {
+    const userId = user !== undefined && user !== 0 ? `?inSession=${user}` : '';
+    const result = await fetch(`${API_URL}/properties/${propertyId}${userId}`);
 
     if(!result.ok){
       const dataError = await result.json();
