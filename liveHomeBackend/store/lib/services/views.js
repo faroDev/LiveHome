@@ -5,6 +5,7 @@ const { getQuery } = require('./../../utils')
 
 module.exports = function setupViewsService (viewsModel, propertyModel) {
   async function create (views) {
+    views.userId = (!views.userId) ? 1 : views.userId
     const result = await viewsModel.create(views)
     return result.toJSON()
   }

@@ -9,7 +9,7 @@ const viewDateSchema = joi.date()
 
 const viewCreateSchema = {
   propertyId: viewPropertyIdSchema.required(),
-  userId: viewUserIdSchema.required()
+  userId: viewUserIdSchema.allow('').optional()
 }
 
 const viewUpdateSchema = {
