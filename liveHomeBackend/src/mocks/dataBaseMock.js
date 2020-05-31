@@ -12,7 +12,8 @@ const files = require('./dataBaseMock/statusDatabaseMock')
 const modality = require('./dataBaseMock/statusDatabaseMock')
 const propertyDetail = require('./dataBaseMock/statusDatabaseMock')
 const user = require('./dataBaseMock/statusDatabaseMock')
-
+const getByUserId = require('./dataBaseMock/statusDatabaseMock')
+const views = require('./dataBaseMock/statusDatabaseMock')
 module.exports = async function (config) {
   return {
     status,
@@ -27,6 +28,8 @@ module.exports = async function (config) {
     files,
     modality,
     propertyDetail,
-    user
+    user,
+    getByUserId,
+    views
   }
 }

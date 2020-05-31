@@ -44,6 +44,10 @@ const userProperties = sinon.stub().resolves([])
 const propertiesHomeQuery = sinon.stub().resolves([property])
 const propertyUser = sinon.stub().resolves([])
 const findPropertiesByUserId = sinon.stub().resolves([])
+const getByUserId = sinon.stub().resolves({})
+const getAmountByUserId = sinon.stub().resolves(0)
+const getAmountByPropertyId = sinon.stub().resolves(0)
+const getDataPerDateByPropertyId = sinon.stub().resolves({})
 
 module.exports = {
   create,
@@ -60,5 +64,9 @@ module.exports = {
   userProperties,
   propertiesHomeQuery,
   propertyUser,
-  findPropertiesByUserId
+  findPropertiesByUserId,
+  getByUserId,
+  getAmountByUserId,
+  getAmountByPropertyId,
+  getDataPerDateByPropertyId
 }
