@@ -11,7 +11,7 @@
     "lint": "standard",
     "lint:fix": "standard --fix",
     "setup:db": "DEBUG=livehome:* node ./store/setup.js",
-    "cover": "nyc npm run test && test:db",
+    "cover": "nyc npm run test",
     "cover:db": "nyc npm run test:db",
     "report": "nyc report --reporter=html"
   },
