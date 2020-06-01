@@ -1,0 +1,38 @@
+{
+  "name": "livehomefrontend",
+  "version": "1.0.0",
+  "description": "frontend from liveHome app",
+  "main": "index.js",
+  "scripts": {
+    "dev": "next",
+    "build": "next build",
+    "start": "next start -p $PORT",
+    "lint": "semistandard",
+    "heroku-postbuild": "npm run build",
+    "lint:fix": "semistandard --fix"
+  },
+  "author": "faroDev",
+  "license": "MIT",
+  "dependencies": {
+    "base-64": "^0.1.0",
+    "feather-icons-react": "^0.4.1",
+    "form-data": "^3.0.0",
+    "google-map-react": "^1.1.7",
+    "jsonwebtoken": "^8.5.1",
+    "jwt-decode": "^2.2.0",
+    "next": "9.3.6",
+    "next-images": "^1.4.0",
+    "node-fetch": "^2.6.0",
+    "react": "16.13.1",
+    "react-dom": "16.13.1",
+    "recharts": "^1.8.5",
+    "sass": "1.26.5",
+    "slugify": "^1.4.0"
+  },
+  "devDependencies": {
+    "semistandard": "^14.2.0"
+  },
+  "engines": {
+    "node": "12.16.x"
+  }
+}

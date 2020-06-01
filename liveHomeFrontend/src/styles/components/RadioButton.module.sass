@@ -1,0 +1,39 @@
+@import '../vars.sass'
+
+.radio_title
+  text-transform: capitalize
+  font-size: 10px
+  font-weight: bold
+  color: #828191
+
+.radio_container
+  display: flex
+
+.radio_item
+  display: inline-block
+  min-width: 170px
+
+  label
+    margin-left: $spacing
+    cursor: pointer
+    text-transform: capitalize
+
+  input
+    cursor: pointer
+    &:after
+      position: relative
+      display: inline-block
+      visibility: visible
+      width: 15px
+      height: 15px
+      border-radius: 15px
+      top: -2px
+      left: -1px
+      content: ''
+      border: 1px solid $primary-dark
+      background-color: $primary-extra-light
+
+    &:checked:after
+      background-color: $primary-light
+      border: 1px solid $primary-dark
+      transition-duration: .5s
