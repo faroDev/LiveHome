@@ -97,7 +97,7 @@ const home = ({ dataPropertyType }) => {
     setLoading(true);
     const params = JSON.parse(paramsSession);
     try {
-      const response = await API.getPropertyHome(params.propertyTypeId, params.modalityTypeId, params.zoneId, user.userId);
+      const response = await API.getPropertyAdmin(params.propertyTypeId, params.statusId, params.zoneId, undefined, undefined, user.userId);
       setLoading(false);
       if (response.data.length > 0) {
         setPost(response.data);
