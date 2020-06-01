@@ -214,12 +214,13 @@ class API {
     return data;
   }
 
-  async getPropertyHome (propertyType, modalityType, zoneId, user) {
+  async getPropertyHome (propertyType, modalityType, zoneId, user, aproved) {
+    const aprovedId = aproved ? 'statusId=2&' : '';
     const propertyTypeId = propertyType !== undefined && propertyType > 0 ? `propertyTypeId=${propertyType}&` : '';
     const modalityTypeId = modalityType !== undefined && modalityType > 0 ? `modalityTypeId=${modalityType}&` : '';
     const userId = user !== undefined && user !== 0 ? `inSession=${user}&` : '';
 
-    const result = await fetch(`${API_URL}/properties/home?zoneId=${zoneId}&${propertyTypeId}${modalityTypeId}${userId}`);
+    const result = await fetch(`${API_URL}/properties/home?zoneId=${zoneId}&${propertyTypeId}${modalityTypeId}${userId}${aprovedId}`);
 
     if (!result.ok) {
       const dataError = await result.json();
@@ -266,7 +267,7 @@ class API {
     const elevator = paramsFilter.elevator !== undefined && paramsFilter.elevator ? `elevator=${paramsFilter.elevator}&` : '';
     const security = paramsFilter.security !== undefined && paramsFilter.security ? `security=${paramsFilter.security}&` : '';
 
-    const result = await fetch(`${API_URL}/properties/home?zoneId=${zoneId}&${propertyTypeId}${modalityTypeId}${userId}${bedrooms}${bathrooms}${totalPrinceMin}${totalPrinceMax}${area}${mPriceMin}${mPriceMax}${furnished}${parking}${pool}${heating}${warehouse}${elevator}${security}`);
+    const result = await fetch(`${API_URL}/properties/home?statusId=2&zoneId=${zoneId}&${propertyTypeId}${modalityTypeId}${userId}${bedrooms}${bathrooms}${totalPrinceMin}${totalPrinceMax}${area}${mPriceMin}${mPriceMax}${furnished}${parking}${pool}${heating}${warehouse}${elevator}${security}`);
 
     if (!result.ok) {
       const dataError = await result.json();

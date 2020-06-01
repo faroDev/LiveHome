@@ -43,7 +43,7 @@ const Home = ({ dataPropertyType, dataModalityType, dataZones }) => {
     setLoading(true);
 
     try {
-      const response = await API.getPropertyHome(propertyTypeId.value, modalityTypeId.value, zoneId.value, user.userId);
+      const response = await API.getPropertyHome(propertyTypeId.value, modalityTypeId.value, zoneId.value, user.userId, true);
       setLoading(false);
       setPost(response.data);
 
