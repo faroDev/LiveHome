@@ -1,5 +1,6 @@
 import React, { useContext, useState, useEffect } from 'react';
 import Router from 'next/router';
+import decode from 'jwt-decode';
 
 import setInputValue from '../../src/hooks/useInputValue';
 import useRadioButtonValue from '../../src/hooks/useRadioButtonValue';
@@ -24,7 +25,7 @@ import styles from '../../src/styles/pages/post/new_post_step_one.module.sass';
 const newPostStepOne = (props) => {
   const { zones, propertyTypes, modalityTypes } = props;
 
-  const { offer, setOffer } = useContext(UserContext);
+  const { offer, setOffer, token } = useContext(UserContext);
   const [loading, setLoading] = useState(false);
 
   const title = setInputValue(offer.title || '');
@@ -55,6 +56,8 @@ const newPostStepOne = (props) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    const user = decode(token);
+
     setOffer({
       title: title.value,
       rooms: rooms.value,
@@ -65,7 +68,8 @@ const newPostStepOne = (props) => {
       price: price.value,
       propertyType: propertyType.value,
       zone: zone.value,
-      modalityType: modalityType.value
+      modalityType: modalityType.value,
+      userId: user.userId
     });
     Router.push('/post/new_post_step_two');
   };
