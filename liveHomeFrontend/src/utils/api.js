@@ -335,7 +335,7 @@ class API {
     formData.append('rooms', data.rooms);
     formData.append('propertyTypeId', data.propertyType);
     formData.append('statusId', 1);
-    formData.append('userId', 1);
+    formData.append('userId', data.userId);
     formData.append('zoneId', data.zone);
 
     try {
@@ -463,6 +463,29 @@ class API {
               Authorization: `Bearer ${token}`
             },
           body: JSON.stringify({ ...newData })
+        });
+      const data = await result.json();
+
+      if (!data.error) {
+        return { ...data };
+      } else {
+        return { error: new Error(data.error) };
+      }
+    } catch (error) {
+      return { error: new Error('Impossible connect') };
+    }
+  }
+
+  async getPropertiesByUser (token, userId) {
+    try {
+      const result = await fetch(
+        `${API_URL}/users/${userId}/properties`,
+        {
+          method: 'GET',
+          headers:
+            {
+              Authorization: `Bearer ${token}`
+            }
         });
       const data = await result.json();
 

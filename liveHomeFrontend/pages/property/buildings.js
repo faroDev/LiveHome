@@ -58,7 +58,7 @@ const Buildings = () => {
 
     if (!paramsSession) {
       setLoading(false);
-      router.push('/home');
+      router.push('/');
     }
 
     if (post.length === 0) {
@@ -191,7 +191,7 @@ const Buildings = () => {
     
     if ( !paramsSession ){
       setLoading(false);
-      router.push('/home');
+      router.push('/');
     }
 
     const paramsFilter = {

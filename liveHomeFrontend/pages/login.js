@@ -4,6 +4,7 @@ import Router from 'next/router';
 import API from '../src/utils/api';
 import UserContext from '../src/components/UserContext';
 import decode from 'jwt-decode';
+import verifySession from '../src/utils/verifySession';
 
 import useInputValue from '../src/hooks/useInputValue';
 
@@ -21,11 +22,15 @@ import LogoImage from '../src/assets/statics/images/LiveHome-logo.png';
 import styles from '../src/styles/pages/login.module.sass';
 
 const Login = () => {
-  const { setUserData, setIsLoggedIn, setToken } = useContext(UserContext);
+  const { user, setUserData, setIsLoggedIn, setToken } = useContext(UserContext);
 
   useEffect(() => {
-    if (window.sessionStorage.getItem('isLoggedIn')) {
-      Router.push('/home');
+    if (verifySession()) {
+      if(user.userType==='Admin'){
+        Router.push('/admin/filter');
+      } else {
+        Router.push('/');
+      }
     }
   }, []);
 
@@ -50,12 +55,17 @@ const Login = () => {
         return false;
       }
       setToken(response.token);
-      setUserData(decode(response.token));
+      const userData = decode(response.token);
+      setUserData(userData);
       setIsLoggedIn(true);
       window.sessionStorage.setItem('jwt-token', response.token);
       setAlert(false);
       setLoading(false);
-      Router.push('/home');
+      if(userData.userType==='Admin'){
+        Router.push('/admin/filter');
+      } else {
+        Router.push('/');
+      }
     } catch (error) {
       console.error('[error]', error);
       setLoading(false);
