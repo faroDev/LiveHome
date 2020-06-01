@@ -51,7 +51,7 @@ const HamburguerMenu = () => {
                 </Link>
               </li>
               <li className={styles.link}>
-                <Link href='/'>
+                <Link href='/post/dashboard_user'>
                   <a>My publications</a>
                 </Link>
               </li>
