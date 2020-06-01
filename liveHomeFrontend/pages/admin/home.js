@@ -103,7 +103,7 @@ const home = ({ dataPropertyType }) => {
     setLoading(true);
     try {
       const response = await API.getPropertyDetail(propertyId);
-      setDataDetail(response.data);
+      setDataDetail({ ...response.data, ...getPrice(response.data) });
       setLoading(false);
     } catch (error) {
       setLoading(false);
@@ -179,6 +179,24 @@ const home = ({ dataPropertyType }) => {
     warehouse.setChecked(false);
     propertyTypeId.setValue(dataDetail.propertyTypeId);
     setIsUpdate(true);
+  };
+
+  const getPrice = (item) => {
+    let price, type;
+
+    if (item.modalities.length === 0 || item.modalities[0].modality_type === null) {
+      price = 0;
+      type = 'NT';
+      return { price, type };
+    }
+    if (item.modalities[0].modality_type.name === 'Rent') {
+      price = item.modalities[0].pricePerMoth;
+    } else {
+      price = item.modalities[0].totalPrice;
+    }
+    type = item.modalities[0].modality_type.name;
+
+    return { price, type };
   };
 
   const handleUpdateProperty = async (propertyId, event) => {
@@ -279,9 +297,12 @@ const home = ({ dataPropertyType }) => {
             <div className={styles.__details__container}>
               <Button buttonClass='grayLinearButton' buttonType='button' value='Back' handleClick={handleBack} />
               {
-                !isUpdate
+                !isUpdate && Object.keys(dataDetail).length > 0
                   ? (
-                    <BuildingDetail building={{ ...dataDetail, images: dataDetail.files }}>
+                    <BuildingDetail building={{ user: { phone: '', auth: { email: '' } }, ...dataDetail, images: dataDetail.files }}>
+                      {
+                        console.log('data', dataDetail)
+                      }
                       {
                         dataDetail.statusId === 1 &&
                           <>
@@ -292,7 +313,8 @@ const home = ({ dataPropertyType }) => {
                             <Button buttonClass='greenLinearButton' buttonType='button' value='Edit Property' handleClick={() => handleUpdate()} />
                           </>
                       }
-                    </BuildingDetail>)
+                    </BuildingDetail>
+                  )
                   : (
                     <div className={styles.__container}>
                       <div className={styles.__carousel__container}>

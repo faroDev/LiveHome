@@ -2,7 +2,7 @@ import React from 'react';
 
 import Icon from './Icon';
 
-import styles from '../../src/styles/components/Favbutton.module.sass';
+import styles from '../../src/styles/components/FavButton.module.sass';
 
 const FavButton = ({ liked, onClick }) => {
   return (
