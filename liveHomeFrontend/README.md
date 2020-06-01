@@ -1,22 +1,64 @@
-# LiveHome FrontEnd
-Web platform that offers real state to the users.
+# Live Home 🏘
 
-## Available Scripts
+![image](https://drive.google.com/uc?export=view&id=1557x9NcPb7q8ilAZIQD-slES2pDRsuY4)
+Live home is an app where you can publish, sell , rent and find a new place for living. Livehome is the link between owners and buyers.
 
-In the project directory, you can run:
+Visit [Live Home](https://farodev-live-home.herokuapp.com/)
+## Documentation
+>
+> ## [Backend  Documentation ](https://github.com/faroDev/LiveHome/tree/develop/backend/liveHomeBackend)
 
-### `npm run dev`
+## Architecture
 
-Runs next which starts Next.js in development mode
+This is the backend architecture of the Livehome API.
+![image](https://drive.google.com/uc?export=view&id=1j5thxeV6jqccqsD38eZ03-0JZyj-07Ey)
 
-### `npm run build`
+## Prerequisites 📦
 
-Runs next build which builds the application for production usage
+Before star the project
 
-### `npm run start`
+```
+***npm install***
+```
 
-Runs next start which starts a Next.js production server
+## Start the Project
 
-## Learn More
+```
+npm run start
+```
 
-You can learn more in the [nextjs.org](https://nextjs.org/).
+Also we can use
+
+```
+npm run test
+npm run dev
+npm run start
+npm run lint
+```
+
+## Tecnologies 🛠️
+
+>[React JS](https://es.reactjs.org/)
+>[Next JS](https://nextjs.org/)
+>[Google Map React](https://github.com/google-map-react/google-map-react)
+>[Google Map API](https://cloud.google.com/maps-platform/maps?hl=es)
+>[SaSS](https://sass-lang.com/)
+>[jsonwebtoken](https://github.com/auth0/node-jsonwebtoken)
+>[Heroku](https://www.heroku.com/)
+>[Semiestandar](https://github.com/standard/semistandard)
+
+## Design System
+A complete guide to design is [here](https://github.com/faroDev/LiveHome/wiki/Design-system) 
+
+## Team  🧟‍♂️
+
+> _Leonardo Casallas_ - [lcasallas](https://github.com/lcasallas)
+> _Helber Toro_ -  [helbertoro](https://github.com/helbertoro)
+> _Jose Diaz_ -  [jrdiazr](https://github.com/jrdiazr)
+> _Jose Luis Campos_ - [bautistaj](https://github.com/bautistaj)
+> _Santiago Jimenez_ - [sjimen13](https://github.com/sjimen13)
+
+## Thanks 🎁
+If you want to leave us any feedback We will be thankful.
+We want to thanks all the coaches and PLATZI Team. It couldn’t be made without your help
+Invite a beer 🍺 someone .
