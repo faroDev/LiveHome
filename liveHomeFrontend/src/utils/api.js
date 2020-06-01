@@ -483,6 +483,31 @@ class API {
       return { error: new Error('Impossible connect') };
     }
   }
+
+  async getCompleteUser (token, userId) {
+    try {
+      const result = await fetch(
+        `${API_URL}/users`,
+        {
+          method: 'GET',
+          headers:
+            {
+              Authorization: `Bearer ${token}`
+            }
+        });
+      const data = await result.json();
+
+      if (!data.error) {
+        const user = data.data.filter((item) => item.authId == userId)
+        return { ...user[0] };
+      } else {
+        return { error: new Error(data.error) };
+      }
+    } catch (error) {
+      return { error: new Error('Impossible connect') };
+    }
+  }
+
 }
 
 export default new API();
