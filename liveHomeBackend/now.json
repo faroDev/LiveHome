@@ -1,0 +1,16 @@
+{
+  "name": "LiveHome",
+  "version": 2,
+  "builds": [{ "src": "index.js", "use": "@now/node-server" }],
+  "routes": [{ "src": "/(.*)", "dest": "index.js" }],
+  "env": {
+    "DB_NAME": "@lh-db-name",
+    "AUTH_JWT_SECRET": "@lh-jwt-secret",
+    "DB_USER": "@lh-db-user",
+    "DB_PASS": "@lh-db-pass",
+    "DB_HOST": "@lh-db-host",
+    "DIALECT": "@lh-db-dialect",
+    "BUCKET_NAME": "@lh-bucket-name",
+    "BASE_URL": "@lh-bucket-base-url"
+  }
+}
