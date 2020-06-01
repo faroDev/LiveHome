@@ -14,9 +14,12 @@ const dashboardUser = () => {
   const user = decode(token);
   const [properties, setProperty] = useState([]);
 
-  useEffect(async () => {
-    const data = await API.getPropertiesByUser(token, user.userId);
-    setProperty(data.data);
+  useEffect(() => {
+    async function fetchData() {
+      const data = await API.getPropertiesByUser(token, user.userId);
+      return setProperty(data.data);
+    }
+    fetchData();
   }, []);
 
   return (

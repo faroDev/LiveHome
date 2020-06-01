@@ -23,7 +23,7 @@ import CustomError from '../../src/components/Error';
 import styles from '../../src/styles/pages/post/new_post_step_one.module.sass';
 
 const newPostStepOne = (props) => {
-  const { zones, propertyTypes, modalityTypes } = props;
+  const { zones, propertyTypes, modalityTypes, users } = props;
 
   const { offer, setOffer, token } = useContext(UserContext);
   const [loading, setLoading] = useState(false);
@@ -38,6 +38,21 @@ const newPostStepOne = (props) => {
   const propertyType = setInputValue(offer.propertyType || '');
   const zone = setInputValue(offer.zone || '');
   const modalityType = useRadioButtonValue(offer.modalityType || '');
+
+  useEffect(() => {
+    const user = decode(token);
+
+    async function fetchData() {
+      const users = await API.getCompleteUser(token, user.userId);
+
+      if(!users.documentNumber) {
+        window.alert('Please complete your profile');
+        Router.push('/account');
+      }
+
+    }
+    fetchData();
+  }, [])
 
   useEffect(() => {
     setLoading(true);
@@ -111,7 +126,7 @@ const newPostStepOne = (props) => {
                 <Input type='number' label='Bathrooms' name='bathrooms' required {...bathrooms} />
               </FormField>
               <FormField>
-                <Input type='number' label='Price' name='price' required {...price} />
+                <Input type='number' label='Price' name='price' minValue='0' required {...price} />
               </FormField>
               <FormField>
                 <RadioButton options={modalityTypes.data} title='Add type' name='modalityType' required {...modalityType} />

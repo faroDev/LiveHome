@@ -43,7 +43,7 @@ export default function MyApp ({ Component, pageProps }) {
         <Head>
           <title>LiveHome</title>
           <meta name='viewport' content='width=device-width, initial-scale=1' />
-          <script src='https://maps.google.com/maps/api/js?key=AIzaSyDwvwz-L38kItJd1lwwaP7sjtiTrtThwwg&libraries=places&language=es-419&components=country:co' />
+          <script async defer src='https://maps.google.com/maps/api/js?key=AIzaSyDwvwz-L38kItJd1lwwaP7sjtiTrtThwwg&libraries=places&language=es-419&components=country:co' />
           <link rel='shortcut icon' href='../static/favicon.ico' />
         </Head>
 
