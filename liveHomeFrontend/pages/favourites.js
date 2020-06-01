@@ -34,7 +34,6 @@ const Favourites = () => {
         })
         .catch(error => {
           setError(error);
-          console.log(error);
         });
     } else {
       window.alert('Your session finisshed');
