@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect } from 'react';
 import Layout from './../src/components/Layout';
-import CardPreviewPublication from './../src/components/CardPreviewPublication';
+import CardPreviewPublicationFavs from './../src/components/CardPreviewPublicationFavs';
 import styles from '../src/styles/pages/favourites.module.sass';
 import UserContext from './../src/components/UserContext';
 import api from '../src/utils/api';
@@ -79,7 +79,7 @@ const Favourites = () => {
             (post.length > 0
               ? (post.map(property => {
                 const images = property.files.reduce(fileReducer, []);
-                return <CardPreviewPublication key={property.id} {...property} area={property.m2} liked images={images} handleLike={favourteClick} handleClickDetail={handleClickDetail} price={property.modalities.length > 0 ? property.modalities[0].totalPrice : '0'} />;
+                return <CardPreviewPublicationFavs key={property.id} {...property} area={property.m2} liked images={images} handleLike={favourteClick} handleClickDetail={handleClickDetail} price={property.modalities.length > 0 ? property.modalities[0].totalPrice : '0'} />;
               }))
               : (<div><br /><h1>You have not favourites</h1></div>))
         }

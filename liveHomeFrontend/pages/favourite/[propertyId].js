@@ -25,7 +25,7 @@ const favouriteDetail = () => {
       getData()
         .then(async ({ data, error }) => {
           if (!error) {
-            setDataDetail(data);
+            setDataDetail({ ...data, ...getPrice(data) });
             setImages(data.files.reduce(fileReducer, []));
           } else {
             setError(error);
@@ -54,6 +54,24 @@ const favouriteDetail = () => {
     return images.concat(obj.url);
   };
 
+  const getPrice = (item) => {
+    let price, type;
+
+    if (item.modalities.length === 0 || item.modalities[0].modality_type === null) {
+      price = 0;
+      type = 'NT';
+      return { price, type };
+    }
+    if (item.modalities[0].modality_type.name === 'Rent') {
+      price = item.modalities[0].pricePerMoth;
+    } else {
+      price = item.modalities[0].totalPrice;
+    }
+    type = item.modalities[0].modality_type.name;
+
+    return { price, type };
+  };
+
   return (
     <Layout>
       {
@@ -63,8 +81,12 @@ const favouriteDetail = () => {
         error && <Error error={error} />
       }
       {
-        !loading && !error && (
+        !loading && !error && Object.keys(dataDetail).length > 0 && (
           <div className={styles.__container}>
+            {
+              console.log(dataDetail)
+
+            }
             <Button buttonClass='grayLinearButton' buttonType='button' value='Back' handleClick={handleBack} />
             <BuildingDetail building={{ ...dataDetail, images: images }} />
           </div>
