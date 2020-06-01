@@ -50,12 +50,7 @@ const newPostStepThree = () => {
     const modality = await API.postModality(token, property.data, newPost.price, newPost.modalityType);
     console.log(modality);
     const details = await API.postPropertyDetails(token, newPost, property.data.id);
-    if (details.data.id) {
-      Router.push('/post/dashboard_user');
-    } else {
-      setError(details);
-      setLoading(false);
-    }
+    Router.push('/post/dashboard_user');
   };
 
   const handleChange = (e) => {
