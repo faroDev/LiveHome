@@ -21,21 +21,23 @@ import ElevatorIcon from '../assets/statics/images/elevator.png';
 import styles from '../styles/components/BuildingDetail.module.sass';
 
 const BuildingDetail = ({ building, children, handleLike }) => {
-
   const validateService = (service) => {
     if (service) {
       return 'Yes';
     }
     return 'No';
-  }
+  };
 
   const getLocation = (item) => {
-    if (item.property_detail===null){
+    if (item.property_detail === null) {
       return [];
     }
-    const data = {lat: parseFloat(item.property_detail.latitude),lng: parseFloat(item.property_detail.longitude),text:item.price}
+    const data = { lat: parseFloat(item.property_detail.latitude), lng: parseFloat(item.property_detail.longitude), text: item.price };
     return [data];
-  } 
+  };
+
+  console.log('build', building);
+
 
   return (
     <div className={styles.buildingDetail__container}>
@@ -99,7 +101,7 @@ const BuildingDetail = ({ building, children, handleLike }) => {
         </InformationIcon>
       </div>
       <div className={styles.buildingDetail__map_container}>
-        <MapView zoom={16} dataMarker={[...getLocation(building)]} detail={true}/>
+        <MapView zoom={16} dataMarker={[...getLocation(building)]} detail />
       </div>
       <div>
         <Chip nameLabel='Nearby places' labelClass='purple_label' />

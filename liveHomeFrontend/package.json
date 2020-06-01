@@ -6,8 +6,9 @@
   "scripts": {
     "dev": "next",
     "build": "next build",
-    "start": "next start",
+    "start": "next start -p $PORT",
     "lint": "semistandard",
+    "heroku-postbuild": "npm run build",
     "lint:fix": "semistandard --fix"
   },
   "author": "faroDev",
@@ -30,5 +31,8 @@
   },
   "devDependencies": {
     "semistandard": "^14.2.0"
+  },
+  "engines": {
+    "node": "12.16.x"
   }
 }
