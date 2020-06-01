@@ -40,3 +40,15 @@ We make it with Postgres
     }
   })
 ```
+
+Tecnologies 🛠️
+
+In this project we use
+
+> [Sequelize](https://sequelize.org/v5/variable/index.html#static-variable-DataTypes)
+>
+> [Postgres](https://www.postgresql.org/docs/)
+
+## Thanks 🎁
+
+If you want to leave us any feedback We will be thankful.
