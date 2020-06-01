@@ -8,7 +8,6 @@ import Layout from '../src/components/Layout';
 import Form from '../src/components/Form';
 import FormField from '../src/components/FormField';
 import Selector from '../src/components/Select';
-import Input from '../src/components/Input';
 import Button from '../src/components/Button';
 import Loading from '../src/components/Loading';
 import Error from '../src/components/Error';
