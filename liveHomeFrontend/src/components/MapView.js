@@ -1,17 +1,15 @@
-import React, { Component } from 'react';
+import React from 'react';
 import GoogleMapReact from 'google-map-react';
 
 import MarkerMap from '../components/MarkerMap';
 
-
-const MapView = ({ zoom, dataMarker, detail=false}) => {
-
+const MapView = ({ zoom, dataMarker, detail = false }) => {
   const initialValues = {
-        center: {
-          lat: dataMarker.length >0 ? dataMarker[0].lat : 4.6097100,
-          lng:  dataMarker.length >0 ? dataMarker[0].lng : -74.0817500
-        }
-      };
+    center: {
+      lat: dataMarker.length > 0 ? dataMarker[0].lat : 4.6097100,
+      lng: dataMarker.length > 0 ? dataMarker[0].lng : -74.0817500
+    }
+  };
 
   return (
     <div style={{ height: '100%', width: '100%' }}>
@@ -22,7 +20,7 @@ const MapView = ({ zoom, dataMarker, detail=false}) => {
       >
         {
           dataMarker.length > 0 &&
-          dataMarker.map( (item, idx) => {
+          dataMarker.map((item, idx) => {
             return (
               <MarkerMap
                 key={idx}
@@ -32,12 +30,12 @@ const MapView = ({ zoom, dataMarker, detail=false}) => {
                 propertyId={item.propertyId}
                 detail={detail}
               />
-            )
+            );
           })
         }
       </GoogleMapReact>
     </div>
   );
-}
+};
 
 export default MapView;

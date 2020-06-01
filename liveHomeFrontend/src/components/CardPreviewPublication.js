@@ -20,7 +20,7 @@ const CardPreviewPublication = ({ images, id, title, price, type, description, r
         <div className={styles.buildings__card_detail}>
           <div className={styles.buildings__card_detail_title}>
             <div>
-              <Link href={`/property/buildings?id=${id}`} shallow={true} >
+              <Link href={`/property/buildings?id=${id}`} shallow>
                 <a>{title}</a>
               </Link>
             </div>
@@ -36,7 +36,7 @@ const CardPreviewPublication = ({ images, id, title, price, type, description, r
             <p>{description}</p>
           </div>
           <div className={styles.buildings__card_detail_chip}>
-            <Link href={`/property/buildings?id=${id}`} shallow={true}>
+            <Link href={`/property/buildings?id=${id}`} shallow>
               <a>
                 <Chip nameLabel='Detail' labelClass='rose_label' />
               </a>

@@ -41,20 +41,19 @@ const Buildings = () => {
   const elevatorFilter = useCheckValue(false);
   const securityFilter = useCheckValue(false);
 
-  
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState();
   const mapView = useCheckValue(true);
   const [dataMarkers, setDataMarkers] = useState([]);
-  
+
   const { user, post, setPost } = useContext(UserContext);
-  
+
   const [dataDetail, setDataDetail] = useState([]);
   const router = useRouter();
 
   useEffect(() => {
     setLoading(true);
-    const paramsSession = sessionStorage.getItem('paramsQuery');
+    const paramsSession = window.sessionStorage.getItem('paramsQuery');
 
     if (!paramsSession) {
       setLoading(false);
@@ -75,7 +74,7 @@ const Buildings = () => {
     try {
       const response = await API.getPropertyHome(params.propertyTypeId, params.modalityTypeId, params.zoneId, user.userId);
       setLoading(false);
-      if(response.data.length > 0){
+      if (response.data.length > 0) {
         const data = response.data;
         await getDataMap(data);
         setPost(data);
@@ -90,21 +89,20 @@ const Buildings = () => {
   };
 
   const getDataMap = (data) => {
-
-    const dataFilterMap = data.filter( item => item.property_detail !== null);
-    const dataPriceMap = dataFilterMap.map( item => ({...item,...getPrice(item)}));
-    const dataMap =  dataPriceMap.map( item => {
-      return { 
+    const dataFilterMap = data.filter(item => item.property_detail !== null);
+    const dataPriceMap = dataFilterMap.map(item => ({ ...item, ...getPrice(item) }));
+    const dataMap = dataPriceMap.map(item => {
+      return {
         lat: parseFloat(item.property_detail.latitude),
         lng: parseFloat(item.property_detail.longitude),
-        text: item.price, 
+        text: item.price,
         propertyId: item.id
-      }
-    })
+      };
+    });
     setDataMarkers(dataMap);
-  }
+  };
 
-  useEffect( ()=>{
+  useEffect(() => {
     setLoading(true);
     if (!validateParams()) {
       fetchDataPropertyDetail(router.query.id);
@@ -118,7 +116,7 @@ const Buildings = () => {
     try {
       const response = await API.getPropertyDetail(propertyId, user.userId);
       const data = response.data;
-      const item = {...data, ...getPrice(data)};
+      const item = { ...data, ...getPrice(data) };
       setDataDetail(item);
       setLoading(false);
     } catch (error) {
@@ -141,10 +139,10 @@ const Buildings = () => {
 
   const handleLike = async (propertyId, liked) => {
     if (!verfySession()) {
-      alert('You must login');
+      window.alert('You must login');
       router.push('/login');
     }
-    const token = sessionStorage.getItem('jwt-token');
+    const token = window.sessionStorage.getItem('jwt-token');
     try {
       if (liked) {
         await API.setDislikeProperty(propertyId, user.userId, token);
@@ -152,7 +150,7 @@ const Buildings = () => {
         await API.setLikeProperty(propertyId, user.userId, token);
       }
       const newPost = [...post];
-      newPost.find( item => item.id === propertyId).favorites = !newPost.find( item => item.id === propertyId).favorites;
+      newPost.find(item => item.id === propertyId).favorites = !newPost.find(item => item.id === propertyId).favorites;
       setPost(newPost);
     } catch (error) {
       console.error('[error]', error);
@@ -161,22 +159,22 @@ const Buildings = () => {
   };
 
   const handleLikeDetail = async (propertyId, liked) => {
-    if(!verfySession()){
-      alert('You must login');
+    if (!verfySession()) {
+      window.alert('You must login');
       router.push('/login');
     }
-    const token = sessionStorage.getItem('jwt-token');
+    const token = window.sessionStorage.getItem('jwt-token');
     try {
-      if (liked){
+      if (liked) {
         await API.setDislikeProperty(propertyId, user.userId, token);
       } else {
         await API.setLikeProperty(propertyId, user.userId, token);
       }
-      const newDetail = {...dataDetail};
+      const newDetail = { ...dataDetail };
       newDetail.favorites = !newDetail.favorites;
       setDataDetail(newDetail);
       const newPost = [...post];
-      newPost.find( item => item.id === propertyId).favorites = !newPost.find( item => item.id === propertyId).favorites;
+      newPost.find(item => item.id === propertyId).favorites = !newPost.find(item => item.id === propertyId).favorites;
       setPost(newPost);
     } catch (error) {
       console.error('[error]', error);
@@ -187,29 +185,29 @@ const Buildings = () => {
   const handleFilter = async (event) => {
     event.preventDefault();
     setLoading(true);
-    const paramsSession = sessionStorage.getItem('paramsQuery');
-    
-    if ( !paramsSession ){
+    const paramsSession = window.sessionStorage.getItem('paramsQuery');
+
+    if (!paramsSession) {
       setLoading(false);
       router.push('/');
     }
 
     const paramsFilter = {
-      bedrooms : bedroomsFilter.value,
-      bathrooms : bathroomsFilter.value,
-      totalPrinceMin : totalPrinceMinFilter.value,
-      totalPrinceMax : totalPrinceMaxFilter.value,
-      area : areaFilter.value,
-      mPriceMin : mPriceMinFilter.value,
-      mPriceMax : mPriceMaxFilter.value,
-      furnished : furnishedFilter.checked,
-      parking : parkingFilter.checked,
-      pool : poolFilter.checked,
-      heating : heatingFilter.checked,
-      warehouse : warehouseFilter.checked,
-      elevator : elevatorFilter.checked,
-      security : securityFilter.checked
-    }
+      bedrooms: bedroomsFilter.value,
+      bathrooms: bathroomsFilter.value,
+      totalPrinceMin: totalPrinceMinFilter.value,
+      totalPrinceMax: totalPrinceMaxFilter.value,
+      area: areaFilter.value,
+      mPriceMin: mPriceMinFilter.value,
+      mPriceMax: mPriceMaxFilter.value,
+      furnished: furnishedFilter.checked,
+      parking: parkingFilter.checked,
+      pool: poolFilter.checked,
+      heating: heatingFilter.checked,
+      warehouse: warehouseFilter.checked,
+      elevator: elevatorFilter.checked,
+      security: securityFilter.checked
+    };
     console.log('Params Filter', paramsFilter);
 
     fetchDataPropertiesFilter(paramsSession, paramsFilter);
@@ -219,15 +217,14 @@ const Buildings = () => {
     const params = JSON.parse(paramsSession);
     try {
       const response = await API.getPropertyHomeFilter(params.propertyTypeId, params.modalityTypeId, params.zoneId, user.userId, paramsFilter);
-      
-      if(response.data.length > 0){
+
+      if (response.data.length > 0) {
         setPost(response.data);
       } else {
-        setError({message:'No existen datos'});
+        setError({ message: 'No existen datos' });
       }
-      
-      setLoading(false);
 
+      setLoading(false);
     } catch (error) {
       console.error('[error]', error);
       setLoading(false);
@@ -254,12 +251,12 @@ const Buildings = () => {
               <Input type='number' label='parking' name='parking' {...parkingFilter} />
             </FormField>
             <FormField>
-            <FormField>
-              <div className={styles.buildings__modal_field_range}>
-                <Input type='number' label='total price (min - max)' name='price-min' {...totalPrinceMinFilter} />
-                <Input type='number' label='' name='prince-max' {...totalPrinceMaxFilter} />
-              </div>
-            </FormField>
+              <FormField>
+                <div className={styles.buildings__modal_field_range}>
+                  <Input type='number' label='total price (min - max)' name='price-min' {...totalPrinceMinFilter} />
+                  <Input type='number' label='' name='prince-max' {...totalPrinceMaxFilter} />
+                </div>
+              </FormField>
               <div className={styles.buildings__modal_field_range}>
                 <Input type='number' label='m2 price (min - max)' name='price-min' {...mPriceMinFilter} />
                 <Input type='number' label='' name='prince-max' {...mPriceMaxFilter} />
@@ -295,20 +292,20 @@ const Buildings = () => {
   const getPrice = (item) => {
     let price, type;
 
-    if (item.modalities.length===0 || item.modalities[0].modality_type === null){
+    if (item.modalities.length === 0 || item.modalities[0].modality_type === null) {
       price = 0;
-      type = 'NT'
-      return {price, type};
+      type = 'NT';
+      return { price, type };
     }
-    if (item.modalities[0].modality_type.name === 'Rent'){
+    if (item.modalities[0].modality_type.name === 'Rent') {
       price = item.modalities[0].pricePerMoth;
     } else {
       price = item.modalities[0].totalPrice;
     }
     type = item.modalities[0].modality_type.name;
 
-    return {price, type};
-  }
+    return { price, type };
+  };
 
   const buildings = () => {
     if (loading) {
@@ -323,45 +320,45 @@ const Buildings = () => {
       return (
         <>
           <div className={styles.buildings__filter_container}>
-              <div className={styles.buildings__filter_container_button}>
-                {modal()}
-              </div>
-              <div className={styles.buildings__filter_container_searchbar}>
-                <Checkbox name='map view' text='View Map' {...mapView} />
-              </div>
+            <div className={styles.buildings__filter_container_button}>
+              {modal()}
             </div>
+            <div className={styles.buildings__filter_container_searchbar}>
+              <Checkbox name='map view' text='View Map' {...mapView} />
+            </div>
+          </div>
           <div className={styles.buildings__label}>
-              <Chip nameLabel={`Where found ${post.length} properties`} labelClass='gray_label' />
-            </div>
-            {
-              mapView.checked &&
+            <Chip nameLabel={`Where found ${post.length} properties`} labelClass='gray_label' />
+          </div>
+          {
+            mapView.checked &&
               <div className={styles.buildings__map_container}>
                 <MapView zoom={12} dataMarker={dataMarkers} />
               </div>
-            }
-            {
-              post.map( postItem => {
-                return (
-                  <CardPreviewPublication
-                    key={postItem.id}
-                    images={postItem.files}
-                    title={postItem.title}
-                    {...getPrice(postItem)}
-                    description={postItem.description}
-                    rooms={postItem.rooms}
-                    bathrooms={postItem.bathrooms}
-                    area={postItem.m2}
-                    parking={postItem.parking}
-                    id={postItem.id}
-                    handleLike={handleLike}
-                    liked={postItem.favorites}
-                  />
-                );
-              })
-            }
-          </>
-        );
-      }
+          }
+          {
+            post.map(postItem => {
+              return (
+                <CardPreviewPublication
+                  key={postItem.id}
+                  images={postItem.files}
+                  title={postItem.title}
+                  {...getPrice(postItem)}
+                  description={postItem.description}
+                  rooms={postItem.rooms}
+                  bathrooms={postItem.bathrooms}
+                  area={postItem.m2}
+                  parking={postItem.parking}
+                  id={postItem.id}
+                  handleLike={handleLike}
+                  liked={postItem.favorites}
+                />
+              );
+            })
+          }
+        </>
+      );
+    }
   };
 
   const buildingDetail = () => {

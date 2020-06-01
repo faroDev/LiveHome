@@ -38,7 +38,7 @@ const HamburguerMenu = () => {
           {isLoggedIn ? (
             <>
               <li>
-                <Button value='Publish a property' buttonType='button' buttonClass='redLinearButton' handleClick={() => {Router.push('/post/new_post_step_one')}}/>
+                <Button value='Publish a property' buttonType='button' buttonClass='redLinearButton' handleClick={() => { Router.push('/post/new_post_step_one'); }} />
               </li>
               <li className={styles.link}>
                 <Link href='/account'>
@@ -62,7 +62,7 @@ const HamburguerMenu = () => {
           ) : (
             <>
               <li>
-                <Button value='Publish a property' buttonType='button' buttonClass='redLinearButton' handleClick={() => {Router.push('/post/new_post_step_one')}}/>
+                <Button value='Publish a property' buttonType='button' buttonClass='redLinearButton' handleClick={() => { Router.push('/post/new_post_step_one'); }} />
               </li>
               <li className={styles.link}>
                 <Link href='/register'>

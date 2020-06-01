@@ -102,14 +102,14 @@ class API {
 
   async getProperties () {
     try {
-      const result = await fetch(`${API_URL}/properties`)
+      const result = await fetch(`${API_URL}/properties`);
       const data = result.json();
       return data;
     } catch (error) {
       return new Error(`Impossible connect ${error.message}`);
     }
   }
-  
+
   async setLikeProperty (propertyId, userId, token) {
     const like = { propertyId, userId };
 
@@ -141,8 +141,6 @@ class API {
   }
 
   async setDislikeProperty (propertyId, userId, token) {
-    const like = { propertyId, userId };
-
     const result = await fetch(
       `${API_URL}/favorites/${propertyId}/${userId}`,
       {
@@ -216,8 +214,7 @@ class API {
     return data;
   }
 
-  async getPropertyHome (propertyType, modalityType, zoneId, user){
-    
+  async getPropertyHome (propertyType, modalityType, zoneId, user) {
     const propertyTypeId = propertyType !== undefined && propertyType > 0 ? `propertyTypeId=${propertyType}&` : '';
     const modalityTypeId = modalityType !== undefined && modalityType > 0 ? `modalityTypeId=${modalityType}&` : '';
     const userId = user !== undefined && user !== 0 ? `inSession=${user}&` : '';
@@ -250,8 +247,7 @@ class API {
     return data;
   }
 
-  async getPropertyHomeFilter (propertyType, modalityType, zoneId, user, paramsFilter){
-
+  async getPropertyHomeFilter (propertyType, modalityType, zoneId, user, paramsFilter) {
     const propertyTypeId = propertyType !== undefined && propertyType > 0 ? `propertyTypeId=${propertyType}&` : '';
     const modalityTypeId = modalityType !== undefined && modalityType > 0 ? `modalityTypeId=${modalityType}&` : '';
     const userId = user !== undefined && user !== 0 ? `inSession=${user}&` : '';
@@ -272,18 +268,6 @@ class API {
 
     const result = await fetch(`${API_URL}/properties/home?zoneId=${zoneId}&${propertyTypeId}${modalityTypeId}${userId}${bedrooms}${bathrooms}${totalPrinceMin}${totalPrinceMax}${area}${mPriceMin}${mPriceMax}${furnished}${parking}${pool}${heating}${warehouse}${elevator}${security}`);
 
-    if(!result.ok){
-      const dataError = await result.json();
-      console.error('[error]', dataError.message);
-      throw new Error(dataError.message);
-    }
-    const data = await result.json();
-    return data;
-  }
-
-  async getProperties (){
-    const result = await fetch(`${API_URL}/properties`);
-
     if (!result.ok) {
       const dataError = await result.json();
       console.error('[error]', dataError.message);
@@ -302,11 +286,11 @@ class API {
       console.error('[error]', dataError.message);
       throw new Error(dataError.message);
     }
-    const newView = { 
+    const newView = {
       propertyId,
       userId
-    }
-    await fetch(`${API_URL}/views/`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({...newView} )});
+    };
+    await fetch(`${API_URL}/views/`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ ...newView }) });
     const data = await result.json();
     return data;
   }
@@ -315,8 +299,8 @@ class API {
     const formData = new FormData();
 
     files.map((item, key) => {
-      return formData.append("photos", item.data);
-    })
+      return formData.append('photos', item.data);
+    });
 
     formData.append('m2', data.m2);
     formData.append('m2build', data.m2build);
@@ -340,13 +324,13 @@ class API {
 
     try {
       const result = await fetch(`${API_URL}/properties`,
-      {
-        method: 'POST',
-        headers: {
-          Authorization: `Bearer ${token}`
-        },
-        body: formData
-      })
+        {
+          method: 'POST',
+          headers: {
+            Authorization: `Bearer ${token}`
+          },
+          body: formData
+        });
       const data = await result.json();
       return data;
     } catch (error) {
@@ -355,21 +339,21 @@ class API {
   }
 
   async postModality (token, data, price, modalityId) {
-    let modality = {
+    const modality = {
       propertyId: data.id,
       modalityTypeId: modalityId
-    }
+    };
 
-    if (modalityId == 1) {
+    if (modalityId === 1) {
       modality.pricem2 = 0;
       modality.pricePerMoth = price;
       modality.totalPrice = 0;
     } else {
-      modality.pricem2 = parseInt(price/data.m2);
+      modality.pricem2 = parseInt(price / data.m2);
       modality.pricePerMoth = 0;
       modality.totalPrice = price;
     }
-    
+
     try {
       const result = await fetch(
         `${API_URL}/modalities`,
@@ -390,22 +374,22 @@ class API {
   }
 
   async postPropertyDetails (token, property, id) {
-    const api_token = process.env.GOOGLE_MAPS;
-    const data = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${property.address}&key=${api_token}`)
+    const apiToken = process.env.GOOGLE_MAPS;
+    const data = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${property.address}&key=${apiToken}`);
     const googleInfo = await data.json();
     console.log(googleInfo);
-    
-    if (googleInfo.status == 'OK') {
+
+    if (googleInfo.status === 'OK') {
       const details = {
         address: property.address,
-        city: "Bogotá",
-        urbanization: "Bogotá",
-	      neighborhood: "Bogotá",
+        city: 'Bogotá',
+        urbanization: 'Bogotá',
+        neighborhood: 'Bogotá',
         latitude: googleInfo.results[0].geometry.location.lat,
         longitude: googleInfo.results[0].geometry.location.lng,
         propertyId: id
-      }
-  
+      };
+
       try {
         const result = await fetch(
           `${API_URL}/propertyDetail`,
@@ -424,7 +408,7 @@ class API {
         return new Error(`Impossible connect ${error.message}`);
       }
     } else {
-      return new Error(`Impossible find the offer location`);
+      return new Error('Impossible find the offer location');
     }
   }
 

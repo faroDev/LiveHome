@@ -38,7 +38,6 @@ const BuildingDetail = ({ building, children, handleLike }) => {
 
   console.log('build', building);
 
-
   return (
     <div className={styles.buildingDetail__container}>
       <div className={styles.buildingDetail__carousel}>

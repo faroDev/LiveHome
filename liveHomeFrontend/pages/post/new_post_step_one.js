@@ -44,15 +44,15 @@ const newPostStepOne = (props) => {
     if (verifySesion()) {
       setLoading(false);
       const input = document.getElementById('google-input');
-      if(window.google){
+      if (window.google) {
         new window.google.maps.places.Autocomplete(input);
       } else {
-        <CustomError error={new Error('There is an error, please try again')} />
+        <CustomError error={new Error('There is an error, please try again')} />;
       }
     } else {
       Router.push('/login');
     }
-  }, [])
+  }, []);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -74,63 +74,63 @@ const newPostStepOne = (props) => {
     Router.push('/post/new_post_step_two');
   };
 
-  if(zones.error || propertyTypes.error || modalityTypes.error) {
+  if (zones.error || propertyTypes.error || modalityTypes.error) {
     return (
       <CustomError error={new Error('Excuse us')} />
-    )
+    );
   } else {
     return (
       <>
 
-      <Layout>
-        <div className={styles.container}>
-          <h1>New offer - step 1/3</h1>
-          <Form onSubmit={handleSubmit}>
-            <FormField>
-              <Input type='text' label='Add title' name='title' required {...title} />
-            </FormField>
-            <FormField>
-              <Select label='Property type' name='propertyType' options={propertyTypes.data} {...propertyType} />
-            </FormField>
-            <FormField>
-              <Input type='text' label='Address' name='address' id='google-input' required {...address} />
-            </FormField>
-            <FormField>
-              <Select label='Zone' name='zone' options={zones.data} {...zone} />
-            </FormField>
-            <FormField>
-              <Input type='number' label='Area m2' name='m2' required {...m2} />
-            </FormField>
-            <FormField>
-              <Input type='number' label='Built area m2' name='m2build' required {...m2build} />
-            </FormField>
-            <FormField>
-              <Input type='number' label='Rooms' name='rooms' required {...rooms} />
-            </FormField>
-            <FormField>
-              <Input type='number' label='Bathrooms' name='bathrooms' required {...bathrooms} />
-            </FormField>
-            <FormField>
-              <Input type='number' label='Price' name='price' required {...price} />
-            </FormField>
-            <FormField>
-              <RadioButton options={modalityTypes.data} title='Add type' name='modalityType' required {...modalityType} />
-            </FormField>
-            <div className={styles.buttons}>
-              <Button value='Cancel' buttonClass='redLinearButton' buttonType='button' handleClick={() => { Router.push('/'); }} />
-              <Button value='Continue' buttonClass='greenLinearButton' buttonType='submit' />
-            </div>
-          </Form>
-        </div>
+        <Layout>
+          <div className={styles.container}>
+            <h1>New offer - step 1/3</h1>
+            <Form onSubmit={handleSubmit}>
+              <FormField>
+                <Input type='text' label='Add title' name='title' required {...title} />
+              </FormField>
+              <FormField>
+                <Select label='Property type' name='propertyType' options={propertyTypes.data} {...propertyType} />
+              </FormField>
+              <FormField>
+                <Input type='text' label='Address' name='address' id='google-input' required {...address} />
+              </FormField>
+              <FormField>
+                <Select label='Zone' name='zone' options={zones.data} {...zone} />
+              </FormField>
+              <FormField>
+                <Input type='number' label='Area m2' name='m2' required {...m2} />
+              </FormField>
+              <FormField>
+                <Input type='number' label='Built area m2' name='m2build' required {...m2build} />
+              </FormField>
+              <FormField>
+                <Input type='number' label='Rooms' name='rooms' required {...rooms} />
+              </FormField>
+              <FormField>
+                <Input type='number' label='Bathrooms' name='bathrooms' required {...bathrooms} />
+              </FormField>
+              <FormField>
+                <Input type='number' label='Price' name='price' required {...price} />
+              </FormField>
+              <FormField>
+                <RadioButton options={modalityTypes.data} title='Add type' name='modalityType' required {...modalityType} />
+              </FormField>
+              <div className={styles.buttons}>
+                <Button value='Cancel' buttonClass='redLinearButton' buttonType='button' handleClick={() => { Router.push('/'); }} />
+                <Button value='Continue' buttonClass='greenLinearButton' buttonType='submit' />
+              </div>
+            </Form>
+          </div>
 
-        {
-        loading && 
-          <Lightbox>
-            <Loading />
-          </Lightbox>
-        }
+          {
+            loading &&
+              <Lightbox>
+                <Loading />
+              </Lightbox>
+          }
 
-      </Layout>
+        </Layout>
       </>
     );
   }
@@ -147,7 +147,7 @@ export async function getStaticProps () {
       propertyTypes,
       modalityTypes
     }
-  }
+  };
 }
 
 export default newPostStepOne;

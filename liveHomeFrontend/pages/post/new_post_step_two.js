@@ -36,7 +36,7 @@ const newPostStepTwo = () => {
     if (!verifySesion()) {
       Router.push('/login');
     }
-  }, [])
+  }, []);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -91,10 +91,10 @@ const newPostStepTwo = () => {
       </div>
 
       {
-      loading && 
-        <Lightbox>
-          <Loading />
-        </Lightbox>
+        loading &&
+          <Lightbox>
+            <Loading />
+          </Lightbox>
       }
 
     </Layout>

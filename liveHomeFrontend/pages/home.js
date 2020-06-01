@@ -15,23 +15,22 @@ import Error from '../src/components/Error';
 
 import styles from '../src/styles/pages/home.module.sass';
 
-const Home = ({dataPropertyType, dataModalityType, dataZones}) => {
-  
-  const { user,setPost } = useContext(UserContext);
-  
+const Home = ({ dataPropertyType, dataModalityType, dataZones }) => {
+  const { user, setPost } = useContext(UserContext);
+
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState();
-  
+
   const zoneId = useInputValue();
   const propertyTypeId = useInputValue();
   const modalityTypeId = useInputValue();
-  
-  useEffect ( () => {
+
+  useEffect(() => {
     const paramsSession = sessionStorage.getItem('paramsQuery');
 
-    if ( paramsSession ){
+    if (paramsSession) {
       const params = JSON.parse(paramsSession);
-      if ( Object.keys(params).length > 0 ){
+      if (Object.keys(params).length > 0) {
         zoneId.setValue(params.zoneId);
         propertyTypeId.setValue(params.propertyTypeId);
         modalityTypeId.setValue(params.modalityTypeId);
@@ -49,7 +48,7 @@ const Home = ({dataPropertyType, dataModalityType, dataZones}) => {
       setLoading(false);
       setPost(response.data);
 
-      const paramsQuery = {propertyTypeId: propertyTypeId.value, modalityTypeId: modalityTypeId.value, zoneId: zoneId.value};
+      const paramsQuery = { propertyTypeId: propertyTypeId.value, modalityTypeId: modalityTypeId.value, zoneId: zoneId.value };
       sessionStorage.setItem('paramsQuery', JSON.stringify(paramsQuery));
       Router.push('/property/buildings');
     } catch (error) {
@@ -60,8 +59,8 @@ const Home = ({dataPropertyType, dataModalityType, dataZones}) => {
   };
 
   const validateButton = () => {
-    if (zoneId.value === undefined || loading){
-      return true
+    if (zoneId.value === undefined || loading) {
+      return true;
     }
     return false;
   };
@@ -72,22 +71,21 @@ const Home = ({dataPropertyType, dataModalityType, dataZones}) => {
         {
           error && <Error error={error} />
         }
-        { !error && 
+        {!error &&
           <Form onSubmit={handleSubmit}>
             <FormField>
-              <Selector label='Property type' options={ dataPropertyType.data } {...propertyTypeId} />
+              <Selector label='Property type' options={dataPropertyType.data} {...propertyTypeId} />
             </FormField>
             <FormField>
-              <Selector label='Rent / Sell' options={ dataModalityType.data } {...modalityTypeId} />
+              <Selector label='Rent / Sell' options={dataModalityType.data} {...modalityTypeId} />
             </FormField>
             <FormField>
-              <Selector label='Zone / location' options={ dataZones.data } {...zoneId} />
+              <Selector label='Zone / location' options={dataZones.data} {...zoneId} />
             </FormField>
             <FormField>
               <Button value='Search' buttonType='submit' buttonClass='greenButton' disabled={validateButton()} />
             </FormField>
-          </Form>
-        }
+          </Form>}
       </div>
       {
         loading && <Loading />
@@ -97,18 +95,17 @@ const Home = ({dataPropertyType, dataModalityType, dataZones}) => {
 };
 
 export async function getStaticProps () {
-
   const dataPropertyType = await API.getPropertyType();
   const dataModalityType = await API.getModalityType();
   const dataZones = await API.getZones();
-  
+
   return {
     props: {
       dataPropertyType,
       dataModalityType,
       dataZones
     }
-  }
+  };
 }
 
 export default Home;
