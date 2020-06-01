@@ -34,7 +34,6 @@ const Favourites = () => {
         })
         .catch(error => {
           setError(error);
-          console.log(error);
         });
     } else {
       window.alert('Your session finisshed');
@@ -78,8 +77,7 @@ const Favourites = () => {
           loaded &&
             (post.length > 0
               ? (post.map(property => {
-                const images = property.files.reduce(fileReducer, []);
-                return <CardPreviewPublicationFavs key={property.id} {...property} area={property.m2} liked images={images} handleLike={favourteClick} handleClickDetail={handleClickDetail} price={property.modalities.length > 0 ? property.modalities[0].totalPrice : '0'} />;
+                return <CardPreviewPublicationFavs key={property.id} {...property} area={property.m2} liked images={property.files} handleLike={favourteClick} handleClickDetail={handleClickDetail} price={property.modalities.length > 0 ? property.modalities[0].totalPrice : '0'} />;
               }))
               : (<div><br /><h1>You have not favourites</h1></div>))
         }
