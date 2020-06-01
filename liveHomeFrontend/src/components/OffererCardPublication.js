@@ -5,7 +5,6 @@ import Card from './Card';
 import styles from '../styles/components/OffererCardPublication.module.sass';
 
 const OffererCardPublication = ({ id, title, date, images }) => {
-
   return (
     <div className={styles.demo}>
       <Card images={images}>

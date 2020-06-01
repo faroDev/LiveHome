@@ -4,11 +4,10 @@ import Link from 'next/link';
 import logo from '../assets/statics/images/LiveHome-logo.png';
 import styles from '../styles/components/MarkerMap.module.sass';
 
-const MarkerMap = ({text, propertyId, detail }) => {
-
+const MarkerMap = ({ text, propertyId, detail }) => {
   const MarkerBuilding = () => {
-    return(
-      <Link href={`/property/buildings?id=${propertyId}`} shallow={true}>
+    return (
+      <Link href={`/property/buildings?id=${propertyId}`} shallow>
         <a>
           <div className={styles.marker_map__container}>
             <div className={styles.marker_map__data}>
@@ -26,7 +25,7 @@ const MarkerMap = ({text, propertyId, detail }) => {
   };
 
   const MarkerDetail = () => {
-    return(
+    return (
       <div className={styles.marker_map__container}>
         <div className={styles.marker_map__data}>
           <div>
@@ -40,10 +39,10 @@ const MarkerMap = ({text, propertyId, detail }) => {
     );
   };
 
-  if (detail){
+  if (detail) {
     return MarkerDetail();
   }
-    
+
   return MarkerBuilding();
 };
 

@@ -36,7 +36,7 @@ const CardPreviewPublication = ({ images, id, title, price, type, description, r
             <p>{description}</p>
           </div>
           <div className={styles.buildings__card_detail_chip}>
-            <Link href={`/property/buildings?id=${id}`} shallow>
+            <Link href={`/favourite/${id}`}>
               <a>
                 <Chip nameLabel='Detail' labelClass='rose_label' />
               </a>

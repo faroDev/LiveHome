@@ -26,7 +26,7 @@ const Login = () => {
 
   useEffect(() => {
     if (verifySession()) {
-      if(user.userType==='Admin'){
+      if (user.userType === 'Admin') {
         Router.push('/admin/filter');
       } else {
         Router.push('/');
@@ -61,7 +61,7 @@ const Login = () => {
       window.sessionStorage.setItem('jwt-token', response.token);
       setAlert(false);
       setLoading(false);
-      if(userData.userType==='Admin'){
+      if (userData.userType === 'Admin') {
         Router.push('/admin/filter');
       } else {
         Router.push('/');

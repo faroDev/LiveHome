@@ -22,7 +22,7 @@ import styles from '../../src/styles/pages/post/new_post_step_three.module.sass'
 const newPostStepThree = () => {
   const { offer, setOffer, token } = useContext(UserContext);
 
-  const [file , setFile] = useState([]);
+  const [file, setFile] = useState([]);
   const [loading, setLoading] = useState(false);
 
   const description = setInputValue('');
@@ -32,8 +32,8 @@ const newPostStepThree = () => {
     if (!verifySesion()) {
       Router.push('/login');
     }
-  }, [])
-  
+  }, []);
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     setLoading(true);
@@ -49,15 +49,14 @@ const newPostStepThree = () => {
     console.log(property);
     const modality = await API.postModality(token, property.data, newPost.price, newPost.modalityType);
     console.log(modality);
-    const details = await API.postPropertyDetails(token, newPost, property.data.id)
+    const details = await API.postPropertyDetails(token, newPost, property.data.id);
     if (details.data.id) {
       Router.push('/post/dashboard_user');
     } else {
       setError(details);
       setLoading(false);
-      return;
     }
-  }
+  };
 
   const handleChange = (e) => {
     setFile([
@@ -66,21 +65,21 @@ const newPostStepThree = () => {
         data: e.target.files[0],
         name: e.target.files[0].name
       }
-    ])
-  }
+    ]);
+  };
 
   const handleDelete = (e, name) => {
     e.preventDefault();
     const deleteFile = file.filter((item) => item.name != name);
     setFile(deleteFile);
-  }
+  };
 
   if (error) {
     return (
       <Lightbox>
         <Error error={error} />
       </Lightbox>
-    )
+    );
   }
 
   return (
@@ -95,20 +94,20 @@ const newPostStepThree = () => {
           <FormField>
             <label htmlFor='file-upload' className={styles.file}>
               Upload Image
-            </label>  
-            <input className={styles.fileUpload} type='file' id='file-upload' onChange={ e => handleChange(e)}/>
+            </label>
+            <input className={styles.fileUpload} type='file' id='file-upload' onChange={e => handleChange(e)} />
           </FormField>
           <div className={styles.thumbnails}>
             <ul className={styles.list}>
               {file.map((item, key) => {
-                return(
+                return (
                   <li key={key}>
                     <span>{item.name}</span>
                     <a href='#' onClick={e => handleDelete(e, item.name)}>
                       <Icon name='x' />
                     </a>
                   </li>
-                )
+                );
               })}
             </ul>
           </div>
@@ -120,10 +119,10 @@ const newPostStepThree = () => {
       </div>
 
       {
-        loading && 
-        <Lightbox>
-          <Loading />
-        </Lightbox>
+        loading &&
+          <Lightbox>
+            <Loading />
+          </Lightbox>
       }
 
     </Layout>

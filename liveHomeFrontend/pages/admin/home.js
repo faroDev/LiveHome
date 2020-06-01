@@ -9,14 +9,11 @@ import useInputValue from '../../src/hooks/useInputValue';
 
 import Layout from '../../src/components/Layout';
 import Button from '../../src/components/Button';
-import Modal from '../../src/components/Modal';
-import SearchBar from '../../src/components/SearchBar';
 import Chip from '../../src/components/Chip';
 import Form from '../../src/components/Form';
 import FormField from '../../src/components/FormField';
 import Input from '../../src/components/Input';
 import Selector from '../../src/components/Select';
-import RadioButton from '../../src/components/RadioButton';
 import Loading from '../../src/components/Loading';
 import Error from '../../src/components/Error';
 
@@ -27,21 +24,6 @@ import Checkbox from './../../src/components/Checkbox';
 import useCheckValue from './../../src/hooks/useCheckValue';
 
 const home = ({ dataPropertyType }) => {
-  const typePropertyFilter = useInputValue('');
-  const bedroomsFilter = useInputValue('');
-  const bathroomsFilter = useInputValue('');
-  const totalPrinceMinFilter = useInputValue('');
-  const totalPrinceMaxFilter = useInputValue('');
-  const areaFilter = useInputValue('');
-  const mPriceMinFilter = useInputValue('');
-  const mPriceMaxFilter = useInputValue('');
-  const furnishedFilter = useInputValue('');
-  const parkingFilter = useInputValue('');
-  const poolFilter = useInputValue('');
-  const heatingFilter = useInputValue('');
-  const warehouseFilter = useInputValue('');
-  const elevatorFilter = useInputValue('');
-  const securityFilter = useInputValue('');
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState();
 
