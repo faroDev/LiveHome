@@ -72,7 +72,7 @@ const Buildings = () => {
     setLoading(true);
     const params = JSON.parse(paramsSession);
     try {
-      const response = await API.getPropertyHome(params.propertyTypeId, params.modalityTypeId, params.zoneId, user.userId);
+      const response = await API.getPropertyHome(params.propertyTypeId, params.modalityTypeId, params.zoneId, user.userId, true);
       setLoading(false);
       if (response.data.length > 0) {
         const data = response.data;
