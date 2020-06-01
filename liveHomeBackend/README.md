@@ -48,7 +48,7 @@ npm tun lint:fix
 ## Data Base Documetation
 
 > Click to see the documentation
-> [Store Documentation ](https://documenter.getpostman.com/view/11349713/SzmfXccD?version=latest#dac67580-b347-4adb-9708-114a69a40e9a)
+> [Store Documentation ](https://github.com/faroDev/LiveHome/blob/develop/backend/liveHomeBackend/store/README.md)
 
 Tecnologies 🛠️
 
