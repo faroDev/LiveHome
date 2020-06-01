@@ -1,4 +1,4 @@
-#LiveHome Database
+# LiveHome Database
 
 ![image](https://drive.google.com/uc?export=view&id=19pd0I_7hge11wnVqazy1BAE5iTxP2THo)
 
@@ -41,7 +41,7 @@ We make it with Postgres
   })
 ```
 
-Tecnologies 🛠️
+## Tecnologies 🛠️
 
 In this project we use
 
